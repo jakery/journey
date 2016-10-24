@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="51" height="33" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="51" height="33">
+  <data encoding="base64" compression="zlib">
+   eJztltEKgzAMRVthexd89QP26P//3BisEMJNmsY2dcOHS7aqNae5aT1SSsety2v5Svo/+vneHFZZn5/FkStq5Z3BRFno+3cijcWyBrNYaMwKC73vBe7hY9EsO4selhJ/nYXG2Sw8f633EUtOMkskT2FAsrAgSXtGBIsmjdOzl4/2maRVuVZqcJWzx8uykfXfiBYSI7ks70AsJW/qp01QJEvN85LvOQuqT6TvCsuqCLHQnBGPl+MME2Up8WGoC/fRqO/SFibEUrSQ65LHrDxWnWHkLGhujQUxeT3Wm8VaFyl3L4+lVmispS61fezsOtZq8hl/snuyMp9nH+vVv5xF8zca63W+SGuM8q2d0zxPxGZh6bXGnvNA6gXNcxKLh6cXi/Zui+da5xyRv9Szmp84W6vHRuaPWGr14WNaH0bljtaytu+gsRn5evolum9n8szOWeNAXAeI/Pe/6Q0H5Ks2
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="51" height="33">
+  <object gid="7" x="96" y="512"/>
+  <object gid="7" x="96" y="544"/>
+  <object gid="7" x="96" y="576"/>
+  <object gid="7" x="96" y="608"/>
+  <object gid="7" x="96" y="640"/>
+  <object gid="7" x="96" y="672"/>
+  <object gid="7" x="96" y="704"/>
+  <object gid="7" x="96" y="736"/>
+  <object gid="7" x="96" y="768">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="7" x="128" y="768">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="7" x="160" y="768">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="7" x="192" y="768">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="7" x="256" y="768">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="7" x="224" y="768">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="7" x="288" y="768">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="7" x="320" y="768">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="7" x="352" y="768">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="7" x="352" y="736">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="7" x="352" y="640">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="7" x="352" y="704">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="7" x="352" y="608">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="7" x="352" y="576">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="7" x="352" y="672">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="7" x="352" y="544">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="7" x="352" y="512">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="27" x="1152" y="704">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="27" x="1152" y="736">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="27" x="1152" y="768">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="27" x="1152" y="800">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="27" x="1184" y="800">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="27" x="1216" y="800">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="27" x="1216" y="768">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="27" x="1216" y="736">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="27" x="1248" y="736">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="27" x="1280" y="736">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="27" x="1280" y="768">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="27" x="1280" y="800">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="27" x="1280" y="832">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="27" x="1280" y="864">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object gid="27" x="1248" y="864">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object gid="27" x="1216" y="864">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object gid="27" x="1184" y="864">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object gid="27" x="1152" y="864">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="27" x="1152" y="896">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="27" x="1152" y="928">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="27" x="1184" y="928">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="27" x="1216" y="928">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="27" x="1248" y="928">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="27" x="1280" y="928">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="27" x="1312" y="928">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="27" x="1344" y="928">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="27" x="1344" y="896">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="27" x="1344" y="864">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="27" x="1344" y="832">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="27" x="1376" y="832">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="27" x="1408" y="832">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="27" x="1408" y="864">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="27" x="1408" y="896">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="27" x="1408" y="928">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="27" x="1440" y="928">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="27" x="1472" y="928">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="27" x="1504" y="928">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="27" x="1504" y="896">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="27" x="1504" y="864">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object gid="27" x="1472" y="864">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="27" x="1472" y="832">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="27" x="1472" y="800">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="27" x="1504" y="800">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="27" x="1504" y="768">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="27" x="1504" y="736">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="27" x="1504" y="704">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="27" x="1504" y="672">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object gid="27" x="1440" y="672">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="27" x="1472" y="672">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object gid="27" x="1440" y="704">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="27" x="1440" y="736">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Items" width="51" height="33">
+  <object gid="8" x="256" y="576">
+   <properties>
+    <property name="Text" value="Just so you know, if you keep progressing, you'll just wreck everything again."/>
+   </properties>
+  </object>
+  <object gid="16" x="288" y="640"/>
+  <object gid="28" x="192" y="224"/>
+  <object gid="40" x="704" y="256"/>
+  <object gid="8" x="672" y="544">
+   <properties>
+    <property name="Text" value="That was every last driver.\nWar criminals have more empathy."/>
+   </properties>
+  </object>
+  <object gid="8" x="928" y="608">
+   <properties>
+    <property name="Text" value="No, never mind. Those were the expendable ones. I have plenty more."/>
+   </properties>
+  </object>
+  <object gid="32" x="1120" y="608">
+   <properties>
+    <property name="Text" value="After this, we're back in the main rooms."/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="51" height="33">
+  <object gid="15" x="192" y="640"/>
+  <object gid="15" x="192" y="288"/>
+  <object gid="15" x="704" y="288"/>
+ </objectgroup>
+ <objectgroup name="Parameters" width="51" height="33">
+  <properties>
+   <property name="tileset" value="dungeon"/>
+   <property name="time" value="250"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

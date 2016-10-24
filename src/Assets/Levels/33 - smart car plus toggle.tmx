@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="40" height="40" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="40" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztlsEKwjAQRNMVvQvx6Ad48P9/TwIurMtkaTU1U9jDELot2deZtEktpdRUKpUilhAwrOVbCHiO5p/6pmLkbUz398jGJ+T+KZ/lnM0U8TH4J04+X6uZnnkuVGPJtDfumV+PCXmlz0VZSzD/6DxRprVTH523uH5X4J2Y+03nwDutPZzXv8jOs9a/LfWRXqK1g/ov5fN90Pr7x78H9UfXe/X/5nth+/8h7ywTwz7ns2bZf6Osk287X9ONkM0ynsj5nsR8jOd6z+f9nM2kHOrdhdhHdE5NpY6sFzp4bNI=
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="40" height="40">
+  <object gid="27" x="768" y="544"/>
+  <object gid="27" x="768" y="640"/>
+  <object gid="27" x="864" y="640">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="27" x="896" y="704">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object gid="27" x="800" y="704">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object gid="27" x="768" y="768">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="27" x="704" y="800">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object gid="27" x="672" y="864">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Items" width="40" height="40">
+  <object gid="8" x="608" y="704">
+   <properties>
+    <property name="Text" value="I forgot all about this guy. I know his name is &quot;Gronpree&quot;, but that's about it."/>
+   </properties>
+  </object>
+  <object gid="16" x="608" y="800"/>
+  <object gid="16" x="576" y="800"/>
+  <object gid="16" x="544" y="800"/>
+  <object gid="22" x="320" y="672"/>
+  <object gid="28" x="608" y="544"/>
+  <object gid="28" x="576" y="544"/>
+  <object gid="28" x="544" y="544"/>
+  <object gid="40" x="768" y="640"/>
+  <object gid="40" x="800" y="640"/>
+  <object gid="40" x="832" y="640"/>
+  <object gid="4" x="640" y="352"/>
+  <object gid="46" x="960" y="672"/>
+  <object gid="8" x="608" y="1120">
+   <properties>
+    <property name="Text" value="Come to think of it, this room isn't looking so great. Did you cause this, too?"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="40" height="40"/>
+ <objectgroup name="Parameters" width="40" height="40">
+  <properties>
+   <property name="time" value="999"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

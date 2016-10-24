@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="85" height="55" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <tileset firstgid="55" name="devgraphics" tilewidth="32" tileheight="32">
+  <image source="../../../Content/JakesChallenge/devgraphics.png" width="192" height="288"/>
+  <tile id="0">
+   <properties>
+    <property name="type" value="floor"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="type" value="wall"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="type" value="yellowDoor"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="type" value="yellowKey"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="type" value="start"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="type" value="exit"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="type" value="nascar"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="type" value="help"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="type" value="ball"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="type" value="predator"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="type" value="smartPredator"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="type" value="money"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="type" value="toll"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="type" value="toll2"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="type" value="pushBlock"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="color" value="red"/>
+    <property name="type" value="switch"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="color" value="red"/>
+    <property name="type" value="disappearingWall"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="" value=""/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="type" value="water"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="type" value="redDoor"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="color" value="red"/>
+    <property name="type" value="redKey"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="color" value="red"/>
+    <property name="type" value="appearingWall"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="type" value="redAppearingBlock2"/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="type" value="britishNascar"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="type" value="hiddenSwitch"/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="type" value="gronpree"/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="color" value="yellow"/>
+    <property name="type" value="switch"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="color" value="yellow"/>
+    <property name="type" value="disappearingWall"/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="type" value="help2"/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="type" value="cyanDoor"/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="type" value="cyanKey"/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="color" value="yellow"/>
+    <property name="type" value="appearingWall"/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="type" value="teleporter"/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="color" value="green"/>
+    <property name="type" value="switch"/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="color" value="green"/>
+    <property name="type" value="disappearingWall"/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="type" value="outTeleporter"/>
+   </properties>
+  </tile>
+  <tile id="44">
+   <properties>
+    <property name="type" value="greenDoor"/>
+   </properties>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="color" value="green"/>
+    <property name="type" value="greenKey"/>
+   </properties>
+  </tile>
+  <tile id="46">
+   <properties>
+    <property name="color" value="green"/>
+    <property name="type" value="appearingWall"/>
+   </properties>
+  </tile>
+  <tile id="50">
+   <properties>
+    <property name="color" value="brownOff"/>
+    <property name="type" value="switch"/>
+   </properties>
+  </tile>
+  <tile id="51">
+   <properties>
+    <property name="color" value="brown"/>
+    <property name="type" value="switch"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Map" width="85" height="55">
+  <data encoding="base64" compression="zlib">
+   eJztmW0OgyAMQNVkO8Eu4v0vtyybGWFtadGEad+PF+RDYh5EoKzTNK0AAAAAAABwapYPo7/jrJT+FoGynacvK5+BzdvDoOVFmtPRsbgam9NZoOV0z1hclXKe9jq13svo1etUo3csro7lZkN7V2uP07eDm+Gmd55m9Lp33cep7bWF5nRjnlj3a69lKtW1xkPKg+2z5bZ06u07ymgfI9xHXLzKrb1GTWanWl3U6T2pU+l/uiplUacZ52m9D5urFKf9XqU9Kk7HOa2ZlfIs6751PvU4lfqLtL8qOD3epxUrwOk+r9b/D6d9Xku/0jNOj3eNU5z+K5qjOtYlnWtHf/u/4YkBWO5xa7utHXv3CZnOThGf0n1KC+5f/E7rM5Ynn/2eUEKK/0VTfH6R4gA9eebp16cVB4iAz1+vVgzUWuuZn7pXyV+kHq8+vz31AAAAAAAAJU+oJyUC
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="85" height="55"/>
+ <objectgroup name="Items" width="85" height="55">
+  <object gid="26" x="1216" y="448">
+   <properties>
+    <property name="callback" value="quickCorrupt"/>
+   </properties>
+  </object>
+  <object gid="8" x="1152" y="512">
+   <properties>
+    <property name="Text" value="Game over."/>
+   </properties>
+  </object>
+  <object gid="32" x="1600" y="544">
+   <properties>
+    <property name="Text" value="If I can find more invisible switches, maybe I can find the exit."/>
+   </properties>
+  </object>
+  <object gid="26" x="1536" y="480">
+   <properties>
+    <property name="callback" value="quickCorrupt"/>
+   </properties>
+  </object>
+  <object gid="26" x="1568" y="960">
+   <properties>
+    <property name="callback" value="quickCorrupt"/>
+   </properties>
+  </object>
+  <object gid="37" x="2048" y="832">
+   <properties>
+    <property name="destination" value="t0"/>
+   </properties>
+  </object>
+  <object gid="37" x="2112" y="832">
+   <properties>
+    <property name="destination" value="t0"/>
+   </properties>
+  </object>
+  <object gid="37" x="2176" y="832">
+   <properties>
+    <property name="destination" value="t0"/>
+   </properties>
+  </object>
+  <object gid="37" x="2240" y="832">
+   <properties>
+    <property name="destination" value="t0"/>
+   </properties>
+  </object>
+  <object gid="37" x="2304" y="832">
+   <properties>
+    <property name="destination" value="t0"/>
+   </properties>
+  </object>
+  <object gid="37" x="2304" y="768">
+   <properties>
+    <property name="destination" value="t0"/>
+   </properties>
+  </object>
+  <object gid="37" x="2176" y="768">
+   <properties>
+    <property name="destination" value="t0"/>
+   </properties>
+  </object>
+  <object gid="37" x="2112" y="768">
+   <properties>
+    <property name="destination" value="t0"/>
+   </properties>
+  </object>
+  <object gid="37" x="2048" y="768">
+   <properties>
+    <property name="destination" value="t0"/>
+   </properties>
+  </object>
+  <object name="t0" gid="43" x="1088" y="448"/>
+  <object gid="1" x="1088" y="448"/>
+  <object gid="6" x="2048" y="768"/>
+  <object gid="6" x="2112" y="768"/>
+  <object gid="6" x="2176" y="768"/>
+  <object gid="6" x="2304" y="768"/>
+  <object gid="6" x="2304" y="832"/>
+  <object gid="6" x="2240" y="832"/>
+  <object gid="6" x="2176" y="832"/>
+  <object gid="6" x="2112" y="832"/>
+  <object gid="6" x="2048" y="832"/>
+  <object gid="26" x="2112" y="800">
+   <properties>
+    <property name="callback" value="quickCorrupt"/>
+   </properties>
+  </object>
+  <object gid="2" x="1280" y="544"/>
+  <object gid="2" x="1600" y="672"/>
+  <object gid="20" x="1248" y="544"/>
+  <object gid="20" x="1600" y="640"/>
+  <object gid="20" x="1664" y="832"/>
+  <object gid="2" x="1760" y="1216"/>
+  <object gid="2" x="2144" y="1216"/>
+  <object gid="20" x="2144" y="1248"/>
+  <object gid="26" x="2208" y="1280">
+   <properties>
+    <property name="callback" value="quickCorrupt"/>
+   </properties>
+  </object>
+  <object gid="49" x="1344" y="576"/>
+  <object gid="49" x="1376" y="576"/>
+  <object gid="49" x="1408" y="576"/>
+  <object gid="49" x="1440" y="576"/>
+  <object gid="49" x="1440" y="512"/>
+  <object gid="49" x="1408" y="512"/>
+  <object gid="49" x="1376" y="512"/>
+  <object gid="49" x="1344" y="512"/>
+  <object gid="49" x="1472" y="512"/>
+  <object gid="49" x="1472" y="576"/>
+  <object gid="49" x="1696" y="736"/>
+  <object gid="49" x="1728" y="736"/>
+  <object gid="49" x="1760" y="736"/>
+  <object gid="49" x="1792" y="768"/>
+  <object gid="49" x="1792" y="736"/>
+  <object gid="49" x="1792" y="800"/>
+  <object gid="49" x="1792" y="864"/>
+  <object gid="49" x="1792" y="928"/>
+  <object gid="49" x="1792" y="960"/>
+  <object gid="49" x="1792" y="896"/>
+  <object gid="49" x="1792" y="1024"/>
+  <object gid="49" x="1792" y="992"/>
+  <object gid="49" x="1792" y="832"/>
+  <object gid="49" x="1728" y="1120"/>
+  <object gid="49" x="1792" y="1120"/>
+  <object gid="49" x="1792" y="1088"/>
+  <object gid="49" x="1792" y="1056"/>
+  <object gid="49" x="1728" y="1152"/>
+  <object gid="49" x="1792" y="1152"/>
+  <object gid="49" x="1792" y="1152"/>
+  <object gid="49" x="1792" y="1184"/>
+  <object gid="49" x="1728" y="1184"/>
+  <object gid="49" x="1632" y="768"/>
+  <object gid="49" x="1632" y="736"/>
+  <object gid="49" x="1568" y="704"/>
+  <object gid="49" x="1632" y="704"/>
+  <object gid="49" x="1664" y="736"/>
+  <object gid="49" x="1568" y="736"/>
+  <object gid="49" x="1568" y="768"/>
+  <object gid="2" x="1760" y="992"/>
+  <object gid="2" x="1760" y="960"/>
+  <object gid="2" x="1760" y="896"/>
+  <object gid="2" x="1760" y="832"/>
+  <object gid="2" x="2144" y="1184"/>
+  <object gid="49" x="2112" y="1184"/>
+  <object gid="49" x="2112" y="1152"/>
+  <object gid="49" x="2112" y="1120"/>
+  <object gid="49" x="2176" y="1120"/>
+  <object gid="49" x="2176" y="1088"/>
+  <object gid="49" x="2112" y="1088"/>
+  <object gid="49" x="2176" y="1056"/>
+  <object gid="49" x="2112" y="1056"/>
+  <object gid="49" x="2176" y="1024"/>
+  <object gid="49" x="2112" y="1024"/>
+  <object gid="49" x="2176" y="992"/>
+  <object gid="49" x="2176" y="960"/>
+  <object gid="49" x="2176" y="928"/>
+  <object gid="49" x="2112" y="928"/>
+  <object gid="49" x="2112" y="960"/>
+  <object gid="49" x="2112" y="992"/>
+  <object gid="32" x="2144" y="864">
+   <properties>
+    <property name="Text" value="I suppose they're all real, right?"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="85" height="55"/>
+ <objectgroup name="Parameters" width="85" height="55">
+  <properties>
+   <property name="tileset" value="dungeon"/>
+   <property name="time" value="-1"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

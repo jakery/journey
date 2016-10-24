@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="40" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="20" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztlUsKACAIBbWo+x+5VZsofKKBhYtBWjiUHypEVD6EF/oFf/pi+9gQo/jY6JNAfSiST4vVd6ojgx60L5IP7fOa8+ruRfShMX3pm1Tlebe/lpn14ief5u+I8F7v+8385uy7Wb8TAzISBXQ=
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="20" height="40">
+  <object gid="9" x="224" y="1120">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="9" x="96" y="448">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="9" x="480" y="96">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="9" x="160" y="448">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="9" x="224" y="448">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="9" x="288" y="448">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="9" x="352" y="448">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="9" x="416" y="448">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="9" x="480" y="448">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="9" x="544" y="448">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="9" x="352" y="736">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="9" x="224" y="960">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="9" x="96" y="736">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Items" width="20" height="40">
+  <object gid="8" x="448" y="1184">
+   <properties>
+    <property name="Text" value="The balls bounce back and forth forever because thermodynamics aren't a thing here."/>
+   </properties>
+  </object>
+  <object gid="4" x="576" y="960"/>
+  <object gid="4" x="288" y="736"/>
+  <object gid="4" x="160" y="736"/>
+  <object gid="8" x="32" y="608">
+   <properties>
+    <property name="Text" value="Remember what I said about looking out for safe spots? I remember."/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="20" height="40"/>
+ <objectgroup name="Parameters" width="20" height="40">
+  <properties>
+   <property name="time" value="164"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

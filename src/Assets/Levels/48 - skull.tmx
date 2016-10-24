@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="17" height="17" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="17" height="17">
+  <data encoding="base64" compression="zlib">
+   eJwzZGBgMBxkmIlIjE8/I5I6RiSMjY/PDFz6SDED2c2UuAOXGUwUmAHCbCSage5+dP/hM4MVTxiSEy+UmiGKpgedTyid4YpbYtMqoTRPjXwz0PmZEAYAVP0dWQ==
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="17" height="17">
+  <object gid="9" x="288" y="256"/>
+  <object gid="9" x="128" y="256"/>
+  <object gid="9" x="160" y="320"/>
+  <object gid="9" x="96" y="160">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object gid="9" x="256" y="192"/>
+  <object gid="9" x="288" y="160"/>
+  <object gid="9" x="352" y="192"/>
+  <object gid="9" x="352" y="384"/>
+  <object gid="9" x="256" y="320"/>
+  <object gid="9" x="256" y="256"/>
+  <object gid="9" x="256" y="128">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Items" width="17" height="17">
+  <object gid="22" x="96" y="128"/>
+  <object gid="22" x="256" y="128"/>
+  <object gid="32" x="96" y="384">
+   <properties>
+    <property name="Text" value="I can tell this is going to suck."/>
+   </properties>
+  </object>
+  <object gid="32" x="320" y="224">
+   <properties>
+    <property name="Text" value="That was AWESOME."/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="17" height="17"/>
+ <objectgroup name="Parameters" width="17" height="17">
+  <properties>
+   <property name="tileset" value="dungeon"/>
+   <property name="time" value="150"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

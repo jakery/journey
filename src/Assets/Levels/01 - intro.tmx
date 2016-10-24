@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="15" height="17" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="15" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjYmBgYKIAMyJhbGLYMDHq0NUwYRFnw6OWkF5i3YKul5zwIdZeQnpZsYhhczsp9mKzD5c4PjFS9WJzK6H4GGl6iTGLEgwAJ9EBiw==
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="15" height="17"/>
+ <objectgroup name="Items" width="15" height="17">
+  <object name="h1" type="help" gid="8" x="128" y="96">
+   <properties>
+    <property name="Text" value="Welcome to Jake's Journey! The object is to get to the exits. Don't screw up!"/>
+   </properties>
+  </object>
+  <object gid="8" x="256" y="480">
+   <properties>
+    <property name="Text" value="It's obvious you've done this before. You're going to do great."/>
+   </properties>
+  </object>
+  <object gid="8" x="64" y="256">
+   <properties>
+    <property name="Text" value="Use the arrow keys to move around."/>
+   </properties>
+  </object>
+  <object gid="8" x="96" y="448">
+   <properties>
+    <property name="Text" value="For the new-school crowd, you can also use the W,A,S, and D keys."/>
+   </properties>
+  </object>
+  <object gid="8" x="192" y="224">
+   <properties>
+    <property name="Text" value="Press &quot;P&quot; to pause."/>
+   </properties>
+  </object>
+  <object gid="8" x="352" y="256">
+   <properties>
+    <property name="Text" value="Press and hold the Down (or S) key to sprint downward."/>
+   </properties>
+  </object>
+  <object gid="8" x="416" y="64">
+   <properties>
+    <property name="Text" value="That's really all there is to it."/>
+   </properties>
+  </object>
+  <object gid="8" x="416" y="512">
+   <properties>
+    <property name="Text" value="Press and hold the Up (or W) key to sprint up.\n(Are you sensing a pattern?)"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="15" height="17"/>
+ <objectgroup name="Parameters" width="15" height="17">
+  <properties>
+   <property name="time" value="-1"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

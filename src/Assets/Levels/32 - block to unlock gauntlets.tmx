@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="75" height="28" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="75" height="28">
+  <data encoding="base64" compression="zlib">
+   eJztmMEOwiAMhtmM3jyYzKMHjx58/9czS2ayLG33F+hg0MOXYFBaPn7MdAwhjM6hDAvX1XjYzElMwlzpvVm5ovb5d0GBeCu9t6NdcU72aNEV50R638SMe76DqKttnlrNFXffHgRIlnp0hX6uJ56Epx49IMTmqkc4Vy8C5NmUWks7XyuaXMW4inlttU+pV2SNS4bzPYsrqffcudKcWeqdzO1l75xSXH0Iav8+QVxx55s7V2guNDWt8qvtHan/Fdap0RX3X0fs7/aWc2XlCqVnV9r67grjLThIzasF2j5K5cqqrnUtd+WuaqZUr2d1NXNfjW/uSuzZcWZ+W9MUSQ==
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="75" height="28">
+  <object gid="25" x="1184" y="352"/>
+  <object gid="7" x="1248" y="352"/>
+  <object gid="25" x="1376" y="448"/>
+  <object gid="7" x="1504" y="352"/>
+  <object gid="9" x="1120" y="672"/>
+  <object gid="9" x="1152" y="512"/>
+  <object gid="9" x="1184" y="672"/>
+  <object gid="9" x="1216" y="512"/>
+  <object gid="9" x="1504" y="512"/>
+  <object gid="9" x="1536" y="672"/>
+  <object gid="9" x="1568" y="512"/>
+  <object gid="9" x="1600" y="672"/>
+  <object gid="9" x="1952" y="544">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="9" x="1952" y="544">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="9" x="2272" y="576">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object gid="9" x="1952" y="544">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="9" x="1952" y="608">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="9" x="2272" y="640">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object gid="27" x="160" y="416"/>
+ </objectgroup>
+ <objectgroup name="Items" width="75" height="28">
+  <object gid="22" x="1120" y="224"/>
+  <object gid="16" x="576" y="256"/>
+  <object gid="28" x="576" y="384"/>
+  <object gid="4" x="1696" y="448"/>
+  <object gid="40" x="576" y="512"/>
+  <object gid="46" x="2336" y="672"/>
+  <object gid="34" x="96" y="480"/>
+  <object gid="12" x="1280" y="224"/>
+  <object gid="12" x="1120" y="160"/>
+  <object gid="12" x="1024" y="352"/>
+  <object gid="12" x="1280" y="416"/>
+  <object gid="12" x="1408" y="384"/>
+  <object gid="12" x="1536" y="416"/>
+  <object gid="12" x="736" y="768"/>
+  <object gid="12" x="992" y="576"/>
+  <object gid="12" x="2272" y="448"/>
+  <object gid="12" x="256" y="512"/>
+  <object gid="12" x="1152" y="384"/>
+  <object gid="12" x="672" y="224"/>
+  <object gid="12" x="704" y="352"/>
+  <object gid="12" x="640" y="512"/>
+  <object gid="12" x="704" y="640"/>
+  <object gid="12" x="2112" y="512"/>
+  <object name="t1" gid="37" x="2208" y="512">
+   <properties>
+    <property name="destination" value="t2"/>
+   </properties>
+  </object>
+  <object name="t3" gid="37" x="1024" y="256">
+   <properties>
+    <property name="destination" value="t2"/>
+   </properties>
+  </object>
+  <object name="t4" gid="37" x="1760" y="448">
+   <properties>
+    <property name="destination" value="t2"/>
+   </properties>
+  </object>
+  <object gid="12" x="1216" y="448"/>
+  <object gid="12" x="1344" y="352"/>
+  <object gid="12" x="1472" y="448"/>
+  <object gid="12" x="1600" y="352"/>
+  <object name="t2" gid="43" x="672" y="736"/>
+  <object gid="8" x="704" y="704">
+   <properties>
+    <property name="Text" value="This is an exit portal. When you enter somewhere else, you come out here.\nPretty standard stuff, really."/>
+   </properties>
+  </object>
+  <object gid="8" x="1024" y="224">
+   <properties>
+    <property name="Text" value="This is a portal. Go in here, come out somewhere else. Pretty standard stuff, really."/>
+   </properties>
+  </object>
+  <object gid="8" x="640" y="128">
+   <properties>
+    <property name="Text" value="It's time to toughen you up. Let's run a gauntlet.\nNot THE Gauntlet, but that would be way cooler.\n\nI miss that game."/>
+   </properties>
+  </object>
+  <object gid="8" x="576" y="832">
+   <properties>
+    <property name="Text" value="Blue Warrior shot the food!\nRed Elf is about to die!\nRed Elf is calling Blue Warrior many curse words, because he's out of quarters, and there's nothing left to do but wait for his mom to pick him up."/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="75" height="28">
+  <object gid="15" x="576" y="224"/>
+ </objectgroup>
+ <objectgroup name="Parameters" width="75" height="28">
+  <properties>
+   <property name="time" value="440"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

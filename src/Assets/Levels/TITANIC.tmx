@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="250" height="250" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="250" height="250">
+  <data encoding="base64" compression="zlib">
+   eJzt2jFqwwAUREEpwTfw/c8aXAhCMGRTBO3CFIPbV/yVQPh5HMcTAAAAAKhzFjQA/2th502NTS2QOL+5u+W3zrsbGlsg8brZx9F9u03PoqYWSC3cbVNjUwskzjfubmpubGqB1OtOP3783t30rrFlW00tkLr2/XnY+VoLpLzPd1sgZee7LZCy890WSNn5bguk7Hy3BVJ2vtsCKTvfbYHUte/HYedrLZC6dn5pvNumbTW1QGrhbpsam1ogtXC3TY1NLZDyHW63BVJ2vtsCKTvfbYGUne+2QMrOd1sgZee7LZCy890WSF379n+4vRZILdxtU2NTC6QW7rapsakFUgt329TY1AKphbttamxqgb9YuNmmxqYWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgyxdxFfRz
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="250" height="250"/>
+ <objectgroup name="Items" width="250" height="250">
+  <object gid="8" x="416" y="576">
+   <properties>
+    <property name="Text" value="Where are we?"/>
+   </properties>
+  </object>
+  <object gid="8" x="416" y="352">
+   <properties>
+    <property name="Text" value="Ah, we are on B-Deck of the RMS Titanic. I think things are about to get a little tasteless."/>
+   </properties>
+  </object>
+  <object gid="43" x="416" y="992"/>
+  <object gid="7" x="480" y="384"/>
+  <object gid="9" x="352" y="352"/>
+ </objectgroup>
+ <objectgroup name="Tools" width="250" height="250"/>
+ <objectgroup name="Parameters" width="250" height="250">
+  <properties>
+   <property name="time" value="0"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

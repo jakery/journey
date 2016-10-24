@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="96" height="48" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="96" height="48">
+  <data encoding="base64" compression="zlib">
+   eJzt12sOwiAQBODaRE/gRWxS7n80Y9ImGwK0CwuzkvkxCfaBy8eqdV2WZQXl4TgoE/rT30PQNvSfP2hj+vsN2qbWh/70pz/96U9/+tN/Rv+rc/SnP9Lfag/p3+5G/7H+veeiv29/zfrQxtb1WfUl/f37t36m/skfZVbbG/vNNaGNNf4lT82c9Lfxr52zh39835ZIOM4FMUYbX1nJWkNmXT33QOMvX//q+iSyFe4ZvQZN/99Zj0d/eWwG/9J66E//O/XuR7S/RVe15Y615Kz1X/3jBHFNKMyvzfuo4WU4p3yGC5n1ePJfxTj1nHBG9v9uFFlzMErc/7l48dfWUep/7Xd47bWl63P/YVrTs/8tYrUnmnss60dYtM6/RePzfDxuef/SvKmxh5zrfXb29xi0/cj+9xi0PXJ/PQRtQ//5gzamv9+gbeg/f9DG9PcbtA395w/amP5+g7ah//xBG9Pfb9A29B+TL+E9Ng8=
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="96" height="48">
+  <object name="e1" gid="10" x="448" y="992"/>
+ </objectgroup>
+ <objectgroup name="Items" width="96" height="48">
+  <object gid="8" x="320" y="992">
+   <properties>
+    <property name="Text" value="Okay, I'm going to level with you. I've lost control of this thing. Try to trap him somehow."/>
+   </properties>
+  </object>
+  <object gid="32" x="1536" y="960">
+   <properties>
+    <property name="Text" value="If you came from this side, you're in danger. I've changed the second exit, but once you go through you're on your own."/>
+   </properties>
+  </object>
+  <object gid="31" x="608" y="832"/>
+  <object gid="5" x="480" y="928"/>
+  <object gid="52" x="896" y="704"/>
+  <object gid="51" x="896" y="768"/>
+  <object gid="8" x="896" y="672">
+   <properties>
+    <property name="Text" value="Lock him in and flip the switch."/>
+   </properties>
+  </object>
+  <object gid="26" x="608" y="832">
+   <properties>
+    <property name="callback" value="transform"/>
+    <property name="destroyOnUse" value="true"/>
+   </properties>
+  </object>
+  <object gid="6" x="1568" y="896"/>
+  <object gid="26" x="1568" y="992">
+   <properties>
+    <property name="callback" value="destroyPredator"/>
+    <property name="destroyOnUse" value="true"/>
+   </properties>
+  </object>
+  <object gid="32" x="1664" y="960">
+   <properties>
+    <property name="Text" value="If you came from this side, then there's nothing I can do to help you."/>
+   </properties>
+  </object>
+  <object gid="8" x="2592" y="928">
+   <properties>
+    <property name="Text" value="Tester's note: Just pretend the rest is here. I don't have time to build the whole thing."/>
+   </properties>
+  </object>
+  <object gid="8" x="1664" y="896">
+   <properties>
+    <property name="Text" value="If he pushed the button while you were in the chamber, then you already know."/>
+   </properties>
+  </object>
+  <object gid="8" x="1536" y="896">
+   <properties>
+    <property name="Text" value="If he pushed the button while you were in the chamber, then you already know."/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="96" height="48">
+  <object gid="8" x="2304" y="672">
+   <properties>
+    <property name="Text" value="Lock him in and flip the switch."/>
+   </properties>
+  </object>
+  <object gid="52" x="2304" y="704"/>
+ </objectgroup>
+ <objectgroup name="Parameters" width="96" height="48">
+  <properties>
+   <property name="time" value="-1"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

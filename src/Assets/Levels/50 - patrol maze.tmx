@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="25" height="23" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="25" height="23">
+  <data encoding="base64" compression="zlib">
+   eJzlVVsKgzAQTCLtDXIAj+CH3v9oEmggDLPjpLYfpR+DsIZ57G50Syltf4IygNXKTc6OTGp1gKujOBw4mbrfjtF/NfWvdArwsx5loYNn3AwR2DzQo5ODzblhJ31jHmc0VD6mEc0Es67A+Xg9G98BHp5mn9juqhzRPqgc2C81j15veRbiQWko/2yv8JzzbYnOj75VL917Hvl36jPfrIgrwkwOdU+uZuRyz+wxvn/336Q0P8EZ6XyL+xdwAmwkOeQ=
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="25" height="23">
+  <object gid="27" x="480" y="320"/>
+  <object gid="27" x="416" y="384"/>
+  <object gid="9" x="480" y="352">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Items" width="25" height="23">
+  <object gid="4" x="128" y="256"/>
+  <object gid="52" x="224" y="448"/>
+  <object gid="51" x="480" y="384"/>
+  <object gid="22" x="544" y="480"/>
+  <object gid="22" x="480" y="512"/>
+  <object gid="22" x="192" y="192"/>
+  <object gid="22" x="160" y="192"/>
+  <object gid="22" x="128" y="192"/>
+  <object gid="22" x="384" y="224"/>
+  <object gid="22" x="256" y="224"/>
+  <object gid="22" x="640" y="384"/>
+  <object gid="22" x="288" y="384"/>
+  <object gid="22" x="480" y="576"/>
+  <object gid="22" x="256" y="544"/>
+  <object gid="22" x="96" y="256"/>
+  <object gid="22" x="128" y="480"/>
+  <object gid="22" x="160" y="416"/>
+  <object gid="22" x="672" y="224"/>
+  <object gid="22" x="640" y="256"/>
+  <object gid="34" x="480" y="448"/>
+  <object gid="22" x="320" y="128"/>
+  <object gid="8" x="352" y="320">
+   <properties>
+    <property name="Text" value="This room was designed to kill anyone who might try to escape.\nYou were supposed to stay in that cell, so..."/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="25" height="23"/>
+ <objectgroup name="Parameters" width="25" height="23">
+  <properties>
+   <property name="tileset" value="dungeon"/>
+   <property name="time" value="500"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

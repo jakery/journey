@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="53" height="59" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="53" height="59">
+  <data encoding="base64" compression="zlib">
+   eJztmrtuwzAMRR0D7dahU6ZMnTrl//+ukwCCuHzJkkm5Hi4UI7bMo6sHpWTftm2/1aXHCcpgek5UJtP3BFVgGulPJaYR46ci0/uAKjP9dmgFpog/KzF5xs+KTD+KVmZ6AV2BifpzJabPg0xofc5mQtdRJr4+X4WJlmcytbacwfQmJZpPrZij+RmPozG0+l7kuomvZ1EmGo/G5N2XUSapHs7AxfMO7V0SEy1nMnne05ho3hdhouPW864v43vOxOXt49wvLxPvc6N9QvtUbQ2h+WuPT1Q01xrFhM4RrDWEt3XPeEIaweRh1XyK1C+Np+hc3sMzS4jJegZ5mc2BmCJ5RDWG/8BE5x1aWsqOO8J3pF0qss5kyuI+8j7r2ZtpPpN2TqVpZJvNYPLMhSj/zZ4vLSZ0/obk2Z9UYrJ+E1qVSepvqzOhZ1dkknKnnXzWmDLmCo3Jcx/93porz2TyxPBwPFPFpx4/W/zRc85qqtjOPQzZ+cDti5/J+/+S7HijTCh34NfZ8fYyobOZVq7gH2eSzoa19a06k3Sf5I+WU1ViQvEh76Rzw6pMHwIT6qNPVl81JmkN1sYWZ8r2iq9P0j2ReS/bK96/tJi94ya773nbVfKjKhPliuz1KuwLV9cfHLBT7g==
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="53" height="59"/>
+ <objectgroup name="Items" width="53" height="59">
+  <object gid="16" x="416" y="1728"/>
+  <object gid="16" x="448" y="1728"/>
+  <object gid="16" x="416" y="1696"/>
+  <object gid="16" x="416" y="1664"/>
+  <object gid="16" x="416" y="1632"/>
+  <object gid="16" x="416" y="1600"/>
+  <object gid="16" x="416" y="1568"/>
+  <object gid="16" x="416" y="1536"/>
+  <object gid="16" x="448" y="1536"/>
+  <object gid="16" x="480" y="1536"/>
+  <object gid="16" x="512" y="1536"/>
+  <object gid="16" x="512" y="1568"/>
+  <object gid="16" x="512" y="1600"/>
+  <object gid="16" x="544" y="1600"/>
+  <object gid="16" x="576" y="1600"/>
+  <object gid="16" x="576" y="1568"/>
+  <object gid="16" x="576" y="1536"/>
+  <object gid="16" x="608" y="1536"/>
+  <object gid="16" x="640" y="1536"/>
+  <object gid="16" x="640" y="1568"/>
+  <object gid="16" x="640" y="1600"/>
+  <object gid="16" x="672" y="1600"/>
+  <object gid="16" x="704" y="1600"/>
+  <object gid="16" x="736" y="1600"/>
+  <object gid="16" x="768" y="1600"/>
+  <object gid="16" x="800" y="1600"/>
+  <object gid="16" x="832" y="1600"/>
+  <object gid="16" x="832" y="1632"/>
+  <object gid="16" x="832" y="1664"/>
+  <object gid="16" x="832" y="1696"/>
+  <object gid="16" x="832" y="1728"/>
+  <object gid="16" x="800" y="1728"/>
+  <object gid="16" x="768" y="1728"/>
+  <object gid="16" x="736" y="1728"/>
+  <object gid="16" x="736" y="1696"/>
+  <object gid="16" x="736" y="1664"/>
+  <object gid="16" x="704" y="1664"/>
+  <object gid="16" x="672" y="1664"/>
+  <object gid="16" x="672" y="1696"/>
+  <object gid="16" x="672" y="1696"/>
+  <object gid="16" x="672" y="1728"/>
+  <object gid="16" x="640" y="1728"/>
+  <object gid="16" x="640" y="1760"/>
+  <object gid="12" x="640" y="1856"/>
+  <object gid="12" x="608" y="1856"/>
+  <object gid="12" x="576" y="1856"/>
+  <object gid="12" x="608" y="1760"/>
+  <object gid="28" x="352" y="1280"/>
+  <object gid="28" x="352" y="1248"/>
+  <object gid="28" x="352" y="1216"/>
+  <object gid="28" x="352" y="1184"/>
+  <object gid="28" x="352" y="1152"/>
+  <object gid="28" x="352" y="1120"/>
+  <object gid="28" x="384" y="1120"/>
+  <object gid="28" x="416" y="1120"/>
+  <object gid="28" x="448" y="1120"/>
+  <object gid="28" x="480" y="1120"/>
+  <object gid="28" x="512" y="1120"/>
+  <object gid="28" x="544" y="1120"/>
+  <object gid="28" x="576" y="1120"/>
+  <object gid="28" x="608" y="1120"/>
+  <object gid="28" x="640" y="1120"/>
+  <object gid="28" x="672" y="1120"/>
+  <object gid="28" x="704" y="1120"/>
+  <object gid="28" x="704" y="1152"/>
+  <object gid="28" x="704" y="1184"/>
+  <object gid="28" x="704" y="1216"/>
+  <object gid="28" x="704" y="1248"/>
+  <object gid="28" x="704" y="1280"/>
+  <object gid="28" x="704" y="1312"/>
+  <object gid="28" x="704" y="1344"/>
+  <object gid="28" x="672" y="1344"/>
+  <object gid="28" x="640" y="1344"/>
+  <object gid="28" x="608" y="1344"/>
+  <object gid="28" x="576" y="1344"/>
+  <object gid="28" x="544" y="1344"/>
+  <object gid="16" x="448" y="1312"/>
+  <object gid="16" x="448" y="1280"/>
+  <object gid="16" x="448" y="1248"/>
+  <object gid="16" x="448" y="1216"/>
+  <object gid="16" x="480" y="1216"/>
+  <object gid="16" x="512" y="1216"/>
+  <object gid="16" x="544" y="1216"/>
+  <object gid="16" x="576" y="1216"/>
+  <object gid="16" x="608" y="1216"/>
+  <object gid="16" x="608" y="1248"/>
+  <object gid="16" x="608" y="1280"/>
+  <object gid="16" x="128" y="928"/>
+  <object gid="16" x="128" y="896"/>
+  <object gid="16" x="128" y="864"/>
+  <object gid="40" x="128" y="832"/>
+  <object gid="40" x="128" y="800"/>
+  <object gid="40" x="128" y="768"/>
+  <object gid="40" x="160" y="768"/>
+  <object gid="40" x="192" y="768"/>
+  <object gid="40" x="192" y="704"/>
+  <object gid="40" x="160" y="704"/>
+  <object gid="40" x="128" y="704"/>
+  <object gid="40" x="128" y="672"/>
+  <object gid="40" x="128" y="640"/>
+  <object gid="40" x="128" y="608"/>
+  <object gid="40" x="128" y="576"/>
+  <object gid="28" x="224" y="768"/>
+  <object gid="28" x="256" y="768"/>
+  <object gid="28" x="288" y="768"/>
+  <object gid="28" x="288" y="736"/>
+  <object gid="28" x="288" y="704"/>
+  <object gid="28" x="288" y="672"/>
+  <object gid="28" x="288" y="640"/>
+  <object gid="28" x="288" y="608"/>
+  <object gid="28" x="256" y="608"/>
+  <object gid="28" x="224" y="608"/>
+  <object gid="28" x="224" y="640"/>
+  <object gid="28" x="224" y="672"/>
+  <object gid="28" x="224" y="704"/>
+  <object gid="16" x="128" y="544"/>
+  <object gid="16" x="128" y="512"/>
+  <object gid="16" x="96" y="512"/>
+  <object gid="16" x="64" y="512"/>
+  <object gid="16" x="64" y="544"/>
+  <object gid="16" x="64" y="576"/>
+  <object gid="16" x="64" y="608"/>
+  <object gid="16" x="64" y="640"/>
+  <object gid="16" x="64" y="672"/>
+  <object gid="16" x="64" y="704"/>
+  <object gid="16" x="64" y="736"/>
+  <object gid="16" x="64" y="768"/>
+  <object gid="16" x="64" y="800"/>
+  <object gid="16" x="64" y="832"/>
+  <object gid="16" x="64" y="864"/>
+  <object gid="16" x="64" y="896"/>
+  <object gid="16" x="64" y="928"/>
+  <object gid="12" x="192" y="928"/>
+  <object gid="16" x="448" y="1568"/>
+  <object gid="12" x="320" y="1344"/>
+  <object gid="12" x="992" y="1696"/>
+  <object gid="12" x="992" y="1760"/>
+  <object gid="12" x="640" y="1280"/>
+  <object gid="12" x="928" y="1312"/>
+  <object gid="12" x="896" y="1024"/>
+  <object gid="12" x="608" y="992"/>
+  <object gid="40" x="960" y="544"/>
+  <object gid="40" x="960" y="512"/>
+  <object gid="40" x="960" y="480"/>
+  <object gid="40" x="960" y="448"/>
+  <object gid="40" x="960" y="416"/>
+  <object gid="40" x="960" y="384"/>
+  <object gid="40" x="960" y="352"/>
+  <object gid="40" x="960" y="320"/>
+  <object gid="40" x="960" y="288"/>
+  <object gid="40" x="960" y="256"/>
+  <object gid="40" x="960" y="224"/>
+  <object gid="40" x="960" y="192"/>
+  <object gid="40" x="992" y="192"/>
+  <object gid="40" x="1024" y="192"/>
+  <object gid="40" x="1056" y="192"/>
+  <object gid="40" x="1088" y="192"/>
+  <object gid="40" x="1120" y="192"/>
+  <object gid="40" x="1152" y="192"/>
+  <object gid="40" x="1280" y="192"/>
+  <object gid="40" x="1312" y="192"/>
+  <object gid="40" x="1344" y="192"/>
+  <object gid="40" x="1376" y="192"/>
+  <object gid="40" x="1408" y="192"/>
+  <object gid="40" x="1472" y="192"/>
+  <object gid="40" x="1440" y="192"/>
+  <object gid="40" x="1472" y="224"/>
+  <object gid="40" x="1472" y="256"/>
+  <object gid="40" x="1472" y="288"/>
+  <object gid="40" x="1472" y="320"/>
+  <object gid="40" x="1472" y="352"/>
+  <object gid="40" x="1472" y="384"/>
+  <object gid="40" x="1472" y="416"/>
+  <object gid="40" x="1472" y="448"/>
+  <object gid="40" x="1472" y="480"/>
+  <object gid="40" x="1472" y="512"/>
+  <object gid="40" x="960" y="576"/>
+  <object gid="40" x="1344" y="736"/>
+  <object gid="28" x="1344" y="512"/>
+  <object gid="28" x="1344" y="480"/>
+  <object gid="28" x="1344" y="448"/>
+  <object gid="28" x="1344" y="416"/>
+  <object gid="28" x="1344" y="384"/>
+  <object gid="28" x="1344" y="352"/>
+  <object gid="28" x="1344" y="320"/>
+  <object gid="28" x="1312" y="320"/>
+  <object gid="28" x="1280" y="320"/>
+  <object gid="28" x="1152" y="320"/>
+  <object gid="28" x="1120" y="320"/>
+  <object gid="28" x="1088" y="320"/>
+  <object gid="28" x="1088" y="352"/>
+  <object gid="28" x="1088" y="384"/>
+  <object gid="28" x="1088" y="416"/>
+  <object gid="28" x="1088" y="448"/>
+  <object gid="28" x="1088" y="480"/>
+  <object gid="28" x="1088" y="512"/>
+  <object gid="28" x="1088" y="544"/>
+  <object gid="16" x="832" y="576"/>
+  <object gid="16" x="832" y="544"/>
+  <object gid="16" x="832" y="512"/>
+  <object gid="16" x="832" y="480"/>
+  <object gid="16" x="832" y="448"/>
+  <object gid="16" x="832" y="416"/>
+  <object gid="16" x="832" y="384"/>
+  <object gid="16" x="832" y="352"/>
+  <object gid="16" x="832" y="320"/>
+  <object gid="16" x="832" y="288"/>
+  <object gid="16" x="832" y="256"/>
+  <object gid="16" x="832" y="224"/>
+  <object gid="16" x="832" y="192"/>
+  <object gid="16" x="832" y="160"/>
+  <object gid="16" x="832" y="128"/>
+  <object gid="16" x="832" y="96"/>
+  <object gid="16" x="832" y="64"/>
+  <object gid="16" x="864" y="64"/>
+  <object gid="16" x="896" y="64"/>
+  <object gid="16" x="928" y="64"/>
+  <object gid="16" x="960" y="64"/>
+  <object gid="16" x="992" y="64"/>
+  <object gid="16" x="1024" y="64"/>
+  <object gid="16" x="1056" y="64"/>
+  <object gid="16" x="1088" y="64"/>
+  <object gid="16" x="1120" y="64"/>
+  <object gid="16" x="1152" y="64"/>
+  <object gid="16" x="1280" y="64"/>
+  <object gid="16" x="1312" y="64"/>
+  <object gid="16" x="1344" y="64"/>
+  <object gid="16" x="1376" y="64"/>
+  <object gid="16" x="1408" y="64"/>
+  <object gid="16" x="1440" y="64"/>
+  <object gid="16" x="1472" y="64"/>
+  <object gid="16" x="1504" y="64"/>
+  <object gid="16" x="1536" y="64"/>
+  <object gid="16" x="1568" y="64"/>
+  <object gid="16" x="1600" y="64"/>
+  <object gid="16" x="1600" y="96"/>
+  <object gid="16" x="1600" y="128"/>
+  <object gid="16" x="1600" y="160"/>
+  <object gid="16" x="1600" y="192"/>
+  <object gid="16" x="1600" y="224"/>
+  <object gid="16" x="1600" y="256"/>
+  <object gid="16" x="1600" y="288"/>
+  <object gid="16" x="1600" y="320"/>
+  <object gid="16" x="1600" y="352"/>
+  <object gid="16" x="1600" y="384"/>
+  <object gid="16" x="1600" y="416"/>
+  <object gid="16" x="1600" y="448"/>
+  <object gid="16" x="1600" y="480"/>
+  <object gid="16" x="1600" y="512"/>
+  <object gid="16" x="1600" y="544"/>
+  <object gid="16" x="1088" y="736"/>
+  <object gid="40" x="1504" y="576"/>
+  <object gid="40" x="1472" y="576"/>
+  <object gid="40" x="1472" y="544"/>
+  <object gid="28" x="1056" y="544"/>
+  <object gid="28" x="1120" y="640"/>
+  <object gid="16" x="1184" y="64"/>
+  <object gid="16" x="1216" y="64"/>
+  <object gid="16" x="1248" y="64"/>
+  <object gid="40" x="1184" y="192"/>
+  <object gid="40" x="1216" y="192"/>
+  <object gid="40" x="1248" y="192"/>
+  <object gid="28" x="1184" y="320"/>
+  <object gid="28" x="1216" y="320"/>
+  <object gid="28" x="1248" y="320"/>
+  <object gid="12" x="576" y="736"/>
+  <object gid="8" x="576" y="1664">
+   <properties>
+    <property name="Text" value="They say this room is gawdy.\nI say, &quot;good&quot;."/>
+   </properties>
+  </object>
+  <object gid="8" x="576" y="608">
+   <properties>
+    <property name="Text" value=" lost count of how many times this one goes."/>
+   </properties>
+  </object>
+  <object gid="8" x="1216" y="512">
+   <properties>
+    <property name="Text" value="Oh yeah, it was 9 times."/>
+   </properties>
+  </object>
+  <object gid="8" x="512" y="1280">
+   <properties>
+    <property name="Text" value="Someone else said this reminded them of a dungeon. Trust me, this looks nothing like my dungeon."/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="53" height="59">
+  <object gid="15" x="1376" y="736"/>
+  <object gid="15" x="1056" y="736"/>
+  <object gid="15" x="1120" y="608"/>
+ </objectgroup>
+ <objectgroup name="Parameters" width="53" height="59">
+  <properties>
+   <property name="time" value="540"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

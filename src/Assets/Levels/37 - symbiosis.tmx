@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="68" height="17" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="68" height="17">
+  <data encoding="base64" compression="zlib">
+   eJztlbEOgCAMREGju4Ojg6ODI/z/pxkHkgZpKVoBI8OFQJAejxM6pVTXlF0aqLSXGqS99u9qHK482v/yTR46IKl1/LW+xGMQ4IGNcVljTE/NxPeS+ZPMB5dHan5i75Pk+yXFwzJ8zkweWBs7i1TvIR9URjkyBFOqj/HovfkrqLMTPrh7MUBnf7zB8S2l+HjDMzcfEzK+IOObxx87G2xdJ0vUgLWoGrCWjcwpnYcnZ24q8JuLh8tG7O4p7TcHD+o+DM1pyqcDH0gLyw==
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="68" height="17">
+  <object gid="9" x="64" y="416">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Items" width="68" height="17">
+  <object gid="8" x="96" y="320">
+   <properties>
+    <property name="Text" value="This ball is stuck. Let's help it move along. Maybe something good will happen."/>
+   </properties>
+  </object>
+  <object gid="16" x="192" y="352"/>
+  <object gid="28" x="384" y="352"/>
+  <object gid="40" x="576" y="352"/>
+  <object gid="52" x="704" y="416"/>
+  <object gid="16" x="896" y="352"/>
+  <object gid="8" x="800" y="352">
+   <properties>
+    <property name="Text" value="See? You and this ball are best friends."/>
+   </properties>
+  </object>
+  <object gid="22" x="896" y="96"/>
+  <object gid="28" x="1184" y="480"/>
+  <object gid="51" x="1216" y="416"/>
+  <object gid="40" x="1440" y="352"/>
+  <object gid="4" x="1408" y="288"/>
+  <object gid="22" x="1280" y="320"/>
+  <object gid="34" x="1152" y="352"/>
+  <object gid="46" x="1216" y="320"/>
+  <object gid="52" x="1536" y="416"/>
+  <object gid="16" x="1760" y="352"/>
+  <object gid="26" x="1856" y="352">
+   <properties>
+    <property name="callback" value="quickCorrupt"/>
+    <property name="destroyOnUse" value="true"/>
+   </properties>
+  </object>
+  <object gid="51" x="1888" y="416"/>
+  <object gid="8" x="1696" y="352">
+   <properties>
+    <property name="Text" value="Hallway temporarily off limits. Please come back later."/>
+   </properties>
+  </object>
+  <object gid="8" x="1344" y="256">
+   <properties>
+    <property name="Text" value="You are now blinking and breathing manually.\n\n:)"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="68" height="17"/>
+ <objectgroup name="Parameters" width="68" height="17">
+  <properties>
+   <property name="time" value="460"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="15" height="15" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="15" height="15">
+  <data encoding="base64" compression="zlib">
+   eJy9UkEOwCAIQ5bt5nf8/9Pm0TSl9OShwRBKC5gRsTYSMIrI6l6TOwAJ7zy8OD2Qr2o6fTUf41b6J3Cvjj56QV9VT8Vl3pUPZ3e3uGxmlX+M2zBvs9kri+591T/+Nn7hjALJ
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="15" height="15"/>
+ <objectgroup name="Items" width="15" height="15">
+  <object gid="4" x="448" y="64"/>
+  <object gid="12" x="96" y="416"/>
+  <object gid="12" x="128" y="224"/>
+  <object gid="12" x="256" y="416"/>
+  <object gid="12" x="320" y="128"/>
+  <object gid="52" x="96" y="224"/>
+  <object gid="52" x="128" y="352"/>
+  <object gid="52" x="320" y="352"/>
+  <object gid="52" x="32" y="480"/>
+  <object gid="52" x="384" y="416"/>
+  <object gid="52" x="192" y="64"/>
+  <object gid="52" x="352" y="192"/>
+  <object gid="51" x="192" y="128"/>
+  <object gid="51" x="96" y="288"/>
+  <object gid="51" x="128" y="416"/>
+  <object gid="51" x="320" y="416"/>
+  <object gid="51" x="384" y="480"/>
+  <object gid="51" x="384" y="160"/>
+  <object gid="51" x="32" y="64"/>
+  <object gid="12" x="448" y="224"/>
+  <object gid="8" x="96" y="128">
+   <properties>
+    <property name="Text" value="I think I have it figured out. We'll be back to normal after this room."/>
+   </properties>
+  </object>
+  <object gid="26" x="416" y="416">
+   <properties>
+    <property name="callback" value="quickCorrupt"/>
+    <property name="destroyOnUse" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="15" height="15"/>
+ <objectgroup name="Parameters" width="15" height="15">
+  <properties>
+   <property name="time" value="440"/>
+   <property name="wrapAround" value="true"/>
+  </properties>
+ </objectgroup>
+</map>

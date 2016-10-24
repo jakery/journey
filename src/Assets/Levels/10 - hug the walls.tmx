@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="26" height="23" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="devgraphics" tilewidth="32" tileheight="32">
+  <image source="../../../Content/JakesChallenge/devgraphics.png" width="192" height="288"/>
+  <tile id="0">
+   <properties>
+    <property name="type" value="floor"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="type" value="wall"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="type" value="yellowDoor"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="type" value="yellowKey"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="type" value="start"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="type" value="exit"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="type" value="nascar"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="type" value="help"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="type" value="ball"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="type" value="predator"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="type" value="player2"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="type" value="money"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="type" value="toll"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="type" value="toll2"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="type" value="pushBlock"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="color" value="red"/>
+    <property name="type" value="switch"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="color" value="red"/>
+    <property name="type" value="disappearingWall"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="" value=""/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="type" value="water"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="type" value="redDoor"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="color" value="red"/>
+    <property name="type" value="redKey"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="color" value="red"/>
+    <property name="type" value="appearingWall"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="type" value="redAppearingBlock2"/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="type" value="britishNascar"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="type" value="hiddenSwitch"/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="type" value="gronpree"/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="color" value="yellow"/>
+    <property name="type" value="switch"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="color" value="yellow"/>
+    <property name="type" value="disappearingWall"/>
+   </properties>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="type" value="constructionButton"/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="type" value="help2"/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="type" value="cyanDoor"/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="type" value="cyanKey"/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="color" value="yellow"/>
+    <property name="type" value="appearingWall"/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="type" value="teleporter"/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="color" value="green"/>
+    <property name="type" value="switch"/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="color" value="green"/>
+    <property name="type" value="disappearingWall"/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="type" value="outTeleporter"/>
+   </properties>
+  </tile>
+  <tile id="43">
+   <properties>
+    <property name="type" value="smartPredator"/>
+   </properties>
+  </tile>
+  <tile id="44">
+   <properties>
+    <property name="type" value="greenDoor"/>
+   </properties>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="color" value="green"/>
+    <property name="type" value="greenKey"/>
+   </properties>
+  </tile>
+  <tile id="46">
+   <properties>
+    <property name="color" value="green"/>
+    <property name="type" value="appearingWall"/>
+   </properties>
+  </tile>
+  <tile id="48">
+   <properties>
+    <property name="type" value="futureWall"/>
+   </properties>
+  </tile>
+  <tile id="49">
+   <properties>
+    <property name="type" value="futureFloor"/>
+   </properties>
+  </tile>
+  <tile id="50">
+   <properties>
+    <property name="color" value="brownOff"/>
+    <property name="type" value="switch"/>
+   </properties>
+  </tile>
+  <tile id="51">
+   <properties>
+    <property name="color" value="brown"/>
+    <property name="type" value="switch"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Map" width="26" height="23">
+  <data encoding="base64" compression="zlib">
+   eJzdlUsOgCAMRIFEd645AAfg/rczLkzqpB9akYWLCTapPCbAUFJK5YfqAUU5mWikjvC6Y36so36u7zagiK9OWC0918wJeyTOrvi556hEtDcztcQ5lP2hHPRRnDWuSfJD/90mcXB/KtP3tZ/ZHG5/VnE0zeKguLPLnfORPMA7aNWe+4TnjWaLNmKvlQ+Yj1FfVt5JHG+WWnnKcUbleRu0d5Nb84y3VeK/nWuFThSzGOc=
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="26" height="23"/>
+ <objectgroup name="Items" width="26" height="23">
+  <object gid="16" x="288" y="288"/>
+  <object gid="40" x="544" y="288"/>
+  <object gid="16" x="256" y="288"/>
+  <object gid="16" x="256" y="320"/>
+  <object gid="16" x="256" y="352"/>
+  <object gid="16" x="256" y="448"/>
+  <object gid="16" x="288" y="448"/>
+  <object gid="16" x="320" y="448"/>
+  <object gid="16" x="352" y="448"/>
+  <object gid="16" x="256" y="384"/>
+  <object gid="16" x="256" y="416"/>
+  <object gid="28" x="416" y="224"/>
+  <object gid="28" x="384" y="224"/>
+  <object gid="28" x="352" y="224"/>
+  <object gid="28" x="320" y="224"/>
+  <object gid="28" x="288" y="224"/>
+  <object gid="28" x="256" y="224"/>
+  <object gid="28" x="224" y="224"/>
+  <object gid="28" x="192" y="224"/>
+  <object gid="28" x="192" y="256"/>
+  <object gid="28" x="192" y="288"/>
+  <object gid="28" x="192" y="320"/>
+  <object gid="28" x="192" y="352"/>
+  <object gid="28" x="192" y="384"/>
+  <object gid="28" x="192" y="416"/>
+  <object gid="28" x="192" y="448"/>
+  <object gid="28" x="192" y="480"/>
+  <object gid="28" x="192" y="512"/>
+  <object gid="28" x="224" y="512"/>
+  <object gid="28" x="256" y="512"/>
+  <object gid="28" x="256" y="544"/>
+  <object gid="28" x="256" y="576"/>
+  <object gid="28" x="288" y="576"/>
+  <object gid="28" x="320" y="576"/>
+  <object gid="28" x="320" y="544"/>
+  <object gid="28" x="320" y="512"/>
+  <object gid="28" x="352" y="512"/>
+  <object gid="28" x="384" y="512"/>
+  <object gid="28" x="384" y="544"/>
+  <object gid="28" x="384" y="576"/>
+  <object gid="28" x="416" y="576"/>
+  <object gid="28" x="448" y="576"/>
+  <object gid="28" x="448" y="544"/>
+  <object gid="28" x="448" y="512"/>
+  <object gid="28" x="480" y="512"/>
+  <object gid="28" x="512" y="512"/>
+  <object gid="28" x="544" y="512"/>
+  <object gid="40" x="544" y="256"/>
+  <object gid="40" x="544" y="224"/>
+  <object gid="40" x="512" y="224"/>
+  <object gid="40" x="480" y="224"/>
+  <object gid="40" x="480" y="192"/>
+  <object gid="40" x="480" y="160"/>
+  <object gid="40" x="448" y="160"/>
+  <object gid="40" x="416" y="160"/>
+  <object gid="40" x="416" y="128"/>
+  <object gid="40" x="384" y="128"/>
+  <object gid="40" x="352" y="128"/>
+  <object gid="40" x="352" y="160"/>
+  <object gid="40" x="320" y="160"/>
+  <object gid="40" x="288" y="160"/>
+  <object gid="40" x="288" y="128"/>
+  <object gid="40" x="256" y="128"/>
+  <object gid="40" x="224" y="128"/>
+  <object gid="40" x="224" y="160"/>
+  <object gid="40" x="192" y="160"/>
+  <object gid="40" x="160" y="160"/>
+  <object gid="40" x="160" y="128"/>
+  <object gid="40" x="128" y="128"/>
+  <object gid="40" x="96" y="128"/>
+  <object gid="40" x="96" y="160"/>
+  <object gid="40" x="96" y="192"/>
+  <object gid="40" x="128" y="192"/>
+  <object gid="40" x="128" y="224"/>
+  <object gid="40" x="128" y="256"/>
+  <object gid="40" x="96" y="256"/>
+  <object gid="40" x="96" y="288"/>
+  <object gid="40" x="96" y="320"/>
+  <object gid="40" x="128" y="320"/>
+  <object gid="40" x="128" y="352"/>
+  <object gid="40" x="128" y="384"/>
+  <object gid="40" x="96" y="384"/>
+  <object gid="40" x="96" y="416"/>
+  <object gid="40" x="96" y="448"/>
+  <object gid="40" x="96" y="480"/>
+  <object gid="40" x="96" y="512"/>
+  <object gid="40" x="128" y="512"/>
+  <object gid="40" x="128" y="544"/>
+  <object gid="40" x="128" y="576"/>
+  <object gid="40" x="96" y="576"/>
+  <object gid="40" x="96" y="608"/>
+  <object gid="40" x="96" y="640"/>
+  <object gid="40" x="128" y="640"/>
+  <object gid="40" x="128" y="608"/>
+  <object gid="40" x="160" y="608"/>
+  <object gid="40" x="160" y="640"/>
+  <object gid="40" x="192" y="640"/>
+  <object gid="40" x="192" y="608"/>
+  <object gid="40" x="192" y="576"/>
+  <object gid="40" x="160" y="576"/>
+  <object gid="40" x="224" y="640"/>
+  <object gid="40" x="256" y="640"/>
+  <object gid="40" x="288" y="640"/>
+  <object gid="40" x="288" y="672"/>
+  <object gid="40" x="320" y="640"/>
+  <object gid="40" x="352" y="640"/>
+  <object gid="40" x="384" y="640"/>
+  <object gid="40" x="416" y="640"/>
+  <object gid="40" x="448" y="640"/>
+  <object gid="40" x="480" y="640"/>
+  <object gid="40" x="512" y="640"/>
+  <object gid="40" x="512" y="608"/>
+  <object gid="40" x="512" y="576"/>
+  <object gid="40" x="544" y="576"/>
+  <object gid="40" x="576" y="576"/>
+  <object gid="40" x="608" y="576"/>
+  <object gid="40" x="608" y="544"/>
+  <object gid="40" x="640" y="544"/>
+  <object gid="40" x="672" y="544"/>
+  <object gid="40" x="672" y="512"/>
+  <object gid="12" x="448" y="352"/>
+  <object gid="12" x="448" y="384"/>
+  <object gid="12" x="576" y="384"/>
+  <object gid="12" x="576" y="352"/>
+  <object gid="12" x="736" y="352"/>
+  <object gid="12" x="736" y="384"/>
+  <object gid="12" x="704" y="384"/>
+  <object gid="12" x="704" y="352"/>
+  <object gid="12" x="544" y="480"/>
+  <object gid="12" x="384" y="448"/>
+  <object gid="8" x="352" y="288">
+   <properties>
+    <property name="Text" value="I'd tell you about this room, but I'm really busy thinking about mullets."/>
+   </properties>
+  </object>
+  <object gid="8" x="448" y="320">
+   <properties>
+    <property name="Text" value="MacGyver's mullet..."/>
+   </properties>
+  </object>
+  <object gid="8" x="576" y="320">
+   <properties>
+    <property name="Text" value="Uncle Jesse from Full House... until Stephanie Tanner chopped it off..."/>
+   </properties>
+  </object>
+  <object gid="8" x="736" y="320">
+   <properties>
+    <property name="Text" value="See? I was google-searching &quot;famous mullets&quot;, and you did just fine without me."/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="26" height="23"/>
+ <objectgroup name="Parameters" width="26" height="23">
+  <properties>
+   <property name="time" value="140"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

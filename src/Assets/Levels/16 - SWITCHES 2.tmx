@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="38" height="33" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="38" height="33">
+  <data encoding="base64" compression="zlib">
+   eJztkzEOgCAMRZFENwcmJyYnJ+9/O1lYTCl8VCimw5ta25dvscYYqyRZApMAD4pVgENkIujtNJJXb5+IC2wCPKi8ejtQ+MDO1NEsuVk5TjAv9P6ot1Q6I9aPmyey50svNK83vbj637xKb5n7hvOagR2W2VGT79O8qBnqNaZX7obVS73Uq71XaS/Sn3KuyasFo3s58D/6wr4DnFt790/eiXp97yWBC3Y+Cek=
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="38" height="33"/>
+ <objectgroup name="Items" width="38" height="33">
+  <object gid="16" x="96" y="352"/>
+  <object gid="28" x="480" y="352"/>
+  <object gid="40" x="960" y="352"/>
+  <object gid="8" x="1024" y="576">
+   <properties>
+    <property name="Text" value="I'm giving you more freedom with these blocks. If you get them stuck in a corner, there's no hope.\n\nHit &quot;P&quot; to pause the game, which will let you start over."/>
+   </properties>
+  </object>
+  <object gid="12" x="576" y="992"/>
+  <object gid="12" x="192" y="992"/>
+  <object gid="12" x="896" y="992"/>
+  <object gid="8" x="1088" y="160">
+   <properties>
+    <property name="Text" value="Every time you push a block, you get stronger and beautifuler."/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="38" height="33">
+  <object gid="15" x="864" y="672"/>
+  <object gid="15" x="544" y="544"/>
+  <object gid="15" x="160" y="704"/>
+ </objectgroup>
+ <objectgroup name="Parameters" width="38" height="33">
+  <properties>
+   <property name="time" value="250"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

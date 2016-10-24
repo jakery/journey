@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="15" height="12" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="15" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjZGBgYMSDmQjID0a95NrHRKa9vEDMRkAvExaMzV5c6mjpbxDNOoTiF59eAD+fAOI=
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="15" height="12"/>
+ <objectgroup name="Items" width="15" height="12">
+  <object gid="8" x="288" y="256">
+   <properties>
+    <property name="Text" value="I'm being told this is perfectly normal.\nLet's go with it."/>
+   </properties>
+  </object>
+  <object gid="12" x="352" y="96"/>
+  <object gid="12" x="160" y="96"/>
+  <object gid="12" x="128" y="320"/>
+  <object gid="12" x="32" y="64"/>
+  <object gid="12" x="448" y="160"/>
+  <object gid="12" x="416" y="288"/>
+  <object gid="12" x="32" y="256"/>
+  <object gid="12" x="448" y="384"/>
+  <object gid="12" x="32" y="384"/>
+  <object gid="12" x="288" y="160"/>
+  <object gid="12" x="288" y="352"/>
+  <object gid="12" x="64" y="192"/>
+  <object gid="12" x="128" y="32"/>
+  <object gid="12" x="224" y="64"/>
+  <object gid="12" x="0" y="128"/>
+  <object gid="12" x="96" y="352"/>
+ </objectgroup>
+ <objectgroup name="Tools" width="15" height="12"/>
+ <objectgroup name="Parameters" width="15" height="12">
+  <properties>
+   <property name="time" value="-1"/>
+   <property name="wrapAround" value="true"/>
+  </properties>
+ </objectgroup>
+</map>

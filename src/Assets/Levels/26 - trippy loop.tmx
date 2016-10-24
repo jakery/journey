@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="18" height="18" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="18" height="18">
+  <data encoding="base64" compression="zlib">
+   eJyVk7EOwjAMRF1LsDEyZqg8MTDy/79GI8XS8XBIGU51nKtzOTthZgH4JK44ur8daAM+1o58G2vlb8grr/9/H9/MPySOSaw1FVHklB/2qYM1Ey7xGT28b9a4olblD30L+/a343XgJvmqb4pKD2uu9Lit/eFcsEczf6o6K1QzwHO9yK300Ad6NePnnvL7+iL5qjet2D+j599+NZzF90VOxvvgscd6V86Q6lLdv/Q8Ucut1sP7zuaBOujnG++fFi4=
+  </data>
+ </layer>
+ <layer name="Copy of Map" width="18" height="18" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJxTZmBgUMaDmQiII8szYsHUEmciQj0uvfjM58chj06T435i3MZLhvmwcIfxQWawQWmYPlzxhoyp4R5i4oUS9cTEKan2MmERI9U96GYQG1+weGFFEscVN7TIX8SEvyYRavDZS0y4oocjseYwYTGLnHDAJQ4AsycLwA==
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="18" height="18"/>
+ <objectgroup name="Items" width="18" height="18">
+  <object gid="28" x="256" y="512"/>
+  <object gid="12" x="352" y="448"/>
+  <object gid="12" x="416" y="448"/>
+  <object gid="12" x="480" y="512"/>
+  <object gid="12" x="416" y="256"/>
+  <object gid="12" x="32" y="256"/>
+  <object gid="40" x="352" y="64"/>
+  <object gid="46" x="96" y="512"/>
+  <object gid="12" x="288" y="384"/>
+  <object gid="12" x="352" y="384"/>
+  <object gid="12" x="416" y="384"/>
+  <object gid="12" x="480" y="128"/>
+  <object gid="34" x="128" y="512"/>
+  <object gid="22" x="0" y="416"/>
+  <object gid="12" x="160" y="64"/>
+  <object gid="12" x="96" y="128"/>
+  <object gid="12" x="128" y="288"/>
+  <object gid="12" x="256" y="288"/>
+  <object gid="12" x="256" y="160"/>
+  <object gid="12" x="480" y="384"/>
+  <object gid="8" x="160" y="576">
+   <properties>
+    <property name="Text" value="Mabl bl ZXmmbgZ hnm hY aTgW. B'f VXkmTbger ghm maX hgX pah bl fTdbgZ mabl aTiiXg.\n\n7hXl maTm fXTg bm'l rhn? Ahp...?"/>
+   </properties>
+  </object>
+  <object gid="8" x="288" y="576">
+   <properties>
+    <property name="Text" value="J ibwf b uifpsz, cvu ju't qsfuuz ejtuvscjoh. Opu gps nf, cvu gps zpv."/>
+   </properties>
+  </object>
+  <object gid="8" x="224" y="288">
+   <properties>
+    <property name="Text" value="He H'l qhfgs, xnt'qd hm enq Z udqx qntfg shld."/>
+   </properties>
+  </object>
+  <object gid="52" x="192" y="224"/>
+  <object gid="26" x="192" y="224">
+   <properties>
+    <property name="callback" value="quickCorrupt"/>
+    <property name="destroyOnUse" value="true"/>
+   </properties>
+  </object>
+  <object gid="8" x="192" y="256">
+   <properties>
+    <property name="Text" value="There, all better."/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="18" height="18">
+  <object gid="15" x="288" y="512"/>
+  <object gid="15" x="320" y="128"/>
+ </objectgroup>
+ <objectgroup name="Parameters" width="18" height="18">
+  <properties>
+   <property name="time" value="300"/>
+   <property name="wrapAround" value="true"/>
+  </properties>
+ </objectgroup>
+</map>

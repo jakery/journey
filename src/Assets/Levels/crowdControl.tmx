@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="250" height="250" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="250" height="250">
+  <data encoding="base64" compression="zlib">
+   eJzt2rEJwDAMRUE5kP1X9gQuZDBxPldcp0LNQ41GVQ0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABYeDZ8vTPQp3PI12lX55BP5/BP7jnkW7X7NmaBu7nnkE/nkE/nkE/nkE/nkE/nkM/fKwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABw0gTZ//Rh
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="250" height="250">
+  <object gid="7" x="3904" y="4192"/>
+  <object gid="7" x="3904" y="4256"/>
+  <object gid="7" x="3904" y="4320"/>
+  <object gid="7" x="3904" y="4384"/>
+  <object gid="7" x="3904" y="4448">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="7" x="3968" y="4448">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="7" x="4032" y="4448">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="7" x="4096" y="4448">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="7" x="4160" y="4448"/>
+  <object gid="7" x="4160" y="4448">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="7" x="4192" y="4416">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="7" x="4192" y="4352">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="7" x="4192" y="4288">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="7" x="4192" y="4224">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="7" x="4192" y="4160">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object gid="7" x="4128" y="4160">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object gid="7" x="4064" y="4160">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object gid="7" x="4000" y="4160">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object gid="7" x="3936" y="4160">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Items" width="250" height="250"/>
+ <objectgroup name="Tools" width="250" height="250">
+  <object gid="15" x="4064" y="4192"/>
+ </objectgroup>
+ <objectgroup name="Parameters" width="250" height="250">
+  <properties>
+   <property name="time" value="-1"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

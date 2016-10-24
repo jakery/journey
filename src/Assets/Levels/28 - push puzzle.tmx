@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="38" height="18" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="38" height="18">
+  <data encoding="base64" compression="zlib">
+   eJxjYmBgYCISM6LxjUjQS0uM7q6BxrBwGWzuGqzhhctdo+kLOx5NX0PDXSJALIiGGQnggQwbQu4C0eIE3EmsP2DqWJHE2NDCiBh3wdTjchcx4UtsHJAaR+JY3EUo3mF8WTLcRS7WRAtvbPkFnx/w5S1K0zW+MMJlNjHuGgx5bKDdQ+24ogcGAMlPBrU=
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="38" height="18">
+  <object gid="10" x="352" y="384"/>
+ </objectgroup>
+ <objectgroup name="Items" width="38" height="18">
+  <object gid="40" x="704" y="416"/>
+  <object gid="28" x="1152" y="448"/>
+  <object gid="16" x="128" y="480"/>
+  <object gid="8" x="1088" y="352">
+   <properties>
+    <property name="Text" value="You might have to think extra hard when pushing these around. I trust you.\nGet fit!"/>
+   </properties>
+  </object>
+  <object gid="8" x="480" y="384">
+   <properties>
+    <property name="Text" value="Ignore this thing."/>
+   </properties>
+  </object>
+  <object gid="6" x="32" y="320"/>
+ </objectgroup>
+ <objectgroup name="Tools" width="38" height="18">
+  <object gid="15" x="736" y="384"/>
+  <object gid="15" x="1056" y="480"/>
+  <object gid="15" x="192" y="448"/>
+ </objectgroup>
+ <objectgroup name="Parameters" width="38" height="18">
+  <properties>
+   <property name="time" value="999"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

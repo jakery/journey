@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="67" height="29" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="67" height="29">
+  <data encoding="base64" compression="zlib">
+   eJztlktuwzAMRBUX7b6Atln1BFnU9z9aG6ACiAE/Q0mO0sCLgWVbpsRHivStlHI7depB2uDaxpszfwvmrPYl8oHxa0TMOkdz6N1je3/5kxxnhGtpscnGB+2wHKI9RjaQxabY1t5Zz3pzx4rtKAcvZjhGfz9/VRMscD0rxzI5Gs234mn5PkM9LN6cd5Z/0t7HRBZtXIu952p8b9liWWRyVDsX2TOOLN6N/XuqsN4oi91RJmdHWVj79+phNeaPsNBs7MQcaVcyZGtopl6051UwYFlodjwWFdZhWdz17dxn6y579j0WUR05Ki+a7yiGhdaLGRYYt1l9JlsvothhTJja0bNvJodY26xN7/x6PDMstD3jf2yPon/jWSyaDfQdzxTLAvfKMMNnrA2mfmeZWPVkhMUjZcX4KmTlQJaF7K+r/WbzojH4MmTV61di0a6NQ9Qbovqr9d7/xELmRLZeeP14F9+s9tfjgHlxARbXYtcPtMH2+WeV5guy8PJ8Rp9/FkkWskayLDJMVvvK8sjkhWVjtR8zc+MV8nwWD2Rj3Z86daR+AC+j1ek=
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="67" height="29">
+  <object gid="44" x="352" y="320"/>
+  <object gid="44" x="704" y="416"/>
+  <object gid="44" x="928" y="352"/>
+  <object gid="44" x="1344" y="416"/>
+  <object gid="44" x="1888" y="320"/>
+  <object gid="44" x="1440" y="736"/>
+ </objectgroup>
+ <objectgroup name="Items" width="67" height="29">
+  <object name="t1" gid="37" x="736" y="224">
+   <properties>
+    <property name="destination" value="t0"/>
+   </properties>
+  </object>
+  <object name="t0" gid="37" x="864" y="288">
+   <properties>
+    <property name="destination" value="t1"/>
+   </properties>
+  </object>
+  <object gid="16" x="1024" y="224"/>
+  <object gid="37" x="1344" y="224">
+   <properties>
+    <property name="destination" value="t2"/>
+   </properties>
+  </object>
+  <object gid="52" x="1504" y="384"/>
+  <object gid="4" x="1184" y="704"/>
+  <object name="t2" gid="43" x="1344" y="480"/>
+  <object gid="51" x="1856" y="512"/>
+  <object gid="52" x="1888" y="512"/>
+  <object gid="37" x="1984" y="544">
+   <properties>
+    <property name="destination" value="t4"/>
+   </properties>
+  </object>
+  <object name="t4" gid="43" x="1728" y="544"/>
+  <object name="t5" gid="37" x="1280" y="224">
+   <properties>
+    <property name="destination" value="t6"/>
+   </properties>
+  </object>
+  <object name="t7" gid="37" x="1408" y="224">
+   <properties>
+    <property name="destination" value="t8"/>
+   </properties>
+  </object>
+  <object name="t6" gid="43" x="1280" y="480"/>
+  <object name="t8" gid="43" x="1408" y="480"/>
+  <object gid="28" x="1216" y="800"/>
+  <object gid="28" x="1344" y="640"/>
+  <object gid="28" x="1344" y="672"/>
+  <object gid="28" x="1344" y="704"/>
+  <object gid="28" x="1344" y="736"/>
+  <object gid="28" x="1344" y="768"/>
+  <object gid="28" x="1376" y="640"/>
+  <object gid="28" x="1408" y="640"/>
+  <object gid="28" x="1440" y="640"/>
+  <object gid="28" x="1472" y="640"/>
+  <object gid="28" x="1504" y="640"/>
+  <object gid="28" x="1216" y="768"/>
+  <object gid="32" x="256" y="320">
+   <properties>
+    <property name="Text" value="How is there more than one?\nDo they...breed?"/>
+   </properties>
+  </object>
+  <object gid="32" x="1664" y="384">
+   <properties>
+    <property name="Text" value="Here's what I know:\n\n1) I can't get to the exit without someone else pushing the button.\n\n2) That's it."/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="67" height="29"/>
+ <objectgroup name="Parameters" width="67" height="29">
+  <properties>
+   <property name="tileset" value="dungeon"/>
+   <property name="time" value="-1"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

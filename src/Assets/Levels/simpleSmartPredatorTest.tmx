@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="15" height="12" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="15" height="12">
+  <data encoding="base64" compression="zlib">
+   eJytkDEOADAIAq2J//9yd8JZm3ZgUCAiGRH5gAUow3f+FI3u1U+8aum2y3Xjo+z0j9O4WUF5qE/iJrlOXU9y082u95/Yms8BIg==
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="15" height="12">
+  <object gid="44" x="224" y="128"/>
+ </objectgroup>
+ <objectgroup name="Items" width="15" height="12"/>
+ <objectgroup name="Tools" width="15" height="12"/>
+ <objectgroup name="Parameters" width="15" height="12">
+  <properties>
+   <property name="time" value="-1"/>
+  </properties>
+ </objectgroup>
+</map>

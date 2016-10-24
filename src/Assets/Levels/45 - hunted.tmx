@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="63" height="100" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="devgraphics" tilewidth="32" tileheight="32">
+  <image source="../../../Content/JakesChallenge/devgraphics.png" width="192" height="288"/>
+  <tile id="0">
+   <properties>
+    <property name="type" value="floor"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="type" value="wall"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="type" value="yellowDoor"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="type" value="yellowKey"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="type" value="start"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="type" value="exit"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="type" value="nascar"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="type" value="help"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="type" value="ball"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="type" value="predator"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="type" value="player2"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="type" value="money"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="type" value="toll"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="type" value="toll2"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="type" value="pushBlock"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="color" value="red"/>
+    <property name="type" value="switch"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="color" value="red"/>
+    <property name="type" value="disappearingWall"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="" value=""/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="type" value="water"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="type" value="redDoor"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="color" value="red"/>
+    <property name="type" value="redKey"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="color" value="red"/>
+    <property name="type" value="appearingWall"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="type" value="redAppearingBlock2"/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="type" value="britishNascar"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="type" value="hiddenSwitch"/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="type" value="gronpree"/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="color" value="yellow"/>
+    <property name="type" value="switch"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="color" value="yellow"/>
+    <property name="type" value="disappearingWall"/>
+   </properties>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="type" value="constructionButton"/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="type" value="help2"/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="type" value="cyanDoor"/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="type" value="cyanKey"/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="color" value="yellow"/>
+    <property name="type" value="appearingWall"/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="type" value="teleporter"/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="color" value="green"/>
+    <property name="type" value="switch"/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="color" value="green"/>
+    <property name="type" value="disappearingWall"/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="type" value="outTeleporter"/>
+   </properties>
+  </tile>
+  <tile id="43">
+   <properties>
+    <property name="type" value="smartPredator"/>
+   </properties>
+  </tile>
+  <tile id="44">
+   <properties>
+    <property name="type" value="greenDoor"/>
+   </properties>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="color" value="green"/>
+    <property name="type" value="greenKey"/>
+   </properties>
+  </tile>
+  <tile id="46">
+   <properties>
+    <property name="color" value="green"/>
+    <property name="type" value="appearingWall"/>
+   </properties>
+  </tile>
+  <tile id="48">
+   <properties>
+    <property name="type" value="futureWall"/>
+   </properties>
+  </tile>
+  <tile id="49">
+   <properties>
+    <property name="type" value="futureFloor"/>
+   </properties>
+  </tile>
+  <tile id="50">
+   <properties>
+    <property name="color" value="brownOff"/>
+    <property name="type" value="switch"/>
+   </properties>
+  </tile>
+  <tile id="51">
+   <properties>
+    <property name="color" value="brown"/>
+    <property name="type" value="switch"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Map" width="63" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztm0GLwjAQhauL3vYgLHjqYel5r/v/f5oIDYwhaZNYZ5I37/CR0irMl5eksep5mqbzyo849sapgxronq+vhItj9xaPkdxvEd7cU8d0x3dPjfn7G+6j0+o+OvPafnVQizanqPUE3V/XfuuatLhl+gKBkvVdrvOI7lu5I7vv5R9ft675aPeWc6OT85wLXjc6W+6BBdg9xbLi0T34y9a6Vrp/vj/CcbzmoePdPTXm0fY2eyDf52vXOjT3kuvI7rL9y5xHe3aRyxU5b+k+T/ufWVHdj3zdCMj5W4p1zUfn7dnd2541zt26FrrTXdsdfW3LuS8bWNf4Sfe955TWNb7jsDWWc1l7cG95X2/rQDxOZX413BOM5J46boXudB/FvXW+p+b8KO6aWDuXuFvXRne6a7t7nu90x3dP7cdr9uiju2vl/t1Jn8TuFrlbjQVZk1b2Pbpr4d09HmMW7hZ9Hdyta6G7vruXcS4J39t6cn+6hudBaL85KnGXuXsCbZ7X3tf/gdxr+wEp99rsUdxb97Io7s+29n/tSO6ec69x/wVxl30Qc93IHYnaMY8E3X26oxLfl7TaHvDsfjVqCSGEEEIIIYQQ0jcPGY058Q==
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="63" height="100">
+  <object gid="11" x="1536" y="2624">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="44" x="96" y="64"/>
+  <object gid="44" x="1472" y="2624"/>
+  <object gid="44" x="1408" y="2624"/>
+  <object gid="44" x="1344" y="2624"/>
+  <object gid="44" x="1280" y="2624"/>
+  <object gid="44" x="1216" y="2624"/>
+  <object gid="44" x="1152" y="2624"/>
+  <object gid="44" x="1088" y="2624"/>
+  <object gid="44" x="1600" y="2624"/>
+  <object gid="44" x="1664" y="2624"/>
+  <object gid="44" x="1728" y="2624"/>
+  <object gid="44" x="1792" y="2624"/>
+  <object gid="44" x="1856" y="2624"/>
+  <object gid="44" x="1920" y="2624"/>
+  <object gid="44" x="1984" y="2624"/>
+ </objectgroup>
+ <objectgroup name="Items" width="63" height="100">
+  <object name="i1" type="key" gid="4" x="1696" y="2400"/>
+  <object gid="16" x="1440" y="1024"/>
+  <object gid="4" x="1376" y="288"/>
+  <object gid="16" x="1632" y="960"/>
+  <object gid="16" x="1472" y="1504"/>
+  <object gid="16" x="1504" y="1504"/>
+  <object gid="16" x="1536" y="1504"/>
+  <object gid="16" x="1504" y="1472"/>
+  <object gid="28" x="1312" y="1120"/>
+  <object gid="28" x="1312" y="1152"/>
+  <object gid="28" x="1312" y="1184"/>
+  <object gid="28" x="1312" y="1216"/>
+  <object gid="28" x="1312" y="1248"/>
+  <object gid="28" x="1312" y="1280"/>
+  <object gid="28" x="1312" y="1312"/>
+  <object gid="28" x="1312" y="1344"/>
+  <object gid="28" x="1344" y="1344"/>
+  <object gid="28" x="1376" y="1344"/>
+  <object gid="28" x="1408" y="1344"/>
+  <object gid="28" x="1440" y="1344"/>
+  <object gid="28" x="1472" y="1344"/>
+  <object gid="28" x="1504" y="1344"/>
+  <object gid="28" x="1504" y="1376"/>
+  <object gid="16" x="1472" y="1472"/>
+  <object gid="16" x="1536" y="1472"/>
+  <object gid="16" x="1536" y="1536"/>
+  <object gid="16" x="1504" y="1536"/>
+  <object gid="28" x="992" y="1536"/>
+  <object gid="28" x="992" y="1504"/>
+  <object gid="28" x="992" y="1472"/>
+  <object gid="28" x="960" y="1472"/>
+  <object gid="28" x="960" y="1504"/>
+  <object gid="12" x="960" y="1600"/>
+  <object gid="12" x="960" y="1632"/>
+  <object gid="12" x="960" y="1664"/>
+  <object gid="12" x="960" y="1696"/>
+  <object gid="12" x="960" y="1728"/>
+  <object gid="12" x="960" y="1760"/>
+  <object gid="12" x="960" y="1792"/>
+  <object gid="28" x="960" y="1536"/>
+  <object gid="28" x="960" y="1568"/>
+  <object gid="28" x="1760" y="2208"/>
+  <object gid="8" x="1632" y="128">
+   <properties>
+    <property name="Text" value="Trapped in that cage. I almost feel bad about it."/>
+   </properties>
+  </object>
+  <object gid="16" x="1760" y="2080"/>
+  <object gid="28" x="1696" y="2144"/>
+  <object gid="28" x="1696" y="2176"/>
+  <object gid="12" x="1696" y="352"/>
+  <object gid="12" x="1312" y="1088"/>
+  <object gid="16" x="1632" y="288"/>
+  <object gid="16" x="1632" y="256"/>
+  <object gid="16" x="1760" y="544"/>
+  <object gid="28" x="1760" y="416"/>
+  <object gid="28" x="1696" y="832"/>
+  <object gid="28" x="1728" y="832"/>
+  <object gid="28" x="1760" y="832"/>
+  <object gid="28" x="1760" y="864"/>
+  <object gid="28" x="1760" y="896"/>
+  <object gid="28" x="1760" y="928"/>
+  <object gid="28" x="1760" y="960"/>
+  <object gid="12" x="1344" y="1536"/>
+  <object gid="12" x="1312" y="1536"/>
+  <object gid="12" x="1280" y="1536"/>
+  <object gid="12" x="1248" y="1536"/>
+  <object gid="12" x="1216" y="1536"/>
+  <object gid="12" x="1184" y="1536"/>
+  <object gid="12" x="1152" y="1536"/>
+  <object gid="12" x="1120" y="1536"/>
+  <object gid="12" x="1088" y="1536"/>
+  <object gid="12" x="1056" y="1536"/>
+  <object gid="16" x="1472" y="1536"/>
+  <object gid="16" x="1440" y="1536"/>
+  <object gid="16" x="1440" y="1504"/>
+  <object gid="16" x="1440" y="1472"/>
+  <object gid="16" x="1408" y="1472"/>
+  <object gid="16" x="1408" y="1504"/>
+  <object gid="16" x="1408" y="1536"/>
+  <object gid="12" x="1376" y="1536"/>
+  <object gid="12" x="1376" y="1856"/>
+  <object gid="16" x="960" y="1888"/>
+  <object gid="12" x="1312" y="1856"/>
+  <object gid="16" x="960" y="1856"/>
+  <object gid="12" x="1248" y="1856"/>
+  <object gid="16" x="992" y="1856"/>
+  <object gid="12" x="1280" y="1856"/>
+  <object gid="16" x="1024" y="1856"/>
+  <object gid="12" x="1344" y="1856"/>
+  <object gid="16" x="1056" y="1856"/>
+  <object gid="12" x="1760" y="1856"/>
+  <object gid="5" x="1504" y="192"/>
+  <object gid="8" x="1536" y="2528">
+   <properties>
+    <property name="Text" value="Trapped in that cage. We almost feel bad about it."/>
+   </properties>
+  </object>
+  <object gid="5" x="96" y="64"/>
+  <object gid="46" x="1600" y="1024"/>
+  <object gid="34" x="1760" y="2336"/>
+  <object gid="5" x="1088" y="2656"/>
+  <object gid="5" x="1152" y="2656"/>
+  <object gid="5" x="1216" y="2656"/>
+  <object gid="5" x="1280" y="2656"/>
+  <object gid="5" x="1344" y="2656"/>
+  <object gid="5" x="1344" y="2656"/>
+  <object gid="5" x="1408" y="2656"/>
+  <object gid="5" x="1472" y="2656"/>
+  <object gid="5" x="1536" y="2656"/>
+  <object gid="5" x="1600" y="2656"/>
+  <object gid="5" x="1664" y="2656"/>
+  <object gid="5" x="1728" y="2656"/>
+  <object gid="5" x="1792" y="2656"/>
+  <object gid="5" x="1856" y="2656"/>
+  <object gid="5" x="1920" y="2656"/>
+  <object gid="5" x="1984" y="2656"/>
+  <object gid="52" x="1344" y="2240"/>
+  <object gid="51" x="1760" y="2240"/>
+ </objectgroup>
+ <objectgroup name="Tools" width="63" height="100">
+  <object gid="15" x="1504" y="672"/>
+ </objectgroup>
+ <objectgroup name="Parameters" width="63" height="100">
+  <properties>
+   <property name="time" value="-1"/>
+  </properties>
+ </objectgroup>
+</map>

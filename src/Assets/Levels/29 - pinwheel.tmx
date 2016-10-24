@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="60" height="49" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="60" height="49">
+  <data encoding="base64" compression="zlib">
+   eJztmbtuwzAMRWUX7dahgAFPnTx18tT8/6c1BUz0liBFypItyclwkTh+iMeX1CtjCGF86tIaQPNdy10r+z4cqGnTqojHOW8aIT66jmJetmO8vwXeKfznnSK/0T3ERbzIpb2HVnhj/nJeilXj5b637q/k6wrt3xivlLcpvGf0D1Jb6J8VU2qc2jMGo50jeDVvtZj2xFaDV2s/hTf3PZ/t7wfIw7sEOW5vfLHrz+D9BHnyeTGe5+WswfurL9Aj8ErPtHhRPfJq45DEi8dX4NVYcRx+JH+J11sbFnMtXu98owdeyr1ZOJfKG4ujJd4x/K1TtFray+udb8RYS/Jq601NFi/Pb29cZ/ESM/JwNou1NK9VDzm8nlz1CGtCi3OvtzwPc3k9+VqbF/OwFG+Ov6SjeHPrl/IDPWmZV1prpvAuyvecfNbGo1K8S6Qd7XkWb66+I23m8OK7S+ElUR7jXuKLcm2uSvBi3e3xNzWGVL4jePn1pXLyTHnzIbd/bkWpedAzb0qdX8HfFG9LzSfPEO7x4H9rM5O2F3QFXhoT6TO2t8kZe+IdBH85q8SbMr+qLc6k8eK76J0XuZCX17T1/35LvNrcAesUGd8FTvJYe2et8MbmlrwfnjfWt+1TOt8yL/K9CrzoG4r8pf1gzIOW89laO0j1SYx4jNw98tJ5rE3OxXmtvf9ajF5vxyCPr9L62zPfiIn3ezHxOUFM2K9YrBIv1inG2Ssvj1Xylftr8XpyqwZv7fp6qj/9AFcTTKs=
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="60" height="49">
+  <object gid="7" x="128" y="256"/>
+ </objectgroup>
+ <objectgroup name="Items" width="60" height="49">
+  <object gid="16" x="128" y="320"/>
+  <object gid="16" x="128" y="256"/>
+  <object gid="16" x="128" y="416"/>
+  <object gid="16" x="128" y="288"/>
+  <object gid="28" x="128" y="800"/>
+  <object gid="28" x="128" y="736"/>
+  <object gid="28" x="128" y="992"/>
+  <object gid="28" x="128" y="768"/>
+  <object gid="40" x="128" y="1248"/>
+  <object gid="40" x="128" y="1280"/>
+  <object gid="40" x="128" y="1216"/>
+  <object gid="40" x="128" y="1376"/>
+  <object gid="28" x="128" y="960"/>
+  <object gid="28" x="128" y="928"/>
+  <object gid="16" x="128" y="384"/>
+  <object gid="16" x="128" y="352"/>
+  <object gid="40" x="128" y="1344"/>
+  <object gid="40" x="128" y="1312"/>
+  <object gid="28" x="128" y="832"/>
+  <object gid="28" x="128" y="864"/>
+  <object gid="28" x="128" y="896"/>
+  <object gid="28" x="128" y="640"/>
+  <object gid="28" x="128" y="672"/>
+  <object gid="28" x="128" y="704"/>
+  <object gid="16" x="128" y="544"/>
+  <object gid="16" x="128" y="512"/>
+  <object gid="16" x="128" y="608"/>
+  <object gid="16" x="128" y="448"/>
+  <object gid="16" x="128" y="480"/>
+  <object gid="16" x="128" y="576"/>
+  <object gid="40" x="128" y="1024"/>
+  <object gid="40" x="128" y="1184"/>
+  <object gid="40" x="128" y="1152"/>
+  <object gid="40" x="128" y="1120"/>
+  <object gid="40" x="128" y="1056"/>
+  <object gid="40" x="128" y="1088"/>
+  <object gid="16" x="160" y="1344"/>
+  <object gid="16" x="160" y="1120"/>
+  <object gid="16" x="160" y="1280"/>
+  <object gid="16" x="160" y="1088"/>
+  <object gid="16" x="160" y="1184"/>
+  <object gid="16" x="160" y="1376"/>
+  <object gid="16" x="160" y="1024"/>
+  <object gid="16" x="160" y="1216"/>
+  <object gid="16" x="160" y="1312"/>
+  <object gid="16" x="160" y="1056"/>
+  <object gid="16" x="160" y="1248"/>
+  <object gid="16" x="160" y="1152"/>
+  <object gid="40" x="160" y="448"/>
+  <object gid="40" x="160" y="608"/>
+  <object gid="40" x="160" y="416"/>
+  <object gid="40" x="160" y="576"/>
+  <object gid="40" x="160" y="384"/>
+  <object gid="40" x="160" y="544"/>
+  <object gid="40" x="160" y="352"/>
+  <object gid="40" x="160" y="480"/>
+  <object gid="40" x="160" y="288"/>
+  <object gid="40" x="160" y="512"/>
+  <object gid="40" x="160" y="320"/>
+  <object gid="40" x="160" y="256"/>
+  <object gid="28" x="160" y="864"/>
+  <object gid="28" x="160" y="736"/>
+  <object gid="28" x="160" y="896"/>
+  <object gid="28" x="160" y="992"/>
+  <object gid="28" x="160" y="640"/>
+  <object gid="28" x="160" y="768"/>
+  <object gid="28" x="160" y="928"/>
+  <object gid="28" x="160" y="672"/>
+  <object gid="28" x="160" y="960"/>
+  <object gid="28" x="160" y="704"/>
+  <object gid="28" x="160" y="832"/>
+  <object gid="28" x="160" y="800"/>
+  <object gid="4" x="416" y="896"/>
+  <object gid="8" x="96" y="1440">
+   <properties>
+    <property name="Text" value="Remember this guy? He did so well last time that I promoted him to Senior Button Driver."/>
+   </properties>
+  </object>
+  <object gid="8" x="768" y="896">
+   <properties>
+    <property name="Text" value="I think there's a toilet overflowing somewhere."/>
+   </properties>
+  </object>
+  <object gid="8" x="928" y="160">
+   <properties>
+    <property name="Text" value="This was not part of the plan. Go around, I suppose."/>
+   </properties>
+  </object>
+  <object gid="8" x="928" y="608">
+   <properties>
+    <property name="Text" value="I called a plumber. I'm sure he'll know."/>
+   </properties>
+  </object>
+  <object gid="12" x="1568" y="1440"/>
+  <object gid="12" x="1440" y="1248"/>
+  <object gid="12" x="1760" y="1248"/>
+  <object gid="12" x="1728" y="1184"/>
+  <object gid="12" x="1568" y="1120"/>
+  <object gid="12" x="1472" y="1376"/>
+  <object gid="12" x="1632" y="1120"/>
+  <object gid="12" x="1760" y="1312"/>
+  <object gid="12" x="1632" y="1440"/>
+  <object gid="12" x="1440" y="1312"/>
+  <object gid="12" x="1504" y="1152"/>
+  <object gid="12" x="1696" y="1408"/>
+  <object gid="8" x="1344" y="1248">
+   <properties>
+    <property name="Text" value="You like it?\nI call it, &quot;The Don Quixote&quot;.\n\nLet's talke a stroll around and then we'll come back at the end."/>
+   </properties>
+  </object>
+  <object gid="8" x="1376" y="96">
+   <properties>
+    <property name="Text" value="I just got off the phone with the plumber. He says, and I quote, &quot;The water is by design. I'm marking your service ticket 'closed'.&quot;\n\nWhat a real piece of you-know-what.\n\nNo big deal, right? Let's offer it up and move on."/>
+   </properties>
+  </object>
+  <object gid="8" x="576" y="1472">
+   <properties>
+    <property name="Text" value="Okay, we're coming up to our first stop."/>
+   </properties>
+  </object>
+  <object gid="8" x="64" y="1024">
+   <properties>
+    <property name="Text" value="Funny story about this guy. One night I was out at a club and I saw him in the parking lot, and I was all like, &quot;Hey, want a job?&quot;.\nAnd he said, &quot;Sure, whatever.&quot;\n\nThat's actually the whole story. I can't remember why it was funny."/>
+   </properties>
+  </object>
+  <object gid="8" x="1760" y="480">
+   <properties>
+    <property name="Text" value="You're going to laugh, but I just remembered that I told the plumbers to flood this room a week ago because I was trying to get a huge insurance claim.\n\nCapitalism, am I right? What are you gonna do..."/>
+   </properties>
+  </object>
+  <object gid="8" x="1632" y="1024">
+   <properties>
+    <property name="Text" value="And we're back at the main attraction: The Don Quixote.\n\nSee you in the next room."/>
+   </properties>
+  </object>
+  <object gid="8" x="1344" y="192">
+   <properties>
+    <property name="Text" value="You are legally an absolute hardass."/>
+   </properties>
+  </object>
+  <object gid="8" x="1152" y="896">
+   <properties>
+    <property name="Text" value="LEGAL NOTICE\n\nWithout admitting fault, I hereby publicly acknowledge the unfortunate deaths of people who used the above corridor. \n\nI further wish to celebrate the opening of this new auxiliary tunnel (on the right) so that further unfortunate tragedy may be avoided."/>
+   </properties>
+  </object>
+  <object gid="52" x="1248" y="832"/>
+  <object gid="8" x="1216" y="896">
+   <properties>
+    <property name="Text" value="LEGAL NOTICE 2 OF 3\n\nHaving said that, those who still wish to participate in the above path, which is totally rad, may push the brown button."/>
+   </properties>
+  </object>
+  <object gid="8" x="1216" y="832">
+   <properties>
+    <property name="Text" value="LEGAL NOTICE 3 OF 3\n\nBy pushing the button you release everyone from liability in the event of you probably dying."/>
+   </properties>
+  </object>
+  <object gid="51" x="1408" y="192"/>
+ </objectgroup>
+ <objectgroup name="Tools" width="60" height="49"/>
+ <objectgroup name="Parameters" width="60" height="49">
+  <properties>
+   <property name="time" value="800"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="30" height="24" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="30" height="24">
+  <data encoding="base64" compression="zlib">
+   eJzNVEEOgzAMK0zstiMP2AM4tv9/2oQEUmU5iQOdxCECtyHGddK5lDI/OCYSbN/Cd3gzWM2xtO24Hu/NwO3Atath5bwFbcifwXt8HF88vSdGPYhRm5ejnPVdf5uQ8wTeqK+ic1d6QeHN9FXt/rNfu8Ib9RHrqyt6/+VvFNl7gmmxcHTOqp9nLGQPcyLe7D3BaipnMsLfF6mxCTUy/Zvx16rpeZDBU1eXraPvXj2mr396/uIam3ElWJ/i7OE3K+BvkhPn0fJ7xH1l8UZ+j+b15lvxdwTviPgBFOAT2Q==
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="30" height="24"/>
+ <objectgroup name="Items" width="30" height="24">
+  <object gid="52" x="160" y="448"/>
+  <object gid="12" x="192" y="320"/>
+  <object gid="51" x="288" y="320"/>
+  <object gid="52" x="576" y="576"/>
+  <object gid="51" x="224" y="576"/>
+  <object gid="22" x="64" y="576"/>
+  <object gid="12" x="320" y="672"/>
+  <object gid="12" x="352" y="672"/>
+  <object gid="12" x="352" y="704"/>
+  <object gid="12" x="320" y="704"/>
+  <object gid="52" x="448" y="672"/>
+  <object gid="51" x="384" y="640"/>
+  <object gid="51" x="576" y="672"/>
+  <object gid="46" x="576" y="736"/>
+  <object gid="4" x="736" y="704"/>
+  <object gid="12" x="864" y="704"/>
+  <object gid="52" x="864" y="448"/>
+  <object gid="34" x="864" y="320"/>
+  <object gid="52" x="736" y="64"/>
+  <object gid="8" x="640" y="448">
+   <properties>
+    <property name="Text" value="This was an elaborate crowd-control system for my museum. The joke's on them--I don't have a museum."/>
+   </properties>
+  </object>
+  <object gid="8" x="864" y="96">
+   <properties>
+    <property name="Text" value="Truth be told, I was trying to impress someone. It didn't work."/>
+   </properties>
+  </object>
+  <object gid="26" x="864" y="128">
+   <properties>
+    <property name="callback" value="quickCorrupt"/>
+    <property name="destroyOnUse" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="30" height="24"/>
+ <objectgroup name="Parameters" width="30" height="24">
+  <properties>
+   <property name="time" value="999"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

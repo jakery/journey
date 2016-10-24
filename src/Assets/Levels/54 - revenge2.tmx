@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="10" height="11" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="10" height="11">
+  <data encoding="base64" compression="zlib">
+   eJxjYmBgYCIRM2LBrDjUEWseIXlBHPaykeF+fP7AZh61/EFq+OHDAMX8AOE=
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="10" height="11">
+  <object gid="11" x="256" y="320">
+   <properties>
+    <property name="autoMove" value="false"/>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="10" x="32" y="160"/>
+ </objectgroup>
+ <objectgroup name="Items" width="10" height="11">
+  <object gid="16" x="160" y="224"/>
+  <object gid="26" x="160" y="160">
+   <properties>
+    <property name="callback" value="theEnd"/>
+    <property name="destroyOnUse" value="true"/>
+   </properties>
+  </object>
+  <object gid="8" x="160" y="320">
+   <properties>
+    <property name="Text" value="The real you is on this side."/>
+   </properties>
+  </object>
+  <object gid="8" x="160" y="64">
+   <properties>
+    <property name="Text" value="The real you is on this side."/>
+   </properties>
+  </object>
+  <object gid="8" x="160" y="160">
+   <properties>
+    <property name="Text" value="Movement disabled.\n\nPlease stand still to ensure symmetry. "/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="10" height="11"/>
+ <objectgroup name="Parameters" width="10" height="11">
+  <properties>
+   <property name="time" value="-1"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

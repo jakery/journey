@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="58" height="31" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="58" height="31">
+  <data encoding="base64" compression="zlib">
+   eJztl+EOgCAIhE1X7//Izb9kCYLmDn7c1nIyPu5oK6eUcmgbHQKN1qbP2j4576Wcmh4tZsXhzIzalMXST8m8LXK3OreSmtL6lvcsOK33p6oMzk96j5vNr13QZPdvP+vZRWaX05Ndw7liP2kWe37O0FsfnP7eZq7dz1mcrT4s/dyBc1Y+0OWJEzmvXv314mtwYik4MYXOF5yY8sJZNuhhpZ/o39/efzyKqIcnMKcXP1u+onH2dANedAz6
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="58" height="31">
+  <object gid="7" x="1664" y="864"/>
+  <object gid="7" x="1664" y="640"/>
+  <object gid="7" x="1408" y="288">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="7" x="1600" y="128">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object gid="7" x="1088" y="128">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object gid="7" x="1088" y="96">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object gid="7" x="1056" y="96">
+   <properties>
+    <property name="direction" value="left"/>
+   </properties>
+  </object>
+  <object gid="7" x="256" y="96"/>
+ </objectgroup>
+ <objectgroup name="Items" width="58" height="31">
+  <object gid="8" x="1600" y="896">
+   <properties>
+    <property name="Text" value="That was my racecar. Careful because he'll run you over."/>
+   </properties>
+  </object>
+  <object gid="4" x="1600" y="960"/>
+  <object gid="8" x="1504" y="256">
+   <properties>
+    <property name="Text" value="Whenever these guys are about to hit a wall, they turn left."/>
+   </properties>
+  </object>
+  <object gid="4" x="1504" y="192"/>
+  <object gid="4" x="864" y="128"/>
+  <object gid="4" x="352" y="288"/>
+  <object gid="8" x="288" y="192">
+   <properties>
+    <property name="Text" value="The best time to grab that key is right after the car leaves the key corner. Go ahead and grab it, then come back here and wait until you're ready to head to the exit."/>
+   </properties>
+  </object>
+  <object gid="8" x="1600" y="576">
+   <properties>
+    <property name="Text" value="You could say these guys have a one-track mind. You could say that."/>
+   </properties>
+  </object>
+  <object gid="8" x="960" y="224">
+   <properties>
+    <property name="Text" value="Three lefts make a right."/>
+   </properties>
+  </object>
+  <object gid="8" x="448" y="192">
+   <properties>
+    <property name="Text" value="Notice how the car never touches that spot in the middle? You could stay there forever. Make a habit of looking for &quot;safe zones&quot; like that, because I'm not going to keep pointing them out with giant question marks."/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="58" height="31"/>
+ <objectgroup name="Parameters" width="58" height="31">
+  <properties>
+   <property name="time" value="250"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

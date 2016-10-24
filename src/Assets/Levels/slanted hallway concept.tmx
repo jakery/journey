@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="21" height="21" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="devgraphics" tilewidth="32" tileheight="32">
+  <image source="../../../Content/JakesChallenge/devgraphics.png" width="192" height="288"/>
+  <tile id="0">
+   <properties>
+    <property name="type" value="floor"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="type" value="wall"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="type" value="door"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="type" value="key"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="type" value="start"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="type" value="exit"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="type" value="nascar"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="type" value="help"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="type" value="ball"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="type" value="predator"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="type" value="predator2"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="type" value="money"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="type" value="toll"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="type" value="toll2"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="type" value="pushBlock"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="color" value="red"/>
+    <property name="type" value="switch"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="color" value="red"/>
+    <property name="type" value="disappearingWall"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="type" value="teleporter"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="color" value="red"/>
+    <property name="type" value="appearingWall"/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="color" value="yellow"/>
+    <property name="type" value="switch"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="color" value="yellow"/>
+    <property name="type" value="disappearingWall"/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="color" value="yellow"/>
+    <property name="type" value="appearingWall"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Map" width="21" height="21">
+  <data encoding="base64" compression="zlib">
+   eJzNlMEOgDAIQ8eM3nfa//+pHkZCiB3FaeKByzpIX5lKKUVc1avaKK/1mzMZd7vraW4O6rWa7xEzN+ungh5ljLwwDFbvC35YxowfxMfsGM2Z7ZDJ52nmyI/ucU8wtjLfv9ciBv9Wv85c72yAQ/Xojc8yPYCO+KN8GD+RxvqJGJlvkWV4w49nXPGTZYwyZf/hf/NjtRPZzwwl
+  </data>
+ </layer>
+ <layer name="Copy of Map" width="21" height="21" opacity="0.53">
+  <data encoding="base64" compression="zlib">
+   eJxjYMAE/FjEKJWjlbmDTW6wuYeecgNh52CSGwg7B5PcQNg5mOQGws7BJDcQdhIjBwDGzAOy
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="21" height="21"/>
+ <objectgroup name="Items" width="21" height="21">
+  <object gid="16" x="192" y="320"/>
+ </objectgroup>
+ <objectgroup name="Tools" width="21" height="21">
+  <object gid="15" x="160" y="320"/>
+ </objectgroup>
+ <objectgroup name="Parameters" width="21" height="21">
+  <properties>
+   <property name="time" value="440"/>
+   <property name="wrapAround" value="true"/>
+  </properties>
+ </objectgroup>
+</map>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="34" height="21" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="34" height="21">
+  <data encoding="base64" compression="zlib">
+   eJzVlD0OgCAMRoEENwcOwAG4/wV1MTFN/9WCwxcdKn19gCWlVIKTz9QJfSHDlb8wZGWs9VYPmlpY84VnadaZHNsiHBofb54NarZdqJF6eHxFzSZlKIOxw3fOnzSPxwfG0Yin1hN1LjUc91AcjVmHc0axSHcM62f9n0ousPUoH9y5ob4fhj3oIByH955504P6aPZ0BYZI96tzPMkBxngHug==
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="34" height="21"/>
+ <objectgroup name="Items" width="34" height="21">
+  <object gid="16" x="832" y="448"/>
+  <object gid="28" x="576" y="448"/>
+  <object gid="40" x="288" y="448"/>
+  <object gid="12" x="896" y="64"/>
+  <object gid="12" x="928" y="96"/>
+  <object gid="12" x="704" y="480"/>
+  <object gid="12" x="416" y="416"/>
+  <object gid="12" x="32" y="512"/>
+  <object gid="12" x="640" y="640"/>
+  <object gid="12" x="960" y="352"/>
+  <object gid="8" x="864" y="128">
+   <properties>
+    <property name="Text" value="I left some of these push blocks out so that you can get some exercise. Push this block."/>
+   </properties>
+  </object>
+  <object gid="8" x="832" y="320">
+   <properties>
+    <property name="Text" value="Oh, I forgot to tell you the most important part. The push-blocks can activate pressure switches. Try it out."/>
+   </properties>
+  </object>
+  <object gid="8" x="320" y="320">
+   <properties>
+    <property name="Text" value="You pushed those blocks like a champ.\nDo you feel skinny?\nYou look skinny."/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="34" height="21">
+  <object gid="15" x="832" y="128"/>
+  <object gid="15" x="576" y="192"/>
+  <object gid="15" x="672" y="256"/>
+  <object gid="15" x="832" y="352"/>
+  <object gid="15" x="640" y="416"/>
+  <object gid="15" x="384" y="480"/>
+ </objectgroup>
+ <objectgroup name="Parameters" width="34" height="21">
+  <properties>
+   <property name="time" value="160"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

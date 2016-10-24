@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="250" height="250" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="250" height="250">
+  <data encoding="base64" compression="zlib">
+   eJzt1rENwCAMBECDlIXYf7hU6WjBAV9xkuXKX7zkFhENAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO1RfvgX36xNg0Z2eHKmY93yU7O1Shb3C/r+fPD24B1vC3w/30HGoZSXsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAONULsw33UA==
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="250" height="250"/>
+ <objectgroup name="Items" width="250" height="250">
+  <object name="t1" gid="37" x="4448" y="4064">
+   <properties>
+    <property name="destination" value="t2"/>
+   </properties>
+  </object>
+  <object name="t2" gid="43" x="4256" y="4064"/>
+  <object gid="1" x="4448" y="4064"/>
+  <object gid="1" x="4256" y="4064"/>
+  <object name="t3" gid="37" x="4448" y="4096">
+   <properties>
+    <property name="destination" value="t4"/>
+   </properties>
+  </object>
+  <object name="t4" gid="43" x="4256" y="4096"/>
+  <object gid="1" x="4256" y="4096"/>
+  <object gid="1" x="4448" y="4096"/>
+ </objectgroup>
+ <objectgroup name="Tools" width="250" height="250"/>
+ <objectgroup name="Parameters" width="250" height="250">
+  <properties>
+   <property name="time" value="0"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

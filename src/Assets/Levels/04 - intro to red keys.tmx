@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="44" height="32" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="44" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzt1sEKAyEMBFBXaG897v//aq8SJnZijAllDwNdatlnjNreWutP1FwiXXyuFGmV3kpuzTqrexWrd9xJ600kw4vWnzWMc8u0Wrz9kNdrld7Ift5lRefcY7WfsezZVsXKeE9ZL2Kc9v3d9lsZr2U+r6CaatbVOUSu/2w/zPY2a/Z6mDue8Vr2pbdunn5g+j3aye63ne9BWflvEdmPTK+iOchE1szjRT7NfNKq9cP4/J6MywryfkDt5LiM2rJ1Q/2QYR3r9OueQL/L6onV8zfLazFUsKLeqG7V3KfvsH/JF3fmDY4=
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="44" height="32">
+  <object gid="7" x="576" y="544"/>
+ </objectgroup>
+ <objectgroup name="Items" width="44" height="32">
+  <object gid="22" x="1056" y="448"/>
+  <object gid="22" x="1280" y="320"/>
+  <object gid="22" x="1120" y="352"/>
+  <object gid="22" x="896" y="544"/>
+  <object gid="22" x="992" y="384"/>
+  <object gid="22" x="1024" y="576"/>
+  <object gid="22" x="928" y="640"/>
+  <object gid="22" x="544" y="800"/>
+  <object gid="8" x="256" y="800">
+   <properties>
+    <property name="Text" value="You couldn't have gotten through this level any better. Mainly, because there's no scoring system."/>
+   </properties>
+  </object>
+  <object gid="8" x="1152" y="480">
+   <properties>
+    <property name="Text" value="Ooh, these keys are red instead of yellow.\nWhat fun!"/>
+   </properties>
+  </object>
+  <object gid="22" x="1152" y="352"/>
+  <object gid="22" x="1152" y="320"/>
+  <object gid="22" x="1184" y="320"/>
+  <object gid="22" x="1184" y="288"/>
+  <object gid="22" x="1184" y="256"/>
+  <object gid="22" x="1184" y="224"/>
+  <object gid="22" x="1216" y="224"/>
+  <object gid="22" x="1184" y="192"/>
+  <object gid="8" x="704" y="320">
+   <properties>
+    <property name="Text" value="Don't forget about coins. Money is important."/>
+   </properties>
+  </object>
+  <object gid="12" x="672" y="320"/>
+  <object gid="12" x="704" y="352"/>
+  <object gid="12" x="736" y="320"/>
+  <object gid="12" x="704" y="288"/>
+  <object gid="22" x="864" y="544"/>
+  <object gid="22" x="832" y="544"/>
+  <object gid="22" x="800" y="544"/>
+  <object gid="8" x="896" y="480">
+   <properties>
+    <property name="Text" value="Do you ever stop and wonder about life?\nLike, how did we all get here?\n\nNever mind. I'm on heavy painkillers."/>
+   </properties>
+  </object>
+  <object gid="8" x="576" y="480">
+   <properties>
+    <property name="Text" value="He's practicing for the next room. Let's leave him alone."/>
+   </properties>
+  </object>
+  <object gid="22" x="96" y="640"/>
+  <object gid="22" x="128" y="640"/>
+  <object gid="22" x="128" y="608"/>
+  <object gid="22" x="160" y="608"/>
+  <object gid="22" x="192" y="608"/>
+  <object gid="22" x="192" y="576"/>
+  <object gid="22" x="160" y="928"/>
+  <object gid="22" x="160" y="960"/>
+  <object gid="22" x="192" y="960"/>
+  <object gid="22" x="224" y="960"/>
+  <object gid="22" x="224" y="992"/>
+  <object gid="22" x="256" y="992"/>
+  <object gid="22" x="288" y="992"/>
+  <object gid="22" x="320" y="992"/>
+  <object gid="22" x="352" y="992"/>
+  <object gid="22" x="384" y="992"/>
+  <object gid="22" x="416" y="992"/>
+  <object gid="22" x="416" y="960"/>
+  <object gid="22" x="448" y="960"/>
+  <object gid="22" x="448" y="928"/>
+  <object gid="22" x="480" y="928"/>
+  <object gid="22" x="480" y="896"/>
+  <object gid="22" x="512" y="896"/>
+  <object gid="22" x="512" y="864"/>
+  <object gid="22" x="512" y="832"/>
+  <object gid="22" x="512" y="800"/>
+  <object gid="22" x="128" y="928"/>
+  <object gid="22" x="1280" y="352"/>
+  <object gid="22" x="1280" y="384"/>
+  <object gid="12" x="32" y="704"/>
+  <object gid="12" x="32" y="736"/>
+ </objectgroup>
+ <objectgroup name="Tools" width="44" height="32"/>
+ <objectgroup name="Parameters" width="44" height="32">
+  <properties>
+   <property name="time" value="240"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

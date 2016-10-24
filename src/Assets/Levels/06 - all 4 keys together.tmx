@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="17" height="32" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="17" height="32">
+  <data encoding="base64" compression="zlib">
+   eJy1U0EOgDAIwxn9gQ/wAf7/e55MJhm0wHYgmg1KR0sTkTY5ti6a+vbnqD6bo3tbPCwcdM/keb1G89EcNQbLlcGIaIEwTnAf5XEFMb7/OzGPii5I94rPWJ96u+D1WrW3o3gSNZYmUQ5VjD5vl78/RzNmOFhnqzH6N+i4iFq0IwyXKoanJavzDAw0VzRP5EvGtxGMYwJGdgdRvObMA/Y=
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="17" height="32">
+  <object gid="7" x="480" y="960"/>
+  <object gid="7" x="224" y="960"/>
+ </objectgroup>
+ <objectgroup name="Items" width="17" height="32">
+  <object gid="8" x="256" y="576">
+   <properties>
+    <property name="Text" value="Yellow keys only open yellow doors.\nRed keys only open red doors.\nAnd so on.\n\nGod bless me for such an intuitive system."/>
+   </properties>
+  </object>
+  <object gid="22" x="352" y="224"/>
+  <object gid="4" x="128" y="640"/>
+  <object gid="4" x="352" y="576"/>
+  <object gid="22" x="384" y="640"/>
+  <object gid="22" x="416" y="800"/>
+  <object gid="22" x="320" y="960"/>
+  <object gid="4" x="64" y="832"/>
+  <object gid="46" x="160" y="960"/>
+  <object gid="34" x="352" y="288"/>
+  <object gid="8" x="256" y="320">
+   <properties>
+    <property name="Text" value="By the way, did you notice that each level has a password? Write down the passwords if you want to pick up where you left off."/>
+   </properties>
+  </object>
+  <object gid="8" x="256" y="384">
+   <properties>
+    <property name="Text" value="I used to force people to go around this corridor again and again, but people complained and there were incidents.\nYou win, you lazy idiots. Less exercise."/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="17" height="32"/>
+ <objectgroup name="Parameters" width="17" height="32">
+  <properties>
+   <property name="time" value="280"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

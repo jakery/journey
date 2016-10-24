@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="6" height="7" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="6" height="7">
+  <data encoding="base64" compression="zlib">
+   eJxjYmBgYMKBWaE0G5o4IxLNiEUcFxubenQxXBgAHXAAUQ==
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="6" height="7"/>
+ <objectgroup name="Items" width="6" height="7">
+  <object gid="8" x="64" y="192">
+   <properties>
+    <property name="Text" value="Cheater. I thought of people like you."/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="6" height="7"/>
+ <objectgroup name="Parameters" width="6" height="7">
+  <properties>
+   <property name="time" value="0"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

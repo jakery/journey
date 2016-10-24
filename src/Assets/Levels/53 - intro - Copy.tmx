@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="85" height="167" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="85" height="167">
+  <data encoding="base64" compression="zlib">
+   eJztnNFq6zAMQLPCHexx+4z7dgvd/3/aZbCCEbIjJ44luefhsM7JUvlIdhqn2X3btrvgprSNar/BcN4KtLaSu9gvC7X+eCBjuon2qLnv3W+2w4hOI+e+N//eTt8H5L52Drm6fa9v5P5crFGcZsl9y6lWB56xZsq95RwlPXvF+SdB7ls5jeg0Q+73nGp59x5T0XMv3UmHWZxGjDOD0yxxZoo1S5yZYs0SZy1WS+wR4ozqNAtZcg8AAACwGlfdx+f+/jxa65KfW/2zdSYs1wuz+BReb8XPTHg61Op0BaeeOdSc1tYosjLj/v5nwbNdayt9e3uJTqtONX84Pe5Ubltl7Hs6le5w2u91rw2nY5xqYx6nNp+1eROnOI0CTnGaAes6QOs6AAAAAAAAwBO+M+HPj5d/ClZfrXX++1a/Vs1E7z35p9Oy7em091g1d9nvR41yOsrhCk57adVpbw5lm6z1FZxavgNhmU9X+J8Is73XsDqq1anm7xWcnqXmVG5bZex7OpXucNrvda8Np2OcamMepzaftXkTpziNAk5xmgHrOkDrOgAArmFvba7nGN59iQJOcZoBy7nZet727os3tTW3M04jciS+o3Vytq4yOj3avxl1mtmptr01D+J0fKx7Hsv7Sdp7tPaX96Iev2Rw+v3L87XWp6NO9+pU/t66bzqiTo/Mb2fq1NKf3hhb79dyWrat4LTVH5z6Oz069rUYyjnqDHt57u2XxnPuj+RU8ij2eWz1eI7W1fvA430Ur78r/bnaabmt9T0UeS4dgVZbZ5F1WmNWnVpo1WnvnHh039b+H4Zj9bzP0TodwSjPPX8zMv6jfR7t7y5eP7fL12cctI6rvc7uNCI4ze10dH6i4u0Gp3Hw9oZTnOIUAABmMPtZ80ztR56pgzrl54S99VT5ecL7c01kah6lu1ulHXSf5Zi3Oo1EpLhKr3v114q9Ng/PapdxeceTtR6ixqWd77U59UweXtGpNp9Kt8ynfU5rdarFHCn2qE5r8WRxWjtHeVNzqo35aLG3+uAZS23ezOzU81y6qlPvWDI7jTifZnda9sM7hpZTi+NoRJpPVyFqrjMScT5dBZxe75T5dLxTOA7z6XXgFKferr4ElmsU6Pdsue4rf7aO492f2fw811jWpsXp19Z2Sl2fq6k35Rg4bfuw8nfTa/eVnZZeR+Sl1QYAAAAAAHAVs5878u7viuxdW77i+sjZdRCLO20NdWWudviKTkfmZC9PKzjluaOc9K5/4tTm9Pl/N6W3Fcf+LKd75yjp2TvmDFjGOE7HONXGPE5tPmvzJk5xGgWc4jQD1nWA1nUAAAAAAAAAAAAAwAz+A8issR0=
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="85" height="167"/>
+ <objectgroup name="Items" width="85" height="167">
+  <object name="t1" gid="37" x="384" y="96">
+   <properties>
+    <property name="destination" value="o1"/>
+   </properties>
+  </object>
+  <object name="o1" gid="43" x="576" y="864"/>
+  <object name="h1" type="help" gid="8" x="992" y="96">
+   <properties>
+    <property name="Text" value="Welcome to Jake's Journey! The object is to get to the exits. Don't screw up!"/>
+   </properties>
+  </object>
+  <object name="o2" gid="43" x="576" y="896"/>
+  <object name="t2" gid="37" x="384" y="128">
+   <properties>
+    <property name="destination" value="o2"/>
+   </properties>
+  </object>
+  <object name="t3" gid="37" x="384" y="864">
+   <properties>
+    <property name="destination" value="o1"/>
+   </properties>
+  </object>
+  <object name="t4" gid="37" x="384" y="896">
+   <properties>
+    <property name="destination" value="o2"/>
+   </properties>
+  </object>
+  <object gid="8" x="992" y="864">
+   <properties>
+    <property name="Text" value="Welcome to Jake's Journey. The object is to push the red button. Don't screw up!"/>
+   </properties>
+  </object>
+  <object gid="44" x="352" y="1696"/>
+  <object gid="44" x="352" y="1664"/>
+  <object gid="44" x="320" y="1664"/>
+  <object gid="44" x="320" y="1696"/>
+  <object gid="44" x="288" y="1696"/>
+  <object gid="44" x="288" y="1664"/>
+  <object gid="44" x="256" y="1664"/>
+  <object gid="44" x="256" y="1696"/>
+  <object gid="44" x="224" y="1696"/>
+  <object gid="44" x="224" y="1664"/>
+  <object gid="44" x="192" y="1664"/>
+  <object gid="44" x="192" y="1696"/>
+  <object gid="44" x="160" y="1696"/>
+  <object gid="44" x="160" y="1664"/>
+  <object gid="44" x="128" y="1664"/>
+  <object gid="44" x="128" y="1696"/>
+  <object gid="44" x="96" y="1696"/>
+  <object gid="44" x="96" y="1664"/>
+  <object gid="44" x="64" y="1664"/>
+  <object gid="44" x="64" y="1696"/>
+  <object gid="44" x="32" y="1696"/>
+  <object gid="44" x="32" y="1664"/>
+  <object gid="44" x="0" y="1664"/>
+  <object gid="44" x="0" y="1696"/>
+  <object gid="44" x="1152" y="928"/>
+  <object gid="44" x="1152" y="832"/>
+  <object gid="44" x="1184" y="896"/>
+  <object gid="44" x="1184" y="928"/>
+  <object gid="44" x="1216" y="928"/>
+  <object gid="44" x="1216" y="896"/>
+  <object gid="44" x="1216" y="864"/>
+  <object gid="44" x="1184" y="864"/>
+  <object gid="44" x="1184" y="832"/>
+  <object gid="44" x="1216" y="832"/>
+  <object gid="44" x="1248" y="832"/>
+  <object gid="44" x="1280" y="832"/>
+  <object gid="44" x="1280" y="864"/>
+  <object gid="44" x="1280" y="896"/>
+  <object gid="44" x="1280" y="928"/>
+  <object gid="44" x="1280" y="960"/>
+  <object gid="44" x="1280" y="992"/>
+  <object gid="44" x="1280" y="1024"/>
+  <object gid="44" x="1280" y="1056"/>
+  <object gid="44" x="1280" y="1088"/>
+  <object gid="44" x="1280" y="1120"/>
+  <object gid="44" x="1280" y="1152"/>
+  <object gid="44" x="1280" y="1184"/>
+  <object gid="44" x="1056" y="1056"/>
+  <object gid="44" x="1056" y="1024"/>
+  <object gid="44" x="1056" y="992"/>
+  <object gid="44" x="1088" y="992"/>
+  <object gid="44" x="1120" y="992"/>
+  <object gid="44" x="1120" y="1024"/>
+  <object gid="44" x="1152" y="1024"/>
+  <object gid="44" x="1184" y="1024"/>
+  <object gid="44" x="1216" y="1024"/>
+  <object gid="44" x="1216" y="1056"/>
+  <object gid="44" x="1216" y="1088"/>
+  <object gid="44" x="1216" y="1120"/>
+  <object gid="44" x="1216" y="1152"/>
+  <object gid="44" x="1216" y="1184"/>
+  <object gid="44" x="1152" y="1184"/>
+  <object gid="44" x="1152" y="1152"/>
+  <object gid="44" x="1152" y="1120"/>
+  <object gid="44" x="1120" y="1120"/>
+  <object gid="44" x="1120" y="1152"/>
+  <object gid="44" x="1120" y="1184"/>
+  <object gid="44" x="1088" y="1152"/>
+  <object gid="44" x="1088" y="1184"/>
+  <object gid="44" x="1088" y="1120"/>
+  <object gid="44" x="1088" y="1088"/>
+  <object gid="44" x="1088" y="1056"/>
+  <object gid="44" x="928" y="1056"/>
+  <object gid="44" x="960" y="1056"/>
+  <object gid="44" x="960" y="1024"/>
+  <object gid="44" x="960" y="992"/>
+  <object gid="44" x="928" y="992"/>
+  <object gid="44" x="896" y="992"/>
+  <object gid="44" x="896" y="1024"/>
+  <object gid="44" x="896" y="1056"/>
+  <object gid="44" x="928" y="1088"/>
+  <object gid="44" x="928" y="1120"/>
+  <object gid="44" x="896" y="1152"/>
+  <object gid="44" x="928" y="1152"/>
+  <object gid="44" x="960" y="1152"/>
+  <object gid="44" x="992" y="1152"/>
+  <object gid="44" x="1024" y="1152"/>
+  <object gid="44" x="1024" y="1184"/>
+  <object gid="44" x="992" y="1184"/>
+  <object gid="44" x="960" y="1184"/>
+  <object gid="44" x="928" y="1184"/>
+  <object gid="44" x="896" y="1184"/>
+  <object name="h1" type="help" gid="8" x="992" y="1664">
+   <properties>
+    <property name="Text" value="Welcome to recursion!"/>
+   </properties>
+  </object>
+  <object gid="31" x="320" y="2528"/>
+  <object gid="8" x="1248" y="2592">
+   <properties>
+    <property name="Text" value="If he pushed the button while you were in the chamber, then you already know."/>
+   </properties>
+  </object>
+  <object gid="8" x="608" y="2368"/>
+  <object gid="52" x="608" y="2464"/>
+  <object gid="51" x="608" y="2400"/>
+  <object gid="8" x="1376" y="2592"/>
+  <object gid="32" x="1248" y="2656"/>
+  <object gid="32" x="1376" y="2656"/>
+  <object name="t8" gid="37" x="1120" y="3552">
+   <properties>
+    <property name="destination" value="o6"/>
+   </properties>
+  </object>
+  <object name="o6" gid="43" x="1120" y="3680"/>
+  <object gid="15" x="896" y="4064"/>
+  <object gid="15" x="1472" y="4000"/>
+  <object name="t9" gid="37" x="800" y="3904">
+   <properties>
+    <property name="destination" value="o7"/>
+   </properties>
+  </object>
+  <object gid="8" x="1248" y="3968">
+   <properties>
+    <property name="Text" value="Ignore this thing."/>
+   </properties>
+  </object>
+  <object name="t5" gid="37" x="1088" y="928">
+   <properties>
+    <property name="destination" value="o3"/>
+   </properties>
+  </object>
+  <object name="o3" gid="43" x="1088" y="1728"/>
+  <object name="t6" gid="37" x="480" y="1696">
+   <properties>
+    <property name="destination" value="o4"/>
+   </properties>
+  </object>
+  <object name="t7" gid="37" x="1280" y="2592">
+   <properties>
+    <property name="destination" value="o5"/>
+   </properties>
+  </object>
+  <object name="o5" gid="43" x="2624" y="3264"/>
+  <object name="o4" gid="43" x="480" y="2528"/>
+  <object gid="24" x="1248" y="4000"/>
+  <object gid="24" x="1280" y="4000"/>
+  <object gid="24" x="1280" y="3968"/>
+  <object gid="24" x="1280" y="3936"/>
+  <object gid="8" x="1280" y="4416">
+   <properties>
+    <property name="Text" value="That's really all there is to it."/>
+   </properties>
+  </object>
+  <object gid="8" x="1280" y="4864">
+   <properties>
+    <property name="Text" value="Are you sensing a pattern?"/>
+   </properties>
+  </object>
+  <object name="h1" type="help" gid="8" x="992" y="4448">
+   <properties>
+    <property name="Text" value="Welcome to Jake's Journey! The object is to get to the exits. Don't screw up!"/>
+   </properties>
+  </object>
+  <object gid="26" x="1024" y="4448">
+   <properties>
+    <property name="callback" value="corrupt"/>
+    <property name="destroyOnUse" value="true"/>
+   </properties>
+  </object>
+  <object name="o7" gid="43" x="608" y="4480"/>
+  <object gid="8" x="1120" y="4832">
+   <properties>
+    <property name="Text" value="It's obvious you've done this before. You're going to do great."/>
+   </properties>
+  </object>
+  <object gid="8" x="960" y="4800">
+   <properties>
+    <property name="Text" value="It's obvious you've done this before. You're going to do great."/>
+   </properties>
+  </object>
+  <object gid="8" x="928" y="4608">
+   <properties>
+    <property name="Text" value="You're going to do great."/>
+   </properties>
+  </object>
+  <object gid="8" x="1216" y="4608">
+   <properties>
+    <property name="Text" value="Are you sensing a pattern?"/>
+   </properties>
+  </object>
+  <object gid="8" x="1056" y="4576">
+   <properties>
+    <property name="Text" value="Press &quot;P&quot; to panic."/>
+   </properties>
+  </object>
+  <object name="o8" gid="43" x="608" y="4448"/>
+  <object gid="5" x="192" y="2624"/>
+  <object gid="1" x="384" y="128"/>
+  <object gid="1" x="384" y="96"/>
+  <object gid="1" x="576" y="896"/>
+  <object gid="1" x="576" y="864"/>
+  <object gid="1" x="384" y="896"/>
+  <object gid="1" x="384" y="864"/>
+  <object gid="1" x="1088" y="928"/>
+  <object gid="16" x="1088" y="928"/>
+  <object gid="1" x="480" y="1696"/>
+  <object gid="31" x="480" y="1696"/>
+  <object gid="1" x="1088" y="1728"/>
+  <object gid="1" x="480" y="2528"/>
+  <object gid="6" x="1280" y="2592"/>
+  <object gid="1" x="2624" y="3264"/>
+  <object name="t12" gid="37" x="1952" y="3200">
+   <properties>
+    <property name="destination" value="o9"/>
+   </properties>
+  </object>
+  <object name="o9" gid="43" x="1376" y="3200"/>
+  <object name="t13" gid="37" x="1952" y="3168">
+   <properties>
+    <property name="destination" value="o10"/>
+   </properties>
+  </object>
+  <object name="o10" gid="43" x="1376" y="3168"/>
+  <object name="t14" gid="37" x="608" y="3200">
+   <properties>
+    <property name="destination" value="o9"/>
+   </properties>
+  </object>
+  <object name="t15" gid="37" x="608" y="3168">
+   <properties>
+    <property name="destination" value="o10"/>
+   </properties>
+  </object>
+  <object name="t16" gid="37" x="1568" y="3200">
+   <properties>
+    <property name="destination" value="o11"/>
+   </properties>
+  </object>
+  <object name="o11" gid="43" x="800" y="3200"/>
+  <object name="t17" gid="37" x="1568" y="3168">
+   <properties>
+    <property name="destination" value="o12"/>
+   </properties>
+  </object>
+  <object name="o12" gid="43" x="800" y="3168"/>
+  <object gid="1" x="1952" y="3200"/>
+  <object gid="1" x="1952" y="3168"/>
+  <object gid="1" x="1568" y="3200"/>
+  <object gid="1" x="1568" y="3168"/>
+  <object gid="1" x="1376" y="3200"/>
+  <object gid="1" x="1376" y="3168"/>
+  <object gid="1" x="800" y="3200"/>
+  <object gid="1" x="800" y="3168"/>
+  <object gid="1" x="608" y="3200"/>
+  <object gid="1" x="608" y="3168"/>
+  <object gid="1" x="1120" y="3552"/>
+  <object gid="1" x="1120" y="3680"/>
+  <object gid="1" x="608" y="4448"/>
+  <object gid="1" x="608" y="4480"/>
+  <object gid="6" x="800" y="3904"/>
+  <object name="h1" type="help" gid="8" x="2336" y="3168">
+   <properties>
+    <property name="Text" value=""/>
+   </properties>
+  </object>
+  <object gid="8" x="1120" y="480">
+   <properties>
+    <property name="Text" value="It's obvious you've done this before. You're going to do great."/>
+   </properties>
+  </object>
+  <object gid="8" x="1216" y="256">
+   <properties>
+    <property name="Text" value="Press and hold the Down (or S) key to sprint downward."/>
+   </properties>
+  </object>
+  <object gid="8" x="1280" y="512">
+   <properties>
+    <property name="Text" value="Press and hold the Up (or W) key to sprint up.\n(Are you sensing a pattern?)"/>
+   </properties>
+  </object>
+  <object gid="8" x="1056" y="224">
+   <properties>
+    <property name="Text" value="Press &quot;P&quot; to pause."/>
+   </properties>
+  </object>
+  <object gid="8" x="960" y="448">
+   <properties>
+    <property name="Text" value="For the new-school crowd, you can also use the W,A,S, and D keys."/>
+   </properties>
+  </object>
+  <object gid="8" x="1280" y="64">
+   <properties>
+    <property name="Text" value="That's really all there is to it."/>
+   </properties>
+  </object>
+  <object gid="8" x="928" y="256">
+   <properties>
+    <property name="Text" value="Use the arrow keys to move around."/>
+   </properties>
+  </object>
+  <object gid="8" x="2304" y="480">
+   <properties>
+    <property name="Text" value="For the new-school crowd, you can also use the W,A,S, and D keys."/>
+   </properties>
+  </object>
+  <object gid="8" x="2624" y="96">
+   <properties>
+    <property name="Text" value="That's really all there is to it."/>
+   </properties>
+  </object>
+  <object gid="8" x="2464" y="512">
+   <properties>
+    <property name="Text" value="It's obvious you've done this before. You're going to do great."/>
+   </properties>
+  </object>
+  <object gid="8" x="2560" y="288">
+   <properties>
+    <property name="Text" value="Press and hold the Down (or S) key to sprint downward."/>
+   </properties>
+  </object>
+  <object gid="8" x="2624" y="544">
+   <properties>
+    <property name="Text" value="Press and hold the Up (or W) key to sprint up.\n(Are you sensing a pattern?)"/>
+   </properties>
+  </object>
+  <object name="h1" type="help" gid="8" x="2336" y="128">
+   <properties>
+    <property name="Text" value="Welcome to Jake's Journey! The object is to get to the exits. Don't screw up!"/>
+   </properties>
+  </object>
+  <object gid="8" x="2272" y="288">
+   <properties>
+    <property name="Text" value="Use the arrow keys to move around."/>
+   </properties>
+  </object>
+  <object gid="8" x="2400" y="256">
+   <properties>
+    <property name="Text" value="Press &quot;P&quot; to pause."/>
+   </properties>
+  </object>
+  <object gid="37" x="2560" y="96">
+   <properties>
+    <property name="destination" value="nooo"/>
+   </properties>
+  </object>
+  <object gid="1" x="2560" y="96"/>
+  <object name="nooo" gid="43" x="1216" y="64"/>
+  <object gid="1" x="1216" y="64"/>
+  <object gid="44" x="928" y="1024"/>
+  <object gid="32" x="2272" y="384">
+   <properties>
+    <property name="Text" value="You should have listened."/>
+   </properties>
+  </object>
+  <object gid="2" x="2656" y="256"/>
+ </objectgroup>
+ <objectgroup name="Tools" width="85" height="167"/>
+ <objectgroup name="Parameters" width="85" height="167">
+  <properties>
+   <property name="time" value="-1"/>
+  </properties>
+ </objectgroup>
+</map>

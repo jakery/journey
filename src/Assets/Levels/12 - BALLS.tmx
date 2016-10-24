@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="25" height="30" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="25" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzdlEsOgCAMRClG9xzA+1/TjSam6Q8sE+KiAbT2zRShllIqIPZ7JPZcW9MrpDzpey1XWvPaZDDODoamO/reY3i1oz185s3pgcewNGs6WjLD0j3C4PU2p2Yvw/qPEYyZQQOB0ITwsbrfqLaI1h4fVu0ZDM93G9wPnn8EtX5haPMMhtSDLEaUz/cik4Hw8RdGxvlYzQf63kXGBRAcBYI=
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="25" height="30">
+  <object gid="9" x="672" y="576">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="9" x="96" y="256">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="9" x="224" y="256">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="9" x="352" y="256">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="9" x="416" y="256">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="9" x="480" y="256">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="9" x="544" y="256">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object gid="9" x="128" y="448">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="9" x="736" y="704">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="9" x="736" y="832">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="9" x="256" y="512">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object gid="9" x="736" y="128"/>
+ </objectgroup>
+ <objectgroup name="Items" width="25" height="30">
+  <object gid="4" x="736" y="160"/>
+  <object gid="16" x="736" y="512"/>
+  <object gid="16" x="736" y="640"/>
+  <object gid="16" x="736" y="768"/>
+  <object gid="16" x="512" y="896"/>
+  <object gid="16" x="512" y="768"/>
+  <object gid="16" x="512" y="640"/>
+  <object gid="28" x="672" y="128"/>
+  <object gid="16" x="32" y="192"/>
+  <object gid="8" x="32" y="128">
+   <properties>
+    <property name="Text" value="I've set up these traps so that you can trap the balls and get through.\nYay, me."/>
+   </properties>
+  </object>
+  <object gid="8" x="288" y="160">
+   <properties>
+    <property name="Text" value="I didn't set up any traps here. I'd tell you why, but it's a long story."/>
+   </properties>
+  </object>
+  <object gid="16" x="160" y="192"/>
+  <object gid="8" x="416" y="416">
+   <properties>
+    <property name="Text" value="When the ball passes to the left, sprint to the right.\n(Press and hold the button to run.)"/>
+   </properties>
+  </object>
+  <object gid="8" x="416" y="544">
+   <properties>
+    <property name="Text" value="You'll have to time this one really well."/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="25" height="30"/>
+ <objectgroup name="Parameters" width="25" height="30">
+  <properties>
+   <property name="time" value="320"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

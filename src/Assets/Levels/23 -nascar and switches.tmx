@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="38" height="39" tilewidth="32" tileheight="32" nextobjectid="43">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="38" height="39">
+  <data encoding="base64" compression="zlib">
+   eJztlrEOgzAMRGmrdutYMTF07P//YKdIyPLhAztxBls6IYxIHmcnYVnmjHuCorluiorL1ucE/0x+FdfcXFJrZy7NAyan5R/JXE+Q7+nXl2QdzXWljrK/tPxIrlXMz6xZlitSe87GnbV/aXmk0Vzs+16uq+uxt1+yl9Ez65s86xGNuxn+sHWO5jqax9NnXi6rTrKuLf8zxvByoXFRv70Nn6K5kA/seo3iYuujXWfh0u5fyVyj9wnU3/t8O5+z+gtJ42Ll5TpS+39hzsORXMjTbL88qqioqIiIP87zB48=
+  </data>
+ </layer>
+ <objectgroup name="Enemies">
+  <object id="1" gid="7" x="608" y="864"/>
+  <object id="2" gid="9" x="384" y="832">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object id="3" gid="9" x="384" y="800">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object id="4" gid="9" x="384" y="768">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object id="5" gid="9" x="384" y="864">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object id="6" gid="7" x="352" y="416"/>
+  <object id="7" gid="25" x="352" y="640"/>
+  <object id="8" gid="9" x="736" y="384">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object id="9" gid="9" x="736" y="512">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+  <object id="10" gid="9" x="704" y="704">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Items">
+  <object id="11" gid="16" x="736" y="800"/>
+  <object id="12" gid="16" x="736" y="768"/>
+  <object id="13" gid="16" x="736" y="832"/>
+  <object id="14" gid="16" x="736" y="864"/>
+  <object id="15" gid="16" x="736" y="896"/>
+  <object id="16" gid="8" x="672" y="960">
+   <properties>
+    <property name="Text" value="This guy was just sitting around so I hired him to drive on these buttons."/>
+   </properties>
+  </object>
+  <object id="17" gid="12" x="544" y="896"/>
+  <object id="18" gid="12" x="480" y="832"/>
+  <object id="19" gid="40" x="608" y="896"/>
+  <object id="20" gid="40" x="608" y="832"/>
+  <object id="21" gid="40" x="608" y="864"/>
+  <object id="22" gid="40" x="608" y="800"/>
+  <object id="23" gid="40" x="608" y="768"/>
+  <object id="24" gid="28" x="640" y="768"/>
+  <object id="25" gid="28" x="672" y="768"/>
+  <object id="26" gid="28" x="704" y="768"/>
+  <object id="27" gid="28" x="672" y="896"/>
+  <object id="28" gid="28" x="640" y="896"/>
+  <object id="29" gid="28" x="704" y="896"/>
+  <object id="30" gid="8" x="416" y="384">
+   <properties>
+    <property name="Text" value="I did NOT pay this guy. He just showed up one day and now he won't leave."/>
+   </properties>
+  </object>
+  <object id="31" gid="22" x="288" y="672"/>
+  <object id="32" gid="34" x="480" y="384"/>
+  <object id="33" gid="4" x="416" y="224"/>
+  <object id="34" gid="12" x="384" y="96"/>
+  <object id="35" gid="12" x="64" y="352"/>
+  <object id="36" gid="12" x="704" y="608"/>
+  <object id="37" gid="8" x="224" y="736">
+   <properties>
+    <property name="Text" value="This guy's on the payroll, but I don't know what he does."/>
+   </properties>
+  </object>
+  <object id="38" gid="8" x="480" y="928">
+   <properties>
+    <property name="Text" value="Oh, by the way. If you're standing on a block when it turns into a wall, you kind of die."/>
+   </properties>
+  </object>
+  <object id="39" gid="8" x="576" y="352">
+   <properties>
+    <property name="Text" value="Did we ever go over pushing blocks to trap enemies so that you can get through?\n\nWe didn't?\n\nOh, well, good luck."/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools">
+  <object id="40" gid="15" x="704" y="352"/>
+  <object id="41" gid="15" x="704" y="192"/>
+ </objectgroup>
+ <objectgroup name="Parameters">
+  <properties>
+   <property name="time" value="500"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

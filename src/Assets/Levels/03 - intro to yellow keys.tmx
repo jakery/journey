@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="41" height="29" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="41" height="29">
+  <data encoding="base64" compression="zlib">
+   eJzt1d0KwCAIBeB+2N7/kXcVyMg0R55zsQuhUcMPyWyllPbHNKoItGVlY3RqPiYru9Hjq+Iso+1tzKprxNcm36y+00ZvT6B6Zzcvk8/Kjbp/Y68n5I/WT9tn88no4h+kz3v+VG1W88Cb906wjehBY5Zv9hYj7pZ25sTd+uK7DFv2O6L1g7ZGG2U/rIyZPq0+1szINnryo2ea5tiZdUxOtM+yok2s8QDxpAhM
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="41" height="29"/>
+ <objectgroup name="Items" width="41" height="29">
+  <object gid="4" x="288" y="672"/>
+  <object gid="4" x="512" y="640"/>
+  <object gid="4" x="1184" y="192"/>
+  <object gid="4" x="1248" y="224"/>
+  <object gid="8" x="224" y="736">
+   <properties>
+    <property name="Text" value="Oh, look. A locked door. Let's find something to open it with. I don't know what that &quot;something&quot; would be. Please don't insinuate otherwise."/>
+   </properties>
+  </object>
+  <object gid="8" x="352" y="576">
+   <properties>
+    <property name="Text" value="If you don't have one of those yellow things, try finding one."/>
+   </properties>
+  </object>
+  <object gid="8" x="864" y="512">
+   <properties>
+    <property name="Text" value="Holy cow. You're good at this."/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="41" height="29"/>
+ <objectgroup name="Parameters" width="41" height="29">
+  <properties>
+   <property name="time" value="120"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>

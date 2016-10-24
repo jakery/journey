@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="15" height="24" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="15" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxjYmBgYBrFNMeMFGBSzCXFXkLq8NnJhMMMQuZh42MTR8bMSGpYkdSwEelfcu3FhXkJ+JeQO/DFCyGzcLmZHP8Q42Zy0uQoph4GAAVlAn0=
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="15" height="24">
+  <object gid="9" x="64" y="224">
+   <properties>
+    <property name="direction" value="right"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Items" width="15" height="24">
+  <object gid="12" x="256" y="320"/>
+  <object gid="12" x="384" y="352"/>
+  <object gid="12" x="448" y="480"/>
+  <object gid="12" x="32" y="512"/>
+  <object gid="12" x="160" y="544"/>
+  <object gid="12" x="128" y="480"/>
+  <object gid="4" x="224" y="256"/>
+  <object gid="8" x="192" y="352">
+   <properties>
+    <property name="Text" value="I called tech support but the line was busy. Then I remembered that I am tech support.\nJust keep playing, I guess."/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="15" height="24"/>
+ <objectgroup name="Parameters" width="15" height="24">
+  <properties>
+   <property name="time" value="160"/>
+   <property name="wrapAround" value="true"/>
+  </properties>
+ </objectgroup>
+</map>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="15" height="12" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="15" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYmBgYKIQMyJhGJ8VTRxdDbJedDOwqWPCoxcXH5ccMe7Cp5eYcGDEo5eQ/bjEsJlBiptx6SXWzcSaTSg88IlRmhYBovMBIw==
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="15" height="12">
+  <object name="e1" type="smartPredator" gid="11" x="192" y="352">
+   <properties>
+    <property name="direction" value="up"/>
+    <property name="type" value="smartPredator"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Items" width="15" height="12"/>
+ <objectgroup name="Tools" width="15" height="12"/>
+ <objectgroup name="Properties" width="15" height="12"/>
+</map>

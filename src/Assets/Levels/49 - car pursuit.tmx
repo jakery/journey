@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="80" height="41" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="devgraphics.tsx"/>
+ <layer name="Map" width="80" height="41">
+  <data encoding="base64" compression="zlib">
+   eJztl71uwzAMhB0D7dYhgItOmTplKjI47/9omQwIBO9ESnJEuR4OruXoh5+OlPqYpulx6tSpkJoDrGE0zUC91xWBiYfXf+ZojV9+u2Z0ZIZeH2m6kG9H5GfhsamW41W8947dwsXyG8noAtoQT/n7TVdFjF8ktpa1SK/Ip+SjcURe+1HaPHW0J0sth6z8kA+1MRk/lu9oHZ9ivqUTQxQD2m8Ua86HFr968yDn61wsLA9n0mdW2q01X6tdGgfL32he635b+b1DpfNrZ4O1XeNuzZmU3xfY17313Wgcjae1XbZ5z7va/Y8kVvNa8tMYsvFLz+5e7FhMrfixewFj8qiYa0+mpedvLT+tHtaM1YshO39z+dWCnyUfR2JY6r9WDEdjhxhKPnvxS2MblZ1kKP2nnTGt+Y3OrpZ1RH69GXn5RWFYGtMTaCF90P8lLG+j8qupTxu/Eh9p7+zcRX0js2Oxpc91wp7yjuXhN0LOlsSK4r8l39ndZWT/3RPtxU/bm9y9OZr/0Pru4unlx/L3JsTOicj8ULx/yfr24Cf1q/RJ+66JFmW+KPw+OvHL5etK+kRhiPxXc1Za2KH6J+vgE3yLWv+sd7OW/Ly+jMAPMWReYO+5MZAsc0Zkx/hZvNNSnvteFHaWXH4nv5xHI/MrYejp23K/enOqYWrt03LfasaOoB5rHpHT0fQCx1xVgA==
+  </data>
+ </layer>
+ <objectgroup name="Enemies" width="80" height="41">
+  <object gid="27" x="1024" y="1056"/>
+  <object gid="27" x="2176" y="224"/>
+  <object gid="27" x="1696" y="864"/>
+ </objectgroup>
+ <objectgroup name="Items" width="80" height="41">
+  <object gid="40" x="960" y="1152"/>
+  <object gid="52" x="1408" y="864"/>
+  <object gid="12" x="1504" y="992"/>
+  <object gid="12" x="1472" y="960"/>
+  <object gid="12" x="1536" y="1024"/>
+  <object gid="28" x="1824" y="864"/>
+  <object gid="51" x="2144" y="1056"/>
+  <object gid="12" x="2208" y="736"/>
+  <object gid="12" x="2272" y="800"/>
+  <object gid="12" x="2208" y="800"/>
+  <object gid="12" x="2272" y="736"/>
+  <object gid="16" x="2240" y="256"/>
+  <object gid="22" x="1248" y="352"/>
+  <object gid="12" x="288" y="544"/>
+  <object gid="12" x="288" y="576"/>
+  <object gid="12" x="288" y="608"/>
+  <object gid="12" x="256" y="608"/>
+  <object gid="12" x="224" y="608"/>
+  <object gid="12" x="224" y="576"/>
+  <object gid="12" x="224" y="544"/>
+  <object gid="8" x="128" y="416">
+   <properties>
+    <property name="Text" value="Why didn't you tell me you became a majestic gazelle?\nDon't hide your gift."/>
+   </properties>
+  </object>
+  <object gid="8" x="960" y="1024">
+   <properties>
+    <property name="Text" value="Oh, there you are! I was wondering how far you'd gotten.\n\nThis is a security system to protect the exit from slow people. "/>
+   </properties>
+  </object>
+  <object gid="8" x="1824" y="1024">
+   <properties>
+    <property name="Text" value="This is a security system against people who are faster than slow people, but still slow."/>
+   </properties>
+  </object>
+  <object gid="8" x="2240" y="384">
+   <properties>
+    <property name="Text" value="This is a security system against people who could be construed as fast but are still slow."/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Tools" width="80" height="41">
+  <object gid="15" x="960" y="1120"/>
+  <object gid="15" x="1824" y="896"/>
+  <object gid="15" x="2240" y="288"/>
+ </objectgroup>
+ <objectgroup name="Parameters" width="80" height="41">
+  <properties>
+   <property name="tileset" value="dungeon"/>
+   <property name="time" value="-1"/>
+   <property name="wrapAround" value="false"/>
+  </properties>
+ </objectgroup>
+</map>
