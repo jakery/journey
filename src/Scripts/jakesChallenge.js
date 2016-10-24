@@ -220,6 +220,13 @@ function doPreWork(bypassTouchscreen) {
         return false;
     }
 
+    // Check for file:/// 
+    if (window.location.protocol === 'file:') {
+	$j("#main").before("<div class='errorPanel'><h1>Running this game directly from the filesystem is unsupported.</h1><p>You are running this game directly from your filesystem. (file:///). This won't work, because file:/// doesn't support AJAX, and this game needs AJAX to load the levels. Instead, you can install NodeJS and run this game using \"npm start dev\", or you can spin up your own local web server and host this project in there.</p></div>");
+	$j("#main").hide();
+	return false;
+    }
+
     // Turn off padding to make game fit in small monitors.
     $j("#main").css("padding", "0px");
 
