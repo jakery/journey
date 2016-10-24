@@ -15,7 +15,8 @@
     "game"
   ],
   "author": "Jacob King",
-  "license": "ISC",
+  "license": "UNLICENSED",
+  "private": true,
   "bugs": {
     "url": "https://github.com/jakery/journey/issues"
   },
