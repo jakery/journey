@@ -1,0 +1,26 @@
+{
+  "name": "journey",
+  "version": "1.0.0",
+  "description": "The Jake's Journey video game engine.",
+  "main": "index.html",
+  "scripts": {
+    "dev": "lite-server",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakery/journey.git"
+  },
+  "keywords": [
+    "game"
+  ],
+  "author": "Jacob King",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jakery/journey/issues"
+  },
+  "homepage": "https://github.com/jakery/journey#readme",
+  "devDependencies": {
+    "lite-server": "^2.2.2"
+  }
+}
