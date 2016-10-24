@@ -5,7 +5,8 @@
   "main": "index.html",
   "scripts": {
     "dev": "lite-server",
-    "test": "test"
+    "test": "test",
+    "lint" : "node ./node_modules/eslint/bin/eslint.js './src/**/*.js'"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,10 @@
   },
   "homepage": "https://github.com/jakery/journey#readme",
   "devDependencies": {
+    "eslint": "^3.8.1",
+    "eslint-config-standard": "^6.2.0",
+    "eslint-plugin-promise": "^3.3.0",
+    "eslint-plugin-standard": "^2.0.1",
     "lite-server": "^2.2.2"
   }
 }
