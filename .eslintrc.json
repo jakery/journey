@@ -15,12 +15,14 @@
     "globals": {
         "document": false,
         "window": false,
-        "tileCodes": true,
-        "SpriteNS": true,
+        "jQuery": false,
         "$j": false,
         "$": false,
+        "tileCodes": true,
+        "SpriteNS": true,
         "randomMessages": true,
         "loadMap": true,
-        "alert": false
+        "alert": false,
+        "CanvasRenderingContext2D": false
     }
 }
