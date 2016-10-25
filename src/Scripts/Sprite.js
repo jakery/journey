@@ -1,5 +1,7 @@
 const baseUnit = 32;
-
+const halfBaseUnit = baseUnit / 2;
+const maxPasswordLength = 11;
+const keyboardRepeatTickDelay = 10;
 const SpriteNS = {
   Inventory: function Inventory() {
     this.yellowKeys = 0;
@@ -178,76 +180,76 @@ SpriteNS.Sprite = function () {
 
 
     // Wall.
-    if (destinationTileType == 2 || destinationTileType == tileCodes.futureFloor) {
+    if (destinationTileType == tileCodes.wall || destinationTileType == tileCodes.futureFloor) {
       return false;
     }
 
     // Disappearing red wall.
-    if (destinationTileType == 17 && !game.redSwitch) {
+    if (destinationTileType == tileCodes.dRedBlockInactive && !game.redSwitch) {
       return false;
     }
 
     // Appearing red wall.
-    if (destinationTileType == 23 && game.redSwitch) {
+    if (destinationTileType == tileCodes.aRedBlockInactive && game.redSwitch) {
       return false;
     }
 
     // Disappearing yellow wall.
-    if (destinationTileType == 29 && !game.yellowSwitch) {
+    if (destinationTileType == tileCodes.dYellowBlockInactive && !game.yellowSwitch) {
       return false;
     }
 
     // Appearing yellow wall.
-    if (destinationTileType == 35 && game.yellowSwitch) {
+    if (destinationTileType == tileCodes.aYellowBlockInactive && game.yellowSwitch) {
       return false;
     }
 
     // Disappearing green wall.
-    if (destinationTileType == 41 && !game.greenSwitch) {
+    if (destinationTileType == tileCodes.dGreenBlockInactive && !game.greenSwitch) {
       return false;
     }
 
     // Appearing green wall.
-    if (destinationTileType == 47 && game.greenSwitch) {
+    if (destinationTileType == tileCodes.aGreenBlockInactive && game.greenSwitch) {
       return false;
     }
 
     // Brown toggle wall.
-    if (destinationTileType == 53 && game.brownSwitch) {
+    if (destinationTileType == tileCodes.brownBlockInactive && game.brownSwitch) {
       return false;
     }
 
     // Brown toggle off wall.
-    if (destinationTileType == 54 && !game.brownSwitch) {
+    if (destinationTileType == tileCodes.brownBlockActive && !game.brownSwitch) {
       return false;
     }
 
     // Yellow Door.
-    if (destinationTileType == 3) {
+    if (destinationTileType == tileCodes.yellowDoor) {
       // Player has key.
       return this.inventory.yellowKeys > 0;
     }
 
     // Red Door.
-    if (destinationTileType == 21) {
+    if (destinationTileType == tileCodes.redDoor) {
       // Player has key.
       return this.inventory.redKeys > 0;
     }
 
     // Cyan Door.
-    if (destinationTileType == 33) {
+    if (destinationTileType == tileCodes.cyanDoor) {
       // Player has key.
       return this.inventory.cyanKeys > 0;
     }
 
     // Green Door.
-    if (destinationTileType == 45) {
+    if (destinationTileType == tileCodes.greenDoor) {
       // Player has key.
       return this.inventory.greenKeys > 0;
     }
 
     // Toll block.
-    if (destinationTileType == 13) {
+    if (destinationTileType == tileCodes.toll) {
       // Player has the toll.
       return this.inventory.money >= game.moneyCount;
     }
@@ -392,12 +394,12 @@ SpriteNS.Sprite = function () {
     const tileType = game.map.getTileTypeByCoords(this.position.x, this.position.y);
 
     // Normal.
-    if (tileType == 1) {
+    if (tileType == tileCodes.floor) {
       return;
     }
 
     // Yellow Door.
-    if (tileType == 3) {
+    if (tileType == tileCodes.yellowDOor) {
       // Player has a key.
       if (this.inventory.yellowKeys > 0) {
         // Unlock door.
@@ -412,7 +414,7 @@ SpriteNS.Sprite = function () {
     }
 
     // Red Door.
-    if (tileType == 21) {
+    if (tileType == tileCodes.redDoor) {
       // Player has a key.
       if (this.inventory.redKeys > 0) {
         // Unlock door.
@@ -427,7 +429,7 @@ SpriteNS.Sprite = function () {
     }
 
     // Cyan Door.
-    if (tileType == 33) {
+    if (tileType == tileCodes.cyanDoor) {
       // Player has a key.
       if (this.inventory.cyanKeys > 0) {
         // Unlock door.
@@ -442,7 +444,7 @@ SpriteNS.Sprite = function () {
     }
 
     // Cyan Door.
-    if (tileType == 45) {
+    if (tileType == tileCodes.cyanDoor) {
       // Player has a key.
       if (this.inventory.greenKeys > 0) {
         // Unlock door.
@@ -465,7 +467,7 @@ SpriteNS.Sprite = function () {
     }
 
     // Water & death.
-    if (tileType == 20) {
+    if (tileType == tileCodes.water) {
       // Balls are immune to water death.
       // if (this.subType != "ball") {
 
@@ -527,7 +529,7 @@ SpriteNS.Sprite = function () {
           if (keyIsDown[alphanumericTX[i]] && !keyIsRegistered[alphanumericTX[i]]) {
             keyIsRegistered[alphanumericTX[i]] = true;
 
-            if (enteredPassword.length < 11) {
+            if (enteredPassword.length < maxPasswordLength) {
               enteredPassword += alphanumeric[i];
             }
           }
@@ -605,14 +607,14 @@ SpriteNS.Sprite = function () {
         let stopCheck = false;
 
         stopCheck =
-          this.checkInputAndExecute('A', 10, this.goForward, ['left']) ||
-          this.checkInputAndExecute('D', 10, this.goForward, ['right']) ||
-          this.checkInputAndExecute('W', 10, this.goForward, ['up']) ||
-          this.checkInputAndExecute('S', 10, this.goForward, ['down']) ||
-          this.checkInputAndExecute('LEFT', 10, this.goForward, ['left']) ||
-          this.checkInputAndExecute('RIGHT', 10, this.goForward, ['right']) ||
-          this.checkInputAndExecute('UP', 10, this.goForward, ['up']) ||
-          this.checkInputAndExecute('DOWN', 10, this.goForward, ['down']);
+          this.checkInputAndExecute('A', keyboardRepeatTickDelay, this.goForward, ['left']) ||
+          this.checkInputAndExecute('D', keyboardRepeatTickDelay, this.goForward, ['right']) ||
+          this.checkInputAndExecute('W', keyboardRepeatTickDelay, this.goForward, ['up']) ||
+          this.checkInputAndExecute('S', keyboardRepeatTickDelay, this.goForward, ['down']) ||
+          this.checkInputAndExecute('LEFT', keyboardRepeatTickDelay, this.goForward, ['left']) ||
+          this.checkInputAndExecute('RIGHT', keyboardRepeatTickDelay, this.goForward, ['right']) ||
+          this.checkInputAndExecute('UP', keyboardRepeatTickDelay, this.goForward, ['up']) ||
+          this.checkInputAndExecute('DOWN', keyboardRepeatTickDelay, this.goForward, ['down']);
       }
 
       else if (game.theEnd) {
@@ -1081,10 +1083,10 @@ SpriteNS.Sprite = function () {
 
     if (this.type == 'player') {
       ctx.save();
-      ctx.translate(this.position.x * 32 + 16 + stage.drawOffset.x, this.position.y * 32 + 16 + stage.drawOffset.y);
+      ctx.translate(this.position.x * baseUnit + halfBaseUnit + stage.drawOffset.x, this.position.y * baseUnit + halfBaseUnit + stage.drawOffset.y);
       ctx.rotate(this.rotation * Math.Radians);
       if (this.imageType == 'image') {
-        ctx.drawImage(this.image, -16, -16);
+        ctx.drawImage(this.image, -halfBaseUnit, -halfBaseUnit);
       }
       ctx.restore();
     } else if (this.type == 'enemy' || this.type == 'item' || this.type == 'tool') {
@@ -1116,10 +1118,10 @@ SpriteNS.Sprite = function () {
       if (this.subType == 'player2') {
         ctx.save();
 
-        ctx.translate(this.position.x * 32 + 16 + stage.drawOffset.x, this.position.y * 32 + 16 + stage.drawOffset.y);
+        ctx.translate(this.position.x * baseUnit + halfBaseUnit + stage.drawOffset.x, this.position.y * baseUnit + halfBaseUnit + stage.drawOffset.y);
         ctx.rotate(this.rotation * Math.Radians);
 
-        ctx.drawImage(player.image, -16, -16);
+        ctx.drawImage(player.image, -halfBaseUnit, -halfBaseUnit);
 
         ctx.restore();
       } else {
