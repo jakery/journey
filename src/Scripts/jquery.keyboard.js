@@ -205,7 +205,7 @@ function konamiCode() {
   return (keyLog.toString() === konami);
 }
 
-(function run(jQuery) {
+(function (jQuery) {
   const $j = jQuery;
   $j.fn.keyboard = function (options) {
     const settings = {
