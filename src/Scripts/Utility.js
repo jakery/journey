@@ -1,27 +1,30 @@
 // Shim for missing console object.
 
-const console = console || {
-  assert() { },
-  clear() { },
-  count() { },
-  debug() { },
-  dir() { },
-  dirxml() { },
-  error() { },
-  exception() { },
-  group() { },
-  groupCollapsed() { },
-  groupEnd() { },
-  info() { },
-  log() { },
-  profile() { },
-  profileEnd() { },
-  table() { },
-  time() { },
-  timeEnd() { },
-  timeStamp() { },
-  trace() { },
-  warn() { },
+let console;
+if (typeof console === 'undefined') {
+  let console = {
+    assert() { },
+    clear() { },
+    count() { },
+    debug() { },
+    dir() { },
+    dirxml() { },
+    error() { },
+    exception() { },
+    group() { },
+    groupCollapsed() { },
+    groupEnd() { },
+    info() { },
+    log() { },
+    profile() { },
+    profileEnd() { },
+    table() { },
+    time() { },
+    timeEnd() { },
+    timeStamp() { },
+    trace() { },
+    warn() { }
+  }
 };
 
 const currencyPattern = /,|$/g;

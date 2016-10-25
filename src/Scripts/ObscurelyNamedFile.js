@@ -24,14 +24,11 @@ const password = [
   'swimtime',
   'buttontime',
   'bounce',
-
   'balltrap',
   'fat',
   'diamond',
   'trimaze',
-
   'pushandgo',
-
   'cockney',
   'normal',
   'whiskey',
@@ -70,7 +67,6 @@ const password = [
   'island',
   'level1',
   'what',
-
   'waitjack',
 ];
 
@@ -82,7 +78,6 @@ function processPassword() {
   // TODO: There's probably a good way to refactor this into a single Regex statement, but I've got bigger fish to fry.
   if (enteredPassword !== 'level' && enteredPassword.indexOf('level') === 0 && enteredPassword.match(/^level[1-5]\s*$/g) === null) {
     // CHEATER!
-
     game.level = -10000;
     loadMap(game.level);
   } else {

@@ -1,9 +1,4 @@
-// / <reference path="../jquery.keyboard.js" />
-
-if (typeof baseUnit == 'undefined') {
-  var baseUnit = 32;
-}
-
+const baseUnit = 32;
 
 const SpriteNS = {
   Inventory: function Inventory() {
@@ -17,19 +12,18 @@ const SpriteNS = {
   Sprite: null,
 };
 
-
 function tileDistanceBetween(coords1, coords2) {
   const xDist = Math.abs(coords1.x - coords2.x);
   const yDist = Math.abs(coords1.y - coords2.y);
   return xDist + yDist;
 }
 
-function areSpritesColliding(s1, s2) {
-  return areColliding(s1.position, s2.position);
-}
-
 function areColliding(pos1, pos2) {
   return pos1.x == pos2.x && pos1.y == pos2.y;
+}
+
+function areSpritesColliding(s1, s2) {
+  return areColliding(s1.position, s2.position);
 }
 
 
@@ -45,9 +39,9 @@ SpriteNS.Sprite = function () {
   this.horizontalOffset = baseUnit * 0;
   this.width = baseUnit * 1;
   this.height = baseUnit * 2;
-  this.image;
-  this.tileGraphic;
-  this.speed;
+  this.image = null;
+  this.tileGraphic = null;
+  this.speed = null;
 
   this.callback = null;
   this.destroyOnUse = false;
@@ -70,14 +64,13 @@ SpriteNS.Sprite = function () {
 
   this.message = '';
 
-
   this.startCountup = false;
   this.ticks = 0;
   this.autoMove = true;
   this.isMoving = false;
   this.isInteracting = false;
   this.isTileInteract = false;
-    // this.interaction = [new Interaction("dialog","<default>")];
+  // this.interaction = [new Interaction("dialog","<default>")];
 
   this.isTeleporting = false;
 
@@ -87,7 +80,6 @@ SpriteNS.Sprite = function () {
   this.gettingPushed = false;
 
   this.destination = null;
-
 
   this.animationFrame = 0;
   this.animationDirection = 1;
@@ -99,8 +91,7 @@ SpriteNS.Sprite = function () {
   this.tileDistanceToSprite = function (sprite) {
     return tileDistanceBetween(this.position, sprite.position);
   };
-
-
+  this.surroundingTiles = null;
   this.getSurroundingTiles = function (coords) {
     const surroundingTiles = {};
     surroundingTiles.up = {
@@ -125,7 +116,7 @@ SpriteNS.Sprite = function () {
       score: null,
 
     };
-        // up
+    // up
     if (game.map.isInBounds(surroundingTiles.up.coords)) {
       surroundingTiles.up.type = game.map.getTileTypeByCoords(surroundingTiles.up.coords.x, surroundingTiles.up.coords.y);
     }
@@ -141,9 +132,6 @@ SpriteNS.Sprite = function () {
     return surroundingTiles;
   };
 
-  this.surroundingTiles;
-
-
   this.pathScope = {
     openList: [],
     closedList: [],
@@ -152,7 +140,6 @@ SpriteNS.Sprite = function () {
   };
 
   this.recursivePathIterations = 0;
-
 
   this.getTarget = function () {
     const targetPosition = new Coordinates(this.position.x, this.position.y);
@@ -184,148 +171,113 @@ SpriteNS.Sprite = function () {
   this.movementAnimationSettings = { easing: 'linear', duration: 200 };
 
   this.canMove = function (coordinates) {
-    if (coordinates == null) {
-      var destination = this.getTarget();
-    } else {
-      var destination = coordinates;
-    }
+    const destination = (coordinates == null) ? this.getTarget() : coordinates;
 
-
-        // Get all tile layers.
-
+    // Get all tile layers.
     const destinationTileType = game.map.getTileTypeByCoords(destination.x, destination.y);
 
 
-        // Water check. (For smartPredators only)
-        // if (this.subType == "smartPredator") {
-        //    if (destinationTileType == 20) {
-        //        return false;
-        //    }
-        // }
-
-        // Wall.
+    // Wall.
     if (destinationTileType == 2 || destinationTileType == tileCodes.futureFloor) {
       return false;
     }
 
-        // Disappearing red wall.
+    // Disappearing red wall.
     if (destinationTileType == 17 && !game.redSwitch) {
       return false;
     }
 
-        // Appearing red wall.
+    // Appearing red wall.
     if (destinationTileType == 23 && game.redSwitch) {
       return false;
     }
 
-        // Disappearing yellow wall.
+    // Disappearing yellow wall.
     if (destinationTileType == 29 && !game.yellowSwitch) {
       return false;
     }
 
-        // Appearing yellow wall.
+    // Appearing yellow wall.
     if (destinationTileType == 35 && game.yellowSwitch) {
       return false;
     }
 
-        // Disappearing green wall.
+    // Disappearing green wall.
     if (destinationTileType == 41 && !game.greenSwitch) {
       return false;
     }
 
-        // Appearing green wall.
+    // Appearing green wall.
     if (destinationTileType == 47 && game.greenSwitch) {
       return false;
     }
 
-
-        // Brown toggle wall.
+    // Brown toggle wall.
     if (destinationTileType == 53 && game.brownSwitch) {
       return false;
     }
 
-        // Brown toggle off wall.
+    // Brown toggle off wall.
     if (destinationTileType == 54 && !game.brownSwitch) {
       return false;
     }
 
-        // Yellow Door.
+    // Yellow Door.
     if (destinationTileType == 3) {
-            // Player has key.
-      if (this.inventory.yellowKeys > 0) {
-        return true;
-      } else {
-        return false;
-      }
+      // Player has key.
+      return this.inventory.yellowKeys > 0;
     }
 
-        // Red Door.
+    // Red Door.
     if (destinationTileType == 21) {
-            // Player has key.
-      if (this.inventory.redKeys > 0) {
-        return true;
-      } else {
-        return false;
-      }
+      // Player has key.
+      return this.inventory.redKeys > 0;
     }
 
-        // Cyan Door.
+    // Cyan Door.
     if (destinationTileType == 33) {
-            // Player has key.
-      if (this.inventory.cyanKeys > 0) {
-        return true;
-      } else {
-        return false;
-      }
+      // Player has key.
+      return this.inventory.cyanKeys > 0;
     }
 
-        // Green Door.
+    // Green Door.
     if (destinationTileType == 45) {
-            // Player has key.
-      if (this.inventory.greenKeys > 0) {
-        return true;
-      } else {
-        return false;
-      }
+      // Player has key.
+      return this.inventory.greenKeys > 0;
     }
 
-        // Toll block.
+    // Toll block.
     if (destinationTileType == 13) {
-            // Player has the toll.
-      if (this.inventory.money >= game.moneyCount) {
-        return true;
-      } else {
-        return false;
-      }
+      // Player has the toll.
+      return this.inventory.money >= game.moneyCount;
     }
 
-        // Check pushblock.
+    // Check pushblock.
     if (this.type == 'player' || this.type == 'enemy') {
-      for (var i = 0; i < game.tools.length; i++) {
+      for (let i = 0; i < game.tools.length; i += 1) {
         if (game.tools[i].subType == 'pushBlock') {
-                    // Sprite is trying to move into pushblock.
+          // Sprite is trying to move into pushblock.
           if (areColliding(destination, game.tools[i].position)) {
-                        // Only player can move pushblocks.
+            // Only player can move pushblocks.
             if (this.type == 'player') {
-                            // If pushblock isn't stuck, will get pushed.
+              // If pushblock isn't stuck, will get pushed.
               game.tools[i].direction = this.direction;
               if (game.tools[i].canMove()) {
                 game.tools[i].gettingPushed = true;
                 return true;
               }
             }
-
-                        // Pushblock is stuck or sprite is not player.
+            // Pushblock is stuck or sprite is not player.
             return false;
           }
         }
       }
     }
 
-        // Pushblock recursive checkmove.
+    // Pushblock recursive checkmove.
 
     if (this.subType == 'pushBlock') {
-      for (var i = 0; i < game.tools.length; i++) {
+      for (let i = 0; i < game.tools.length; i += 1) {
         if (game.tools[i].subType == 'pushBlock') {
           if (areColliding(destination, game.tools[i].position)) {
             return false;
@@ -333,17 +285,16 @@ SpriteNS.Sprite = function () {
         }
       }
 
-      for (var i = 0; i < game.enemies.length; i++) {
+      for (let i = 0; i < game.enemies.length; i += 1) {
         if (areColliding(destination, game.enemies[i].position)) {
           return false;
         }
       }
     }
 
-        // All clear. Sprite can move.
+    // All clear. Sprite can move.
     return true;
   };
-
 
   this.turn = function (direction) {
     this.direction = direction;
@@ -354,15 +305,13 @@ SpriteNS.Sprite = function () {
     switch (this.direction) {
       case 'up':
         return 0;
-        break;
       case 'down':
         return 180;
-        break;
       case 'left':
         return -90;
-        break;
       case 'right':
         return 90;
+      default:
         break;
     }
   };
@@ -381,6 +330,8 @@ SpriteNS.Sprite = function () {
       case 'down':
         this.turn('up');
         break;
+      default:
+        break;
     }
   };
 
@@ -397,6 +348,8 @@ SpriteNS.Sprite = function () {
         break;
       case 'down':
         this.turn('right');
+        break;
+      default:
         break;
     }
   };
@@ -415,6 +368,8 @@ SpriteNS.Sprite = function () {
       case 'down':
         this.turn('left');
         break;
+      default:
+        break;
     }
   };
 
@@ -422,130 +377,97 @@ SpriteNS.Sprite = function () {
     if (d != null) {
       this.turn(d);
     }
-
-
     if (!this.clipping || this.canMove()) {
       if (this.type == 'player') {
         game.quickCorruptTriggered = false;
       }
-
       this.position = this.getTarget();
-
       this.isTeleporting = false;
       this.checkTile();
     }
-        // Walk backwards.
-        // if (this.backwards) { this.turnAround(); }
-
-
-        //        switch (this.direction) {
-        //            case "left":
-        //                this.goLeft();
-        //                break;
-        //            case "right":
-        //                this.goRight();
-        //                break;
-        //            case "up":
-        //                this.goUp();
-        //                break;
-        //            case "down":
-        //                this.goDown();
-        //                break;
-        //        }
   };
 
-
   this.checkTile = function () {
-        // var tileIndex = game.map.getTileIndexByCoords
+    // var tileIndex = game.map.getTileIndexByCoords
     const tileType = game.map.getTileTypeByCoords(this.position.x, this.position.y);
 
-
-        // Normal.
+    // Normal.
     if (tileType == 1) {
       return;
     }
 
-
-        // Yellow Door.
+    // Yellow Door.
     if (tileType == 3) {
-            // Player has a key.
+      // Player has a key.
       if (this.inventory.yellowKeys > 0) {
-                // Unlock door.
+        // Unlock door.
         game.map.changeTileType(this.position.x, this.position.y, 1);
 
-                // Player has used key.
+        // Player has used key.
         this.inventory.yellowKeys -= 1;
 
         return true;
-      } else {
-        return false;
       }
+      return false;
     }
 
-        // Red Door.
+    // Red Door.
     if (tileType == 21) {
-            // Player has a key.
+      // Player has a key.
       if (this.inventory.redKeys > 0) {
-                // Unlock door.
+        // Unlock door.
         game.map.changeTileType(this.position.x, this.position.y, 1);
 
-                // Player has used key.
+        // Player has used key.
         this.inventory.redKeys -= 1;
 
         return true;
-      } else {
-        return false;
       }
+      return false;
     }
 
-
-        // Cyan Door.
+    // Cyan Door.
     if (tileType == 33) {
-            // Player has a key.
+      // Player has a key.
       if (this.inventory.cyanKeys > 0) {
-                // Unlock door.
+        // Unlock door.
         game.map.changeTileType(this.position.x, this.position.y, 1);
 
-                // Player has used key.
+        // Player has used key.
         this.inventory.cyanKeys -= 1;
 
         return true;
-      } else {
-        return false;
       }
+      return false;
     }
 
-
-        // Cyan Door.
+    // Cyan Door.
     if (tileType == 45) {
-            // Player has a key.
+      // Player has a key.
       if (this.inventory.greenKeys > 0) {
-                // Unlock door.
+        // Unlock door.
         game.map.changeTileType(this.position.x, this.position.y, 1);
 
-                // Player has used key.
+        // Player has used key.
         this.inventory.greenKeys -= 1;
 
         return true;
-      } else {
-        return false;
       }
+      return false;
     }
 
-
-        // Exit.
+    // Exit.
     if (tileType == 6) {
-            // Only player can trigger exit.
+      // Only player can trigger exit.
       if (this.type == 'player') {
         game.atExit = true;
       }
     }
 
-        // Water & death.
+    // Water & death.
     if (tileType == 20) {
-            // Balls are immune to water death.
-            // if (this.subType != "ball") {
-
+      // Balls are immune to water death.
+      // if (this.subType != "ball") {
 
       this.isDead = true;
 
@@ -555,41 +477,23 @@ SpriteNS.Sprite = function () {
       }
 
       else if (this.type == 'enemy') {
-                    // game.enemies.remove(game.enemies.findByProperty("spriteID", this.spriteID));
+        // game.enemies.remove(game.enemies.findByProperty("spriteID", this.spriteID));
         this.destroy();
       }
 
-                // Block hits water and disappears.
+      // Block hits water and disappears.
       else if (this.subType == 'pushBlock') {
         game.tools.remove(game.tools.findByProperty('spriteID', this.spriteID));
       }
-            // }
+      // }
     }
   };
 
-
-    //    this.advanceWalkingFrame = function () {
-
-    //        var newFrame = this.animationFrame + this.animationDirection;
-
-    //        if (newFrame > 2 || newFrame < 0) {
-    //            this.animationDirection *= -1;
-    //            var newFrame = this.animationFrame + this.animationDirection;
-    //            var newFrame = this.animationFrame + this.animationDirection;
-    //        }
-    //        this.animationFrame = newFrame;
-    //        this.displayBox.removeClass("frame0 frame1 frame2");
-    //        this.displayBox.addClass("frame" + this.animationFrame);
-    //    }
-
-
-    // Todo: move all of this to a separate file. Not all sprites should have this.
-
+  // Todo: move all of this to a separate file. This is outside the scope of sprites.
   this.GetInput = function () {
-        // Todo: refactor these conditionals to "game.mode".
+    // Todo: refactor these conditionals to "game.mode".
 
-
-        // Player is at title screen. Press enter to start. Press X to enter password. No other input allowed except for konami code.
+    // Player is at title screen. Press enter to start. Press X to enter password. No other input allowed except for konami code.
     if (game.mode == 'title') {
       if (keyIsDown.Enter && !keyIsRegistered.Enter) {
         keyIsRegistered.Enter = true;
@@ -597,15 +501,10 @@ SpriteNS.Sprite = function () {
       } else if ((keyIsDown.X && !keyIsRegistered.X) || (keyIsDown.x && !keyIsRegistered.x)) {
         keyIsRegistered.X = true;
         game.mode = 'password';
+      } else if (konamiCode()) {
+        // :)
+        game.mode = 'normal';
       }
-
-      else {
-                // :)
-        if (konamiCode()) {
-          game.mode = 'normal';
-        }
-      }
-
       return;
     } else if (game.mode == 'password') {
       if (keyIsDown.Enter && !keyIsRegistered.Enter) {
@@ -622,10 +521,9 @@ SpriteNS.Sprite = function () {
         enteredPassword = enteredPassword.slice(0, -1);
       }
 
-
       else {
-                // Get alphanumeric input.
-        for (let i = 0; i < alphanumeric.length; i++) {
+        // Get alphanumeric input.
+        for (let i = 0; i < alphanumeric.length; i += 1) {
           if (keyIsDown[alphanumericTX[i]] && !keyIsRegistered[alphanumericTX[i]]) {
             keyIsRegistered[alphanumericTX[i]] = true;
 
@@ -643,8 +541,7 @@ SpriteNS.Sprite = function () {
       if (keyIsDown.Enter && !keyIsRegistered.Enter) {
         keyIsRegistered.Enter = true;
 
-
-                    // Hit enter once to skip credit fades. Hit it again to return to title.
+        // Hit enter once to skip credit fades. Hit it again to return to title.
         if (game.credits.sequence == 2) {
           game.returnToTitle();
         } else {
@@ -658,9 +555,9 @@ SpriteNS.Sprite = function () {
     }
 
     else {
-        // Player is at exit. Press enter to continue. No other input allowed.
+      // Player is at exit. Press enter to continue. No other input allowed.
       if (game.atExit) {
-            // If the game is perma-corrupted, you can't manually advance to the next level.
+        // If the game is perma-corrupted, you can't manually advance to the next level.
         if (!game.incrementCorruption && !game.theEnd) {
           if (keyIsDown.Enter && !keyIsRegistered.Enter) {
             keyIsRegistered.Enter = true;
@@ -668,11 +565,10 @@ SpriteNS.Sprite = function () {
           }
         }
 
-
         return;
       }
 
-        // Player is dead. Press enter to restart. No other input allowed.
+      // Player is dead. Press enter to restart. No other input allowed.
       if (player.isDead) {
         if (keyIsDown.Enter && !keyIsRegistered.Enter) {
           keyIsRegistered.Enter = true;
@@ -681,8 +577,7 @@ SpriteNS.Sprite = function () {
         return;
       }
 
-
-        // Game paused. Press enter to restart. May also press "P" to unpause game.
+      // Game paused. Press enter to restart. May also press "P" to unpause game.
       if (game.isPaused) {
         if (keyIsDown.Enter && !keyIsRegistered.Enter) {
           keyIsRegistered.Enter = true;
@@ -691,15 +586,14 @@ SpriteNS.Sprite = function () {
         }
       }
 
-
-        // Pause or unpause game.
+      // Pause or unpause game.
       if (keyIsDown.P && !keyIsRegistered.P) {
         keyIsRegistered.P = true;
         game.isPaused = game.isPaused.toggle();
       }
 
       if (!game.isPaused && !game.theEnd) {
-            // Next level for debug purposes.
+        // Next level for debug purposes.
         if (game.betaTest) {
           if (keyIsDown.N && !keyIsRegistered.N) {
             keyIsRegistered.N = true;
@@ -707,26 +601,25 @@ SpriteNS.Sprite = function () {
           }
         }
 
-
-            // Execute "goForward" movement from first key to return true.
+        // Execute "goForward" movement from first key to return true.
         let stopCheck = false;
 
         stopCheck =
-                this.checkInputAndExecute('A', 10, this.goForward, ['left']) ||
-                this.checkInputAndExecute('D', 10, this.goForward, ['right']) ||
-                this.checkInputAndExecute('W', 10, this.goForward, ['up']) ||
-                this.checkInputAndExecute('S', 10, this.goForward, ['down']) ||
-                this.checkInputAndExecute('LEFT', 10, this.goForward, ['left']) ||
-                this.checkInputAndExecute('RIGHT', 10, this.goForward, ['right']) ||
-                this.checkInputAndExecute('UP', 10, this.goForward, ['up']) ||
-                this.checkInputAndExecute('DOWN', 10, this.goForward, ['down']);
+          this.checkInputAndExecute('A', 10, this.goForward, ['left']) ||
+          this.checkInputAndExecute('D', 10, this.goForward, ['right']) ||
+          this.checkInputAndExecute('W', 10, this.goForward, ['up']) ||
+          this.checkInputAndExecute('S', 10, this.goForward, ['down']) ||
+          this.checkInputAndExecute('LEFT', 10, this.goForward, ['left']) ||
+          this.checkInputAndExecute('RIGHT', 10, this.goForward, ['right']) ||
+          this.checkInputAndExecute('UP', 10, this.goForward, ['up']) ||
+          this.checkInputAndExecute('DOWN', 10, this.goForward, ['down']);
       }
 
       else if (game.theEnd) {
         if (this.startCountup) {
           this.ticks += 1;
 
-                    // 20-tick delay.
+          // 20-tick delay.
           if (this.ticks > 20) {
             this.autoMove = true;
 
@@ -742,7 +635,6 @@ SpriteNS.Sprite = function () {
     }
   };
 
-
   this.checkInputAndExecute = function (keyName, repeatDelay, callback, args) {
     if (keyIsDown[keyName]) {
       if (keyHeldDuration[keyName] == 0 || keyHeldDuration[keyName] > repeatDelay) {
@@ -755,7 +647,6 @@ SpriteNS.Sprite = function () {
     }
     return false;
   };
-
 
   this.Update = function () {
     if (!this.isAlive) {
@@ -773,10 +664,8 @@ SpriteNS.Sprite = function () {
       }
     }
     if (this.type == 'enemy') {
-            // Auto move patterns.
-
+      // Enemy movement patterns.
       switch (this.subType) {
-
 
         case 'ball':
           if (game.gameTimer % 8 != 0) {
@@ -790,7 +679,6 @@ SpriteNS.Sprite = function () {
           this.goForward();
 
           break;
-
 
         case 'nascar':
           if (game.gameTimer % 8 != 0) {
@@ -816,18 +704,17 @@ SpriteNS.Sprite = function () {
           this.goForward();
           break;
 
-                // Gronpree:
-                // Move forward until hit obstacle.
-                //
-                // In event of obstacle:
-                // Try turning clockwise, then counter clockwise, then going in reverse.
-                //
-                // In event of next obstacle:
-                // Try turning counterclockwise, then clockwise, then going in reverse.
-                //
-                // Switch back and forth between counterclockwise and clockwise preference on every obstacle encountered.
-
         case 'gronpree':
+          // Gronpree:
+          // Move forward until hit obstacle.
+
+          // In event of obstacle:
+          // Try turning clockwise, then counter clockwise, then going in reverse.
+
+          // In event of next obstacle:
+          // Try turning counterclockwise, then clockwise, then going in reverse.
+
+          // Switch back and forth between counterclockwise and clockwise preference on every obstacle encountered.
           if (game.gameTimer % 8 != 0) {
             return;
           }
@@ -859,11 +746,9 @@ SpriteNS.Sprite = function () {
           this.goForward();
           break;
 
-
-                // Try to close distance to player by means of an absolute direct path,
-                // regardless of obstacles.
         case 'predator':
-
+          // Try to close distance to player by means of an absolute direct path,
+          // regardless of obstacles.
           if (game.gameTimer % 8 != 0) {
             return;
           }
@@ -877,16 +762,6 @@ SpriteNS.Sprite = function () {
           }
           this.movePredator();
           break;
-
-                // Find most efficient path around obstacles to close distance to player.
-                // case "player2":
-                    // if (game.gameTimer % 8 != 0) {
-                    //    return;
-                    // }
-
-                    // this.goForward();
-
-                    // break;
 
         case 'berzerker':
           if (game.gameTimer % 8 != 0) {
@@ -918,7 +793,7 @@ SpriteNS.Sprite = function () {
           if (this.startCountup) {
             this.ticks += 1;
 
-                        // 20-tick delay.
+            // 20-tick delay.
             if (this.ticks > 20) {
               this.autoMove = true;
               if (!this.autoMove) {
@@ -955,19 +830,10 @@ SpriteNS.Sprite = function () {
               }
               this.turn('left');
               this.goForward();
-            }
-
-
-            else if (this.position.y > 6) {
-//                            this.autoMove = true;
-//                            if (!this.autoMove) {
-//                                break;
-//                            }
-
+            } else if (this.position.y > 6) {
               if (game.gameTimer % 40 != 0) {
                 return;
               }
-
               this.turn('up');
               this.goForward();
             } else if (this.position.x < 4) {
@@ -986,6 +852,9 @@ SpriteNS.Sprite = function () {
               player.startCountup = true;
             }
           }
+          break;
+
+        default:
           break;
       } // switch(this.subType)
     }
@@ -1022,12 +891,11 @@ SpriteNS.Sprite = function () {
         }
       }
     }
-
     this.goForward();
   };
 
-    // Crush check.
-        // Only applies to player.
+  // Crush check.
+  // Only applies to player.
   this.crushCheck = function () {
     if (this.type == 'player' && !this.canMove(this.position)) {
       this.isDead = true;
@@ -1036,7 +904,8 @@ SpriteNS.Sprite = function () {
     }
   };
 
-  this.registerHit = function (sprite) {
+  this.registerHit = function (s) {
+    const sprite = s;
     if (!this.isAlive) {
       return false;
     }
@@ -1061,54 +930,49 @@ SpriteNS.Sprite = function () {
       }
     }
 
-
     if (this.subType == 'yellowKey') {
-            // If player or predator enemy, can pick up key.
+      // If player or predator enemy, can pick up key.
       if (sprite.type == 'player' || sprite.subType == 'predator' || sprite.subType == 'smartPredator') {
-                // Player gains key.
+        // Player gains key.
         sprite.inventory.yellowKeys += 1;
 
-                // Remove key from map.
+        // Remove key from map.
         game.items.remove(game.items.findByProperty('spriteID', this.spriteID));
       }
     }
-
 
     if (this.subType == 'redKey') {
-            // If player or predator enemy, can pick up key.
+      // If player or predator enemy, can pick up key.
       if (sprite.type == 'player' || sprite.subType == 'predator' || sprite.subType == 'smartPredator') {
-                // Player gains key.
+        // Player gains key.
         sprite.inventory.redKeys += 1;
 
-                // Remove key from map.
+        // Remove key from map.
         game.items.remove(game.items.findByProperty('spriteID', this.spriteID));
       }
     }
-
 
     if (this.subType == 'cyanKey') {
-            // If player or predator enemy, can pick up key.
+      // If player or predator enemy, can pick up key.
       if (sprite.type == 'player' || sprite.subType == 'predator' || sprite.subType == 'smartPredator') {
-                // Player gains key.
+        // Player gains key.
         sprite.inventory.cyanKeys += 1;
 
-                // Remove key from map.
+        // Remove key from map.
         game.items.remove(game.items.findByProperty('spriteID', this.spriteID));
       }
     }
-
 
     if (this.subType == 'greenKey') {
-            // If player or predator enemy, can pick up key.
+      // If player or predator enemy, can pick up key.
       if (sprite.type == 'player' || sprite.subType == 'predator' || sprite.subType == 'smartPredator') {
-                // Player gains key.
+        // Player gains key.
         sprite.inventory.greenKeys += 1;
 
-                // Remove key from map.
+        // Remove key from map.
         game.items.remove(game.items.findByProperty('spriteID', this.spriteID));
       }
     }
-
 
     if (this.subType == 'help' || this.subType == 'help2') {
       if (sprite.type == 'player') {
@@ -1119,10 +983,10 @@ SpriteNS.Sprite = function () {
 
     if (this.subType == 'money') {
       if (sprite.type == 'player') {
-                // Player gains money.
+        // Player gains money.
         sprite.inventory.money += 1;
 
-                // Remove money from map.
+        // Remove money from map.
         game.items.remove(game.items.findByProperty('spriteID', this.spriteID));
       }
     }
@@ -1137,9 +1001,10 @@ SpriteNS.Sprite = function () {
       }
     }
 
-
-        // Can of worms, here.
+    // Can of worms, here.
     if (this.subType == 'hiddenSwitch') {
+      let p2;
+      let thePredator;
       switch (this.callback) {
 
         case 'corrupt':
@@ -1158,14 +1023,13 @@ SpriteNS.Sprite = function () {
           }
           break;
 
-
         case 'revenge':
           if (game.debug) {
             console.log('revenge');
           }
           game.enemies.findByProperty('subType', 'predator').subType = 'nascar';
 
-          var p2 = game.enemies.findByProperty('subType', 'player2');
+          p2 = game.enemies.findByProperty('subType', 'player2');
           p2.startCountup = true;
 
           break;
@@ -1176,7 +1040,7 @@ SpriteNS.Sprite = function () {
           }
           game.enemies.findByProperty('subType', 'predator').subType = 'nascar';
 
-          var p2 = game.enemies.findByProperty('subType', 'player2');
+          p2 = game.enemies.findByProperty('subType', 'player2');
           p2.startTheEnd = true;
           game.theEnd = true;
 
@@ -1185,7 +1049,7 @@ SpriteNS.Sprite = function () {
           if (game.debug) {
             console.log('transform');
           }
-          var thePredator = game.enemies.findByProperty('subType', 'predator');
+          thePredator = game.enemies.findByProperty('subType', 'predator');
           thePredator.subType = 'smartPredator';
           thePredator.tileGraphic = tileCodes.smartPredator;
           thePredator.speed = 3;
@@ -1195,13 +1059,14 @@ SpriteNS.Sprite = function () {
           if (game.debug) {
             console.log('destroy predator');
           }
-          var thePredator = game.enemies.findByProperty('subType', 'smartPredator');
+          thePredator = game.enemies.findByProperty('subType', 'smartPredator');
           thePredator.destroy();
           break;
-
+        default:
+          break;
       }
 
-            // One-time use, then erase item from map.
+      // One-time use, then erase item from map.
       if (this.destroyOnUse) {
         this.destroy();
       }
@@ -1216,42 +1081,24 @@ SpriteNS.Sprite = function () {
 
     if (this.type == 'player') {
       ctx.save();
-
       ctx.translate(this.position.x * 32 + 16 + stage.drawOffset.x, this.position.y * 32 + 16 + stage.drawOffset.y);
       ctx.rotate(this.rotation * Math.Radians);
-
       if (this.imageType == 'image') {
         ctx.drawImage(this.image, -16, -16);
       }
-
-
       ctx.restore();
-    }
-
-
-    else if (this.type == 'enemy' || this.type == 'item' || this.type == 'tool') {
+    } else if (this.type == 'enemy' || this.type == 'item' || this.type == 'tool') {
       let tileNumber = this.tileGraphic;
 
-
-            // Don't draw hidden switches.
+      // Don't draw hidden switches.
       if (this.subType == 'hiddenSwitch' && !game.debug) {
         return;
       }
-
-            // Teleporter animation.
       if (this.subType == 'teleporter') {
+        // Teleporter animation.
         tileNumber += Math.floor(game.gameTimer % 9 / 3);
-      }
-
-            // Draw smart predator path.
-            // else if (this.subType == "smartPredator") {
-                // for (var i = 0; i < this.pathScope.finishedPath.length-1; i++) {
-                //    drawTileOffset(23,this.pathScope.finishedPath[i]);
-                // }
-            // }
-
-            // Draw switch toggling.
-      else if (game.brownSwitch && this.subType == 'switch') {
+      } else if (game.brownSwitch && this.subType == 'switch') {
+        // Draw switch toggling.
         if (this.color == 'brown') {
           tileNumber -= 1;
         } else if (this.color == 'brownOff') {
@@ -1259,7 +1106,7 @@ SpriteNS.Sprite = function () {
         }
       }
 
-            // Corrupt false tiles in opposite direction.
+      // Corrupt false tiles in opposite direction.
       if (this.subType == 'wall' || this.subType == 'water' || this.subType == 'exit' || this.subType == 'futureWall') {
         sign = -1;
       }
@@ -1272,15 +1119,10 @@ SpriteNS.Sprite = function () {
         ctx.translate(this.position.x * 32 + 16 + stage.drawOffset.x, this.position.y * 32 + 16 + stage.drawOffset.y);
         ctx.rotate(this.rotation * Math.Radians);
 
-
         ctx.drawImage(player.image, -16, -16);
 
-                // drawTileOffset(tileNumber, coords, sign, this.rotation);
-
-
         ctx.restore();
-      }
-      else {
+      } else {
         drawTileOffset(tileNumber, coords, sign);
       }
     }
@@ -1291,10 +1133,9 @@ SpriteNS.Sprite = function () {
     switch (this.type) {
 
       case 'enemy':
-                // pool = game.enemies;
+        // pool = game.enemies;
         this.isAlive = false;
         return;
-        break;
 
       case 'item':
         pool = game.items;
@@ -1302,6 +1143,9 @@ SpriteNS.Sprite = function () {
 
       case 'tool':
         pool = game.tools;
+        break;
+
+      default:
         break;
     }
     pool.remove(pool.findByProperty('spriteID', this.spriteID));
