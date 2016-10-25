@@ -130,9 +130,15 @@ function keyboard() {
 }
 
 const keys = new keyboard();
-const keyIsDown = new keyboard().foreach((a) => { a = false; });
-const keyHeldDuration = new keyboard().foreach((a) => { a = 0; });
-const keyIsRegistered = new keyboard().foreach((a) => { a = false; });
+const keyIsDown = new keyboard();
+const keyHeldDuration = new keyboard();
+const keyIsRegistered = new keyboard();
+
+for (const k of Object.keys(keys)) {
+  keyIsDown[k] = false;
+  keyIsRegistered[k] = false;
+  keyHeldDuration[k] = 0;
+}
 
 const alphanumericTX =
   ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
@@ -178,12 +184,12 @@ String.prototype.corrupt = function (offset) {
 };
 
 const getKeyByCode = function (keyCode) {
-  keys.foreach((a) => {
-    if (keyCode === keys[a]) {
-      return a;
+  for (const k of Object.keys(keys)) {
+    if (keyCode === keys[k]) {
+      return k;
     }
-    return null;
-  });
+  }
+  return null;
 };
 
 const registerKey = function (keyCode) {
@@ -199,7 +205,7 @@ function konamiCode() {
   return (keyLog.toString() === konami);
 }
 
-(function (jQuery) {
+(function run(jQuery) {
   const $j = jQuery;
   $j.fn.keyboard = function (options) {
     const settings = {
@@ -244,4 +250,3 @@ function konamiCode() {
     });
   };
 }(jQuery));
-

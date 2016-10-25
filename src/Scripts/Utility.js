@@ -2,7 +2,7 @@
 
 let console;
 if (typeof console === 'undefined') {
-  const console = {
+  console = {
     assert() { },
     clear() { },
     count() { },
@@ -43,21 +43,20 @@ String.prototype.parseIntCurrency = function (radix) {
 
 // Convert number to formatted currency string.
 String.prototype.formatCurrency = function () {
-  let num = this;
-  num = num.toString().replace(currencyPattern, '');
-  if (isNaN(num))
-  { num = '0'; }
-  sign = (num !== (num = Math.abs(num)));
-  num = Math.floor(num * 100 + 0.50000000001);
-  cents = num % 100;
-  num = Math.floor(num / 100).toString();
-  if (cents < 10)
-  { cents = `0${cents}`; }
-  for (let i = 0; i < Math.floor((num.length - (1 + i)) / 3); i += 1) {
-    num = `${num.substring(0, num.length - (4 * i + 3))},${
-      num.substring(num.length - (4 * i + 3))}`;
+  let n = this;
+  n = n.toString().replace(currencyPattern, '');
+  if (isNaN(n))
+  { n = '0'; }
+  const sign = (n !== (n = Math.abs(n)));
+  n = Math.floor(n * 100 + 0.50000000001);
+  let cents = n % 100;
+  n = Math.floor(n / 100).toString();
+  if (cents < 10) { cents = `0${cents}`; }
+  for (let i = 0; i < Math.floor((n.length - (1 + i)) / 3); i += 1) {
+    n = `${n.substring(0, n.length - (4 * i + 3))},${
+      n.substring(n.length - (4 * i + 3))}`;
   }
-  return (`${(sign) ? '' : '-'}$${num}.${cents}`);
+  return (`${(sign) ? '' : '-'}$${n}.${cents}`);
 };
 
 // Trim whitespace from string.
@@ -75,23 +74,29 @@ String.prototype.rtrim = function () {
 // // Array prototype functions.
 
 // Return sum of all numbers in array.
+// TODO: Unit test this.
 Array.prototype.sum = function () {
-  for (var i = 0, sum = 0; i < this.length; sum += this[i += 1]);
+  let sum = 0;
+  for (let i = 0; i < this.length; sum += this[i += 1]);
   return sum;
 };
 
 // / <summary>
 // / Remove all items from array by value.
 // / </summary>
+// TODO: Unit test this.
 Array.prototype.remove = function () {
-  let what,
-    a = arguments,
-    L = a.length,
-    ax;
+  let what;
+  const a = arguments;
+  let L = a.length;
+  let ax;
   while (L && this.length) {
-    what = a[--L];
-    while ((ax = this.indexOf(what)) !== -1) {
+    L -= 1;
+    what = a[L];
+    ax = this.indexOf(what);
+    while (ax !== -1) {
       this.splice(ax, 1);
+      ax = this.indexOf(what);
     }
   }
   return this;
