@@ -1,47 +1,47 @@
 // Shim for missing console object.
-if (typeof console !== 'undefined') {
-  var console = {
-    assert() { },
-    clear() { },
-    count() { },
-    debug() { },
-    dir() { },
-    dirxml() { },
-    error() { },
-    exception() { },
-    group() { },
-    groupCollapsed() { },
-    groupEnd() { },
-    info() { },
-    log() { },
-    profile() { },
-    profileEnd() { },
-    table() { },
-    time() { },
-    timeEnd() { },
-    timeStamp() { },
-    trace() { },
-    warn() { },
-  };
-}
 
+const console = console || {
+  assert() { },
+  clear() { },
+  count() { },
+  debug() { },
+  dir() { },
+  dirxml() { },
+  error() { },
+  exception() { },
+  group() { },
+  groupCollapsed() { },
+  groupEnd() { },
+  info() { },
+  log() { },
+  profile() { },
+  profileEnd() { },
+  table() { },
+  time() { },
+  timeEnd() { },
+  timeStamp() { },
+  trace() { },
+  warn() { },
+};
+
+const currencyPattern = /,|$/g;
 // // String prototype functions.
 
 // Convert currency string to float.
 String.prototype.parseFloatCurrency = function () {
-  return parseFloat(this.replace(/\,|\$/g, ''));
+  return parseFloat(this.replace(currencyPattern, ''));
 };
 
 // Convert currency string to integer.
 String.prototype.parseIntCurrency = function (radix) {
   // Default to Base-10.
-  return parseInt(this.replace(/\,|\$/g, ''), radix || 10);
+  return parseInt(this.replace(currencyPattern, ''), radix || 10);
 };
 
 // Convert number to formatted currency string.
 String.prototype.formatCurrency = function () {
   let num = this;
-  num = num.toString().replace(/\$|\,/g, '');
+  num = num.toString().replace(currencyPattern, '');
   if (isNaN(num))
   { num = '0'; }
   sign = (num !== (num = Math.abs(num)));
@@ -107,7 +107,7 @@ Array.prototype.findByProperty = function (propertyName, value, safe) {
   if (safe) {
     return null;
   }
-  throw `Couldn't find object with property "${propertyName}" having a value of "${value}".`;
+  throw new Error(`Couldn't find object with property "${propertyName}" having a value of "${value}".`);
 };
 
 // / <summary>
@@ -122,7 +122,7 @@ Array.prototype.findAllByProperty = function (propertyName, value, safe) {
   }
 
   if (outputArray.length === 0 && !safe) {
-    throw `Couldn't find any objects with property "${propertyName}" having a value of "${value}".`;
+    throw new Error(`Couldn't find any objects with property "${propertyName}" having a value of "${value}".`);
   }
   return outputArray;
 };
@@ -150,22 +150,13 @@ Array.prototype.min = function () {
   return Math.min.apply(null, this);
 };
 
-// jQuery functions.
-if (typeof jQuery !== 'undefined') {
-  (function ($j) {
-    $j.fn.evalLinkJs = function () {
-      $j(this)[0].attributes.href.nodeValue.evalLinkJs();
-    };
-  }(jQuery));
-}
-
 CanvasRenderingContext2D.prototype.centerText = function (text, minX, maxX, y) {
   const width = maxX - minX;
   const middle = minX + Math.floor(width / 2);
-  const metrics = ctx.measureText(text);
+  const metrics = this.measureText(text);
   const textWidth = metrics.width;
   const centeredX = middle - Math.floor(textWidth / 2);
-  ctx.fillText(text, centeredX, y);
+  this.fillText(text, centeredX, y);
 };
 
 // Canvas prototype functions.
