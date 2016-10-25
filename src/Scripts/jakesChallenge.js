@@ -1,9 +1,7 @@
 // / <reference path='tileCodes.js' />
 // / <reference path='Sprite.js' />
 
-const tileCodes = tileCodes || {};
 const enteredPassword = '';
-
 const passwords = {};
 
 const Coordinates = function (px, py) {
@@ -41,13 +39,13 @@ const stageObject = function () {
   this.hudWidth = null;
   this.hudHeight = null;
 
-  this.playboxTileWidth;
-  this.playboxTileHeight;
+  this.playboxTileWidth = null;
+  this.playboxTileHeight = null;
 
   this.drawOffset = null;
-  this.halfBoxWidthLess16;
-  this.halfBoxHeightLess16;
-  this.playboxTileCount;
+  this.halfBoxWidthLess16 = null;
+  this.halfBoxHeightLess16 = null;
+  this.playboxTileCount = null;
   this.init = function () {
     this.width = $j(this.gameCanvas).width();
     this.height = $j(this.gameCanvas).height();
@@ -79,212 +77,6 @@ const stageObject = function () {
 const assets = {};
 
 let game;
-const gameObject = function () {
-  this.debug = false;
-  this.betaTest = false;
-  this.gameTimer = -1;
-  this.clock = -1;
-  this.level = -1;
-  this.nextLevelNumber = 0;
-  this.setLevelClock = function () {
-    this.clock = Math.floor(this.gameTimer / 50);
-  };
-  this.atExit = false;
-  this.winMessage = null;
-  this.theEnd = false;
-
-  this.restartLevel = function () {
-    loadMap(game.level);
-  };
-
-  this.nextLevel = function () {
-    this.level = game.nextLevelNumber;
-    this.atExit = false;
-    player.inventory = new SpriteNS.Inventory();
-    loadMap(this.level);
-  };
-
-  this.returnToTitle = function () {
-    this.level = -1;
-    this.nextLevelNumber = 0;
-    this.winMessage = null;
-    this.theEnd = false;
-    this.mode = 'title';
-    this.nextLevel();
-  };
-
-  this.hud = new gameHudClass();
-  this.credits = new creditsClass();
-
-  this.iDataArray = null;
-  this.items = null;
-
-  this.eDataArray = null;
-  this.enemies = null;
-
-  this.tools = null;
-
-  this.showMessage = false;
-  this.messageText = '';
-
-  this.mode = 'normal';
-
-  this.password = '';
-
-  // Todo: refactor 'isPaused' into 'game.mode = 'paused'
-  this.isPaused = false;
-
-  this.moneyCount = 0;
-
-  this.redSwitch = false;
-  this.yellowSwitch = false;
-  this.greenSwitch = false;
-  this.brownSwitch = false;
-
-  this.onQuickCorruptTile = false;
-  this.quickCorruptTriggered = false;
-  this.corruption = 0;
-  this.corruptionTimer = 0;
-
-  this.deathCount = 0;
-
-  this.setDeadMessage = function (message) {
-    this.deathCount += 1;
-    this.showMessage = true;
-    if (this.deathCount % 10 === 0) {
-      message = randomMessages.miscDeath.getRandomElement();
-    }
-    this.messageText = `${message}\n\nPress enter to restart.`;
-  };
-
-  this.passwordHudMessage = '';
-
-  this.defaultEnemySpeed = 8;
-
-  this.fadeOut = 0;
-};
-
-let player;
-
-// function returnToTitle() {
-//    game.atExit = false;
-//    game.theEnd = false;
-//    credits = new creditsClass();
-//    credits.isStarted = false;
-
-//    game.level = -1;
-//    game.nextLevel();
-//    game.mode = 'title';
-// }
-
-$j = $.noConflict();
-
-function doPreWork(bypassTouchscreen) {
-  if (!bypassTouchscreen) {
-    // Don't run game on touchscreen devices.
-    if (('ontouchstart' in window) || window.navigator.msMaxTouchPoints > 0) {
-      $j('#main').before('<div class="errorPanel"><h1><p>Notice: This game requires a physical keyboard to play. Touchscreen is not supported.</p><p>If you are using a hybrid, touchscreen-keyboard-combination device (such as Microsoft Surface), press Enter on your physical keyboard to bypass this message and continue to the game. (This feature is untested! You are a pioneer!)</p></div>');
-
-      $j(window).keydown(bypass);
-
-      return false;
-    }
-  }
-
-  $j('.errorPanel').remove();
-
-  // Check for browser support.
-  if (!Modernizr.fontface || Array.prototype.indexOf === undefined || !(!!window.HTMLCanvasElement)) {
-    $j('#main').before('<div class="errorPanel"><h1>Your browser does not have the capabilities to run this game.</h1><p>Please consider installing <a href="http://www.google.com/chrome">Google Chrome</a>. Hey, <strong>I</strong> use it, and look how I turned out.</p></div>');
-    $j('#main').hide();
-    return false;
-  }
-
-  // Check for file:///
-  if (window.location.protocol === 'file:') {
-    $j('#main').before('<div class="errorPanel"><h1>Running this game directly from the filesystem is unsupported.</h1><p>You are running this game directly from your filesystem. (file:///). This won\'t work, because file:/// doesn\'t support AJAX, and this game needs AJAX to load the levels. Instead, you can install NodeJS and run this game using \'npm start dev\', or you can spin up your own local web server and host this project in there.</p></div>');
-    $j('#main').hide();
-    return false;
-  }
-
-  // Turn off padding to make game fit in small monitors.
-  $j('#main').css('padding', '0px');
-
-  master = $j('.master');
-  // master.css('backgroundColor','white');
-
-  stage = new stageObject();
-  stage.init();
-  game = new gameObject();
-
-  // Define stage parameters.
-  //    stage.gameCanvas = gameCanvas = document.getElementById('gameCanvas');
-  //    stage.width = $j(gameCanvas).width();
-  //    stage.height = $j(gameCanvas).height();
-  //    stage.playboxWidth = 480;
-  //    stage.playboxHeight = 384;
-  //    stage.drawOffset = {x:128,y:128}
-
-  // Define assets.
-  assets.face = document.getElementById('face');
-  assets.devgraphics = document.getElementById('devgraphics');
-  assets.dungeon = document.getElementById('dungeon');
-  assets.gridLineCoordinates = generateGridLines();
-
-  player = new SpriteNS.Sprite();
-  player.imageType = 'image';
-  player.image = assets.face;
-  player.type = 'player';
-
-  $j(document).keyboard({ exclusions: ['F5', 'F11', 'F12', 'Control'] });
-
-  // Define default canvas parameters.
-  ctx = stage.gameCanvas.getContext('2d');
-  ctx.lineWidth = 1;
-  ctx.font = '20px sans-serif';
-  ctx.textBaseline = 'top';
-
-  return true;
-}
-
-function bypass(e) {
-  if (e.keyCode === 13) {
-    $j(window).off('keydown', bypass);
-    run(true);
-  }
-}
-
-function generateGridLines() {
-  const gridLines = [];
-
-  for (let x = 0; x <= stage.width; x += 32) {
-    const coord = [x + 0.5, 0.5, x + 0.5, stage.height + 0.5];
-    if (x === stage.width) {
-      coord[0] -= 1;
-      coord[2] -= 1;
-    }
-    gridLines.push(coord);
-  }
-  for (let y = 0; y <= stage.height; y += 32) {
-    const coord = [0.5, y + 0.5, stage.width + 0.5, y + 0.5];
-    if (y === stage.height) coord[3] -= 1;
-    gridLines.push(coord);
-  }
-  return gridLines;
-}
-
-function awesomeError(data) {
-  alert(
-    `${'YOU WIN!\n\nActually, you didn\'t win. You\'ve encountered a bug that\'s broken the game. I was trying to make you feel better about it.\n\n' +
-    'Contact me and tell me, or else I\'ll never find out and this will never get fixed.\n\n' +
-    'Also, "It\'s broken\" with no further information is worse than saying nothing at all. That\'s why you get crappy tech support at your job.\n\n' +
-    'Say what the specific problem is, and also say this stuff too:\n' +
-    `Attempted function :  ${data.attemptedFunction}` + '\n' +
-    'Level : '}${typeof (levelNumber) !== 'undefined' ? levelNumber : '0'}\n` +
-    `Player Coords : ${player.position.x},${player.position.y}\n` +
-    `Error Code : ${typeof (data.errorCode) !== 'undefined' ? data.errorCode : 'none'}\n\n`
-  );
-}
 
 function loadMap(levelNumber) {
   game.winMessage = null;
@@ -301,7 +93,7 @@ function loadMap(levelNumber) {
   }
 
   $j.ajax({
-    url: `Assets/Levels/ ${levelNumber}` + '.json',
+    url: `Assets/Levels/${levelNumber}.json`,
     async: false,
     error(response) {
       awesomeError({ attemptedFunction: 'loadMap (ajax)', errorCode: response.status });
@@ -516,6 +308,214 @@ function loadMap(levelNumber) {
   });
 } // loadMap()
 
+const gameObject = function () {
+  this.debug = false;
+  this.betaTest = false;
+  this.gameTimer = -1;
+  this.clock = -1;
+  this.level = -1;
+  this.nextLevelNumber = 0;
+  this.setLevelClock = function () {
+    this.clock = Math.floor(this.gameTimer / 50);
+  };
+  this.atExit = false;
+  this.winMessage = null;
+  this.theEnd = false;
+
+  this.restartLevel = function () {
+    loadMap(game.level);
+  };
+
+  this.nextLevel = function () {
+    this.level = game.nextLevelNumber;
+    this.atExit = false;
+    player.inventory = new SpriteNS.Inventory();
+    loadMap(this.level);
+  };
+
+  this.returnToTitle = function () {
+    this.level = -1;
+    this.nextLevelNumber = 0;
+    this.winMessage = null;
+    this.theEnd = false;
+    this.mode = 'title';
+    this.nextLevel();
+  };
+
+  this.hud = new gameHudClass();
+  this.credits = new creditsClass();
+
+  this.iDataArray = null;
+  this.items = null;
+
+  this.eDataArray = null;
+  this.enemies = null;
+
+  this.tools = null;
+
+  this.showMessage = false;
+  this.messageText = '';
+
+  this.mode = 'normal';
+
+  this.password = '';
+
+  // Todo: refactor 'isPaused' into 'game.mode = 'paused'
+  this.isPaused = false;
+
+  this.moneyCount = 0;
+
+  this.redSwitch = false;
+  this.yellowSwitch = false;
+  this.greenSwitch = false;
+  this.brownSwitch = false;
+
+  this.onQuickCorruptTile = false;
+  this.quickCorruptTriggered = false;
+  this.corruption = 0;
+  this.corruptionTimer = 0;
+
+  this.deathCount = 0;
+
+  this.setDeadMessage = function (message) {
+    this.deathCount += 1;
+    this.showMessage = true;
+    if (this.deathCount % 10 === 0) {
+      message = randomMessages.miscDeath.getRandomElement();
+    }
+    this.messageText = `${message}\n\nPress enter to restart.`;
+  };
+
+  this.passwordHudMessage = '';
+
+  this.defaultEnemySpeed = 8;
+
+  this.fadeOut = 0;
+};
+
+let player;
+
+// function returnToTitle() {
+//    game.atExit = false;
+//    game.theEnd = false;
+//    credits = new creditsClass();
+//    credits.isStarted = false;
+
+//    game.level = -1;
+//    game.nextLevel();
+//    game.mode = 'title';
+// }
+
+$j = $.noConflict();
+
+function doPreWork(bypassTouchscreen) {
+  if (!bypassTouchscreen) {
+    // Don't run game on touchscreen devices.
+    if (('ontouchstart' in window) || window.navigator.msMaxTouchPoints > 0) {
+      $j('#main').before('<div class="errorPanel"><h1><p>Notice: This game requires a physical keyboard to play. Touchscreen is not supported.</p><p>If you are using a hybrid, touchscreen-keyboard-combination device (such as Microsoft Surface), press Enter on your physical keyboard to bypass this message and continue to the game. (This feature is untested! You are a pioneer!)</p></div>');
+
+      $j(window).keydown(bypass);
+
+      return false;
+    }
+  }
+
+  $j('.errorPanel').remove();
+
+  // Check for browser support.
+  if (!Modernizr.fontface || Array.prototype.indexOf === undefined || !(!!window.HTMLCanvasElement)) {
+    $j('#main').before('<div class="errorPanel"><h1>Your browser does not have the capabilities to run this game.</h1><p>Please consider installing <a href="http://www.google.com/chrome">Google Chrome</a>. Hey, <strong>I</strong> use it, and look how I turned out.</p></div>');
+    $j('#main').hide();
+    return false;
+  }
+
+  // Check for file:///
+  if (window.location.protocol === 'file:') {
+    $j('#main').before('<div class="errorPanel"><h1>Running this game directly from the filesystem is unsupported.</h1><p>You are running this game directly from your filesystem. (file:///). This won\'t work, because file:/// doesn\'t support AJAX, and this game needs AJAX to load the levels. Instead, you can install NodeJS and run this game using \'npm start dev\', or you can spin up your own local web server and host this project in there.</p></div>');
+    $j('#main').hide();
+    return false;
+  }
+
+  // Turn off padding to make game fit in small monitors.
+  $j('#main').css('padding', '0px');
+
+  master = $j('.master');
+  // master.css('backgroundColor','white');
+
+  stage = new stageObject();
+  stage.init();
+  game = new gameObject();
+
+  // Define stage parameters.
+  //    stage.gameCanvas = gameCanvas = document.getElementById('gameCanvas');
+  //    stage.width = $j(gameCanvas).width();
+  //    stage.height = $j(gameCanvas).height();
+  //    stage.playboxWidth = 480;
+  //    stage.playboxHeight = 384;
+  //    stage.drawOffset = {x:128,y:128}
+
+  // Define assets.
+  assets.face = document.getElementById('face');
+  assets.devgraphics = document.getElementById('devgraphics');
+  assets.dungeon = document.getElementById('dungeon');
+  assets.gridLineCoordinates = generateGridLines();
+
+  player = new SpriteNS.Sprite();
+  player.imageType = 'image';
+  player.image = assets.face;
+  player.type = 'player';
+
+  $j(document).keyboard({ exclusions: ['F5', 'F11', 'F12', 'Control'] });
+
+  // Define default canvas parameters.
+  ctx = stage.gameCanvas.getContext('2d');
+  ctx.lineWidth = 1;
+  ctx.font = '20px sans-serif';
+  ctx.textBaseline = 'top';
+
+  return true;
+}
+
+function bypass(e) {
+  if (e.keyCode === 13) {
+    $j(window).off('keydown', bypass);
+    run(true);
+  }
+}
+
+function generateGridLines() {
+  const gridLines = [];
+
+  for (let x = 0; x <= stage.width; x += 32) {
+    const coord = [x + 0.5, 0.5, x + 0.5, stage.height + 0.5];
+    if (x === stage.width) {
+      coord[0] -= 1;
+      coord[2] -= 1;
+    }
+    gridLines.push(coord);
+  }
+  for (let y = 0; y <= stage.height; y += 32) {
+    const coord = [0.5, y + 0.5, stage.width + 0.5, y + 0.5];
+    if (y === stage.height) coord[3] -= 1;
+    gridLines.push(coord);
+  }
+  return gridLines;
+}
+
+function awesomeError(data) {
+  alert(
+    `YOU WIN!\n\nActually, you didn\'t win. You\'ve encountered a bug that\'s broken the game. I was trying to make you feel better about it.\n\n` +
+    `Contact me and tell me, or else I\'ll never find out and this will never get fixed.\n\n` +
+    `Also, "It\'s broken\" with no further information is worse than saying nothing at all. That\'s why you get crappy tech support at your job.\n\n` +
+    `Say what the specific problem is, and also say this stuff too:\n` +
+    `Attempted function :  ${data.attemptedFunction} \n` +
+    `Level : ${typeof (levelNumber) !== 'undefined' ? levelNumber : 0}\n` +
+    `Player Coords : ${player.position.x},${player.position.y}\n` +
+    `Error Code : ${typeof (data.errorCode) !== 'undefined' ? data.errorCode : 'none'}\n\n`
+  );
+}
+
+
 function getMultiDimensionalMap(originalArray, width) {
   const mdMap = [];
   for (let i = 0; i < originalArray.length; i += width) {
@@ -652,7 +652,7 @@ function Update() {
 
   if (game.gameTimer % 50 === 0) {
     if (game.clock > -1) {
-      game.clock--;
+      game.clock -= 1;
     }
   }
 
@@ -729,7 +729,7 @@ function CheckCollision() {
 
   // Countdown timer for remaining quick corruption.
   if (game.corruptionTimer > 0) {
-    game.corruptionTimer--;
+    game.corruptionTimer -= 1;
   } else {
     // Permanent corruption.
     if (game.incrementCorruption) {
@@ -1031,7 +1031,7 @@ let creditsClass = function () {
           }
 
           if (cred.delay > 0) {
-            cred.delay--;
+            cred.delay -= 1;
           }
         } else if (this.sequence >= 2) {
           cred.alpha = 1;
@@ -1100,15 +1100,14 @@ let gameHudClass = function () {
 
     if (game.mode === 'normal') {
       this.DrawNormalHud();
-    }
-    else if (game.mode === 'title') {
-      this.DrawTitle();
+    } else if (game.mode === 'title') {
+      this.drawTitle();
     } else if (game.mode === 'password') {
-      this.DrawPassword();
+      this.drawPassword();
     }
   };
 
-  this.DrawTitle = function () {
+  this.drawTitle = function () {
     ctx.save();
     ctx.font = '28px sans-serif';
 
@@ -1119,7 +1118,7 @@ let gameHudClass = function () {
     ctx.restore();
   };
 
-  this.DrawPassword = function () {
+  this.drawPassword = function () {
     ctx.save();
     ctx.font = '28px sans-serif';
     ctx.fillStyle = this.textColor;
