@@ -4,18 +4,23 @@
         "standard",
         "promise"
     ],
-    // Temporarily: Downgrade some rules to warnings.
+    // Temporarily downgrade some rules to warnings, and some rules to nothing.
+    // Enforcing these rules requires code refactoring and/or retesting.
     "rules": {
+        "eqeqeq": 1,
         "no-extend-native": 1,
         "new-cap": 1,
-        "no-mixed-operators": 1,
-        "max-len": 1,
         "no-continue": 1,
         "no-unused-vars": 1,
         "arrow-body-style": 1,
-        "prefer-spread": 1
+        "prefer-spread": 1,
+        "consistent-return": 1,
+        "no-mixed-operators": 0,
+        "max-len": 0,
+        "brace-style": 0
     },
     "globals": {
+        // TODO: Most of these will no longer be global after the refactor.
         "document": false,
         "window": false,
         "jQuery": false,
@@ -26,6 +31,22 @@
         "randomMessages": true,
         "loadMap": true,
         "alert": false,
-        "CanvasRenderingContext2D": false
+        "CanvasRenderingContext2D": false,
+        "game": true,
+        "ctx": true,
+        "player": true,
+        "drawTileOffset": true,
+        "stage": true,
+        "Coordinates": false,
+        // Keyboard.js
+        "keyIsDown": false,
+        "keyIsRegistered": false,
+        "alphanumericTX": false,
+        "keyHeldDuration": false,
+        "alphanumeric": false,
+        // ObscurelyNamedFile.js
+        "enteredPassword": true,
+        "processPassword": true,
+        "konamiCode": true
     }
 }
