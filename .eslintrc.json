@@ -16,6 +16,7 @@
         "arrow-body-style": 1,
         "prefer-spread": 1,
         "consistent-return": 1,
+        "prefer-rest-params": 1,
         "no-mixed-operators": 0,
         "max-len": 0,
         "brace-style": 0
