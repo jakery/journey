@@ -22,7 +22,7 @@ const alphanumeric =
 String.prototype.corrupt = function (offset) {
   offset = offset % alphanumeric.length;
 
-  if (offset == 0) {
+  if (offset === 0) {
     return this;
   }
 
@@ -31,7 +31,7 @@ String.prototype.corrupt = function (offset) {
   for (let i = 0; i < this.length; i++) {
     const char = this[i];
     const pos = alphanumeric.indexOf(char);
-    if (pos == -1) {
+    if (pos === -1) {
       output.push(this[i]);
     } else {
       const change = (pos + offset) % alphanumeric.length;
@@ -193,7 +193,7 @@ for (var i in keyIsRegistered) {
 const konami = '38,38,40,40,37,39,37,39,66,65';
 const keyLog = [];
 function konamiCode() {
-  return (keyLog.toString() == konami);
+  return (keyLog.toString() === konami);
 }
 
 
@@ -250,7 +250,7 @@ const registerKey = function (keyCode) {
 
 let getKeyByCode = function (keyCode) {
   for (const i in keys) {
-    if (keyCode == keys[i]) {
+    if (keyCode === keys[i]) {
       return i;
     }
   }

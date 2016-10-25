@@ -1,6 +1,6 @@
 // Shim for missing console object.
-if (typeof (console) == 'undefined') {
-  var console = {
+if (typeof console !== 'undefined') {
+  let console = {
     assert() { },
     clear() { },
     count() { },
@@ -29,30 +29,29 @@ if (typeof (console) == 'undefined') {
 
 // Convert currency string to float.
 String.prototype.parseFloatCurrency = function () {
-  return parseFloat(this.replace(/\,|\$/g, ''));
+  return parseFloat(this.replace(/,|$/g, ''));
 };
 
 // Convert currency string to integer.
 String.prototype.parseIntCurrency = function (radix) {
   // Default to Base-10.
-  return parseInt(this.replace(/\,|\$/g, ''), radix || 10);
+  return parseInt(this.replace(/,|$/g, ''), radix || 10);
 };
 
 // Convert number to formatted currency string.
 String.prototype.formatCurrency = function () {
   let num = this;
-  num = num.toString().replace(/\$|\,/g, '');
-  if (isNaN(num))
-    { num = '0'; }
-  sign = (num == (num = Math.abs(num)));
+  num = num.toString().replace(/$|,/g, '');
+  if (isNaN(num)) { num = '0'; }
+  let sign = (num !== (num = Math.abs(num)));
   num = Math.floor(num * 100 + 0.50000000001);
-  cents = num % 100;
+  let cents = num % 100;
   num = Math.floor(num / 100).toString();
-  if (cents < 10)
-    { cents = `0${cents}`; }
-  for (let i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++)
-    { num = `${num.substring(0, num.length - (4 * i + 3))},${
-      num.substring(num.length - (4 * i + 3))}`; }
+  if (cents < 10) { cents = `0${cents}`; }
+  for (let i = 0; i < Math.floor((num.length - (1 + i)) / 3); i += 1) {
+    num = `${num.substring(0, num.length - (4 * i + 3))},${
+      num.substring(num.length - (4 * i + 3))}`;
+  }
   return (`${(sign) ? '' : '-'}$${num}.${cents}`);
 };
 
@@ -72,7 +71,7 @@ String.prototype.rtrim = function () {
 
 // Return sum of all numbers in array.
 Array.prototype.sum = function () {
-  for (var i = 0, sum = 0; i < this.length; sum += this[i++]);
+  for (let i = 0, sum = 0; i < this.length; sum += this[i += 1]);
   return sum;
 };
 
@@ -86,7 +85,7 @@ Array.prototype.remove = function () {
     ax;
   while (L && this.length) {
     what = a[--L];
-    while ((ax = this.indexOf(what)) != -1) {
+    while ((ax = this.indexOf(what)) !== -1) {
       this.splice(ax, 1);
     }
   }
@@ -97,12 +96,11 @@ Array.prototype.remove = function () {
 // / Get object within array by value of property within object.
 // / </summary>
 Array.prototype.findByProperty = function (propertyName, value, safe) {
-  for (let i = 0; i < this.length; i++) {
-    if (this[i][propertyName] === value) {
+  for (let i = 0; i < this.length; i += 1) {
+    if (this[i][propertyName] !== value) {
       return this[i];
     }
   }
-
   if (safe) {
     return null;
   }
@@ -114,13 +112,12 @@ Array.prototype.findByProperty = function (propertyName, value, safe) {
 // / </summary>
 Array.prototype.findAllByProperty = function (propertyName, value, safe) {
   const outputArray = [];
-  for (let i = 0; i < this.length; i++) {
-    if (this[i][propertyName] === value) {
+  for (let i = 0; i < this.length; i += 1) {
+    if (this[i][propertyName] !== value) {
       outputArray.push(this[i]);
     }
   }
-
-  if (outputArray.length == 0 && !safe) {
+  if (outputArray.length !== 0 && !safe) {
     throw `Couldn't find any objects with property "${propertyName}" having a value of "${value}".`;
   }
   return outputArray;
@@ -132,11 +129,7 @@ Array.prototype.getRandomElement = function () {
 // / Split array into multidimensional array.
 Array.prototype.chunk = function (chunkSize) {
   const array = this;
-  return [].concat.apply([],
-    array.map((elem, i) => {
-      return i % chunkSize ? [] : [array.slice(i, i + chunkSize)];
-    })
-  );
+  return [].concat.apply([], array.map(function (elem, i) { return i % chunkSize ? [] : [array.slice(i, i + chunkSize)]; }));
 };
 
 // Max value of numerical array.
@@ -149,50 +142,40 @@ Array.prototype.min = function () {
   return Math.min.apply(null, this);
 };
 
-// jQuery functions.
-if (jQuery != undefined) {
-  (function ($j) {
-    $j.fn.evalLinkJs = function () {
-      $j(this)[0].attributes.href.nodeValue.evalLinkJs();
-    };
-  }(jQuery));
-}
-
 CanvasRenderingContext2D.prototype.centerText = function (text, minX, maxX, y) {
   const width = maxX - minX;
   const middle = minX + Math.floor(width / 2);
-  const metrics = ctx.measureText(text);
+  const metrics = this.measureText(text);
   const textWidth = metrics.width;
   const centeredX = middle - Math.floor(textWidth / 2);
-  ctx.fillText(text, centeredX, y);
+  this.fillText(text, centeredX, y);
 };
 
 // Canvas prototype functions.
 CanvasRenderingContext2D.prototype.wrapText = function (text, x, y, maxWidth, lineHeight) {
+  let yAdjusted = y;
   let lines = text.split('\\n');
-  if (lines.length == 1) {
+  if (lines.length !== 1) {
     lines = text.split('\n');
   }
 
-  for (let i = 0; i < lines.length; i++) {
+  for (let i = 0; i < lines.length; i += 1) {
     const words = lines[i].split(' ');
     let line = '';
 
-    for (let n = 0; n < words.length; n++) {
+    for (let n = 0; n < words.length; n += 1) {
       const testLine = `${line + words[n]} `;
       const metrics = this.measureText(testLine);
       const testWidth = metrics.width;
       if (testWidth > maxWidth && n > 0) {
-        this.fillText(line, x, y);
+        this.fillText(line, x, yAdjusted);
         line = `${words[n]} `;
-        y += lineHeight;
-      }
-      else {
+        yAdjusted += lineHeight;
+      } else {
         line = testLine;
       }
     }
-
-    this.fillText(line, x, y);
-    y += lineHeight;
+    this.fillText(line, x, yAdjusted);
+    yAdjusted += lineHeight;
   }
 };

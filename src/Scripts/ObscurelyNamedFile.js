@@ -12,47 +12,46 @@ Therefore, here's your reward for delving into the source code.
 
 
 const password = [
+  'title',
+  'level1',
+  'level2',
+  'level3',
+  'level4',
+  'level5',
+  'keyhole',
+  'chip',
+  'brown',
+  'swimtime',
+  'buttontime',
+  'bounce',
 
-  'title',        //  00
-  'level1',       //  01
-  'level2',       //  02
-  'level3',       //  03
-  'level4',       //  04
-  'level5',       //  05
-  'keyhole',      //  06
-  'chip',         //  07
-  'brown',        //  08
-  'swimtime',     // 09
-  'buttontime', // 10
-  'bounce',   // 11
+  'balltrap',
+  'fat',
+  'diamond',
+  'trimaze',
 
-  'balltrap',         //  1
-  'fat',        //  1
-  'diamond',         //  1
-  'trimaze',    //  1
-                    //  1
-  'pushandgo',      //  1
+  'pushandgo',
 
-  'cockney',       //  1
-  'normal',     //  1
-  'whiskey',      //  1
-  'tango',        //
-  'foxtrot',      //
-  'trapdoors',     //
-  'macho',     //
-  'yellow',      //
-  'throwaway',   //
-  'brownies',        //
-  'what',      //
-  'thinkpush',    //
-  'lamancha',        //
-  'cutbacks',      //
-  'buttonwalk',         //
-  'capsule',   //
-  'japan',        //
-  'hardcore',      //
-  'wave',        //
-  'guard',         //
+  'cockney',
+  'normal',
+  'whiskey',
+  'tango',
+  'foxtrot',
+  'trapdoors',
+  'macho',
+  'yellow',
+  'throwaway',
+  'brownies',
+  'what',
+  'thinkpush',
+  'lamancha',
+  'cutbacks',
+  'buttonwalk',
+  'capsule',
+  'japan',
+  'hardcore',
+  'wave',
+  'guard',
   'guide',
   'asthma',
   'queue',
@@ -72,42 +71,40 @@ const password = [
   'level1',
   'what',
 
-  'waitjack',      // titanic
-//
-
+  'waitjack',
 ];
 
 function processPassword() {
   enteredPassword = enteredPassword.toLowerCase();
 
 
-    // Begins with "level" & is not "level1 - level5"
-    // TODO: There's probably a good way to refactor this into a single Regex statement, but I've got bigger fish to fry.
-  if (enteredPassword != 'level' && enteredPassword.indexOf('level') == 0 && enteredPassword.match(/^level[1-5]\s*$/g) == null) {
-            // CHEATER!
+  // Begins with "level" & is not "level1 - level5"
+  // TODO: There's probably a good way to refactor this into a single Regex statement, but I've got bigger fish to fry.
+  if (enteredPassword !== 'level' && enteredPassword.indexOf('level') === 0 && enteredPassword.match(/^level[1-5]\s*$/g) === null) {
+    // CHEATER!
 
     game.level = -10000;
     loadMap(game.level);
   } else {
-        // Derp. Stay in school, kids.
-    if (enteredPassword == 'athsma') {
+    // Derp. Stay in school, kids.
+    if (enteredPassword === 'athsma') {
       enteredPassword = 'asthma';
     }
 
     const passwordLevel = password.indexOf(enteredPassword);
 
-    if (passwordLevel == -1) {
-            // Bad password.
+    if (passwordLevel === -1) {
+      // Bad password.
       game.passwordHudMessage = "That ain't no password.";
     } else {
-            // Good password.
+      // Good password.
       game.level = passwordLevel;
       loadMap(game.level);
       game.passwordHudMessage = '';
     }
   }
 
-    // Clear entered password.
+  // Clear entered password.
   enteredPassword = '';
 }
 
