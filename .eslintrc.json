@@ -4,6 +4,23 @@
         "standard",
         "promise"
     ],
+    // Temporarily: Downgrade some rules to warnings.
     "rules": {
+        "new-cap": 1,
+        "no-mixed-operators": 1,
+        "max-len": 1,
+        "no-continue": 1,
+        "no-unused-vars": 1
+    },
+    "globals": {
+        "document": false,
+        "window": false,
+        "tileCodes": true,
+        "SpriteNS": true,
+        "$j": false,
+        "$": false,
+        "randomMessages": true,
+        "loadMap": true,
+        "alert": false
     }
 }
