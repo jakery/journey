@@ -1,6 +1,7 @@
 // / <reference path='tileCodes.js' />
 // / <reference path='Sprite.js' />
 
+let $j = $.noConflict();
 const enteredPassword = '';
 const passwords = {};
 
@@ -17,6 +18,7 @@ const Coordinates = function (px, py) {
 };
 
 const interacting = false;
+
 
 let master;
 let gameCanvas;
@@ -327,7 +329,7 @@ function loadMap(levelNumber) {
       }
     },
   });
-} // loadMap()
+}
 
 function tileIsInDrawBounds(coords) {
   return !(coords.x < 0 || coords.x > stage.playboxWidth || coords.y < 0 || coords.y > stage.playboxHeight);
@@ -892,7 +894,7 @@ function Update() {
       game.enemies[i].Update();
     }
   }
-} // function Update()
+}
 
 function CheckCollision() {
   game.redSwitch = false;
@@ -1198,7 +1200,7 @@ function Draw() {
   game.hud.Draw();
 
   game.credits.Draw();
-} // function Draw()
+}
 
 function gameLoop() {
   player.GetInput();
@@ -1240,19 +1242,6 @@ function drawTileOffset(tileNumber, coords, sign) {
   const drawC = getTileDrawOffsetCoords(coords);
   drawTilex(tileNumber, drawC, sign);
 }
-
-// function returnToTitle() {
-//    game.atExit = false;
-//    game.theEnd = false;
-//    credits = new creditsClass();
-//    credits.isStarted = false;
-
-//    game.level = -1;
-//    game.nextLevel();
-//    game.mode = 'title';
-// }
-
-$j = $.noConflict();
 
 $j(() => {
   run(false);
