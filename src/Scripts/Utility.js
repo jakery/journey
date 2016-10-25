@@ -1,6 +1,6 @@
 // Shim for missing console object.
 if (typeof console !== 'undefined') {
-  let console = {
+  var console = {
     assert() { },
     clear() { },
     count() { },
@@ -29,25 +29,27 @@ if (typeof console !== 'undefined') {
 
 // Convert currency string to float.
 String.prototype.parseFloatCurrency = function () {
-  return parseFloat(this.replace(/,|$/g, ''));
+  return parseFloat(this.replace(/\,|\$/g, ''));
 };
 
 // Convert currency string to integer.
 String.prototype.parseIntCurrency = function (radix) {
   // Default to Base-10.
-  return parseInt(this.replace(/,|$/g, ''), radix || 10);
+  return parseInt(this.replace(/\,|\$/g, ''), radix || 10);
 };
 
 // Convert number to formatted currency string.
 String.prototype.formatCurrency = function () {
   let num = this;
-  num = num.toString().replace(/$|,/g, '');
-  if (isNaN(num)) { num = '0'; }
-  let sign = (num !== (num = Math.abs(num)));
+  num = num.toString().replace(/\$|\,/g, '');
+  if (isNaN(num))
+  { num = '0'; }
+  sign = (num !== (num = Math.abs(num)));
   num = Math.floor(num * 100 + 0.50000000001);
-  let cents = num % 100;
+  cents = num % 100;
   num = Math.floor(num / 100).toString();
-  if (cents < 10) { cents = `0${cents}`; }
+  if (cents < 10)
+  { cents = `0${cents}`; }
   for (let i = 0; i < Math.floor((num.length - (1 + i)) / 3); i += 1) {
     num = `${num.substring(0, num.length - (4 * i + 3))},${
       num.substring(num.length - (4 * i + 3))}`;
@@ -71,7 +73,7 @@ String.prototype.rtrim = function () {
 
 // Return sum of all numbers in array.
 Array.prototype.sum = function () {
-  for (let i = 0, sum = 0; i < this.length; sum += this[i += 1]);
+  for (var i = 0, sum = 0; i < this.length; sum += this[i += 1]);
   return sum;
 };
 
@@ -97,10 +99,11 @@ Array.prototype.remove = function () {
 // / </summary>
 Array.prototype.findByProperty = function (propertyName, value, safe) {
   for (let i = 0; i < this.length; i += 1) {
-    if (this[i][propertyName] !== value) {
+    if (this[i][propertyName] === value) {
       return this[i];
     }
   }
+
   if (safe) {
     return null;
   }
@@ -113,11 +116,12 @@ Array.prototype.findByProperty = function (propertyName, value, safe) {
 Array.prototype.findAllByProperty = function (propertyName, value, safe) {
   const outputArray = [];
   for (let i = 0; i < this.length; i += 1) {
-    if (this[i][propertyName] !== value) {
+    if (this[i][propertyName] === value) {
       outputArray.push(this[i]);
     }
   }
-  if (outputArray.length !== 0 && !safe) {
+
+  if (outputArray.length === 0 && !safe) {
     throw `Couldn't find any objects with property "${propertyName}" having a value of "${value}".`;
   }
   return outputArray;
@@ -129,7 +133,11 @@ Array.prototype.getRandomElement = function () {
 // / Split array into multidimensional array.
 Array.prototype.chunk = function (chunkSize) {
   const array = this;
-  return [].concat.apply([], array.map(function (elem, i) { return i % chunkSize ? [] : [array.slice(i, i + chunkSize)]; }));
+  return [].concat.apply([],
+    array.map((elem, i) => {
+      return i % chunkSize ? [] : [array.slice(i, i + chunkSize)];
+    })
+  );
 };
 
 // Max value of numerical array.
@@ -142,13 +150,22 @@ Array.prototype.min = function () {
   return Math.min.apply(null, this);
 };
 
+// jQuery functions.
+if (typeof jQuery !== 'undefined') {
+  (function ($j) {
+    $j.fn.evalLinkJs = function () {
+      $j(this)[0].attributes.href.nodeValue.evalLinkJs();
+    };
+  }(jQuery));
+}
+
 CanvasRenderingContext2D.prototype.centerText = function (text, minX, maxX, y) {
   const width = maxX - minX;
   const middle = minX + Math.floor(width / 2);
-  const metrics = this.measureText(text);
+  const metrics = ctx.measureText(text);
   const textWidth = metrics.width;
   const centeredX = middle - Math.floor(textWidth / 2);
-  this.fillText(text, centeredX, y);
+  ctx.fillText(text, centeredX, y);
 };
 
 // Canvas prototype functions.
