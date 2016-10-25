@@ -23,13 +23,12 @@
     },
     "globals": {
         // TODO: Most of these will no longer be global after the refactor.
+        "Modernizr": false,
         "document": false,
         "window": false,
         "jQuery": false,
-        "$j": false,
+        "$j": true,
         "$": false,
-        "tileCodes": true,
-        "SpriteNS": true,
         "randomMessages": true,
         "loadMap": true,
         "alert": false,
@@ -39,7 +38,6 @@
         "player": true,
         "drawTileOffset": true,
         "stage": true,
-        "Coordinates": false,
         // Keyboard.js
         "keyIsDown": false,
         "keyIsRegistered": false,
@@ -47,8 +45,16 @@
         "keyHeldDuration": false,
         "alphanumeric": false,
         // ObscurelyNamedFile.js
+        "password": true,
         "enteredPassword": true,
         "processPassword": true,
-        "konamiCode": true
+        "konamiCode": true,
+        // Sprite.js
+        "areSpritesColliding": true,
+        "SpriteNS": true,
+        // TileCodes.js
+        "tileCodes": true,
+        // Coordinates.js
+        "Coordinates": false
     }
 }
