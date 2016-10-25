@@ -7,6 +7,7 @@
     // Temporarily downgrade some rules to warnings, and some rules to nothing.
     // Enforcing these rules requires code refactoring and/or retesting.
     "rules": {
+        "no-param-reassign": 1,
         "eqeqeq": 1,
         "no-extend-native": 1,
         "new-cap": 1,
