@@ -1,47 +1,4 @@
-const alphanumericTX =
-['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
- 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
- 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
- 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
- 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
- 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
- 'w', 'x', 'y', 'z', 'D1', 'D2', 'D3', 'D4',
- 'D5', 'D6', 'D7', 'D8', 'D9', 'D0'];
-
-
-const alphanumeric =
-['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
- 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
- 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
- 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
- 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
- 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
- 'w', 'x', 'y', 'z', '1', '2', '3', '4',
- '5', '6', '7', '8', '9', '0'];
-
-String.prototype.corrupt = function (offset) {
-  offset = offset % alphanumeric.length;
-
-  if (offset === 0) {
-    return this;
-  }
-
-  const output = [];
-
-  for (let i = 0; i < this.length; i++) {
-    const char = this[i];
-    const pos = alphanumeric.indexOf(char);
-    if (pos === -1) {
-      output.push(this[i]);
-    } else {
-      const change = (pos + offset) % alphanumeric.length;
-      output.push(alphanumeric[change]);
-    }
-  }
-
-  return output.join('');
-};
-
+// TODO: Modularize this.
 
 function keyboard() {
   this.Backspace = 8;
@@ -173,21 +130,67 @@ function keyboard() {
 }
 
 const keys = new keyboard();
+const keyIsDown = new keyboard().foreach((a) => { a = false; });
+const keyHeldDuration = new keyboard().foreach((a) => { a = 0; });
+const keyIsRegistered = new keyboard().foreach((a) => { a = false; });
 
-const keyIsDown = new keyboard();
-for (var i in keyIsDown) {
-  keyIsDown[i] = false;
-}
+const alphanumericTX =
+  ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+    'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+    'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+    'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
+    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+    'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+    'w', 'x', 'y', 'z', 'D1', 'D2', 'D3', 'D4',
+    'D5', 'D6', 'D7', 'D8', 'D9', 'D0'];
 
-const keyHeldDuration = new keyboard();
-for (var i in keyHeldDuration) {
-  keyHeldDuration[i] = 0;
-}
+const alphanumeric =
+  ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+    'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+    'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+    'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
+    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+    'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+    'w', 'x', 'y', 'z', '1', '2', '3', '4',
+    '5', '6', '7', '8', '9', '0'];
 
-const keyIsRegistered = new keyboard();
-for (var i in keyIsRegistered) {
-  keyIsRegistered[i] = false;
-}
+String.prototype.corrupt = function (offset) {
+  offset %= alphanumeric.length;
+
+  if (offset === 0) {
+    return this;
+  }
+
+  const output = [];
+
+  for (let i = 0; i < this.length; i += 1) {
+    const char = this[i];
+    const charIndex = alphanumeric.indexOf(char);
+    if (charIndex === -1) {
+      output.push(this[i]);
+    } else {
+      const change = (charIndex + offset) % alphanumeric.length;
+      output.push(alphanumeric[change]);
+    }
+  }
+
+  return output.join('');
+};
+
+const getKeyByCode = function (keyCode) {
+  keys.foreach((a) => {
+    if (keyCode === keys[a]) {
+      return a;
+    }
+    return null;
+  });
+};
+
+const registerKey = function (keyCode) {
+  const key = getKeyByCode(keyCode);
+  keyIsDown[key] = true;
+};
+
 
 // Adapted from Konami Code plugin by Joel Sutherland. http://www.gethifi.com/blog/konami-code-jquery-plugin-pointlessly-easy
 const konami = '38,38,40,40,37,39,37,39,66,65';
@@ -196,8 +199,8 @@ function konamiCode() {
   return (keyLog.toString() === konami);
 }
 
-
-(function ($j) {
+(function (jQuery) {
+  const $j = jQuery;
   $j.fn.keyboard = function (options) {
     const settings = {
       exclusions: [],
@@ -206,9 +209,9 @@ function konamiCode() {
 
     $j.extend(settings, options);
 
-        // Exclude keys from listener events.
+    // Exclude keys from listener events.
     if (settings.exclusions.length > 0) {
-      for (let i = 0; i < settings.exclusions.length; i++) {
+      for (let i = 0; i < settings.exclusions.length; i += 1) {
         const name = settings.exclusions[i];
         keys[name] = false;
       }
@@ -242,17 +245,3 @@ function konamiCode() {
   };
 }(jQuery));
 
-
-const registerKey = function (keyCode) {
-  const key = getKeyByCode(keyCode);
-  keyIsDown[key] = true;
-};
-
-let getKeyByCode = function (keyCode) {
-  for (const i in keys) {
-    if (keyCode === keys[i]) {
-      return i;
-    }
-  }
-  return null;
-};

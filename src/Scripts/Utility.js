@@ -2,7 +2,7 @@
 
 let console;
 if (typeof console === 'undefined') {
-  let console = {
+  const console = {
     assert() { },
     clear() { },
     count() { },
@@ -23,9 +23,9 @@ if (typeof console === 'undefined') {
     timeEnd() { },
     timeStamp() { },
     trace() { },
-    warn() { }
-  }
-};
+    warn() { },
+  };
+}
 
 const currencyPattern = /,|$/g;
 // // String prototype functions.
