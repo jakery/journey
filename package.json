@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "lite-server",
     "test": "test",
-    "lint" : "node ./node_modules/eslint/bin/eslint.js './src/**/*.js'"
+    "lint": "node ./node_modules/eslint/bin/eslint.js './src/**/*.js'"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "eslint-config-standard": "^6.2.0",
     "eslint-plugin-promise": "^3.3.0",
     "eslint-plugin-standard": "^2.0.1",
-    "lite-server": "^2.2.2"
+    "lite-server": "^2.2.2",
+    "webpack": "^1.13.2"
   }
 }
