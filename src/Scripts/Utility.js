@@ -1,18 +1,19 @@
-define('Utility', [], function () {
-  let Utility = function () {
+define('Utility', [], () => {
+  const Utility = function () {
     this.tileDistanceBetween = function tileDistanceBetween(coords1, coords2) {
       const xDist = Math.abs(coords1.x - coords2.x);
       const yDist = Math.abs(coords1.y - coords2.y);
       return xDist + yDist;
-    }
+    };
 
     this.areColliding = function areColliding(pos1, pos2) {
       return pos1.x == pos2.x && pos1.y == pos2.y;
-    }
+    };
 
     this.areSpritesColliding = function areSpritesColliding(s1, s2) {
       return this.areColliding(s1.position, s2.position);
-    }
+    };
+
     // Shim for missing console object.
     this.console = window.console || {
       assert() { },
@@ -35,7 +36,7 @@ define('Utility', [], function () {
       timeEnd() { },
       timeStamp() { },
       trace() { },
-      warn() { }
+      warn() { },
     };
 
     this.string = new (function () {
@@ -79,7 +80,6 @@ define('Utility', [], function () {
       this.rtrim = function (string) {
         return string.replace(/\s+$/, '');
       };
-
     })();
 
     this.array = new (function () {
@@ -165,10 +165,9 @@ define('Utility', [], function () {
         return Math.min.apply(null, array);
       };
     })();
+  };
 
-  }
-
-  CanvasRenderingContext2D.prototype.centerText = function (text, minX, maxX, y) {
+  CanvasRenderingContext2D.prototype.centerText = function centerText(text, minX, maxX, y) {
     const width = maxX - minX;
     const middle = minX + Math.floor(width / 2);
     const metrics = this.measureText(text);
@@ -178,7 +177,7 @@ define('Utility', [], function () {
   };
 
   // Canvas prototype functions.
-  CanvasRenderingContext2D.prototype.wrapText = function (text, x, y, maxWidth, lineHeight) {
+  CanvasRenderingContext2D.prototype.wrapText = function wrapText(text, x, y, maxWidth, lineHeight) {
     let yAdjusted = y;
     let lines = text.split('\\n');
     if (lines.length !== 1) {

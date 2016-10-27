@@ -1,4 +1,4 @@
-define('Sprite', ['./Coordinates', './Keyboard', './Utility'], function (Coordinates, Keyboard, Utility) {
+define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Keyboard, Utility) => {
   const SpriteNS = {
     Inventory: function Inventory() {
       this.yellowKeys = 0;
@@ -10,7 +10,7 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], function (Coordin
 
     Sprite: null,
   };
-  SpriteNS.Sprite = function (g,k) {
+  SpriteNS.Sprite = function (g, k) {
     this.game = g;
     this.keyboard = k;
     const baseUnit = 32;
@@ -61,7 +61,6 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], function (Coordin
     this.isMoving = false;
     this.isInteracting = false;
     this.isTileInteract = false;
-    // this.interaction = [new Interaction("dialog","<default>")];
 
     this.isTeleporting = false;
 
@@ -80,7 +79,7 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], function (Coordin
     this.position = new Coordinates(0, 0);
 
     this.tileDistanceToSprite = function (sprite) {
-      return tileDistanceBetween(this.position, sprite.position);
+      return this.tileDistanceBetween(this.position, sprite.position);
     };
     this.surroundingTiles = null;
     this.getSurroundingTiles = function (coords) {
@@ -108,7 +107,7 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], function (Coordin
 
       };
       // up
-      console.log("nothing");
+      Utility.aGreenBlockInactiveconsole.log('nothing');
       if (this.game.map.isInBounds(surroundingTiles.up.coords)) {
         surroundingTiles.up.type = this.game.map.getTileTypeByCoords(surroundingTiles.up.coords.x, surroundingTiles.up.coords.y);
       }
@@ -628,12 +627,12 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], function (Coordin
 
     this.checkInputAndExecute = function (keyName, repeatDelay, callback, args) {
       if (this.keyboard.keyIsDown[keyName]) {
-        if (keyHeldDuration[keyName] == 0 || keyHeldDuration[keyName] > repeatDelay) {
-          if (keyHeldDuration[keyName] % 2 == 0) {
+        if (this.keyboard.keyHeldDuration[keyName] == 0 || this.keyboard.keyHeldDuration[keyName] > repeatDelay) {
+          if (this.keyboard.keyHeldDuration[keyName] % 2 == 0) {
             callback.apply(this, args);
           }
         }
-        keyHeldDuration[keyName] += 1;
+        this.keyboard.keyHeldDuration[keyName] += 1;
         return true;
       }
       return false;
@@ -1016,7 +1015,7 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], function (Coordin
 
           case 'revenge':
             if (this.game.debug) {
-              console.log('revenge');
+              Utility.console.log('revenge');
             }
             this.game.enemies.findByProperty('subType', 'predator').subType = 'nascar';
 
@@ -1027,7 +1026,7 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], function (Coordin
 
           case 'theEnd':
             if (this.game.debug) {
-              console.log('the end');
+              Utility.console.log('the end');
             }
             this.game.enemies.findByProperty('subType', 'predator').subType = 'nascar';
 
@@ -1038,7 +1037,7 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], function (Coordin
             break;
           case 'transform':
             if (this.game.debug) {
-              console.log('transform');
+              Utility.console.log('transform');
             }
             thePredator = this.game.enemies.findByProperty('subType', 'predator');
             thePredator.subType = 'smartPredator';
@@ -1048,7 +1047,7 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], function (Coordin
             break;
           case 'destroyPredator':
             if (this.game.debug) {
-              console.log('destroy predator');
+              Utility.console.log('destroy predator');
             }
             thePredator = this.game.enemies.findByProperty('subType', 'smartPredator');
             thePredator.destroy();

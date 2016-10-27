@@ -1,6 +1,6 @@
 // TODO: Modularize this.
-define("Keyboard", [], function () {
-  let Keyboard = function () {
+define('Keyboard', [], () => {
+  const Keyboard = function () {
     this.settings = {
       exclusions: [],
       sticky: true,
@@ -134,7 +134,8 @@ define("Keyboard", [], function () {
       this.F13 = 124;
       this.F14 = 125;
       this.F15 = 126;
-    }
+    };
+
     this.keys = new this.keyboard();
     this.keyIsDown = new this.keyboard();
     this.keyHeldDuration = new this.keyboard();
@@ -166,7 +167,7 @@ define("Keyboard", [], function () {
         '5', '6', '7', '8', '9', '0'];
 
     this.corrupt = function (offset) {
-      offset %= alphanumeric.length;
+      offset %= this.alphanumeric.length;
 
       if (offset === 0) {
         return this;
@@ -176,12 +177,12 @@ define("Keyboard", [], function () {
 
       for (let i = 0; i < this.length; i += 1) {
         const char = this[i];
-        const charIndex = alphanumeric.indexOf(char);
+        const charIndex = this.alphanumeric.indexOf(char);
         if (charIndex === -1) {
           output.push(this[i]);
         } else {
-          const change = (charIndex + offset) % alphanumeric.length;
-          output.push(alphanumeric[change]);
+          const change = (charIndex + offset) % this.alphanumeric.length;
+          output.push(this.alphanumeric[change]);
         }
       }
 
@@ -189,7 +190,7 @@ define("Keyboard", [], function () {
     };
 
     this.getKeyByCode = function (keyCode) {
-      for (const k of Object.keys(keys)) {
+      for (const k of Object.keys(this.keys)) {
         if (keyCode === this.keys[k]) {
           return k;
         }
@@ -208,11 +209,11 @@ define("Keyboard", [], function () {
     this.keyLog = [];
     this.konamiCode = function () {
       return (this.keyLog.toString() === this.konami);
-    }
+    };
 
     this.wireUp = function (htmlElement) {
       // Exclude keys from listener events.
-      if ( this.settings.exclusions.length > 0) {
+      if (this.settings.exclusions.length > 0) {
         for (let i = 0; i < this.settings.exclusions.length; i += 1) {
           const name = this.settings.exclusions[i];
           this.keys[name] = false;
@@ -222,27 +223,27 @@ define("Keyboard", [], function () {
       htmlElement.onkeydown = ((event) => {
         const code = event.which || event.keyCode;
         this.keyLog.push(code);
-        while (keyLog.length > 10) {
+        while (this.keyLog.length > 10) {
           this.keyLog.shift();
         }
-        const key =  this.getKeyByCode(code);
+        const key = this.getKeyByCode(code);
         if (key) {
           event.preventDefault();
-           this.keyIsDown[key] = true;
+          this.keyIsDown[key] = true;
         }
       });
 
       htmlElement.onkeyup = ((event) => {
         const code = event.which || event.keyCode;
-        const key =  this.getKeyByCode(code);
+        const key = this.getKeyByCode(code);
         if (key) {
           event.preventDefault();
-           this.keyIsDown[key] = false;
-           this.keyIsRegistered[key] = false;
-           this.keyHeldDuration[key] = 0;
+          this.keyIsDown[key] = false;
+          this.keyIsRegistered[key] = false;
+          this.keyHeldDuration[key] = 0;
         }
       });
-    }
-  }
+    };
+  };
   return Keyboard;
 });
