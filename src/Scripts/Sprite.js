@@ -1,4 +1,4 @@
-define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Keyboard, Utility) => {
+define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard', './Utility', './Draw'], (DeathMessages, TileCodes, Coordinates, Keyboard, Utility, Draw) => {
   const SpriteNS = {
     Inventory: function Inventory() {
       this.yellowKeys = 0;
@@ -10,10 +10,13 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Key
 
     Sprite: null,
   };
-  SpriteNS.Sprite = function (g, k, draw) {
-    this.game = g;
-    this.keyboard = k;
-    this.draw = draw;
+  SpriteNS.Sprite = function (game, stage, keyboard, draw, pwh, player) {
+    this.game = game;
+    this.stage = stage;
+    this.keyboard = keyboard;
+    this.draw = new Draw(game, stage, null, null);
+    this.passwordHandler = pwh || null;
+
     const baseUnit = 32;
     const halfBaseUnit = baseUnit / 2;
     const maxPasswordLength = 11;
@@ -170,76 +173,76 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Key
 
 
       // Wall.
-      if (destinationTileType == tileCodes.wall || destinationTileType == tileCodes.futureFloor) {
+      if (destinationTileType == TileCodes.wall || destinationTileType == TileCodes.futureFloor) {
         return false;
       }
 
       // Disappearing red wall.
-      if (destinationTileType == tileCodes.dRedBlockInactive && !this.game.redSwitch) {
+      if (destinationTileType == TileCodes.dRedBlockInactive && !this.game.redSwitch) {
         return false;
       }
 
       // Appearing red wall.
-      if (destinationTileType == tileCodes.aRedBlockInactive && this.game.redSwitch) {
+      if (destinationTileType == TileCodes.aRedBlockInactive && this.game.redSwitch) {
         return false;
       }
 
       // Disappearing yellow wall.
-      if (destinationTileType == tileCodes.dYellowBlockInactive && !this.game.yellowSwitch) {
+      if (destinationTileType == TileCodes.dYellowBlockInactive && !this.game.yellowSwitch) {
         return false;
       }
 
       // Appearing yellow wall.
-      if (destinationTileType == tileCodes.aYellowBlockInactive && this.game.yellowSwitch) {
+      if (destinationTileType == TileCodes.aYellowBlockInactive && this.game.yellowSwitch) {
         return false;
       }
 
       // Disappearing green wall.
-      if (destinationTileType == tileCodes.dGreenBlockInactive && !this.game.greenSwitch) {
+      if (destinationTileType == TileCodes.dGreenBlockInactive && !this.game.greenSwitch) {
         return false;
       }
 
       // Appearing green wall.
-      if (destinationTileType == tileCodes.aGreenBlockInactive && this.game.greenSwitch) {
+      if (destinationTileType == TileCodes.aGreenBlockInactive && this.game.greenSwitch) {
         return false;
       }
 
       // Brown toggle wall.
-      if (destinationTileType == tileCodes.brownBlockInactive && this.game.brownSwitch) {
+      if (destinationTileType == TileCodes.brownBlockInactive && this.game.brownSwitch) {
         return false;
       }
 
       // Brown toggle off wall.
-      if (destinationTileType == tileCodes.brownBlockActive && !this.game.brownSwitch) {
+      if (destinationTileType == TileCodes.brownBlockActive && !this.game.brownSwitch) {
         return false;
       }
 
       // Yellow Door.
-      if (destinationTileType == tileCodes.yellowDoor) {
+      if (destinationTileType == TileCodes.yellowDoor) {
         // Player has key.
         return this.inventory.yellowKeys > 0;
       }
 
       // Red Door.
-      if (destinationTileType == tileCodes.redDoor) {
+      if (destinationTileType == TileCodes.redDoor) {
         // Player has key.
         return this.inventory.redKeys > 0;
       }
 
       // Cyan Door.
-      if (destinationTileType == tileCodes.cyanDoor) {
+      if (destinationTileType == TileCodes.cyanDoor) {
         // Player has key.
         return this.inventory.cyanKeys > 0;
       }
 
       // Green Door.
-      if (destinationTileType == tileCodes.greenDoor) {
+      if (destinationTileType == TileCodes.greenDoor) {
         // Player has key.
         return this.inventory.greenKeys > 0;
       }
 
       // Toll block.
-      if (destinationTileType == tileCodes.toll) {
+      if (destinationTileType == TileCodes.toll) {
         // Player has the toll.
         return this.inventory.money >= this.game.moneyCount;
       }
@@ -384,12 +387,12 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Key
       const tileType = this.game.map.getTileTypeByCoords(this.position.x, this.position.y);
 
       // Normal.
-      if (tileType == tileCodes.floor) {
+      if (tileType == TileCodes.floor) {
         return;
       }
 
       // Yellow Door.
-      if (tileType == tileCodes.yellowDOor) {
+      if (tileType == TileCodes.yellowDOor) {
         // Player has a key.
         if (this.inventory.yellowKeys > 0) {
           // Unlock door.
@@ -404,7 +407,7 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Key
       }
 
       // Red Door.
-      if (tileType == tileCodes.redDoor) {
+      if (tileType == TileCodes.redDoor) {
         // Player has a key.
         if (this.inventory.redKeys > 0) {
           // Unlock door.
@@ -419,7 +422,7 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Key
       }
 
       // Cyan Door.
-      if (tileType == tileCodes.cyanDoor) {
+      if (tileType == TileCodes.cyanDoor) {
         // Player has a key.
         if (this.inventory.cyanKeys > 0) {
           // Unlock door.
@@ -434,7 +437,7 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Key
       }
 
       // Cyan Door.
-      if (tileType == tileCodes.cyanDoor) {
+      if (tileType == TileCodes.cyanDoor) {
         // Player has a key.
         if (this.inventory.greenKeys > 0) {
           // Unlock door.
@@ -457,14 +460,14 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Key
       }
 
       // Water & death.
-      if (tileType == tileCodes.water) {
+      if (tileType == TileCodes.water) {
         // Balls are immune to water death.
         // if (this.subType != "ball") {
 
         this.isDead = true;
 
         if (this.type == 'player') {
-          const message = randomMessages.water.getRandomElement();
+          const message = DeathMessages.water.getRandomElement();
           this.game.setDeadMessage(message);
         }
 
@@ -502,15 +505,15 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Key
         if (this.keyboard.keyIsDown.Enter && !this.keyboard.keyIsRegistered.Enter) {
           this.keyboard.keyIsRegistered.Enter = true;
 
-          processPassword();
+          this.passwordHandler.process();
         } else if (this.keyboard.keyIsDown.Esc && !this.keyboard.keyIsRegistered.Esc) {
           this.keyboard.keyIsRegistered.Esc = true;
           this.game.passwordHudMessage = '';
-          enteredPassword = '';
+          this.game.enteredPassword = '';
           this.game.mode = 'title';
         } else if (this.keyboard.keyIsDown.Backspace && !this.keyboard.keyIsRegistered.Backspace) {
           this.keyboard.keyIsRegistered.Backspace = true;
-          enteredPassword = enteredPassword.slice(0, -1);
+          this.game.enteredPassword = this.game.enteredPassword.slice(0, -1);
         }
 
         else {
@@ -519,14 +522,14 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Key
             if (this.keyboard.keyIsDown[this.keyboard.alphanumericTX[i]] && !this.keyboard.keyIsRegistered[this.keyboard.alphanumericTX[i]]) {
               this.keyboard.keyIsRegistered[this.keyboard.alphanumericTX[i]] = true;
 
-              if (enteredPassword.length < maxPasswordLength) {
-                enteredPassword += this.keyboard.alphanumeric[i];
+              if (this.game.enteredPassword.length < maxPasswordLength) {
+                this.game.enteredPassword += this.keyboard.alphanumeric[i];
               }
             }
           }
         }
 
-        if (enteredPassword.length > 0) {
+        if (this.game.enteredPassword.length > 0) {
           this.game.passwordHudMessage = '';
         }
       } else if (this.game.mode == 'credits') {
@@ -560,7 +563,7 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Key
         }
 
         // Player is dead. Press enter to restart. No other input allowed.
-        if (player.isDead) {
+        if (this.player.isDead) {
           if (this.keyboard.keyIsDown.Enter && !this.keyboard.keyIsRegistered.Enter) {
             this.keyboard.keyIsRegistered.Enter = true;
             this.game.restartLevel();
@@ -647,7 +650,7 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Key
       if (this.type == 'tool') {
         if (this.subType == 'pushBlock') {
           if (this.gettingPushed) {
-            this.direction = player.direction;
+            this.direction = this.player.direction;
             this.goForward();
 
             this.gettingPushed = false;
@@ -759,14 +762,14 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Key
               return;
             }
 
-            if (this.position.x == player.position.x) {
-              if (this.position.y > player.position.y) {
+            if (this.position.x == this.player.position.x) {
+              if (this.position.y > this.player.position.y) {
                 this.turn('up');
               } else {
                 this.turn('down');
               }
-            } else if (this.position.y == player.position.y) {
-              if (this.position.x > player.position.x) {
+            } else if (this.position.y == this.player.position.y) {
+              if (this.position.x > this.player.position.x) {
                 this.turn('left');
               } else {
                 this.turn('right');
@@ -803,7 +806,7 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Key
               this.ticks += 1;
 
               if (this.position.y == 9 && this.position.x > 5) {
-                player.rotation = 0;
+                this.player.rotation = 0;
                 if (this.game.gameTimer % 40 != 0) {
                   return;
                 }
@@ -840,7 +843,7 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Key
                 this.turn('right');
                 this.goForward();
               } else {
-                player.startCountup = true;
+                this.player.startCountup = true;
               }
             }
             break;
@@ -852,32 +855,32 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Key
     };
 
     this.movePredator = function () {
-      const xDist = Math.abs(this.position.x - player.position.x);
-      const yDist = Math.abs(this.position.y - player.position.y);
+      const xDist = Math.abs(this.position.x - this.player.position.x);
+      const yDist = Math.abs(this.position.y - this.player.position.y);
 
       if (xDist > yDist) {
-        if (this.position.x > player.position.x) {
+        if (this.position.x > this.player.position.x) {
           this.turn('left');
         } else {
           this.turn('right');
         }
         if (!this.canMove()) {
-          if (this.position.y > player.position.y) {
+          if (this.position.y > this.player.position.y) {
             this.turn('up');
-          } else if (this.position.y < player.position.y) {
+          } else if (this.position.y < this.player.position.y) {
             this.turn('down');
           }
         }
       } else {
-        if (this.position.y > player.position.y) {
+        if (this.position.y > this.player.position.y) {
           this.turn('up');
         } else {
           this.turn('down');
         }
         if (!this.canMove()) {
-          if (this.position.x > player.position.x) {
+          if (this.position.x > this.player.position.x) {
             this.turn('left');
-          } else if (this.position.x < player.position.x) {
+          } else if (this.position.x < this.player.position.x) {
             this.turn('right');
           }
         }
@@ -890,7 +893,7 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Key
     this.crushCheck = function () {
       if (this.type == 'player' && !this.canMove(this.position)) {
         this.isDead = true;
-        const message = randomMessages.crush.getRandomElement();
+        const message = DeathMessages.crush.getRandomElement();
         this.game.setDeadMessage(message);
       }
     };
@@ -1042,7 +1045,7 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Key
             }
             thePredator = this.game.enemies.findByProperty('subType', 'predator');
             thePredator.subType = 'smartPredator';
-            thePredator.tileGraphic = tileCodes.smartPredator;
+            thePredator.tileGraphic = TileCodes.smartPredator;
             thePredator.speed = 3;
             this.game.brownSwitch = this.game.brownSwitch.toggle();
             break;
@@ -1072,7 +1075,7 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Key
 
       if (this.type == 'player') {
         this.draw.ctx.save();
-        this.draw.ctx.translate(this.position.x * baseUnit + halfBaseUnit + stage.drawOffset.x, this.position.y * baseUnit + halfBaseUnit + stage.drawOffset.y);
+        this.draw.ctx.translate(this.position.x * baseUnit + halfBaseUnit + this.stage.drawOffset.x, this.position.y * baseUnit + halfBaseUnit + this.stage.drawOffset.y);
         this.draw.ctx.rotate(this.rotation * Math.Radians);
         if (this.imageType == 'image') {
           this.draw.ctx.drawImage(this.image, -halfBaseUnit, -halfBaseUnit);
@@ -1107,10 +1110,10 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Key
         if (this.subType == 'player2') {
           this.draw.ctx.save();
 
-          this.draw.ctx.translate(this.position.x * baseUnit + halfBaseUnit + stage.drawOffset.x, this.position.y * baseUnit + halfBaseUnit + stage.drawOffset.y);
+          this.draw.ctx.translate(this.position.x * baseUnit + halfBaseUnit + this.stage.drawOffset.x, this.position.y * baseUnit + halfBaseUnit + this.stage.drawOffset.y);
           this.draw.ctx.rotate(this.rotation * Math.Radians);
 
-          this.draw.ctx.drawImage(player.image, -halfBaseUnit, -halfBaseUnit);
+          this.draw.ctx.drawImage(this.player.image, -halfBaseUnit, -halfBaseUnit);
 
           this.draw.ctx.restore();
         } else {

@@ -30,6 +30,8 @@
     "eslint-plugin-promise": "^3.3.0",
     "eslint-plugin-standard": "^2.0.1",
     "eslint-watch": "^2.1.14",
+    "json-files-merge-loader": "^1.1.0",
+    "json-loader": "^0.5.4",
     "lite-server": "^2.2.2",
     "script-loader": "^0.7.0",
     "webpack": "^1.13.2",

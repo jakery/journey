@@ -31,13 +31,14 @@
         "no-mixed-operators": 0,
         "max-len": 0,
         "brace-style": 0,
-        "func-names":0,
+        "func-names": 0,
         "max-len": 0,
         "brace-style": 0
     },
     "globals": {
         "define": false,
         "window": false,
-        "document": false
+        "document": false,
+        "Modernizr": false
     }
 }

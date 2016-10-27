@@ -11,7 +11,7 @@ Therefore, here's your reward for delving into the source code.
 */
 
 define('ObscurelyNamedFile', [], () => {
-  const ons = function (game) {
+  const ObscurelyNamedFile = function (game) {
     this.game = game;
 
     this.passwords = [
@@ -104,5 +104,6 @@ define('ObscurelyNamedFile', [], () => {
       enteredPassword = '';
     };
   };
+  return ObscurelyNamedFile;
 });
 

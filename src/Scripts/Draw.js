@@ -1,15 +1,14 @@
 define('Draw', ['./Coordinates', './TileCodes'], (Coordinates, TileCodes) => {
-  const Draw = function (game, stage, player, assets) {
+  const Draw = function (game, stage, player) {
     this.game = game;
     this.stage = stage;
     this.player = player;
-    this.assets = assets;
 
     // Define default canvas parameters.
-    const ctx = this.stage.gameCanvas.getContext('2d');
-    ctx.lineWidth = 1;
-    ctx.font = '20px sans-serif';
-    ctx.textBaseline = 'top';
+    this.ctx = this.stage.gameCanvas.getContext('2d');
+    this.ctx.lineWidth = 1;
+    this.ctx.font = '20px sans-serif';
+    this.ctx.textBaseline = 'top';
 
     this.tileIsInDrawBounds = function tileIsInDrawBounds(coords) {
       return !(coords.x < 0 || coords.x > this.stage.playboxWidth || coords.y < 0 || coords.y > this.stage.playboxHeight);
@@ -34,7 +33,7 @@ define('Draw', ['./Coordinates', './TileCodes'], (Coordinates, TileCodes) => {
         return;
       }
       const t = this.getTileCoordsFromImage(tileNumber, sign);
-      ctx.drawImage(this.assets[game.map.parameters.tileset], t.sx, t.sy, t.swidth, t.sheight, coords.x, coords.y, 32, 32);
+      this.ctx.drawImage(this.game.assets[game.map.parameters.tileset], t.sx, t.sy, t.swidth, t.sheight, coords.x, coords.y, 32, 32);
     };
 
     this.drawTilex = function drawTilex(tileNumber, coords, sign) {
@@ -75,16 +74,16 @@ define('Draw', ['./Coordinates', './TileCodes'], (Coordinates, TileCodes) => {
 
       // Is toll tile.
       if (tileNumber === TileCodes.toll || tileNumber === TileCodes.tollGreen) {
-        ctx.save();
-        ctx.fillStyle = 'white';
-        ctx.font = '12px Helvetica';
+        this.ctx.save();
+        this.ctx.fillStyle = 'white';
+        this.ctx.font = '12px Helvetica';
 
         const tollText = this.game.moneyCount - this.player.inventory.money;
 
-        const offset = 16 - Math.floor(ctx.measureText(tollText).width / 2);
-        ctx.fillText(tollText, coords.x + offset, coords.y + 12);
+        const offset = 16 - Math.floor(this.ctx.measureText(tollText).width / 2);
+        this.ctx.fillText(tollText, coords.x + offset, coords.y + 12);
 
-        ctx.restore();
+        this.ctx.restore();
       }
     };
 
@@ -105,7 +104,7 @@ define('Draw', ['./Coordinates', './TileCodes'], (Coordinates, TileCodes) => {
       } else {
         this.stage.drawOffset = new Coordinates(0, 0);
       }
-      ctx.clearRect(0, 0, this.stage.width, this.stage.height);
+      this.ctx.clearRect(0, 0, this.stage.width, this.stage.height);
 
       // Draw map tile background (unless map is wraparound).
 
@@ -262,14 +261,14 @@ define('Draw', ['./Coordinates', './TileCodes'], (Coordinates, TileCodes) => {
     this.drawCenterText = function centerText(text, minX, maxX, y) {
       const width = maxX - minX;
       const middle = minX + Math.floor(width / 2);
-      const metrics = this.measureText(text);
+      const metrics = this.ctx.measureText(text);
       const textWidth = metrics.width;
       const centeredX = middle - Math.floor(textWidth / 2);
-      this.fillText(text, centeredX, y);
+      this.ctx.fillText(text, centeredX, y);
     };
 
     // Canvas prototype functions.
-    this.drawWrappedText = function wrapText(text, x, y, maxWidth, lineHeight) {
+    this.drawWrappedText = function drawWrappedText(text, x, y, maxWidth, lineHeight) {
       let yAdjusted = y;
       let lines = text.split('\\n');
       if (lines.length !== 1) {
@@ -282,17 +281,17 @@ define('Draw', ['./Coordinates', './TileCodes'], (Coordinates, TileCodes) => {
 
         for (let n = 0; n < words.length; n += 1) {
           const testLine = `${line + words[n]} `;
-          const metrics = this.measureText(testLine);
+          const metrics = this.ctx.measureText(testLine);
           const testWidth = metrics.width;
           if (testWidth > maxWidth && n > 0) {
-            this.fillText(line, x, yAdjusted);
+            this.ctx.fillText(line, x, yAdjusted);
             line = `${words[n]} `;
             yAdjusted += lineHeight;
           } else {
             line = testLine;
           }
         }
-        this.fillText(line, x, yAdjusted);
+        this.ctx.fillText(line, x, yAdjusted);
         yAdjusted += lineHeight;
       }
     };
