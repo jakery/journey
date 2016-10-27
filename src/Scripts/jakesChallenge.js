@@ -396,7 +396,7 @@ define('JakesJourney',
         this.deathCount += 1;
         this.showMessage = true;
         if (this.deathCount % 10 === 0) {
-          message = DeathMessages.miscDeath.getRandomElement();
+          message = Utility.array.getRandomElement(DeathMessages.miscDeath);
         }
         this.messageText = `${message}\n\nPress enter to restart.`;
       };
@@ -514,7 +514,7 @@ define('JakesJourney',
           // Todo: Different messages for dungeon levels!
           game.showMessage = true;
           if (game.winMessage === null) {
-            game.winMessage = `${DeathMessages.win.getRandomElement()}\n\nPress Enter to continue.`;
+            game.winMessage = `${Utility.array.getRandomElement(DeathMessages.win)}\n\nPress Enter to continue.`;
           }
           game.messageText = game.winMessage;
         }
@@ -586,7 +586,7 @@ define('JakesJourney',
 
           let message = '';
           if (typeof (DeathMessages[game.enemies[i].subType]) !== 'undefined') {
-            message = DeathMessages[game.enemies[i].subType].getRandomElement();
+            message = Utility.array.getRandomElement(DeathMessages[game.enemies[i].subType]);
           } else {
             message = `BUG!\n\nThe game has registered you as dead. If you're seeing this message, it's a bug in the level. Contact Jake and tell him that he accidentally put a(n) ${game.enemies[i].subType} in the Enemy array (which is why you died when you touched it). )`;
           }
@@ -597,7 +597,7 @@ define('JakesJourney',
 
       if (game.clock === 0) {
         player.isDead = true;
-        const message = DeathMessages.time.getRandomElement();
+        const message = Utility.array.getRandomElement(DeathMessages.time);
         game.setDeadMessage(message);
       }
 

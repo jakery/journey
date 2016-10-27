@@ -467,7 +467,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         this.isDead = true;
 
         if (this.type == 'player') {
-          const message = DeathMessages.water.getRandomElement();
+          const message = Utility.array.getRandomElement(getRandomElement);
           this.game.setDeadMessage(message);
         }
 
@@ -893,7 +893,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
     this.crushCheck = function () {
       if (this.type == 'player' && !this.canMove(this.position)) {
         this.isDead = true;
-        const message = DeathMessages.crush.getRandomElement();
+        const message = Utility.array.getRandomElement(DeathMessages.crush);
         this.game.setDeadMessage(message);
       }
     };
