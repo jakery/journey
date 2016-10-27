@@ -10,9 +10,10 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Key
 
     Sprite: null,
   };
-  SpriteNS.Sprite = function (g, k) {
+  SpriteNS.Sprite = function (g, k, draw) {
     this.game = g;
     this.keyboard = k;
+    this.draw = draw;
     const baseUnit = 32;
     const halfBaseUnit = baseUnit / 2;
     const maxPasswordLength = 11;
@@ -1070,13 +1071,13 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Key
       let sign = 1;
 
       if (this.type == 'player') {
-        ctx.save();
-        ctx.translate(this.position.x * baseUnit + halfBaseUnit + stage.drawOffset.x, this.position.y * baseUnit + halfBaseUnit + stage.drawOffset.y);
-        ctx.rotate(this.rotation * Math.Radians);
+        this.draw.ctx.save();
+        this.draw.ctx.translate(this.position.x * baseUnit + halfBaseUnit + stage.drawOffset.x, this.position.y * baseUnit + halfBaseUnit + stage.drawOffset.y);
+        this.draw.ctx.rotate(this.rotation * Math.Radians);
         if (this.imageType == 'image') {
-          ctx.drawImage(this.image, -halfBaseUnit, -halfBaseUnit);
+          this.draw.ctx.drawImage(this.image, -halfBaseUnit, -halfBaseUnit);
         }
-        ctx.restore();
+        this.draw.ctx.restore();
       } else if (this.type == 'enemy' || this.type == 'item' || this.type == 'tool') {
         let tileNumber = this.tileGraphic;
 
@@ -1104,16 +1105,16 @@ define('Sprite', ['./Coordinates', './Keyboard', './Utility'], (Coordinates, Key
         const coords = this.position;
 
         if (this.subType == 'player2') {
-          ctx.save();
+          this.draw.ctx.save();
 
-          ctx.translate(this.position.x * baseUnit + halfBaseUnit + stage.drawOffset.x, this.position.y * baseUnit + halfBaseUnit + stage.drawOffset.y);
-          ctx.rotate(this.rotation * Math.Radians);
+          this.draw.ctx.translate(this.position.x * baseUnit + halfBaseUnit + stage.drawOffset.x, this.position.y * baseUnit + halfBaseUnit + stage.drawOffset.y);
+          this.draw.ctx.rotate(this.rotation * Math.Radians);
 
-          ctx.drawImage(player.image, -halfBaseUnit, -halfBaseUnit);
+          this.draw.ctx.drawImage(player.image, -halfBaseUnit, -halfBaseUnit);
 
-          ctx.restore();
+          this.draw.ctx.restore();
         } else {
-          drawTileOffset(tileNumber, coords, sign);
+          this.draw.drawTileOffset(tileNumber, coords, sign);
         }
       }
     };

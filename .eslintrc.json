@@ -37,28 +37,7 @@
     },
     "globals": {
         "define": false,
-        // TODO: Most of these will no longer be global after the refactor.
-        "Modernizr": false,
-        "document": false,
         "window": false,
-        "jQuery": false,
-        "$j": true,
-        "$": false,
-        "randomMessages": true,
-        "loadMap": true,
-        "alert": false,
-        "CanvasRenderingContext2D": false,
-        "game": true,
-        "ctx": true,
-        "player": true,
-        "drawTileOffset": true,
-        "stage": true,
-        // ObscurelyNamedFile.js
-        "password": true,
-        "enteredPassword": true,
-        "processPassword": true,
-        "konamiCode": true,
-        // TileCodes.js
-        "tileCodes": true
+        "document": false
     }
 }

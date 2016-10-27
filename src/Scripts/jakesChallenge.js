@@ -1,20 +1,20 @@
-define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'], function (Coordinates, Sprite, Keyboard, Utility) {
+const $ = require('jquery');
 
-  var $ = require('jquery');
-  let $j = $.noConflict();
+define('JakesJourney', ['./DeathMessages', './TileCodes', './Coordinates', './Sprite', './Keyboard', './Utility', './Draw'],
+(DeathMessages, TileCodes, Coordinates, Sprite, Keyboard, Utility, Draw) => {
+  const $j = $.noConflict();
   const enteredPassword = '';
   const passwords = {};
 
   const interacting = false;
 
   let master;
-  let gameCanvas;
-  let ctx;
   let player;
   let gameInterval = null;
   let game;
   let stage;
   let bypass;
+  let draw;
 
   const yOffset = 0;
   const stageObject = function () {
@@ -69,7 +69,7 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'],
   const assets = {};
 
   function awesomeError(data) {
-    alert(
+    Utility.alert(
       `YOU WIN!\n\nActually, you didn't win. You've encountered a bug that's broken the game. I was trying to make you feel better about it.\n\n` +
       `Contact me and tell me, or else I'll never find out and this will never get fixed.\n\n` +
       `Also, "It's broken" with no further information is worse than saying nothing at all. That's why you get crappy tech support at your job.\n\n` +
@@ -158,7 +158,7 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'],
         game.map.pixelHeight = game.map.height * 32;
 
         // Put player on start tile.
-        player.position = game.map.getCoordsByTileIndex(game.map.layers[0].data.indexOf(tileCodes.start));
+        player.position = game.map.getCoordsByTileIndex(game.map.layers[0].data.indexOf(TileCodes.start));
 
         // Load items.
         game.items = [];
@@ -167,7 +167,7 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'],
         if (game.iDataArray !== null) {
           for (let i = 0; i < game.iDataArray.objects.length; i += 1) {
             const iData = game.iDataArray.objects[i];
-            const item = new Sprite.Sprite(game);
+            const item = new Sprite.Sprite(game, null, draw);
 
             item.tileGraphic = iData.gid;
             item.spriteID = `item ${i}`;
@@ -176,12 +176,12 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'],
 
             if (game.map.tileProperties[iData.gid - 1] === null) {
               if (game.debug) {
-                console.log(`NULL:  ${iData.gid}`);
+                Utility.console.log(`NULL:  ${iData.gid}`);
               }
             }
             item.subType = game.map.tileProperties[iData.gid - 1].type;
             if (game.debug) {
-              console.log(item.subType);
+              Utility.console.log(item.subType);
             }
             item.imageType = 'tile';
             item.color = game.map.tileProperties[iData.gid - 1].color;
@@ -211,7 +211,7 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'],
         if (game.eDataArray !== null) {
           for (let i = 0; i < game.eDataArray.objects.length; i += 1) {
             const eData = game.eDataArray.objects[i];
-            const enemy = new Sprite.Sprite(game);
+            const enemy = new Sprite.Sprite(game, null, draw);
 
             enemy.tileGraphic = eData.gid;
             enemy.spriteID = `enemy ${i}`;
@@ -248,7 +248,7 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'],
         if (game.tDataArray !== null) {
           for (let i = 0; i < game.tDataArray.objects.length; i += 1) {
             const tData = game.tDataArray.objects[i];
-            const tool = new Sprite.Sprite();
+            const tool = new Sprite.Sprite(game, null, draw);
 
             tool.tileGraphic = tData.gid;
             tool.spriteID = `tool ${i}`;
@@ -320,31 +320,6 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'],
     });
   }
 
-  function tileIsInDrawBounds(coords) {
-    return !(coords.x < 0 || coords.x > stage.playboxWidth || coords.y < 0 || coords.y > stage.playboxHeight);
-  }
-
-  function getTileCoordsFromImage(tileNumber, sign) {
-    if (sign === null) {
-      sign = 1;
-    }
-    const tileIndex = tileNumber - 1;
-    const sx = ((tileIndex + (game.corruption * sign)) % game.map.tilesets[0].indexWidth) * 32;
-    const sy = (Math.floor((tileIndex + (game.corruption * sign)) / game.map.tilesets[0].indexWidth)) * 32;
-    const swidth = 32;
-    const sheight = 32;
-
-    return { sx, sy, swidth, sheight };
-  }
-
-  function drawTileAbsolute(tileNumber, coords, sign) {
-    // Tile number isn't valid. Probably a blank square on the map. Ignore.
-    if (tileNumber < 1) {
-      return;
-    }
-    const t = getTileCoordsFromImage(tileNumber, sign);
-    ctx.drawImage(assets[game.map.parameters.tileset], t.sx, t.sy, t.swidth, t.sheight, coords.x, coords.y, 32, 32);
-  }
   // TODO: Refactor as class.
   const gameHudClass = function () {
     this.backgroundColor = '';
@@ -367,10 +342,10 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'],
       }
 
       // Draw background.
-      ctx.fillStyle = this.backgroundColor;
-      ctx.fillRect(stage.hudCoords.x, stage.hudCoords.y, stage.hudWidth, stage.hudHeight);
+      this.draw.ctx.fillStyle = this.backgroundColor;
+      this.draw.ctx.fillRect(stage.hudCoords.x, stage.hudCoords.y, stage.hudWidth, stage.hudHeight);
 
-      ctx.fillStyle = this.textColor;
+      this.draw.ctx.fillStyle = this.textColor;
 
       if (game.mode === 'normal') {
         this.DrawNormalHud();
@@ -382,48 +357,48 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'],
     };
 
     this.drawTitle = function () {
-      ctx.save();
-      ctx.font = '28px sans-serif';
+      this.draw.ctx.save();
+      this.draw.ctx.font = '28px sans-serif';
 
-      ctx.fillText('Jake\'s Journey', 500, 20);
+      this.draw.ctx.fillText('Jake\'s Journey', 500, 20);
 
-      ctx.font = '20px sans-serif';
-      ctx.wrapText('Press ENTER to begin.\nPress X to enter password.', 500, 80, 270, 30);
-      ctx.restore();
+      this.draw.ctx.font = '20px sans-serif';
+      this.draw.ctx.wrapText('Press ENTER to begin.\nPress X to enter password.', 500, 80, 270, 30);
+      this.draw.ctx.restore();
     };
 
     this.drawPassword = function () {
-      ctx.save();
-      ctx.font = '28px sans-serif';
-      ctx.fillStyle = this.textColor;
-      ctx.wrapText('Jake\'s Journey', 500, 20, 270, 40);
+      this.draw.ctx.save();
+      this.draw.ctx.font = '28px sans-serif';
+      this.draw.ctx.fillStyle = this.textColor;
+      this.draw.ctx.wrapText('Jake\'s Journey', 500, 20, 270, 40);
 
-      ctx.font = '24px sans-serif';
-      ctx.wrapText('Enter Password.', 500, 60, 270, 40);
+      this.draw.ctx.font = '24px sans-serif';
+      this.draw.ctx.wrapText('Enter Password.', 500, 60, 270, 40);
 
       // Text box.
-      ctx.fillStyle = 'white';
-      ctx.font = '20px sans-serif';
-      ctx.fillRect(500, 90, stage.hudWidth - 60, 26);
+      this.draw.ctx.fillStyle = 'white';
+      this.draw.ctx.font = '20px sans-serif';
+      this.draw.ctx.fillRect(500, 90, stage.hudWidth - 60, 26);
 
       // Cursor
-      ctx.fillStyle = 'rgb(0,255,255)';
-      ctx.fillRect(505 + ctx.measureText(enteredPassword).width, 93, 15, 20);
+      this.draw.ctx.fillStyle = 'rgb(0,255,255)';
+      this.draw.ctx.fillRect(505 + this.draw.ctx.measureText(enteredPassword).width, 93, 15, 20);
 
-      ctx.fillStyle = 'rgb(0,0,0)';
-      ctx.fillText(enteredPassword, 505, 92);
+      this.draw.ctx.fillStyle = 'rgb(0,0,0)';
+      this.draw.ctx.fillText(enteredPassword, 505, 92);
 
       // Message.
       if (game.passwordHudMessage.length > 0) {
-        ctx.save();
-        ctx.fillStyle = 'rgb(255,0,0)';
-        ctx.fillText(game.passwordHudMessage, 500, 118);
-        ctx.restore();
+        this.draw.ctx.save();
+        this.draw.ctx.fillStyle = 'rgb(255,0,0)';
+        this.draw.ctx.fillText(game.passwordHudMessage, 500, 118);
+        this.draw.ctx.restore();
       }
 
-      ctx.wrapText('Press ENTER to submit.\nPress ESC to return to title.', 500, 160, 270, 30);
+      this.draw.ctx.wrapText('Press ENTER to submit.\nPress ESC to return to title.', 500, 160, 270, 30);
 
-      ctx.restore();
+      this.draw.ctx.restore();
     };
 
     this.DrawNormalHud = function () {
@@ -435,18 +410,18 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'],
       }
 
       // Draw level text.
-      ctx.fillStyle = this.textColor;
-      ctx.fillText(`Level  ${drawLevel}`, 500, 20);
+      this.draw.ctx.fillStyle = this.textColor;
+      this.draw.ctx.fillText(`Level  ${drawLevel}`, 500, 20);
 
       // Draw game clock.
       if (game.clock > -1) {
-        ctx.fillText(`Time:  ${game.clock}`, 620, 20);
+        this.draw.ctx.fillText(`Time:  ${game.clock}`, 620, 20);
       } else {
-        ctx.fillText('Time: \u221E', 620, 20);
+        this.draw.ctx.fillText('Time: \u221E', 620, 20);
       }
 
       // Draw password.
-      ctx.fillText(`Password: ${game.password}`, 500, 50);
+      this.draw.ctx.fillText(`Password: ${game.password}`, 500, 50);
 
       // Draw money count:
       let interval = Math.floor(273 / game.moneyCount);
@@ -454,10 +429,10 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'],
       for (let i = 0; i < game.moneyCount; i += 1) {
         if (i < player.inventory.money) {
           // Collected money:
-          drawTileAbsolute(tileCodes.coin, new Coordinates(495 + (i * interval), 80));
+          draw.drawTileAbsolute(TileCodes.coin, new Coordinates(495 + (i * interval), 80));
         } else {
           // Uncollected money:
-          drawTileAbsolute(tileCodes.coinUncollected, new Coordinates(495 + (i * interval), 80));
+          draw.drawTileAbsolute(TileCodes.coinUncollected, new Coordinates(495 + (i * interval), 80));
         }
       }
 
@@ -474,29 +449,29 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'],
 
       // Draw yellow key inventory.
       for (let i = 0; i < player.inventory.yellowKeys; i += 1) {
-        drawTileAbsolute(tileCodes.yellowKey,
+        draw.drawTileAbsolute(TileCodes.yellowKey,
           new Coordinates(500 + (keyDrawIndex * keyInterval), 110));
         keyDrawIndex += 1;
       }
 
       // Draw red key inventory.
       for (let i = 0; i < player.inventory.redKeys; i += 1) {
-        drawTileAbsolute(tileCodes.redKey,
+        draw.drawTileAbsolute(TileCodes.redKey,
           new Coordinates(500 + (keyDrawIndex * keyInterval), 110));
         keyDrawIndex += 1;
       }
 
       // Draw cyan key inventory.
       for (let i = 0; i < player.inventory.cyanKeys; i += 1) {
-        drawTileAbsolute(tileCodes.cyanKey,
+        draw.drawTileAbsolute(TileCodes.cyanKey,
           new Coordinates(500 + (keyDrawIndex * keyInterval), 110));
         keyDrawIndex += 1;
       }
 
       // Draw green key inventory.
       for (let i = 0; i < player.inventory.greenKeys; i += 1) {
-        drawTileAbsolute(
-          tileCodes.greenKey,
+        draw.drawTileAbsolute(
+          TileCodes.greenKey,
           new Coordinates(500 + (keyDrawIndex * keyInterval), 110)
         );
         keyDrawIndex += 1;
@@ -504,40 +479,40 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'],
 
       // Draw help message.
       if (game.showMessage) {
-        ctx.save();
-        ctx.fillStyle = this.messageBox.backgroundColor;
-        ctx.font = '12px sans-serif';
-        ctx.fillRect(500, 160, 280, 200);
-        ctx.fillStyle = this.messageBox.textColor;
-        ctx.wrapText(game.messageText, 510, 170, 270, 18);
-        ctx.restore();
+        this.draw.ctx.save();
+        this.draw.ctx.fillStyle = this.messageBox.backgroundColor;
+        this.draw.ctx.font = '12px sans-serif';
+        this.draw.ctx.fillRect(500, 160, 280, 200);
+        this.draw.ctx.fillStyle = this.messageBox.textColor;
+        this.draw.ctx.wrapText(game.messageText, 510, 170, 270, 18);
+        this.draw.ctx.restore();
       }
 
       if (game.isPaused) {
-        ctx.save();
+        this.draw.ctx.save();
 
         // Draw shade over game.
-        ctx.save();
-        ctx.fillStyle = 'rgba(0,0,0,0.5)';
-        ctx.fillRect(0, 0, stage.playboxWidth, stage.playboxHeight);
-        ctx.restore();
+        this.draw.ctx.save();
+        this.draw.ctx.fillStyle = 'rgba(0,0,0,0.5)';
+        this.draw.ctx.fillRect(0, 0, stage.playboxWidth, stage.playboxHeight);
+        this.draw.ctx.restore();
 
         // Draw pause box.
-        ctx.save();
-        ctx.fillStyle = 'red';
-        ctx.fillRect(20, 20, 274, 97);
-        ctx.fillStyle = 'rgb(50,50,50)';
-        ctx.fillRect(21, 21, 272, 95);
-        ctx.restore();
+        this.draw.ctx.save();
+        this.draw.ctx.fillStyle = 'red';
+        this.draw.ctx.fillRect(20, 20, 274, 97);
+        this.draw.ctx.fillStyle = 'rgb(50,50,50)';
+        this.draw.ctx.fillRect(21, 21, 272, 95);
+        this.draw.ctx.restore();
 
         // Draw pause text.
-        ctx.save();
-        ctx.fillStyle = 'red';
-        ctx.font = '20px sans-serif';
-        ctx.wrapText('PAUSED.\n\nPress P to resume.\nPress Enter to restart level.', 26, 26, 270, 22);
-        ctx.restore();
+        this.draw.ctx.save();
+        this.draw.ctx.fillStyle = 'red';
+        this.draw.ctx.font = '20px sans-serif';
+        this.draw.ctx.wrapText('PAUSED.\n\nPress P to resume.\nPress Enter to restart level.', 26, 26, 270, 22);
+        this.draw.ctx.restore();
 
-        ctx.restore();
+        this.draw.ctx.restore();
       }
     };
   };
@@ -643,23 +618,23 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'],
 
     this.Draw = function () {
       if (game.mode === 'credits') {
-        ctx.save();
+        this.draw.ctx.save();
 
         // Draw black bg.
         if (this.sequence >= 0) {
-          ctx.fillStyle = `rgba(0,0,0, ${this.fadeOut})`;
-          ctx.fillRect(0, 0, stage.width, stage.height);
+          this.draw.ctx.fillStyle = `rgba(0,0,0, ${this.fadeOut})`;
+          this.draw.ctx.fillRect(0, 0, stage.width, stage.height);
         }
         if (this.sequence >= 1) {
           for (let i = 0; i < this.creditsArray.length; i += 1) {
             const cred = this.creditsArray[i];
-            ctx.fillStyle = `rgba(${cred.color}, ${cred.alpha})`;
-            ctx.font = cred.font;
-            ctx.centerText(cred.text, 0, stage.width, cred.y);
+            this.draw.ctx.fillStyle = `rgba(${cred.color}, ${cred.alpha})`;
+            this.draw.ctx.font = cred.font;
+            this.draw.ctx.centerText(cred.text, 0, stage.width, cred.y);
           }
         }
 
-        ctx.restore();
+        this.draw.ctx.restore();
       }
     };
   };
@@ -737,7 +712,7 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'],
       this.deathCount += 1;
       this.showMessage = true;
       if (this.deathCount % 10 === 0) {
-        message = randomMessages.miscDeath.getRandomElement();
+        message = DeathMessages.miscDeath.getRandomElement();
       }
       this.messageText = `${message}\n\nPress enter to restart.`;
     };
@@ -806,34 +781,24 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'],
     stage.init();
     game = new gameObject();
 
-    // Define stage parameters.
-    //    stage.gameCanvas = gameCanvas = document.getElementById('gameCanvas');
-    //    stage.width = $j(gameCanvas).width();
-    //    stage.height = $j(gameCanvas).height();
-    //    stage.playboxWidth = 480;
-    //    stage.playboxHeight = 384;
-    //    stage.drawOffset = {x:128,y:128}
-
     // Define assets.
     assets.face = document.getElementById('face');
     assets.devgraphics = document.getElementById('devgraphics');
     assets.dungeon = document.getElementById('dungeon');
     assets.gridLineCoordinates = generateGridLines();
 
-    let keyboard = new Keyboard();
+    const keyboard = new Keyboard();
     keyboard.settings.exclusions = ['F5', 'F11', 'F12', 'Control'];
     keyboard.wireUp(document);
 
-    player = new Sprite.Sprite(game, keyboard);
+    player = new Sprite.Sprite(game, keyboard, draw);
     player.imageType = 'image';
     player.image = assets.face;
     player.type = 'player';
 
-    // Define default canvas parameters.
-    ctx = stage.gameCanvas.getContext('2d');
-    ctx.lineWidth = 1;
-    ctx.font = '20px sans-serif';
-    ctx.textBaseline = 'top';
+    draw = new Draw(game, stage, player, assets);
+
+    player.draw = draw;
 
     return true;
   }
@@ -858,7 +823,7 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'],
         // Todo: Different messages for dungeon levels!
         game.showMessage = true;
         if (game.winMessage === null) {
-          game.winMessage = `${randomMessages.win.getRandomElement()}\n\nPress Enter to continue.`;
+          game.winMessage = `${DeathMessages.win.getRandomElement()}\n\nPress Enter to continue.`;
         }
         game.messageText = game.winMessage;
       }
@@ -929,8 +894,8 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'],
         game.enemies[i].hasKilledPlayer = true;
 
         let message = '';
-        if (typeof (randomMessages[game.enemies[i].subType]) !== 'undefined') {
-          message = randomMessages[game.enemies[i].subType].getRandomElement();
+        if (typeof (DeathMessages[game.enemies[i].subType]) !== 'undefined') {
+          message = DeathMessages[game.enemies[i].subType].getRandomElement();
         } else {
           message = `BUG!\n\nThe game has registered you as dead. If you're seeing this message, it's a bug in the level. Contact Jake and tell him that he accidentally put a(n) ${game.enemies[i].subType} in the Enemy array (which is why you died when you touched it). )`;
         }
@@ -941,7 +906,7 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'],
 
     if (game.clock === 0) {
       player.isDead = true;
-      const message = randomMessages.time.getRandomElement();
+      const message = DeathMessages.time.getRandomElement();
       game.setDeadMessage(message);
     }
 
@@ -976,7 +941,7 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'],
       Update();
       CheckCollision();
     }
-    Draw();
+    draw.beginDraw();
   }
   function run(bypassTouchscreen) {
     if (gameInterval !== null) {
@@ -1005,5 +970,4 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'],
   $j(() => {
     run(false);
   });
-
 });
