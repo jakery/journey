@@ -1,20 +1,6 @@
-define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard'], function (Coordinates, Sprite, Keyboard) {
+define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard', './Utility'], function (Coordinates, Sprite, Keyboard, Utility) {
 
   var $ = require('jquery');
-
-  function tileDistanceBetween(coords1, coords2) {
-    const xDist = Math.abs(coords1.x - coords2.x);
-    const yDist = Math.abs(coords1.y - coords2.y);
-    return xDist + yDist;
-  }
-
-  function areColliding(pos1, pos2) {
-    return pos1.x == pos2.x && pos1.y == pos2.y;
-  }
-
-  function areSpritesColliding(s1, s2) {
-    return areColliding(s1.position, s2.position);
-  }
   let $j = $.noConflict();
   const enteredPassword = '';
   const passwords = {};
@@ -176,7 +162,7 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard'], function (Co
 
         // Load items.
         game.items = [];
-        game.iDataArray = game.map.layers.findByProperty('name', 'Items', true);
+        game.iDataArray = Utility.array.findByProperty(game.map.layers, 'name', 'Items', true);
 
         if (game.iDataArray !== null) {
           for (let i = 0; i < game.iDataArray.objects.length; i += 1) {
@@ -216,12 +202,12 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard'], function (Co
         }
 
         // Count money.
-        game.moneyCount = game.items.findAllByProperty('subType', 'money', true).length;
+        game.moneyCount = Utility.array.findAllByProperty(game.items, 'subType', 'money', true).length;
 
         // Load enemies.
         game.enemies = [];
 
-        game.eDataArray = game.map.layers.findByProperty('name', 'Enemies', true);
+        game.eDataArray = Utility.array.findByProperty(game.map.layers, 'name', 'Enemies', true);
         if (game.eDataArray !== null) {
           for (let i = 0; i < game.eDataArray.objects.length; i += 1) {
             const eData = game.eDataArray.objects[i];
@@ -258,7 +244,7 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard'], function (Co
 
         game.tools = [];
 
-        game.tDataArray = game.map.layers.findByProperty('name', 'Tools', true);
+        game.tDataArray = Utility.array.findByProperty(game.map.layers, 'name', 'Tools', true);
         if (game.tDataArray !== null) {
           for (let i = 0; i < game.tDataArray.objects.length; i += 1) {
             const tData = game.tDataArray.objects[i];
@@ -283,7 +269,7 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard'], function (Co
 
         // TODO: Refactor parameters. Make it freaking consistent.
 
-        const p = game.map.layers.findByProperty('name', 'Parameters', true);
+        const p = Utility.array.findByProperty(game.map.layers, 'name', 'Parameters', true);
 
         // Defaults. Will be overridden below if replacement parameters exist.
         game.map.parameters = {
@@ -838,7 +824,7 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard'], function (Co
     keyboard.settings.exclusions = ['F5', 'F11', 'F12', 'Control'];
     keyboard.wireUp(document);
 
-    player = new Sprite.Sprite(game,keyboard);
+    player = new Sprite.Sprite(game, keyboard);
     player.imageType = 'image';
     player.image = assets.face;
     player.type = 'player';
@@ -928,7 +914,7 @@ define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard'], function (Co
       for (let j = 0; j < game.tools.length; j += 1) {
         const tool = game.tools[j];
 
-        if (areSpritesColliding(tool, game.items[i])) {
+        if (Utility.areSpritesColliding(tool, game.items[i])) {
           // Enemy interacts with item.
           game.items[i].registerHit(tool);
           continue;

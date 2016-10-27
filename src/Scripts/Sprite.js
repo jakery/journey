@@ -1,4 +1,4 @@
-define('Sprite', ['./Coordinates', './Keyboard'], function (Coordinates, Keyboard) {
+define('Sprite', ['./Coordinates', './Keyboard', './Utility'], function (Coordinates, Keyboard, Utility) {
   const SpriteNS = {
     Inventory: function Inventory() {
       this.yellowKeys = 0;
@@ -249,7 +249,7 @@ define('Sprite', ['./Coordinates', './Keyboard'], function (Coordinates, Keyboar
         for (let i = 0; i < this.game.tools.length; i += 1) {
           if (this.game.tools[i].subType == 'pushBlock') {
             // Sprite is trying to move into pushblock.
-            if (areColliding(destination, this.game.tools[i].position)) {
+            if (Utility.areColliding(destination, this.game.tools[i].position)) {
               // Only player can move pushblocks.
               if (this.type == 'player') {
                 // If pushblock isn't stuck, will get pushed.
@@ -271,14 +271,14 @@ define('Sprite', ['./Coordinates', './Keyboard'], function (Coordinates, Keyboar
       if (this.subType == 'pushBlock') {
         for (let i = 0; i < this.game.tools.length; i += 1) {
           if (this.game.tools[i].subType == 'pushBlock') {
-            if (areColliding(destination, this.game.tools[i].position)) {
+            if (Utility.areColliding(destination, this.game.tools[i].position)) {
               return false;
             }
           }
         }
 
         for (let i = 0; i < this.game.enemies.length; i += 1) {
-          if (areColliding(destination, this.game.enemies[i].position)) {
+          if (Utility.areColliding(destination, this.game.enemies[i].position)) {
             return false;
           }
         }
