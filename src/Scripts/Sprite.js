@@ -1,4 +1,4 @@
-define('Sprite', ['./Coordinates'], function (Coordinates) {
+define('Sprite', ['./Coordinates', './Keyboard'], function (Coordinates, Keyboard) {
   const SpriteNS = {
     Inventory: function Inventory() {
       this.yellowKeys = 0;
@@ -10,12 +10,15 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
 
     Sprite: null,
   };
-  SpriteNS.Sprite = function (game) {
-    this.game = game;
+  SpriteNS.Sprite = function (g,k) {
+    this.game = g;
+    this.keyboard = k;
     const baseUnit = 32;
     const halfBaseUnit = baseUnit / 2;
     const maxPasswordLength = 11;
     const keyboardRepeatTickDelay = 10;
+
+
     this.isAlive = true;
 
     this.spriteID = null;
@@ -105,17 +108,18 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
 
       };
       // up
-      if (game.map.isInBounds(surroundingTiles.up.coords)) {
-        surroundingTiles.up.type = game.map.getTileTypeByCoords(surroundingTiles.up.coords.x, surroundingTiles.up.coords.y);
+      console.log("nothing");
+      if (this.game.map.isInBounds(surroundingTiles.up.coords)) {
+        surroundingTiles.up.type = this.game.map.getTileTypeByCoords(surroundingTiles.up.coords.x, surroundingTiles.up.coords.y);
       }
-      if (game.map.isInBounds(surroundingTiles.down.coords)) {
-        surroundingTiles.down.type = game.map.getTileTypeByCoords(surroundingTiles.down.coords.x, surroundingTiles.down.coords.y);
+      if (this.game.map.isInBounds(surroundingTiles.down.coords)) {
+        surroundingTiles.down.type = this.game.map.getTileTypeByCoords(surroundingTiles.down.coords.x, surroundingTiles.down.coords.y);
       }
-      if (game.map.isInBounds(surroundingTiles.left.coords)) {
-        surroundingTiles.left.type = game.map.getTileTypeByCoords(surroundingTiles.left.coords.x, surroundingTiles.left.coords.y);
+      if (this.game.map.isInBounds(surroundingTiles.left.coords)) {
+        surroundingTiles.left.type = this.game.map.getTileTypeByCoords(surroundingTiles.left.coords.x, surroundingTiles.left.coords.y);
       }
-      if (game.map.isInBounds(surroundingTiles.right.coords)) {
-        surroundingTiles.right.type = game.map.getTileTypeByCoords(surroundingTiles.right.coords.x, surroundingTiles.right.coords.y);
+      if (this.game.map.isInBounds(surroundingTiles.right.coords)) {
+        surroundingTiles.right.type = this.game.map.getTileTypeByCoords(surroundingTiles.right.coords.x, surroundingTiles.right.coords.y);
       }
       return surroundingTiles;
     };
@@ -134,21 +138,21 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
       if (this.direction == 'left') {
         targetPosition.x -= 1;
         if (targetPosition.x < 0) {
-          targetPosition.x = game.map.width - 1;
+          targetPosition.x = this.game.map.width - 1;
         }
       } else if (this.direction == 'right') {
         targetPosition.x += 1;
-        if (targetPosition.x >= game.map.width) {
+        if (targetPosition.x >= this.game.map.width) {
           targetPosition.x = 0;
         }
       } else if (this.direction == 'up') {
         targetPosition.y -= 1;
         if (targetPosition.y < 0) {
-          targetPosition.y = game.map.height - 1;
+          targetPosition.y = this.game.map.height - 1;
         }
       } else if (this.direction == 'down') {
         targetPosition.y += 1;
-        if (targetPosition.y >= game.map.height) {
+        if (targetPosition.y >= this.game.map.height) {
           targetPosition.y = 0;
         }
       }
@@ -162,7 +166,7 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
       const destination = (coordinates == null) ? this.getTarget() : coordinates;
 
       // Get all tile layers.
-      const destinationTileType = game.map.getTileTypeByCoords(destination.x, destination.y);
+      const destinationTileType = this.game.map.getTileTypeByCoords(destination.x, destination.y);
 
 
       // Wall.
@@ -171,42 +175,42 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
       }
 
       // Disappearing red wall.
-      if (destinationTileType == tileCodes.dRedBlockInactive && !game.redSwitch) {
+      if (destinationTileType == tileCodes.dRedBlockInactive && !this.game.redSwitch) {
         return false;
       }
 
       // Appearing red wall.
-      if (destinationTileType == tileCodes.aRedBlockInactive && game.redSwitch) {
+      if (destinationTileType == tileCodes.aRedBlockInactive && this.game.redSwitch) {
         return false;
       }
 
       // Disappearing yellow wall.
-      if (destinationTileType == tileCodes.dYellowBlockInactive && !game.yellowSwitch) {
+      if (destinationTileType == tileCodes.dYellowBlockInactive && !this.game.yellowSwitch) {
         return false;
       }
 
       // Appearing yellow wall.
-      if (destinationTileType == tileCodes.aYellowBlockInactive && game.yellowSwitch) {
+      if (destinationTileType == tileCodes.aYellowBlockInactive && this.game.yellowSwitch) {
         return false;
       }
 
       // Disappearing green wall.
-      if (destinationTileType == tileCodes.dGreenBlockInactive && !game.greenSwitch) {
+      if (destinationTileType == tileCodes.dGreenBlockInactive && !this.game.greenSwitch) {
         return false;
       }
 
       // Appearing green wall.
-      if (destinationTileType == tileCodes.aGreenBlockInactive && game.greenSwitch) {
+      if (destinationTileType == tileCodes.aGreenBlockInactive && this.game.greenSwitch) {
         return false;
       }
 
       // Brown toggle wall.
-      if (destinationTileType == tileCodes.brownBlockInactive && game.brownSwitch) {
+      if (destinationTileType == tileCodes.brownBlockInactive && this.game.brownSwitch) {
         return false;
       }
 
       // Brown toggle off wall.
-      if (destinationTileType == tileCodes.brownBlockActive && !game.brownSwitch) {
+      if (destinationTileType == tileCodes.brownBlockActive && !this.game.brownSwitch) {
         return false;
       }
 
@@ -237,21 +241,21 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
       // Toll block.
       if (destinationTileType == tileCodes.toll) {
         // Player has the toll.
-        return this.inventory.money >= game.moneyCount;
+        return this.inventory.money >= this.game.moneyCount;
       }
 
       // Check pushblock.
       if (this.type == 'player' || this.type == 'enemy') {
-        for (let i = 0; i < game.tools.length; i += 1) {
-          if (game.tools[i].subType == 'pushBlock') {
+        for (let i = 0; i < this.game.tools.length; i += 1) {
+          if (this.game.tools[i].subType == 'pushBlock') {
             // Sprite is trying to move into pushblock.
-            if (areColliding(destination, game.tools[i].position)) {
+            if (areColliding(destination, this.game.tools[i].position)) {
               // Only player can move pushblocks.
               if (this.type == 'player') {
                 // If pushblock isn't stuck, will get pushed.
-                game.tools[i].direction = this.direction;
-                if (game.tools[i].canMove()) {
-                  game.tools[i].gettingPushed = true;
+                this.game.tools[i].direction = this.direction;
+                if (this.game.tools[i].canMove()) {
+                  this.game.tools[i].gettingPushed = true;
                   return true;
                 }
               }
@@ -265,16 +269,16 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
       // Pushblock recursive checkmove.
 
       if (this.subType == 'pushBlock') {
-        for (let i = 0; i < game.tools.length; i += 1) {
-          if (game.tools[i].subType == 'pushBlock') {
-            if (areColliding(destination, game.tools[i].position)) {
+        for (let i = 0; i < this.game.tools.length; i += 1) {
+          if (this.game.tools[i].subType == 'pushBlock') {
+            if (areColliding(destination, this.game.tools[i].position)) {
               return false;
             }
           }
         }
 
-        for (let i = 0; i < game.enemies.length; i += 1) {
-          if (areColliding(destination, game.enemies[i].position)) {
+        for (let i = 0; i < this.game.enemies.length; i += 1) {
+          if (areColliding(destination, this.game.enemies[i].position)) {
             return false;
           }
         }
@@ -367,7 +371,7 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
       }
       if (!this.clipping || this.canMove()) {
         if (this.type == 'player') {
-          game.quickCorruptTriggered = false;
+          this.game.quickCorruptTriggered = false;
         }
         this.position = this.getTarget();
         this.isTeleporting = false;
@@ -377,7 +381,7 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
 
     this.checkTile = function () {
       // var tileIndex = game.map.getTileIndexByCoords
-      const tileType = game.map.getTileTypeByCoords(this.position.x, this.position.y);
+      const tileType = this.game.map.getTileTypeByCoords(this.position.x, this.position.y);
 
       // Normal.
       if (tileType == tileCodes.floor) {
@@ -389,7 +393,7 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
         // Player has a key.
         if (this.inventory.yellowKeys > 0) {
           // Unlock door.
-          game.map.changeTileType(this.position.x, this.position.y, 1);
+          this.game.map.changeTileType(this.position.x, this.position.y, 1);
 
           // Player has used key.
           this.inventory.yellowKeys -= 1;
@@ -404,7 +408,7 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
         // Player has a key.
         if (this.inventory.redKeys > 0) {
           // Unlock door.
-          game.map.changeTileType(this.position.x, this.position.y, 1);
+          this.game.map.changeTileType(this.position.x, this.position.y, 1);
 
           // Player has used key.
           this.inventory.redKeys -= 1;
@@ -419,7 +423,7 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
         // Player has a key.
         if (this.inventory.cyanKeys > 0) {
           // Unlock door.
-          game.map.changeTileType(this.position.x, this.position.y, 1);
+          this.game.map.changeTileType(this.position.x, this.position.y, 1);
 
           // Player has used key.
           this.inventory.cyanKeys -= 1;
@@ -434,7 +438,7 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
         // Player has a key.
         if (this.inventory.greenKeys > 0) {
           // Unlock door.
-          game.map.changeTileType(this.position.x, this.position.y, 1);
+          this.game.map.changeTileType(this.position.x, this.position.y, 1);
 
           // Player has used key.
           this.inventory.greenKeys -= 1;
@@ -448,7 +452,7 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
       if (tileType == 6) {
         // Only player can trigger exit.
         if (this.type == 'player') {
-          game.atExit = true;
+          this.game.atExit = true;
         }
       }
 
@@ -461,7 +465,7 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
 
         if (this.type == 'player') {
           const message = randomMessages.water.getRandomElement();
-          game.setDeadMessage(message);
+          this.game.setDeadMessage(message);
         }
 
         else if (this.type == 'enemy') {
@@ -471,7 +475,7 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
 
         // Block hits water and disappears.
         else if (this.subType == 'pushBlock') {
-          game.tools.remove(game.tools.findByProperty('spriteID', this.spriteID));
+          this.game.tools.remove(this.game.tools.findByProperty('spriteID', this.spriteID));
         }
         // }
       }
@@ -482,58 +486,58 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
       // Todo: refactor these conditionals to "game.mode".
 
       // Player is at title screen. Press enter to start. Press X to enter password. No other input allowed except for konami code.
-      if (game.mode == 'title') {
-        if (keyIsDown.Enter && !keyIsRegistered.Enter) {
-          keyIsRegistered.Enter = true;
-          game.nextLevel();
-        } else if ((keyIsDown.X && !keyIsRegistered.X) || (keyIsDown.x && !keyIsRegistered.x)) {
-          keyIsRegistered.X = true;
-          game.mode = 'password';
-        } else if (konamiCode()) {
+      if (this.game.mode == 'title') {
+        if (this.keyboard.keyIsDown.Enter && !this.keyboard.keyIsRegistered.Enter) {
+          this.keyboard.keyIsRegistered.Enter = true;
+          this.game.nextLevel();
+        } else if ((this.keyboard.keyIsDown.X && !this.keyboard.keyIsRegistered.X) || (this.keyboard.keyIsDown.x && !this.keyboard.keyIsRegistered.x)) {
+          this.keyboard.keyIsRegistered.X = true;
+          this.game.mode = 'password';
+        } else if (this.keyboard.konamiCode()) {
           // :)
-          game.mode = 'normal';
+          this.game.mode = 'normal';
         }
         return;
-      } else if (game.mode == 'password') {
-        if (keyIsDown.Enter && !keyIsRegistered.Enter) {
-          keyIsRegistered.Enter = true;
+      } else if (this.game.mode == 'password') {
+        if (this.keyboard.keyIsDown.Enter && !this.keyboard.keyIsRegistered.Enter) {
+          this.keyboard.keyIsRegistered.Enter = true;
 
           processPassword();
-        } else if (keyIsDown.Esc && !keyIsRegistered.Esc) {
-          keyIsRegistered.Esc = true;
-          game.passwordHudMessage = '';
+        } else if (this.keyboard.keyIsDown.Esc && !this.keyboard.keyIsRegistered.Esc) {
+          this.keyboard.keyIsRegistered.Esc = true;
+          this.game.passwordHudMessage = '';
           enteredPassword = '';
-          game.mode = 'title';
-        } else if (keyIsDown.Backspace && !keyIsRegistered.Backspace) {
-          keyIsRegistered.Backspace = true;
+          this.game.mode = 'title';
+        } else if (this.keyboard.keyIsDown.Backspace && !this.keyboard.keyIsRegistered.Backspace) {
+          this.keyboard.keyIsRegistered.Backspace = true;
           enteredPassword = enteredPassword.slice(0, -1);
         }
 
         else {
-          // Get alphanumeric input.
-          for (let i = 0; i < alphanumeric.length; i += 1) {
-            if (keyIsDown[alphanumericTX[i]] && !keyIsRegistered[alphanumericTX[i]]) {
-              keyIsRegistered[alphanumericTX[i]] = true;
+          // Get this.keyboard.alphanumeric input.
+          for (let i = 0; i < this.keyboard.alphanumeric.length; i += 1) {
+            if (this.keyboard.keyIsDown[this.keyboard.alphanumericTX[i]] && !this.keyboard.keyIsRegistered[this.keyboard.alphanumericTX[i]]) {
+              this.keyboard.keyIsRegistered[this.keyboard.alphanumericTX[i]] = true;
 
               if (enteredPassword.length < maxPasswordLength) {
-                enteredPassword += alphanumeric[i];
+                enteredPassword += this.keyboard.alphanumeric[i];
               }
             }
           }
         }
 
         if (enteredPassword.length > 0) {
-          game.passwordHudMessage = '';
+          this.game.passwordHudMessage = '';
         }
-      } else if (game.mode == 'credits') {
-        if (keyIsDown.Enter && !keyIsRegistered.Enter) {
-          keyIsRegistered.Enter = true;
+      } else if (this.game.mode == 'credits') {
+        if (this.keyboard.keyIsDown.Enter && !this.keyboard.keyIsRegistered.Enter) {
+          this.keyboard.keyIsRegistered.Enter = true;
 
           // Hit enter once to skip credit fades. Hit it again to return to title.
-          if (game.credits.sequence == 2) {
-            game.returnToTitle();
+          if (this.game.credits.sequence == 2) {
+            this.game.returnToTitle();
           } else {
-            game.credits.sequence = 2;
+            this.game.credits.sequence = 2;
           }
         }
 
@@ -544,48 +548,47 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
 
       else {
         // Player is at exit. Press enter to continue. No other input allowed.
-        if (game.atExit) {
+        if (this.game.atExit) {
           // If the game is perma-corrupted, you can't manually advance to the next level.
-          if (!game.incrementCorruption && !game.theEnd) {
-            if (keyIsDown.Enter && !keyIsRegistered.Enter) {
-              keyIsRegistered.Enter = true;
-              game.nextLevel();
+          if (!this.game.incrementCorruption && !this.game.theEnd) {
+            if (this.keyboard.keyIsDown.Enter && !this.keyboard.keyIsRegistered.Enter) {
+              this.keyboard.keyIsRegistered.Enter = true;
+              this.game.nextLevel();
             }
           }
-
           return;
         }
 
         // Player is dead. Press enter to restart. No other input allowed.
         if (player.isDead) {
-          if (keyIsDown.Enter && !keyIsRegistered.Enter) {
-            keyIsRegistered.Enter = true;
-            game.restartLevel();
+          if (this.keyboard.keyIsDown.Enter && !this.keyboard.keyIsRegistered.Enter) {
+            this.keyboard.keyIsRegistered.Enter = true;
+            this.game.restartLevel();
           }
           return;
         }
 
         // Game paused. Press enter to restart. May also press "P" to unpause game.
-        if (game.isPaused) {
-          if (keyIsDown.Enter && !keyIsRegistered.Enter) {
-            keyIsRegistered.Enter = true;
-            game.restartLevel();
+        if (this.game.isPaused) {
+          if (this.keyboard.keyIsDown.Enter && !this.keyboard.keyIsRegistered.Enter) {
+            this.keyboard.keyIsRegistered.Enter = true;
+            this.game.restartLevel();
             return;
           }
         }
 
         // Pause or unpause game.
-        if (keyIsDown.P && !keyIsRegistered.P) {
-          keyIsRegistered.P = true;
-          game.isPaused = game.isPaused.toggle();
+        if (this.keyboard.keyIsDown.P && !this.keyboard.keyIsRegistered.P) {
+          this.keyboard.keyIsRegistered.P = true;
+          this.game.isPaused = this.game.isPaused.toggle();
         }
 
-        if (!game.isPaused && !game.theEnd) {
+        if (!this.game.isPaused && !this.game.theEnd) {
           // Next level for debug purposes.
-          if (game.betaTest) {
-            if (keyIsDown.N && !keyIsRegistered.N) {
-              keyIsRegistered.N = true;
-              game.nextLevel();
+          if (this.game.betaTest) {
+            if (this.keyboard.keyIsDown.N && !this.keyboard.keyIsRegistered.N) {
+              this.keyboard.keyIsRegistered.N = true;
+              this.game.nextLevel();
             }
           }
 
@@ -593,17 +596,17 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
           let stopCheck = false;
 
           stopCheck =
-            this.checkInputAndExecute('A', keyboardRepeatTickDelay, this.goForward, ['left']) ||
-            this.checkInputAndExecute('D', keyboardRepeatTickDelay, this.goForward, ['right']) ||
-            this.checkInputAndExecute('W', keyboardRepeatTickDelay, this.goForward, ['up']) ||
-            this.checkInputAndExecute('S', keyboardRepeatTickDelay, this.goForward, ['down']) ||
-            this.checkInputAndExecute('LEFT', keyboardRepeatTickDelay, this.goForward, ['left']) ||
-            this.checkInputAndExecute('RIGHT', keyboardRepeatTickDelay, this.goForward, ['right']) ||
-            this.checkInputAndExecute('UP', keyboardRepeatTickDelay, this.goForward, ['up']) ||
-            this.checkInputAndExecute('DOWN', keyboardRepeatTickDelay, this.goForward, ['down']);
+            this.checkInputAndExecute('A', this.keyboardRepeatTickDelay, this.goForward, ['left']) ||
+            this.checkInputAndExecute('D', this.keyboardRepeatTickDelay, this.goForward, ['right']) ||
+            this.checkInputAndExecute('W', this.keyboardRepeatTickDelay, this.goForward, ['up']) ||
+            this.checkInputAndExecute('S', this.keyboardRepeatTickDelay, this.goForward, ['down']) ||
+            this.checkInputAndExecute('LEFT', this.keyboardRepeatTickDelay, this.goForward, ['left']) ||
+            this.checkInputAndExecute('RIGHT', this.keyboardRepeatTickDelay, this.goForward, ['right']) ||
+            this.checkInputAndExecute('UP', this.keyboardRepeatTickDelay, this.goForward, ['up']) ||
+            this.checkInputAndExecute('DOWN', this.keyboardRepeatTickDelay, this.goForward, ['down']);
         }
 
-        else if (game.theEnd) {
+        else if (this.game.theEnd) {
           if (this.startCountup) {
             this.ticks += 1;
 
@@ -611,7 +614,7 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
             if (this.ticks > 20) {
               this.autoMove = true;
 
-              if (game.gameTimer % 6 != 0) {
+              if (this.game.gameTimer % 6 != 0) {
                 return;
               }
 
@@ -624,7 +627,7 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
     };
 
     this.checkInputAndExecute = function (keyName, repeatDelay, callback, args) {
-      if (keyIsDown[keyName]) {
+      if (this.keyboard.keyIsDown[keyName]) {
         if (keyHeldDuration[keyName] == 0 || keyHeldDuration[keyName] > repeatDelay) {
           if (keyHeldDuration[keyName] % 2 == 0) {
             callback.apply(this, args);
@@ -656,7 +659,7 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
         switch (this.subType) {
 
           case 'ball':
-            if (game.gameTimer % 8 != 0) {
+            if (this.game.gameTimer % 8 != 0) {
               return;
             }
 
@@ -669,7 +672,7 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
             break;
 
           case 'nascar':
-            if (game.gameTimer % 8 != 0) {
+            if (this.game.gameTimer % 8 != 0) {
               return;
             }
 
@@ -681,7 +684,7 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
             break;
 
           case 'britishNascar':
-            if (game.gameTimer % 8 != 0) {
+            if (this.game.gameTimer % 8 != 0) {
               return;
             }
 
@@ -703,7 +706,7 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
             // Try turning counterclockwise, then clockwise, then going in reverse.
 
             // Switch back and forth between counterclockwise and clockwise preference on every obstacle encountered.
-            if (game.gameTimer % 8 != 0) {
+            if (this.game.gameTimer % 8 != 0) {
               return;
             }
 
@@ -737,7 +740,7 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
           case 'predator':
             // Try to close distance to player by means of an absolute direct path,
             // regardless of obstacles.
-            if (game.gameTimer % 8 != 0) {
+            if (this.game.gameTimer % 8 != 0) {
               return;
             }
 
@@ -745,14 +748,14 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
             break;
 
           case 'smartPredator':
-            if (game.gameTimer % this.speed != 0) {
+            if (this.game.gameTimer % this.speed != 0) {
               return;
             }
             this.movePredator();
             break;
 
           case 'berzerker':
-            if (game.gameTimer % 8 != 0) {
+            if (this.game.gameTimer % 8 != 0) {
               return;
             }
 
@@ -788,7 +791,7 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
                   break;
                 }
 
-                if (game.gameTimer % 4 != 0) {
+                if (this.game.gameTimer % 4 != 0) {
                   return;
                 }
 
@@ -801,37 +804,37 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
 
               if (this.position.y == 9 && this.position.x > 5) {
                 player.rotation = 0;
-                if (game.gameTimer % 40 != 0) {
+                if (this.game.gameTimer % 40 != 0) {
                   return;
                 }
                 this.turn('left');
                 this.goForward();
               } else if (this.position.y == 9 && this.position.x > 4) {
-                if (game.gameTimer % 200 != 0) {
+                if (this.game.gameTimer % 200 != 0) {
                   return;
                 }
                 this.turn('left');
                 this.goForward();
               } else if (this.position.y == 9 && this.position.x > 3) {
-                if (game.gameTimer % 100 != 0) {
+                if (this.game.gameTimer % 100 != 0) {
                   return;
                 }
                 this.turn('left');
                 this.goForward();
               } else if (this.position.y > 6) {
-                if (game.gameTimer % 40 != 0) {
+                if (this.game.gameTimer % 40 != 0) {
                   return;
                 }
                 this.turn('up');
                 this.goForward();
               } else if (this.position.x < 4) {
-                if (game.gameTimer % 40 != 0) {
+                if (this.game.gameTimer % 40 != 0) {
                   return;
                 }
                 this.turn('right');
                 this.goForward();
               } else if (this.position.x < 5) {
-                if (game.gameTimer % 100 != 0) {
+                if (this.game.gameTimer % 100 != 0) {
                   return;
                 }
                 this.turn('right');
@@ -888,7 +891,7 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
       if (this.type == 'player' && !this.canMove(this.position)) {
         this.isDead = true;
         const message = randomMessages.crush.getRandomElement();
-        game.setDeadMessage(message);
+        this.game.setDeadMessage(message);
       }
     };
 
@@ -900,21 +903,21 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
 
       if (this.subType == 'switch') {
         if (this.color == 'red') {
-          game.redSwitch = true;
+          this.game.redSwitch = true;
         }
         if (this.color == 'yellow') {
-          game.yellowSwitch = true;
+          this.game.yellowSwitch = true;
         }
         if (this.color == 'green') {
-          game.greenSwitch = true;
+          this.game.greenSwitch = true;
         }
 
-        if (this.color == 'brown' && !game.brownSwitch) {
-          game.brownSwitch = true;
+        if (this.color == 'brown' && !this.game.brownSwitch) {
+          this.game.brownSwitch = true;
         }
 
-        if (this.color == 'brownOff' && game.brownSwitch) {
-          game.brownSwitch = false;
+        if (this.color == 'brownOff' && this.game.brownSwitch) {
+          this.game.brownSwitch = false;
         }
       }
 
@@ -925,7 +928,7 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
           sprite.inventory.yellowKeys += 1;
 
           // Remove key from map.
-          game.items.remove(game.items.findByProperty('spriteID', this.spriteID));
+          this.game.items.remove(this.game.items.findByProperty('spriteID', this.spriteID));
         }
       }
 
@@ -936,7 +939,7 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
           sprite.inventory.redKeys += 1;
 
           // Remove key from map.
-          game.items.remove(game.items.findByProperty('spriteID', this.spriteID));
+          this.game.items.remove(this.game.items.findByProperty('spriteID', this.spriteID));
         }
       }
 
@@ -947,7 +950,7 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
           sprite.inventory.cyanKeys += 1;
 
           // Remove key from map.
-          game.items.remove(game.items.findByProperty('spriteID', this.spriteID));
+          this.game.items.remove(this.game.items.findByProperty('spriteID', this.spriteID));
         }
       }
 
@@ -958,14 +961,14 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
           sprite.inventory.greenKeys += 1;
 
           // Remove key from map.
-          game.items.remove(game.items.findByProperty('spriteID', this.spriteID));
+          this.game.items.remove(this.game.items.findByProperty('spriteID', this.spriteID));
         }
       }
 
       if (this.subType == 'help' || this.subType == 'help2') {
         if (sprite.type == 'player') {
-          game.showMessage = true;
-          game.messageText = this.message;
+          this.game.showMessage = true;
+          this.game.messageText = this.message;
         }
       }
 
@@ -975,14 +978,14 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
           sprite.inventory.money += 1;
 
           // Remove money from map.
-          game.items.remove(game.items.findByProperty('spriteID', this.spriteID));
+          this.game.items.remove(this.game.items.findByProperty('spriteID', this.spriteID));
         }
       }
 
       if (this.subType == 'teleporter') {
         if (!sprite.isTeleporting) {
           if (this.destination != null) {
-            const destinationTeleporter = game.items.findByProperty('nameID', this.destination);
+            const destinationTeleporter = this.game.items.findByProperty('nameID', this.destination);
             sprite.position = destinationTeleporter.position;
             sprite.isTeleporting = true;
           }
@@ -996,58 +999,58 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
         switch (this.callback) {
 
           case 'corrupt':
-            game.incrementCorruption = true;
-            game.corruption = 1;
-            game.corruptionTimer = 50;
+            this.game.incrementCorruption = true;
+            this.game.corruption = 1;
+            this.game.corruptionTimer = 50;
 
             break;
 
           case 'quickCorrupt':
-            if (!game.quickCorruptTriggered) {
-              game.onQuickCorruptTile = true;
-              game.quickCorruptTriggered = true;
-              game.corruption = 1;
-              game.corruptionTimer = 20;
+            if (!this.game.quickCorruptTriggered) {
+              this.game.onQuickCorruptTile = true;
+              this.game.quickCorruptTriggered = true;
+              this.game.corruption = 1;
+              this.game.corruptionTimer = 20;
             }
             break;
 
           case 'revenge':
-            if (game.debug) {
+            if (this.game.debug) {
               console.log('revenge');
             }
-            game.enemies.findByProperty('subType', 'predator').subType = 'nascar';
+            this.game.enemies.findByProperty('subType', 'predator').subType = 'nascar';
 
-            p2 = game.enemies.findByProperty('subType', 'player2');
+            p2 = this.game.enemies.findByProperty('subType', 'player2');
             p2.startCountup = true;
 
             break;
 
           case 'theEnd':
-            if (game.debug) {
+            if (this.game.debug) {
               console.log('the end');
             }
-            game.enemies.findByProperty('subType', 'predator').subType = 'nascar';
+            this.game.enemies.findByProperty('subType', 'predator').subType = 'nascar';
 
-            p2 = game.enemies.findByProperty('subType', 'player2');
+            p2 = this.game.enemies.findByProperty('subType', 'player2');
             p2.startTheEnd = true;
-            game.theEnd = true;
+            this.game.theEnd = true;
 
             break;
           case 'transform':
-            if (game.debug) {
+            if (this.game.debug) {
               console.log('transform');
             }
-            thePredator = game.enemies.findByProperty('subType', 'predator');
+            thePredator = this.game.enemies.findByProperty('subType', 'predator');
             thePredator.subType = 'smartPredator';
             thePredator.tileGraphic = tileCodes.smartPredator;
             thePredator.speed = 3;
-            game.brownSwitch = game.brownSwitch.toggle();
+            this.game.brownSwitch = this.game.brownSwitch.toggle();
             break;
           case 'destroyPredator':
-            if (game.debug) {
+            if (this.game.debug) {
               console.log('destroy predator');
             }
-            thePredator = game.enemies.findByProperty('subType', 'smartPredator');
+            thePredator = this.game.enemies.findByProperty('subType', 'smartPredator');
             thePredator.destroy();
             break;
           default:
@@ -1079,13 +1082,13 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
         let tileNumber = this.tileGraphic;
 
         // Don't draw hidden switches.
-        if (this.subType == 'hiddenSwitch' && !game.debug) {
+        if (this.subType == 'hiddenSwitch' && !this.game.debug) {
           return;
         }
         if (this.subType == 'teleporter') {
           // Teleporter animation.
-          tileNumber += Math.floor(game.gameTimer % 9 / 3);
-        } else if (game.brownSwitch && this.subType == 'switch') {
+          tileNumber += Math.floor(this.game.gameTimer % 9 / 3);
+        } else if (this.game.brownSwitch && this.subType == 'switch') {
           // Draw switch toggling.
           if (this.color == 'brown') {
             tileNumber -= 1;
@@ -1126,11 +1129,11 @@ define('Sprite', ['./Coordinates'], function (Coordinates) {
           return;
 
         case 'item':
-          pool = game.items;
+          pool = this.game.items;
           break;
 
         case 'tool':
-          pool = game.tools;
+          pool = this.game.tools;
           break;
 
         default:

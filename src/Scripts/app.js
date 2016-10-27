@@ -1,4 +1,5 @@
-let Coordinates = require("./Coordinates");
+define('app', [], function () {
+  let Coordinates = require("./Coordinates");
 
   function tileDistanceBetween(coords1, coords2) {
     const xDist = Math.abs(coords1.x - coords2.x);
@@ -14,4 +15,5 @@ let Coordinates = require("./Coordinates");
     return areColliding(s1.position, s2.position);
   }
 
-require("./jakesChallenge.js");
+  require("./jakesChallenge.js");
+});

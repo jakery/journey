@@ -1,5 +1,20 @@
-define('JakesJourney', ['./Coordinates','./Sprite'], function (Coordinates,Sprite) {
+define('JakesJourney', ['./Coordinates', './Sprite', './Keyboard'], function (Coordinates, Sprite, Keyboard) {
 
+  var $ = require('jquery');
+
+  function tileDistanceBetween(coords1, coords2) {
+    const xDist = Math.abs(coords1.x - coords2.x);
+    const yDist = Math.abs(coords1.y - coords2.y);
+    return xDist + yDist;
+  }
+
+  function areColliding(pos1, pos2) {
+    return pos1.x == pos2.x && pos1.y == pos2.y;
+  }
+
+  function areSpritesColliding(s1, s2) {
+    return areColliding(s1.position, s2.position);
+  }
   let $j = $.noConflict();
   const enteredPassword = '';
   const passwords = {};
@@ -166,7 +181,7 @@ define('JakesJourney', ['./Coordinates','./Sprite'], function (Coordinates,Sprit
         if (game.iDataArray !== null) {
           for (let i = 0; i < game.iDataArray.objects.length; i += 1) {
             const iData = game.iDataArray.objects[i];
-            const item = new Sprite.Sprite();
+            const item = new Sprite.Sprite(game);
 
             item.tileGraphic = iData.gid;
             item.spriteID = `item ${i}`;
@@ -210,7 +225,7 @@ define('JakesJourney', ['./Coordinates','./Sprite'], function (Coordinates,Sprit
         if (game.eDataArray !== null) {
           for (let i = 0; i < game.eDataArray.objects.length; i += 1) {
             const eData = game.eDataArray.objects[i];
-            const enemy = new Sprite.Sprite();
+            const enemy = new Sprite.Sprite(game);
 
             enemy.tileGraphic = eData.gid;
             enemy.spriteID = `enemy ${i}`;
@@ -819,12 +834,15 @@ define('JakesJourney', ['./Coordinates','./Sprite'], function (Coordinates,Sprit
     assets.dungeon = document.getElementById('dungeon');
     assets.gridLineCoordinates = generateGridLines();
 
-    player = new Sprite.Sprite(game);
+    let keyboard = new Keyboard();
+    keyboard.settings.exclusions = ['F5', 'F11', 'F12', 'Control'];
+    keyboard.wireUp(document);
+
+    player = new Sprite.Sprite(game,keyboard);
     player.imageType = 'image';
     player.image = assets.face;
     player.type = 'player';
 
-    $j(document).keyboard({ exclusions: ['F5', 'F11', 'F12', 'Control'] });
 
     // Define default canvas parameters.
     ctx = stage.gameCanvas.getContext('2d');
