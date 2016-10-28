@@ -1,5 +1,5 @@
 define('Utility', [], () => {
-  const Utility = function () {
+  const Utility = function Utility() {
     this.tileDistanceBetween = function tileDistanceBetween(coords1, coords2) {
       const xDist = Math.abs(coords1.x - coords2.x);
       const yDist = Math.abs(coords1.y - coords2.y);
@@ -7,7 +7,7 @@ define('Utility', [], () => {
     };
 
     this.areColliding = function areColliding(pos1, pos2) {
-      return pos1.x == pos2.x && pos1.y == pos2.y;
+      return pos1.x === pos2.x && pos1.y === pos2.y;
     };
 
     this.areSpritesColliding = function areSpritesColliding(s1, s2) {
@@ -39,63 +39,63 @@ define('Utility', [], () => {
       warn() { },
     };
 
-    this.string = new (function () {
+    this.string = new (function stringHelper() {
       const currencyPattern = /,|$/g;
 
       // Convert currency string to float.
-      this.parseFloatCurrency = function () {
+      this.parseFloatCurrency = function parseFloatCurrency() {
         return parseFloat(this.replace(currencyPattern, ''));
       };
 
       // Convert currency string to integer.
-      this.parseIntCurrency = function (radix) {
+      this.parseIntCurrency = function parseIntCurrency(radix) {
         // Default to Base-10.
         return parseInt(this.replace(currencyPattern, ''), radix || 10);
       };
 
       // Convert number to formatted currency string.
-      this.formatCurrency = function (number) {
+      this.formatCurrency = function formatCurrency(number) {
         let n = number;
         n = n.toString().replace(currencyPattern, '');
         if (isNaN(n)) { n = '0'; }
         const sign = (n !== (n = Math.abs(n)));
-        n = Math.floor(n * 100 + 0.50000000001);
+        n = Math.floor((n * 100) + 0.50000000001);
         let cents = n % 100;
         n = Math.floor(n / 100).toString();
         if (cents < 10) { cents = `0${cents}`; }
         for (let i = 0; i < Math.floor((n.length - (1 + i)) / 3); i += 1) {
-          n = `${n.substring(0, n.length - (4 * i + 3))},${
-            n.substring(n.length - (4 * i + 3))}`;
+          n = `${n.substring(0, n.length - ((4 * i) + 3))},${
+            n.substring(n.length - ((4 * i) + 3))}`;
         }
         return (`${(sign) ? '' : '-'}$${n}.${cents}`);
       };
 
       // Trim whitespace from string.
-      this.trim = function (string) {
+      this.trim = function trim(string) {
         return string.replace(/^\s+|\s+$/g, '');
       };
-      this.ltrim = function (string) {
+      this.ltrim = function ltrim(string) {
         return string.replace(/^\s+/, '');
       };
-      this.rtrim = function (string) {
+      this.rtrim = function rtrim(string) {
         return string.replace(/\s+$/, '');
       };
     })();
 
-    this.array = new (function () {
+    this.array = new (function arrayHelper() {
       // Return sum of all numbers in array.
       // TODO: Unit test this.
-      this.sum = function (array) {
-        let sum = 0;
-        for (let i = 0; i < array.length; sum += array[i += 1]);
-        return sum;
+      this.sum = function sum(array) {
+        let output = 0;
+        for (let i = 0; i < array.length; output += array[i += 1]);
+        return output;
       };
 
       // / <summary>
       // / Remove all items from array by value.
       // / </summary>
       // TODO: Unit test this.
-      this.remove = function (array, ...objectsToRemove) {
+      this.remove = function remove(array, ...objectsToRemove) {
         if (typeof array === 'undefined') throw new Error('No array was provided.');
         const badObjects = [...objectsToRemove];
         if (!badObjects.length) { return this; }
@@ -117,7 +117,7 @@ define('Utility', [], () => {
       // / <summary>
       // / Get object within array by value of property within object.
       // / </summary>
-      this.findByProperty = function (array, propertyName, value, safe) {
+      this.findByProperty = function findByProperty(array, propertyName, value, safe) {
         for (let i = 0; i < array.length; i += 1) {
           if (array[i][propertyName] === value) {
             return array[i];
@@ -132,7 +132,7 @@ define('Utility', [], () => {
       // / <summary>
       // / Get ALL objects within array by value of property within object.
       // / </summary>
-      this.findAllByProperty = function (array, propertyName, value, safe) {
+      this.findAllByProperty = function findAllByProperty(array, propertyName, value, safe) {
         const outputArray = [];
         for (let i = 0; i < array.length; i += 1) {
           if (array[i][propertyName] === value) {
@@ -147,33 +147,36 @@ define('Utility', [], () => {
       };
 
 
-      this.removeBySpriteId = function (array, id, safe) {
+      this.removeBySpriteId = function removeBySpriteId(array, id, safe) {
         if (typeof array === 'undefined') throw new Error('No array was provided.');
         return this.remove(array, this.findByProperty(array, 'spriteID', id, safe));
       };
 
-      this.getRandomElement = function (array) {
+      this.getRandomElement = function getRandomElement(array) {
         return array[Math.floor(Math.random() * array.length)];
       };
       // Split array into multidimensional array.
-      this.chunk = function (array, chunkSize) {
-        return [].concat.apply([], array.map((elem, i) => (i % chunkSize ? [] : [array.slice(i, i + chunkSize)])));
+      this.chunk = function chunk(array, chunkSize) {
+        const outputArray = [];
+        return outputArray.concat.apply([],
+          array.map((elem, i) => (i % chunkSize ? [] : [array.slice(i, i + chunkSize)]))
+        );
       };
 
       // Max value of numerical array.
-      this.max = function (array) {
+      this.max = function max(array) {
         return Math.max.apply(null, array);
       };
 
       // Min value of numerical array.
-      this.min = function (array) {
+      this.min = function min(array) {
         return Math.min.apply(null, array);
       };
     })();
 
     this.math = {
-      toRadians: degrees => degrees * Math.PI / 180,
-      toDegrees: radians => radians * 180 / Math.PI,
+      toRadians: degrees => (degrees * Math.PI) / 180,
+      toDegrees: radians => (radians * 180) / Math.PI,
     };
   };
 
