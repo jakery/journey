@@ -169,7 +169,7 @@ define('Keyboard', [], () => {
     this.corrupt = function (offset) {
       offset %= this.alphanumeric.length;
 
-      if (offset === 0) {
+      if (offset == 0) {
         return this;
       }
 
@@ -178,7 +178,7 @@ define('Keyboard', [], () => {
       for (let i = 0; i < this.length; i += 1) {
         const char = this[i];
         const charIndex = this.alphanumeric.indexOf(char);
-        if (charIndex === -1) {
+        if (charIndex == -1) {
           output.push(this[i]);
         } else {
           const change = (charIndex + offset) % this.alphanumeric.length;
@@ -191,7 +191,7 @@ define('Keyboard', [], () => {
 
     this.getKeyByCode = function (keyCode) {
       for (const k of Object.keys(this.keys)) {
-        if (keyCode === this.keys[k]) {
+        if (keyCode == this.keys[k]) {
           return k;
         }
       }
@@ -208,7 +208,7 @@ define('Keyboard', [], () => {
     this.konami = '38,38,40,40,37,39,37,39,66,65';
     this.keyLog = [];
     this.konamiCode = function () {
-      return (this.keyLog.toString() === this.konami);
+      return (this.keyLog.toString() == this.konami);
     };
 
     this.wireUp = function (htmlElement) {

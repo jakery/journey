@@ -171,90 +171,89 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       // Get all tile layers.
       const destinationTileType = this.game.map.getTileTypeByCoords(destination.x, destination.y);
 
-
       // Wall.
-      if (destinationTileType == TileCodes.wall || destinationTileType == TileCodes.futureFloor) {
+      if (destinationTileType === TileCodes.wall || destinationTiletype === TileCodes.futureFloor) {
         return false;
       }
 
       // Disappearing red wall.
-      if (destinationTileType == TileCodes.dRedBlockInactive && !this.game.redSwitch) {
+      if (destinationTiletype === TileCodes.dRedBlockInactive && !this.game.redSwitch) {
         return false;
       }
 
       // Appearing red wall.
-      if (destinationTileType == TileCodes.aRedBlockInactive && this.game.redSwitch) {
+      if (destinationTiletype === TileCodes.aRedBlockInactive && this.game.redSwitch) {
         return false;
       }
 
       // Disappearing yellow wall.
-      if (destinationTileType == TileCodes.dYellowBlockInactive && !this.game.yellowSwitch) {
+      if (destinationTiletype === TileCodes.dYellowBlockInactive && !this.game.yellowSwitch) {
         return false;
       }
 
       // Appearing yellow wall.
-      if (destinationTileType == TileCodes.aYellowBlockInactive && this.game.yellowSwitch) {
+      if (destinationTiletype === TileCodes.aYellowBlockInactive && this.game.yellowSwitch) {
         return false;
       }
 
       // Disappearing green wall.
-      if (destinationTileType == TileCodes.dGreenBlockInactive && !this.game.greenSwitch) {
+      if (destinationTiletype === TileCodes.dGreenBlockInactive && !this.game.greenSwitch) {
         return false;
       }
 
       // Appearing green wall.
-      if (destinationTileType == TileCodes.aGreenBlockInactive && this.game.greenSwitch) {
+      if (destinationTiletype === TileCodes.aGreenBlockInactive && this.game.greenSwitch) {
         return false;
       }
 
       // Brown toggle wall.
-      if (destinationTileType == TileCodes.brownBlockInactive && this.game.brownSwitch) {
+      if (destinationTiletype === TileCodes.brownBlockInactive && this.game.brownSwitch) {
         return false;
       }
 
       // Brown toggle off wall.
-      if (destinationTileType == TileCodes.brownBlockActive && !this.game.brownSwitch) {
+      if (destinationTiletype === TileCodes.brownBlockActive && !this.game.brownSwitch) {
         return false;
       }
 
       // Yellow Door.
-      if (destinationTileType == TileCodes.yellowDoor) {
+      if (destinationTiletype === TileCodes.yellowDoor) {
         // Player has key.
         return this.inventory.yellowKeys > 0;
       }
 
       // Red Door.
-      if (destinationTileType == TileCodes.redDoor) {
+      if (destinationTiletype === TileCodes.redDoor) {
         // Player has key.
         return this.inventory.redKeys > 0;
       }
 
       // Cyan Door.
-      if (destinationTileType == TileCodes.cyanDoor) {
+      if (destinationTiletype === TileCodes.cyanDoor) {
         // Player has key.
         return this.inventory.cyanKeys > 0;
       }
 
       // Green Door.
-      if (destinationTileType == TileCodes.greenDoor) {
+      if (destinationTiletype === TileCodes.greenDoor) {
         // Player has key.
         return this.inventory.greenKeys > 0;
       }
 
       // Toll block.
-      if (destinationTileType == TileCodes.toll) {
+      if (destinationTiletype === TileCodes.toll) {
         // Player has the toll.
         return this.inventory.money >= this.game.moneyCount;
       }
 
       // Check pushblock.
-      if (this.type == 'player' || this.type == 'enemy') {
+      if (this.type === 'player' || this.type === 'enemy') {
         for (let i = 0; i < this.game.tools.length; i += 1) {
-          if (this.game.tools[i].subType == 'pushBlock') {
+          if (this.game.tools[i].subtype === 'pushBlock') {
             // Sprite is trying to move into pushblock.
             if (Utility.areColliding(destination, this.game.tools[i].position)) {
               // Only player can move pushblocks.
-              if (this.type == 'player') {
+              if (this.type === 'player') {
                 // If pushblock isn't stuck, will get pushed.
                 this.game.tools[i].direction = this.direction;
                 if (this.game.tools[i].canMove()) {
@@ -271,9 +270,9 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
 
       // Pushblock recursive checkmove.
 
-      if (this.subType == 'pushBlock') {
+      if (this.subtype === 'pushBlock') {
         for (let i = 0; i < this.game.tools.length; i += 1) {
-          if (this.game.tools[i].subType == 'pushBlock') {
+          if (this.game.tools[i].subtype === 'pushBlock') {
             if (Utility.areColliding(destination, this.game.tools[i].position)) {
               return false;
             }
@@ -373,7 +372,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         this.turn(d);
       }
       if (!this.clipping || this.canMove()) {
-        if (this.type == 'player') {
+        if (this.type === 'player') {
           this.game.quickCorruptTriggered = false;
         }
         this.position = this.getTarget();
@@ -387,12 +386,12 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       const tileType = this.game.map.getTileTypeByCoords(this.position.x, this.position.y);
 
       // Normal.
-      if (tileType == TileCodes.floor) {
+      if (tiletype === TileCodes.floor) {
         return;
       }
 
       // Yellow Door.
-      if (tileType == TileCodes.yellowDOor) {
+      if (tiletype === TileCodes.yellowDOor) {
         // Player has a key.
         if (this.inventory.yellowKeys > 0) {
           // Unlock door.
@@ -407,7 +406,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       }
 
       // Red Door.
-      if (tileType == TileCodes.redDoor) {
+      if (tiletype === TileCodes.redDoor) {
         // Player has a key.
         if (this.inventory.redKeys > 0) {
           // Unlock door.
@@ -422,7 +421,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       }
 
       // Cyan Door.
-      if (tileType == TileCodes.cyanDoor) {
+      if (tiletype === TileCodes.cyanDoor) {
         // Player has a key.
         if (this.inventory.cyanKeys > 0) {
           // Unlock door.
@@ -437,7 +436,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       }
 
       // Cyan Door.
-      if (tileType == TileCodes.cyanDoor) {
+      if (tiletype === TileCodes.cyanDoor) {
         // Player has a key.
         if (this.inventory.greenKeys > 0) {
           // Unlock door.
@@ -452,32 +451,32 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       }
 
       // Exit.
-      if (tileType == 6) {
+      if (tiletype === TileCodes.exit) {
         // Only player can trigger exit.
-        if (this.type == 'player') {
+        if (this.type === 'player') {
           this.game.atExit = true;
         }
       }
 
       // Water & death.
-      if (tileType == TileCodes.water) {
+      if (tiletype === TileCodes.water) {
         // Balls are immune to water death.
         // if (this.subType != "ball") {
 
         this.isDead = true;
 
-        if (this.type == 'player') {
+        if (this.type === 'player') {
           const message = Utility.array.getRandomElement(DeathMessages.water);
           this.game.setDeadMessage(message);
         }
 
-        else if (this.type == 'enemy') {
+        else if (this.type === 'enemy') {
           // game.enemies.remove(Utility.array.findByProperty(game.enemies, "spriteID", this.spriteID));
           this.destroy();
         }
 
         // Block hits water and disappears.
-        else if (this.subType == 'pushBlock') {
+        else if (this.subtype === 'pushBlock') {
           this.game.tools.remove(Utility.array.findByProperty(this.game.tools, 'spriteID', this.spriteID));
         }
         // }
@@ -614,9 +613,10 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
             this.ticks += 1;
 
             // 20-tick delay.
+            // TODO: Remove magic number.
             if (this.ticks > 20) {
               this.autoMove = true;
-
+              // TODO: Remove magic number.
               if (this.game.gameTimer % 6 != 0) {
                 return;
               }
@@ -632,6 +632,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
     this.checkInputAndExecute = function (keyName, repeatDelay, callback, args) {
       if (this.keyboard.keyIsDown[keyName]) {
         if (this.keyboard.keyHeldDuration[keyName] == 0 || this.keyboard.keyHeldDuration[keyName] > repeatDelay) {
+          // TODO: Remove magic number.
           if (this.keyboard.keyHeldDuration[keyName] % 2 == 0) {
             callback.apply(this, args);
           }
@@ -643,12 +644,14 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
     };
 
     this.Update = function () {
+
+      // TODO: Refactor out all sprite callbacks into separate file. Instantiate update functions upon load.
       if (!this.isAlive) {
         return false;
       }
 
-      if (this.type == 'tool') {
-        if (this.subType == 'pushBlock') {
+      if (this.type === 'tool') {
+        if (this.subtype === 'pushBlock') {
           if (this.gettingPushed) {
             this.direction = this.player.direction;
             this.goForward();
@@ -657,11 +660,12 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
           }
         }
       }
-      if (this.type == 'enemy') {
+      if (this.type === 'enemy') {
         // Enemy movement patterns.
         switch (this.subType) {
 
           case 'ball':
+            // TODO: Remove magic number.
             if (this.game.gameTimer % 8 != 0) {
               return;
             }
@@ -675,6 +679,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
             break;
 
           case 'nascar':
+            // TODO: Remove magic number.
             if (this.game.gameTimer % 8 != 0) {
               return;
             }
@@ -687,6 +692,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
             break;
 
           case 'britishNascar':
+            // TODO: Remove magic number.
             if (this.game.gameTimer % 8 != 0) {
               return;
             }
@@ -709,6 +715,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
             // Try turning counterclockwise, then clockwise, then going in reverse.
 
             // Switch back and forth between counterclockwise and clockwise preference on every obstacle encountered.
+            // TODO: Remove magic number.
             if (this.game.gameTimer % 8 != 0) {
               return;
             }
@@ -743,7 +750,8 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
           case 'predator':
             // Try to close distance to player by means of an absolute direct path,
             // regardless of obstacles.
-            if (this.game.gameTimer % 8 != 0) {
+            // TODO: Remove magic number.
+            if (this.game.gameTimer % 8 !== 0) {
               return;
             }
 
@@ -751,24 +759,25 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
             break;
 
           case 'smartPredator':
-            if (this.game.gameTimer % this.speed != 0) {
+            if (this.game.gameTimer % this.speed !== 0) {
               return;
             }
             this.movePredator();
             break;
 
           case 'berzerker':
-            if (this.game.gameTimer % 8 != 0) {
-              return;
+            // TODO: Remove magic number.
+            if (this.game.gameTimer % 8 !== 0) {
+              return false;
             }
 
-            if (this.position.x == this.player.position.x) {
+            if (this.position.x === this.player.position.x) {
               if (this.position.y > this.player.position.y) {
                 this.turn('up');
               } else {
                 this.turn('down');
               }
-            } else if (this.position.y == this.player.position.y) {
+            } else if (this.position.y === this.player.position.y) {
               if (this.position.x > this.player.position.x) {
                 this.turn('left');
               } else {
@@ -794,51 +803,52 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
                   break;
                 }
 
-                if (this.game.gameTimer % 4 != 0) {
-                  return;
+                if (this.game.gameTimer % 4 !== 0) {
+                  return false;
                 }
 
                 this.turn('right');
                 this.goForward();
               }
             }
+            // TODO: Refactor The End into its own class.
             if (this.startTheEnd) {
               this.ticks += 1;
 
-              if (this.position.y == 9 && this.position.x > 5) {
+              if (this.position.y === 9 && this.position.x > 5) {
                 this.player.rotation = 0;
-                if (this.game.gameTimer % 40 != 0) {
-                  return;
+                if (this.game.gameTimer % 40 !== 0) {
+                  return false;
                 }
                 this.turn('left');
                 this.goForward();
-              } else if (this.position.y == 9 && this.position.x > 4) {
-                if (this.game.gameTimer % 200 != 0) {
-                  return;
+              } else if (this.position.y === 9 && this.position.x > 4) {
+                if (this.game.gameTimer % 200 !== 0) {
+                  return false;
                 }
                 this.turn('left');
                 this.goForward();
-              } else if (this.position.y == 9 && this.position.x > 3) {
-                if (this.game.gameTimer % 100 != 0) {
-                  return;
+              } else if (this.position.y === 9 && this.position.x > 3) {
+                if (this.game.gameTimer % 100 !== 0) {
+                  return false;
                 }
                 this.turn('left');
                 this.goForward();
               } else if (this.position.y > 6) {
-                if (this.game.gameTimer % 40 != 0) {
-                  return;
+                if (this.game.gameTimer % 40 !== 0) {
+                  return false;
                 }
                 this.turn('up');
                 this.goForward();
               } else if (this.position.x < 4) {
-                if (this.game.gameTimer % 40 != 0) {
-                  return;
+                if (this.game.gameTimer % 40 !== 0) {
+                  return false;
                 }
                 this.turn('right');
                 this.goForward();
               } else if (this.position.x < 5) {
-                if (this.game.gameTimer % 100 != 0) {
-                  return;
+                if (this.game.gameTimer % 100 !== 0) {
+                  return false;
                 }
                 this.turn('right');
                 this.goForward();
@@ -891,7 +901,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
     // Crush check.
     // Only applies to player.
     this.crushCheck = function () {
-      if (this.type == 'player' && !this.canMove(this.position)) {
+      if (this.type === 'player' && !this.canMove(this.position)) {
         this.isDead = true;
         const message = Utility.array.getRandomElement(DeathMessages.crush);
         this.game.setDeadMessage(message);
@@ -904,29 +914,29 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         return false;
       }
 
-      if (this.subType == 'switch') {
-        if (this.color == 'red') {
+      if (this.subtype === 'switch') {
+        if (this.color === 'red') {
           this.game.redSwitch = true;
         }
-        if (this.color == 'yellow') {
+        if (this.color === 'yellow') {
           this.game.yellowSwitch = true;
         }
-        if (this.color == 'green') {
+        if (this.color === 'green') {
           this.game.greenSwitch = true;
         }
 
-        if (this.color == 'brown' && !this.game.brownSwitch) {
+        if (this.color === 'brown' && !this.game.brownSwitch) {
           this.game.brownSwitch = true;
         }
 
-        if (this.color == 'brownOff' && this.game.brownSwitch) {
+        if (this.color === 'brownOff' && this.game.brownSwitch) {
           this.game.brownSwitch = false;
         }
       }
 
-      if (this.subType == 'yellowKey') {
+      if (this.subtype === 'yellowKey') {
         // If player or predator enemy, can pick up key.
-        if (sprite.type == 'player' || sprite.subType == 'predator' || sprite.subType == 'smartPredator') {
+        if (sprite.type === 'player' || sprite.subtype === 'predator' || sprite.subtype === 'smartPredator') {
           // Player gains key.
           sprite.inventory.yellowKeys += 1;
 
@@ -935,9 +945,9 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         }
       }
 
-      if (this.subType == 'redKey') {
+      if (this.subtype === 'redKey') {
         // If player or predator enemy, can pick up key.
-        if (sprite.type == 'player' || sprite.subType == 'predator' || sprite.subType == 'smartPredator') {
+        if (sprite.type === 'player' || sprite.subtype === 'predator' || sprite.subtype === 'smartPredator') {
           // Player gains key.
           sprite.inventory.redKeys += 1;
 
@@ -946,9 +956,9 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         }
       }
 
-      if (this.subType == 'cyanKey') {
+      if (this.subtype === 'cyanKey') {
         // If player or predator enemy, can pick up key.
-        if (sprite.type == 'player' || sprite.subType == 'predator' || sprite.subType == 'smartPredator') {
+        if (sprite.type === 'player' || sprite.subtype === 'predator' || sprite.subtype === 'smartPredator') {
           // Player gains key.
           sprite.inventory.cyanKeys += 1;
 
@@ -957,9 +967,9 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         }
       }
 
-      if (this.subType == 'greenKey') {
+      if (this.subtype === 'greenKey') {
         // If player or predator enemy, can pick up key.
-        if (sprite.type == 'player' || sprite.subType == 'predator' || sprite.subType == 'smartPredator') {
+        if (sprite.type === 'player' || sprite.subtype === 'predator' || sprite.subtype === 'smartPredator') {
           // Player gains key.
           sprite.inventory.greenKeys += 1;
 
@@ -968,15 +978,15 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         }
       }
 
-      if (this.subType == 'help' || this.subType == 'help2') {
-        if (sprite.type == 'player') {
+      if (this.subtype === 'help' || this.subtype === 'help2') {
+        if (sprite.type === 'player') {
           this.game.showMessage = true;
           this.game.messageText = this.message;
         }
       }
 
-      if (this.subType == 'money') {
-        if (sprite.type == 'player') {
+      if (this.subtype === 'money') {
+        if (sprite.type === 'player') {
           // Player gains money.
           sprite.inventory.money += 1;
 
@@ -985,7 +995,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         }
       }
 
-      if (this.subType == 'teleporter') {
+      if (this.subtype === 'teleporter') {
         if (!sprite.isTeleporting) {
           if (this.destination != null) {
             const destinationTeleporter = Utility.array.findByProperty(this.game.items, 'nameID', this.destination);
@@ -996,7 +1006,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       }
 
       // Can of worms, here.
-      if (this.subType == 'hiddenSwitch') {
+      if (this.subtype === 'hiddenSwitch') {
         let p2;
         let thePredator;
         switch (this.callback) {
@@ -1021,7 +1031,8 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
             if (this.game.debug) {
               Utility.console.log('revenge');
             }
-            Utility.array.findByProperty(this.game.enemies, 'subType', 'predator').subType = 'nascar';
+            thePredator = Utility.array.findByProperty(this.game.enemies, 'subType', 'predator');
+            thePredator.subType = 'nascar';
 
             p2 = Utility.array.findByProperty(this.game.enemies, 'subType', 'player2');
             p2.startCountup = true;
@@ -1032,7 +1043,8 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
             if (this.game.debug) {
               Utility.console.log('the end');
             }
-            Utility.array.findByProperty(this.game.enemies, 'subType', 'predator').subType = 'nascar';
+            thePredator = Utility.array.findByProperty(this.game.enemies, 'subType', 'predator');
+            thePredator.subType = 'nascar';
 
             p2 = Utility.array.findByProperty(this.game.enemies, 'subType', 'player2');
             p2.startTheEnd = true;
@@ -1065,6 +1077,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
           this.destroy();
         }
       }
+      return false;
     };
 
     this.Draw = function () {
@@ -1073,41 +1086,41 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       }
       let sign = 1;
 
-      if (this.type == 'player') {
+      if (this.type === 'player') {
         this.draw.ctx.save();
         this.draw.ctx.translate(this.position.x * this.baseUnit + this.halfBaseUnit + this.stage.drawOffset.x, this.position.y * this.baseUnit + this.halfBaseUnit + this.stage.drawOffset.y);
         this.draw.ctx.rotate(this.rotation * Math.Radians);
-        if (this.imageType == 'image') {
+        if (this.imagetype === 'image') {
           this.draw.ctx.drawImage(this.image, -this.halfBaseUnit, -this.halfBaseUnit);
         }
         this.draw.ctx.restore();
-      } else if (this.type == 'enemy' || this.type == 'item' || this.type == 'tool') {
+      } else if (this.type === 'enemy' || this.type === 'item' || this.type === 'tool') {
         let tileNumber = this.tileGraphic;
 
         // Don't draw hidden switches.
-        if (this.subType == 'hiddenSwitch' && !this.game.debug) {
-          return;
+        if (this.subtype === 'hiddenSwitch' && !this.game.debug) {
+          return false;
         }
-        if (this.subType == 'teleporter') {
+        if (this.subtype === 'teleporter') {
           // Teleporter animation.
           tileNumber += Math.floor(this.game.gameTimer % 9 / 3);
-        } else if (this.game.brownSwitch && this.subType == 'switch') {
+        } else if (this.game.brownSwitch && this.subtype === 'switch') {
           // Draw switch toggling.
-          if (this.color == 'brown') {
+          if (this.color === 'brown') {
             tileNumber -= 1;
-          } else if (this.color == 'brownOff') {
+          } else if (this.color === 'brownOff') {
             tileNumber += 1;
           }
         }
 
         // Corrupt false tiles in opposite direction.
-        if (this.subType == 'wall' || this.subType == 'water' || this.subType == 'exit' || this.subType == 'futureWall') {
+        if (this.subtype === 'wall' || this.subtype === 'water' || this.subtype === 'exit' || this.subtype === 'futureWall') {
           sign = -1;
         }
 
         const coords = this.position;
 
-        if (this.subType == 'player2') {
+        if (this.subtype === 'player2') {
           this.draw.ctx.save();
 
           this.draw.ctx.translate(this.position.x * this.baseUnit + this.halfBaseUnit + this.stage.drawOffset.x, this.position.y * this.baseUnit + this.halfBaseUnit + this.stage.drawOffset.y);
@@ -1120,6 +1133,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
           this.draw.drawTileOffset(tileNumber, coords, sign);
         }
       }
+      return false;
     };
 
     this.destroy = function () {
