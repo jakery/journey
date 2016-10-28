@@ -4,6 +4,8 @@ define('Draw', ['./Coordinates', './TileCodes'], (Coordinates, TileCodes) => {
     this.stage = stage;
     this.player = player;
 
+    this.tilesAreCacheable = sign => this.game.corruption === 0 && sign === 1;
+
     // Define default canvas parameters.
     this.ctx = this.stage.gameCanvas.getContext('2d');
     this.ctx.lineWidth = 1;
@@ -29,11 +31,12 @@ define('Draw', ['./Coordinates', './TileCodes'], (Coordinates, TileCodes) => {
       if (tileNumber < 1) {
         return;
       }
-      const t = this.getTileCoordsFromImage(tileNumber, sign);
+      const t = this.getTileCoordsFromImage(tileNumber, sign); // TODO: This is compeltely cacheable.
       this.ctx.drawImage(this.game.assets[game.map.parameters.tileset], t.sx, t.sy, t.swidth, t.sheight, coords.x, coords.y, 32, 32);
     };
 
-    this.drawTilex = function drawTilex(tileNumber, coords, sign = 1) {
+    this.drawTilex = function drawTilex(tileNumber, c, sign = 1) {
+      const coords = c;
       // Tile number isn't valid. Probably a blank square on the map. Ignore.
       if (tileNumber < 1) {
         return;
