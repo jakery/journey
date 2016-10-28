@@ -16,6 +16,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
     this.keyboard = keyboard;
     this.draw = new Draw(game, stage, null, null);
     this.passwordHandler = pwh || null;
+    this.player = player;
 
     this.baseUnit = 32;
     this.halfBaseUnit = this.baseUnit / 2;
@@ -51,7 +52,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
     this.type = '';
     this.subType = '';
 
-    this.isKey = function () { return this.subType == 'yellowKey' || this.subType == 'redKey' || this.subType == 'cyanKey' || this.subType == 'greenKey' }
+    this.isKey = function () { return this.subType == 'yellowKey' || this.subType == 'redKey' || this.subType == 'cyanKey' || this.subType == 'greenKey' };
     this.hitRegistered = false;
 
     this.imageType = '';
@@ -307,7 +308,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         case 'right':
           return 90;
         default:
-          break;
+          return;
       }
     };
 
@@ -392,11 +393,11 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       }
 
       // Yellow Door.
-      if (tileType === TileCodes.yellowDOor) {
+      if (tileType === TileCodes.yellowDoor) {
         // Player has a key.
         if (this.inventory.yellowKeys > 0) {
           // Unlock door.
-          this.game.map.changeTileType(this.position.x, this.position.y, 1);
+          this.game.map.changeTileType(this.position.x, this.position.y, TileCodes.floor);
 
           // Player has used key.
           this.inventory.yellowKeys -= 1;
@@ -411,7 +412,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         // Player has a key.
         if (this.inventory.redKeys > 0) {
           // Unlock door.
-          this.game.map.changeTileType(this.position.x, this.position.y, 1);
+          this.game.map.changeTileType(this.position.x, this.position.y, TileCodes.floor);
 
           // Player has used key.
           this.inventory.redKeys -= 1;
@@ -426,7 +427,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         // Player has a key.
         if (this.inventory.cyanKeys > 0) {
           // Unlock door.
-          this.game.map.changeTileType(this.position.x, this.position.y, 1);
+          this.game.map.changeTileType(this.position.x, this.position.y, TileCodes.floor);
 
           // Player has used key.
           this.inventory.cyanKeys -= 1;
@@ -436,12 +437,12 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         return false;
       }
 
-      // Cyan Door.
-      if (tileType === TileCodes.cyanDoor) {
+      // Green Door.
+      if (tileType === TileCodes.greenDoor) {
         // Player has a key.
         if (this.inventory.greenKeys > 0) {
           // Unlock door.
-          this.game.map.changeTileType(this.position.x, this.position.y, 1);
+          this.game.map.changeTileType(this.position.x, this.position.y, TileCodes.floor);
 
           // Player has used key.
           this.inventory.greenKeys -= 1;

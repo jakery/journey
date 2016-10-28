@@ -97,7 +97,7 @@ define('Utility', [], () => {
       // TODO: Unit test this.
       this.remove = function (array, ...objectsToRemove) {
         if (typeof array === 'undefined') throw new Error('No array was provided.');
-        let badObjects = [...objectsToRemove];
+        const badObjects = [...objectsToRemove];
         if (!badObjects.length) { return this; }
         let badObject;
         let countOfBadObjects = badObjects.length;
@@ -150,18 +150,14 @@ define('Utility', [], () => {
       this.removeBySpriteId = function (array, id, safe) {
         if (typeof array === 'undefined') throw new Error('No array was provided.');
         return this.remove(array, this.findByProperty(array, 'spriteID', id, safe));
-      }
+      };
 
       this.getRandomElement = function (array) {
         return array[Math.floor(Math.random() * array.length)];
       };
-      // / Split array into multidimensional array.
+      // Split array into multidimensional array.
       this.chunk = function (array, chunkSize) {
-        return [].concat.apply([],
-          array.map((elem, i) => {
-            return i % chunkSize ? [] : [array.slice(i, i + chunkSize)];
-          })
-        );
+        return [].concat.apply([], array.map((elem, i) => (i % chunkSize ? [] : [array.slice(i, i + chunkSize)])));
       };
 
       // Max value of numerical array.
@@ -176,9 +172,9 @@ define('Utility', [], () => {
     })();
 
     this.math = {
-      toRadians: function (degrees) { return degrees * Math.PI / 180; },
-      toDegrees: function (radians) { return radians * 180 / Math.PI; }
-    }
+      toRadians: degrees => degrees * Math.PI / 180,
+      toDegrees: radians => radians * 180 / Math.PI,
+    };
   };
 
   return new Utility();

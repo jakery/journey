@@ -90,7 +90,7 @@ define('JakesJourney',
     // TODO: Modularize this.
     const gameObject = function () {
       this.debug = false;
-      this.betaTest = false;
+      this.betaTest = true;
       this.gameTimer = -1;
       this.clock = -1;
       this.level = -1;
@@ -509,7 +509,7 @@ define('JakesJourney',
         } else {
           // Todo: Different messages for dungeon levels!
           game.showMessage = true;
-          if (game.winMessage === null) {
+          if (!game.winMessage) {
             game.winMessage = `${Utility.array.getRandomElement(DeathMessages.win)}\n\nPress Enter to continue.`;
           }
           game.messageText = game.winMessage;
@@ -630,14 +630,11 @@ define('JakesJourney',
       }
       this.draw.beginDraw();
     }
-    function run(bypassTouchscreen) {
+    function run(bypassTouchscreen = false) {
       if (gameInterval !== null) {
         window.clearInterval(gameInterval);
       }
 
-      if (bypassTouchscreen === null) {
-        bypassTouchscreen = false;
-      }
       const continueRunning = doPreWork(bypassTouchscreen);
       if (!continueRunning) { return; }
 
