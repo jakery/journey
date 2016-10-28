@@ -51,6 +51,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
     this.type = '';
     this.subType = '';
 
+    this.isKey = function () { return this.subType == 'yellowKey' || this.subType == 'redKey' || this.subType == 'cyanKey' || this.subType == 'greenKey' }
     this.hitRegistered = false;
 
     this.imageType = '';
