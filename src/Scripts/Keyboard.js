@@ -1,4 +1,3 @@
-// TODO: Modularize this.
 define('Keyboard', [], () => {
   const Keyboard = function () {
     this.settings = {
