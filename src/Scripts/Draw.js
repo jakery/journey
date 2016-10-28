@@ -14,10 +14,7 @@ define('Draw', ['./Coordinates', './TileCodes'], (Coordinates, TileCodes) => {
       return !(coords.x < 0 || coords.x > this.stage.playboxWidth || coords.y < 0 || coords.y > this.stage.playboxHeight);
     };
 
-    this.getTileCoordsFromImage = function getTileCoordsFromImage(tileNumber, sign) {
-      if (sign === null) {
-        sign = 1;
-      }
+    this.getTileCoordsFromImage = function getTileCoordsFromImage(tileNumber, sign = 1) {
       const tileIndex = tileNumber - 1;
       const sx = ((tileIndex + (game.corruption * sign)) % game.map.tilesets[0].indexWidth) * 32;
       const sy = (Math.floor((tileIndex + (game.corruption * sign)) / game.map.tilesets[0].indexWidth)) * 32;
@@ -27,7 +24,7 @@ define('Draw', ['./Coordinates', './TileCodes'], (Coordinates, TileCodes) => {
       return { sx, sy, swidth, sheight };
     };
 
-    this.drawTileAbsolute = function drawTileAbsolute(tileNumber, coords, sign) {
+    this.drawTileAbsolute = function drawTileAbsolute(tileNumber, coords, sign = 1) {
       // Tile number isn't valid. Probably a blank square on the map. Ignore.
       if (tileNumber < 1) {
         return;
@@ -36,16 +33,11 @@ define('Draw', ['./Coordinates', './TileCodes'], (Coordinates, TileCodes) => {
       this.ctx.drawImage(this.game.assets[game.map.parameters.tileset], t.sx, t.sy, t.swidth, t.sheight, coords.x, coords.y, 32, 32);
     };
 
-    this.drawTilex = function drawTilex(tileNumber, coords, sign) {
+    this.drawTilex = function drawTilex(tileNumber, coords, sign = 1) {
       // Tile number isn't valid. Probably a blank square on the map. Ignore.
       if (tileNumber < 1) {
         return;
       }
-
-      if (sign === null || typeof (sign) === 'undefined') {
-        sign = 1;
-      }
-
       if (this.game.map.parameters.wrapAround === 'true') {
         // Wrap infinitely.
         if (coords.x < 0) {
@@ -271,7 +263,7 @@ define('Draw', ['./Coordinates', './TileCodes'], (Coordinates, TileCodes) => {
     this.drawWrappedText = function drawWrappedText(text, x, y, maxWidth, lineHeight) {
       let yAdjusted = y;
       let lines = text.split('\\n');
-      if (lines.length !== 1) {
+      if (lines.length === 1) {
         lines = text.split('\n');
       }
 
