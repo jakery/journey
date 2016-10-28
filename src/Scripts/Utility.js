@@ -95,17 +95,20 @@ define('Utility', [], () => {
       // / Remove all items from array by value.
       // / </summary>
       // TODO: Unit test this.
-      this.remove = function (array) {
-        let what;
-        let L = arguments.length;
-        let ax;
-        while (L && array.length) {
-          L -= 1;
-          what = arguments[L];
-          ax = array.indexOf(what);
-          while (ax !== -1) {
-            array.splice(ax, 1);
-            ax = array.indexOf(what);
+      this.remove = function (array, ...objectsToRemove) {
+        if (typeof array === 'undefined') throw new Error('No array was provided.');
+        let badObjects = [...objectsToRemove];
+        if (!badObjects.length) { return this; }
+        let badObject;
+        let countOfBadObjects = badObjects.length;
+        let highestIndexOfBadObject;
+        while (countOfBadObjects && array.length) {
+          countOfBadObjects -= 1;
+          badObject = badObjects[countOfBadObjects];
+          highestIndexOfBadObject = array.indexOf(badObject);
+          while (highestIndexOfBadObject !== -1) {
+            array.splice(highestIndexOfBadObject, 1);
+            highestIndexOfBadObject = array.indexOf(badObject);
           }
         }
         return this;
@@ -142,6 +145,12 @@ define('Utility', [], () => {
         }
         return outputArray;
       };
+
+
+      this.removeBySpriteId = function (array, id, safe) {
+        if (typeof array === 'undefined') throw new Error('No array was provided.');
+        return this.remove(array, this.findByProperty(array, 'spriteID', id, safe));
+      }
 
       this.getRandomElement = function (array) {
         return array[Math.floor(Math.random() * array.length)];

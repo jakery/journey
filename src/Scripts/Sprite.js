@@ -941,7 +941,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
           sprite.inventory.yellowKeys += 1;
 
           // Remove key from map.
-          this.game.items.remove(Utility.array.findByProperty(this.game.items, 'spriteID', this.spriteID));
+          Utility.array.removeBySpriteId(this.game.items, this.spriteID);
         }
       }
 
@@ -952,7 +952,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
           sprite.inventory.redKeys += 1;
 
           // Remove key from map.
-          this.game.items.remove(Utility.array.findByProperty(this.game.items, 'spriteID', this.spriteID));
+          Utility.array.removeBySpriteId(this.game.items, this.spriteID);
         }
       }
 
@@ -963,7 +963,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
           sprite.inventory.cyanKeys += 1;
 
           // Remove key from map.
-          this.game.items.remove(Utility.array.findByProperty(this.game.items, 'spriteID', this.spriteID));
+          Utility.array.removeBySpriteId(this.game.items, this.spriteID);
         }
       }
 
@@ -974,7 +974,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
           sprite.inventory.greenKeys += 1;
 
           // Remove key from map.
-          this.game.items.remove(Utility.array.findByProperty(this.game.items, 'spriteID', this.spriteID));
+          Utility.array.removeBySpriteId(this.game.items, this.spriteID);
         }
       }
 
@@ -991,7 +991,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
           sprite.inventory.money += 1;
 
           // Remove money from map.
-          this.game.items.remove(Utility.array.findByProperty(this.game.items, 'spriteID', this.spriteID));
+          Utility.array.removeBySpriteId(this.game.items, this.spriteID);
         }
       }
 
