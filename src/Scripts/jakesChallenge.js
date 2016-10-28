@@ -4,10 +4,6 @@ define('JakesJourney',
   ['./DeathMessages', './TileCodes', './Coordinates', './Sprite', './Keyboard', './Utility', './ObscurelyNamedFile', './Draw', './Hud', './Credits'],
   (DeathMessages, TileCodes, Coordinates, Sprite, Keyboard, Utility, ObscurelyNamedFile, Draw, Hud, Credits) => {
     const $j = $.noConflict();
-    const enteredPassword = '';
-    const passwords = {};
-
-    const interacting = false;
 
     let master;
     let player;
