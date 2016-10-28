@@ -249,7 +249,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       // Check pushblock.
       if (this.type === 'player' || this.type === 'enemy') {
         for (let i = 0; i < this.game.tools.length; i += 1) {
-          if (this.game.tools[i].subtype === 'pushBlock') {
+          if (this.game.tools[i].subType === 'pushBlock') {
             // Sprite is trying to move into pushblock.
             if (Utility.areColliding(destination, this.game.tools[i].position)) {
               // Only player can move pushblocks.
@@ -270,9 +270,9 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
 
       // Pushblock recursive checkmove.
 
-      if (this.subtype === 'pushBlock') {
+      if (this.subType === 'pushBlock') {
         for (let i = 0; i < this.game.tools.length; i += 1) {
-          if (this.game.tools[i].subtype === 'pushBlock') {
+          if (this.game.tools[i].subType === 'pushBlock') {
             if (Utility.areColliding(destination, this.game.tools[i].position)) {
               return false;
             }
@@ -476,7 +476,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         }
 
         // Block hits water and disappears.
-        else if (this.subtype === 'pushBlock') {
+        else if (this.subType === 'pushBlock') {
           this.game.tools.remove(Utility.array.findByProperty(this.game.tools, 'spriteID', this.spriteID));
         }
         // }
@@ -651,7 +651,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       }
 
       if (this.type === 'tool') {
-        if (this.subtype === 'pushBlock') {
+        if (this.subType === 'pushBlock') {
           if (this.gettingPushed) {
             this.direction = this.player.direction;
             this.goForward();
@@ -914,7 +914,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         return false;
       }
 
-      if (this.subtype === 'switch') {
+      if (this.subType === 'switch') {
         if (this.color === 'red') {
           this.game.redSwitch = true;
         }
@@ -934,9 +934,9 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         }
       }
 
-      if (this.subtype === 'yellowKey') {
+      if (this.subType === 'yellowKey') {
         // If player or predator enemy, can pick up key.
-        if (sprite.type === 'player' || sprite.subtype === 'predator' || sprite.subtype === 'smartPredator') {
+        if (sprite.type === 'player' || sprite.subType === 'predator' || sprite.subType === 'smartPredator') {
           // Player gains key.
           sprite.inventory.yellowKeys += 1;
 
@@ -945,9 +945,9 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         }
       }
 
-      if (this.subtype === 'redKey') {
+      if (this.subType === 'redKey') {
         // If player or predator enemy, can pick up key.
-        if (sprite.type === 'player' || sprite.subtype === 'predator' || sprite.subtype === 'smartPredator') {
+        if (sprite.type === 'player' || sprite.subType === 'predator' || sprite.subType === 'smartPredator') {
           // Player gains key.
           sprite.inventory.redKeys += 1;
 
@@ -956,9 +956,9 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         }
       }
 
-      if (this.subtype === 'cyanKey') {
+      if (this.subType === 'cyanKey') {
         // If player or predator enemy, can pick up key.
-        if (sprite.type === 'player' || sprite.subtype === 'predator' || sprite.subtype === 'smartPredator') {
+        if (sprite.type === 'player' || sprite.subType === 'predator' || sprite.subType === 'smartPredator') {
           // Player gains key.
           sprite.inventory.cyanKeys += 1;
 
@@ -967,9 +967,9 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         }
       }
 
-      if (this.subtype === 'greenKey') {
+      if (this.subType === 'greenKey') {
         // If player or predator enemy, can pick up key.
-        if (sprite.type === 'player' || sprite.subtype === 'predator' || sprite.subtype === 'smartPredator') {
+        if (sprite.type === 'player' || sprite.subType === 'predator' || sprite.subType === 'smartPredator') {
           // Player gains key.
           sprite.inventory.greenKeys += 1;
 
@@ -978,14 +978,14 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         }
       }
 
-      if (this.subtype === 'help' || this.subtype === 'help2') {
+      if (this.subType === 'help' || this.subType === 'help2') {
         if (sprite.type === 'player') {
           this.game.showMessage = true;
           this.game.messageText = this.message;
         }
       }
 
-      if (this.subtype === 'money') {
+      if (this.subType === 'money') {
         if (sprite.type === 'player') {
           // Player gains money.
           sprite.inventory.money += 1;
@@ -995,7 +995,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         }
       }
 
-      if (this.subtype === 'teleporter') {
+      if (this.subType === 'teleporter') {
         if (!sprite.isTeleporting) {
           if (this.destination != null) {
             const destinationTeleporter = Utility.array.findByProperty(this.game.items, 'nameID', this.destination);
@@ -1006,7 +1006,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       }
 
       // Can of worms, here.
-      if (this.subtype === 'hiddenSwitch') {
+      if (this.subType === 'hiddenSwitch') {
         let p2;
         let thePredator;
         switch (this.callback) {
@@ -1098,13 +1098,13 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         let tileNumber = this.tileGraphic;
 
         // Don't draw hidden switches.
-        if (this.subtype === 'hiddenSwitch' && !this.game.debug) {
+        if (this.subType === 'hiddenSwitch' && !this.game.debug) {
           return false;
         }
-        if (this.subtype === 'teleporter') {
+        if (this.subType === 'teleporter') {
           // Teleporter animation.
           tileNumber += Math.floor(this.game.gameTimer % 9 / 3);
-        } else if (this.game.brownSwitch && this.subtype === 'switch') {
+        } else if (this.game.brownSwitch && this.subType === 'switch') {
           // Draw switch toggling.
           if (this.color === 'brown') {
             tileNumber -= 1;
@@ -1114,13 +1114,13 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         }
 
         // Corrupt false tiles in opposite direction.
-        if (this.subtype === 'wall' || this.subtype === 'water' || this.subtype === 'exit' || this.subtype === 'futureWall') {
+        if (this.subType === 'wall' || this.subType === 'water' || this.subType === 'exit' || this.subType === 'futureWall') {
           sign = -1;
         }
 
         const coords = this.position;
 
-        if (this.subtype === 'player2') {
+        if (this.subType === 'player2') {
           this.draw.ctx.save();
 
           this.draw.ctx.translate(this.position.x * this.baseUnit + this.halfBaseUnit + this.stage.drawOffset.x, this.position.y * this.baseUnit + this.halfBaseUnit + this.stage.drawOffset.y);
