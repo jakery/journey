@@ -165,6 +165,11 @@ define('Utility', [], () => {
         return Math.min.apply(null, array);
       };
     })();
+
+    this.math = {
+      toRadians: function (degrees) { return degrees * Math.PI / 180; },
+      toDegrees: function (radians) { return radians * 180 / Math.PI; }
+    }
   };
 
   return new Utility();

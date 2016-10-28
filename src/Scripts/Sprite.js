@@ -1089,7 +1089,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       if (this.type === 'player') {
         this.draw.ctx.save();
         this.draw.ctx.translate(this.position.x * this.baseUnit + this.halfBaseUnit + this.stage.drawOffset.x, this.position.y * this.baseUnit + this.halfBaseUnit + this.stage.drawOffset.y);
-        this.draw.ctx.rotate(this.rotation * Math.Radians);
+        this.draw.ctx.rotate(Utility.math.toRadians(this.rotation));
         if (this.imageType === 'image') {
           this.draw.ctx.drawImage(this.image, -this.halfBaseUnit, -this.halfBaseUnit);
         }
@@ -1124,7 +1124,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
           this.draw.ctx.save();
 
           this.draw.ctx.translate(this.position.x * this.baseUnit + this.halfBaseUnit + this.stage.drawOffset.x, this.position.y * this.baseUnit + this.halfBaseUnit + this.stage.drawOffset.y);
-          this.draw.ctx.rotate(this.rotation * Math.Radians);
+          this.draw.ctx.rotate(Utility.math.toRadians(this.rotation));
 
           this.draw.ctx.drawImage(this.player.image, -this.halfBaseUnit, -this.halfBaseUnit);
 
