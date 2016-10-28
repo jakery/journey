@@ -172,76 +172,76 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       const destinationTileType = this.game.map.getTileTypeByCoords(destination.x, destination.y);
 
       // Wall.
-      if (destinationTileType === TileCodes.wall || destinationTiletype === TileCodes.futureFloor) {
+      if (destinationTileType === TileCodes.wall || destinationTileType === TileCodes.futureFloor) {
         return false;
       }
 
       // Disappearing red wall.
-      if (destinationTiletype === TileCodes.dRedBlockInactive && !this.game.redSwitch) {
+      if (destinationTileType === TileCodes.dRedBlockInactive && !this.game.redSwitch) {
         return false;
       }
 
       // Appearing red wall.
-      if (destinationTiletype === TileCodes.aRedBlockInactive && this.game.redSwitch) {
+      if (destinationTileType === TileCodes.aRedBlockInactive && this.game.redSwitch) {
         return false;
       }
 
       // Disappearing yellow wall.
-      if (destinationTiletype === TileCodes.dYellowBlockInactive && !this.game.yellowSwitch) {
+      if (destinationTileType === TileCodes.dYellowBlockInactive && !this.game.yellowSwitch) {
         return false;
       }
 
       // Appearing yellow wall.
-      if (destinationTiletype === TileCodes.aYellowBlockInactive && this.game.yellowSwitch) {
+      if (destinationTileType === TileCodes.aYellowBlockInactive && this.game.yellowSwitch) {
         return false;
       }
 
       // Disappearing green wall.
-      if (destinationTiletype === TileCodes.dGreenBlockInactive && !this.game.greenSwitch) {
+      if (destinationTileType === TileCodes.dGreenBlockInactive && !this.game.greenSwitch) {
         return false;
       }
 
       // Appearing green wall.
-      if (destinationTiletype === TileCodes.aGreenBlockInactive && this.game.greenSwitch) {
+      if (destinationTileType === TileCodes.aGreenBlockInactive && this.game.greenSwitch) {
         return false;
       }
 
       // Brown toggle wall.
-      if (destinationTiletype === TileCodes.brownBlockInactive && this.game.brownSwitch) {
+      if (destinationTileType === TileCodes.brownBlockInactive && this.game.brownSwitch) {
         return false;
       }
 
       // Brown toggle off wall.
-      if (destinationTiletype === TileCodes.brownBlockActive && !this.game.brownSwitch) {
+      if (destinationTileType === TileCodes.brownBlockActive && !this.game.brownSwitch) {
         return false;
       }
 
       // Yellow Door.
-      if (destinationTiletype === TileCodes.yellowDoor) {
+      if (destinationTileType === TileCodes.yellowDoor) {
         // Player has key.
         return this.inventory.yellowKeys > 0;
       }
 
       // Red Door.
-      if (destinationTiletype === TileCodes.redDoor) {
+      if (destinationTileType === TileCodes.redDoor) {
         // Player has key.
         return this.inventory.redKeys > 0;
       }
 
       // Cyan Door.
-      if (destinationTiletype === TileCodes.cyanDoor) {
+      if (destinationTileType === TileCodes.cyanDoor) {
         // Player has key.
         return this.inventory.cyanKeys > 0;
       }
 
       // Green Door.
-      if (destinationTiletype === TileCodes.greenDoor) {
+      if (destinationTileType === TileCodes.greenDoor) {
         // Player has key.
         return this.inventory.greenKeys > 0;
       }
 
       // Toll block.
-      if (destinationTiletype === TileCodes.toll) {
+      if (destinationTileType === TileCodes.toll) {
         // Player has the toll.
         return this.inventory.money >= this.game.moneyCount;
       }
@@ -386,12 +386,12 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       const tileType = this.game.map.getTileTypeByCoords(this.position.x, this.position.y);
 
       // Normal.
-      if (tiletype === TileCodes.floor) {
+      if (tileType === TileCodes.floor) {
         return;
       }
 
       // Yellow Door.
-      if (tiletype === TileCodes.yellowDOor) {
+      if (tileType === TileCodes.yellowDOor) {
         // Player has a key.
         if (this.inventory.yellowKeys > 0) {
           // Unlock door.
@@ -406,7 +406,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       }
 
       // Red Door.
-      if (tiletype === TileCodes.redDoor) {
+      if (tileType === TileCodes.redDoor) {
         // Player has a key.
         if (this.inventory.redKeys > 0) {
           // Unlock door.
@@ -421,7 +421,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       }
 
       // Cyan Door.
-      if (tiletype === TileCodes.cyanDoor) {
+      if (tileType === TileCodes.cyanDoor) {
         // Player has a key.
         if (this.inventory.cyanKeys > 0) {
           // Unlock door.
@@ -436,7 +436,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       }
 
       // Cyan Door.
-      if (tiletype === TileCodes.cyanDoor) {
+      if (tileType === TileCodes.cyanDoor) {
         // Player has a key.
         if (this.inventory.greenKeys > 0) {
           // Unlock door.
@@ -451,7 +451,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       }
 
       // Exit.
-      if (tiletype === TileCodes.exit) {
+      if (tileType === TileCodes.exit) {
         // Only player can trigger exit.
         if (this.type === 'player') {
           this.game.atExit = true;
@@ -459,7 +459,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       }
 
       // Water & death.
-      if (tiletype === TileCodes.water) {
+      if (tileType === TileCodes.water) {
         // Balls are immune to water death.
         // if (this.subType != "ball") {
 
@@ -1090,7 +1090,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         this.draw.ctx.save();
         this.draw.ctx.translate(this.position.x * this.baseUnit + this.halfBaseUnit + this.stage.drawOffset.x, this.position.y * this.baseUnit + this.halfBaseUnit + this.stage.drawOffset.y);
         this.draw.ctx.rotate(this.rotation * Math.Radians);
-        if (this.imagetype === 'image') {
+        if (this.imageType === 'image') {
           this.draw.ctx.drawImage(this.image, -this.halfBaseUnit, -this.halfBaseUnit);
         }
         this.draw.ctx.restore();
