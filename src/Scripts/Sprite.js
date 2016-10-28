@@ -17,10 +17,10 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
     this.draw = new Draw(game, stage, null, null);
     this.passwordHandler = pwh || null;
 
-    const baseUnit = 32;
-    const halfBaseUnit = baseUnit / 2;
-    const maxPasswordLength = 11;
-    const keyboardRepeatTickDelay = 10;
+    this.baseUnit = 32;
+    this.halfBaseUnit = this.baseUnit / 2;
+    this.maxPasswordLength = 11;
+    this.keyboardRepeatTickDelay = 10;
 
 
     this.isAlive = true;
@@ -30,10 +30,10 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
     this.travelableLayer = 'travelableTiles';
     this.inventory = new SpriteNS.Inventory();
     this.customVariables = {};
-    this.verticalOffset = baseUnit * 1;
-    this.horizontalOffset = baseUnit * 0;
-    this.width = baseUnit * 1;
-    this.height = baseUnit * 2;
+    this.verticalOffset = this.baseUnit * 1;
+    this.horizontalOffset = this.baseUnit * 0;
+    this.width = this.baseUnit * 1;
+    this.height = this.baseUnit * 2;
     this.image = null;
     this.tileGraphic = null;
     this.speed = null;
@@ -467,18 +467,18 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         this.isDead = true;
 
         if (this.type == 'player') {
-          const message = Utility.array.getRandomElement(getRandomElement);
+          const message = Utility.array.getRandomElement(DeathMessages.water);
           this.game.setDeadMessage(message);
         }
 
         else if (this.type == 'enemy') {
-          // game.enemies.remove(game.enemies.findByProperty("spriteID", this.spriteID));
+          // game.enemies.remove(Utility.array.findByProperty(game.enemies, "spriteID", this.spriteID));
           this.destroy();
         }
 
         // Block hits water and disappears.
         else if (this.subType == 'pushBlock') {
-          this.game.tools.remove(this.game.tools.findByProperty('spriteID', this.spriteID));
+          this.game.tools.remove(Utility.array.findByProperty(this.game.tools, 'spriteID', this.spriteID));
         }
         // }
       }
@@ -522,7 +522,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
             if (this.keyboard.keyIsDown[this.keyboard.alphanumericTX[i]] && !this.keyboard.keyIsRegistered[this.keyboard.alphanumericTX[i]]) {
               this.keyboard.keyIsRegistered[this.keyboard.alphanumericTX[i]] = true;
 
-              if (this.game.enteredPassword.length < maxPasswordLength) {
+              if (this.game.enteredPassword.length < this.maxPasswordLength) {
                 this.game.enteredPassword += this.keyboard.alphanumeric[i];
               }
             }
@@ -931,7 +931,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
           sprite.inventory.yellowKeys += 1;
 
           // Remove key from map.
-          this.game.items.remove(this.game.items.findByProperty('spriteID', this.spriteID));
+          this.game.items.remove(Utility.array.findByProperty(this.game.items, 'spriteID', this.spriteID));
         }
       }
 
@@ -942,7 +942,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
           sprite.inventory.redKeys += 1;
 
           // Remove key from map.
-          this.game.items.remove(this.game.items.findByProperty('spriteID', this.spriteID));
+          this.game.items.remove(Utility.array.findByProperty(this.game.items, 'spriteID', this.spriteID));
         }
       }
 
@@ -953,7 +953,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
           sprite.inventory.cyanKeys += 1;
 
           // Remove key from map.
-          this.game.items.remove(this.game.items.findByProperty('spriteID', this.spriteID));
+          this.game.items.remove(Utility.array.findByProperty(this.game.items, 'spriteID', this.spriteID));
         }
       }
 
@@ -964,7 +964,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
           sprite.inventory.greenKeys += 1;
 
           // Remove key from map.
-          this.game.items.remove(this.game.items.findByProperty('spriteID', this.spriteID));
+          this.game.items.remove(Utility.array.findByProperty(this.game.items, 'spriteID', this.spriteID));
         }
       }
 
@@ -981,14 +981,14 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
           sprite.inventory.money += 1;
 
           // Remove money from map.
-          this.game.items.remove(this.game.items.findByProperty('spriteID', this.spriteID));
+          this.game.items.remove(Utility.array.findByProperty(this.game.items, 'spriteID', this.spriteID));
         }
       }
 
       if (this.subType == 'teleporter') {
         if (!sprite.isTeleporting) {
           if (this.destination != null) {
-            const destinationTeleporter = this.game.items.findByProperty('nameID', this.destination);
+            const destinationTeleporter = Utility.array.findByProperty(this.game.items, 'nameID', this.destination);
             sprite.position = destinationTeleporter.position;
             sprite.isTeleporting = true;
           }
@@ -1021,9 +1021,9 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
             if (this.game.debug) {
               Utility.console.log('revenge');
             }
-            this.game.enemies.findByProperty('subType', 'predator').subType = 'nascar';
+            Utility.array.findByProperty(this.game.enemies, 'subType', 'predator').subType = 'nascar';
 
-            p2 = this.game.enemies.findByProperty('subType', 'player2');
+            p2 = Utility.array.findByProperty(this.game.enemies, 'subType', 'player2');
             p2.startCountup = true;
 
             break;
@@ -1032,9 +1032,9 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
             if (this.game.debug) {
               Utility.console.log('the end');
             }
-            this.game.enemies.findByProperty('subType', 'predator').subType = 'nascar';
+            Utility.array.findByProperty(this.game.enemies, 'subType', 'predator').subType = 'nascar';
 
-            p2 = this.game.enemies.findByProperty('subType', 'player2');
+            p2 = Utility.array.findByProperty(this.game.enemies, 'subType', 'player2');
             p2.startTheEnd = true;
             this.game.theEnd = true;
 
@@ -1043,7 +1043,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
             if (this.game.debug) {
               Utility.console.log('transform');
             }
-            thePredator = this.game.enemies.findByProperty('subType', 'predator');
+            thePredator = Utility.array.findByProperty(this.game.enemies, 'subType', 'predator');
             thePredator.subType = 'smartPredator';
             thePredator.tileGraphic = TileCodes.smartPredator;
             thePredator.speed = 3;
@@ -1053,7 +1053,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
             if (this.game.debug) {
               Utility.console.log('destroy predator');
             }
-            thePredator = this.game.enemies.findByProperty('subType', 'smartPredator');
+            thePredator = Utility.array.findByProperty(this.game.enemies, 'subType', 'smartPredator');
             thePredator.destroy();
             break;
           default:
@@ -1075,10 +1075,10 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
 
       if (this.type == 'player') {
         this.draw.ctx.save();
-        this.draw.ctx.translate(this.position.x * baseUnit + halfBaseUnit + this.stage.drawOffset.x, this.position.y * baseUnit + halfBaseUnit + this.stage.drawOffset.y);
+        this.draw.ctx.translate(this.position.x * this.baseUnit + this.halfBaseUnit + this.stage.drawOffset.x, this.position.y * this.baseUnit + this.halfBaseUnit + this.stage.drawOffset.y);
         this.draw.ctx.rotate(this.rotation * Math.Radians);
         if (this.imageType == 'image') {
-          this.draw.ctx.drawImage(this.image, -halfBaseUnit, -halfBaseUnit);
+          this.draw.ctx.drawImage(this.image, -this.halfBaseUnit, -this.halfBaseUnit);
         }
         this.draw.ctx.restore();
       } else if (this.type == 'enemy' || this.type == 'item' || this.type == 'tool') {
@@ -1110,10 +1110,10 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         if (this.subType == 'player2') {
           this.draw.ctx.save();
 
-          this.draw.ctx.translate(this.position.x * baseUnit + halfBaseUnit + this.stage.drawOffset.x, this.position.y * baseUnit + halfBaseUnit + this.stage.drawOffset.y);
+          this.draw.ctx.translate(this.position.x * this.baseUnit + this.halfBaseUnit + this.stage.drawOffset.x, this.position.y * this.baseUnit + this.halfBaseUnit + this.stage.drawOffset.y);
           this.draw.ctx.rotate(this.rotation * Math.Radians);
 
-          this.draw.ctx.drawImage(this.player.image, -halfBaseUnit, -halfBaseUnit);
+          this.draw.ctx.drawImage(this.player.image, -this.halfBaseUnit, -this.halfBaseUnit);
 
           this.draw.ctx.restore();
         } else {
@@ -1142,7 +1142,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         default:
           break;
       }
-      pool.remove(pool.findByProperty('spriteID', this.spriteID));
+      pool.remove(Utility.array.findByProperty(pool, 'spriteID', this.spriteID));
     };
   };
 
