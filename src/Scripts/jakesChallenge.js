@@ -34,6 +34,7 @@ define('JakesJourney',
     let globalDraw;
     this.globalDraw = null;
     this.gameLoopInterval = 20;
+    // TODO: Move this to stage.js
     const StageObject = function StageObject() {
       this.isOffset = true;
 
@@ -44,6 +45,8 @@ define('JakesJourney',
       this.playboxWidth = null;
       this.playBlockHeight = 12;
       this.playboxHeight = null;
+      this.playboxX = 0;
+      this.playboxY = 0;
       this.hudCoords = {};
       this.hudWidth = null;
       this.hudHeight = null;
@@ -62,7 +65,7 @@ define('JakesJourney',
         this.playboxWidth = this.playBlockWidth * Constants.baseUnit;
         this.playboxHeight = this.playBlockHeight * Constants.baseUnit;
 
-        this.halfBoxWidthLess16 = (this.playboxWidth / 2) - 16;
+        this.halfBoxWidthLess16 = (this.playboxWidth / 2) - (Constants.baseUnit / 2);
         this.halfBoxHeightLess16 = (this.playboxHeight / 2);
 
         this.playboxTileWidth = this.playboxWidth / Constants.baseUnit;
@@ -113,8 +116,10 @@ define('JakesJourney',
       this.clock = -1;
       this.level = -1;
       this.nextLevelNumber = 0;
+      this.displayClockModifier = 50;
+
       this.setLevelClock = function setLevelClock() {
-        this.clock = Math.floor(this.gameTimer / 50);
+        this.clock = Math.floor(this.gameTimer / this.displayClockModifier);
       };
       this.atExit = false;
       this.winMessage = null;
@@ -425,11 +430,13 @@ define('JakesJourney',
 
       this.deathCount = 0;
 
+      this.lotsOfDeathsModulus = 10;
+
       this.setDeadMessage = function setDeadMessage(m) {
         let message = m;
         this.deathCount += 1;
         this.showMessage = true;
-        if (!(this.deathCount % 10)) {
+        if (!(this.deathCount % this.lotsOfDeathsModulus)) {
           message = Utility.array.getRandomElement(DeathMessages.miscDeath);
         }
         this.messageText = `${message}\n\nPress enter to restart.`;
@@ -443,25 +450,6 @@ define('JakesJourney',
 
       this.assets = {};
     };
-
-    function generateGridLines() {
-      const gridLines = [];
-
-      for (let x = 0; x <= stage.width; x += Constants.baseUnit) {
-        const coord = [x + 0.5, 0.5, x + 0.5, stage.height + 0.5];
-        if (x === stage.width) {
-          coord[0] -= 1;
-          coord[2] -= 1;
-        }
-        gridLines.push(coord);
-      }
-      for (let y = 0; y <= stage.height; y += Constants.baseUnit) {
-        const coord = [0.5, y + 0.5, stage.width + 0.5, y + 0.5];
-        if (y === stage.height) coord[3] -= 1;
-        gridLines.push(coord);
-      }
-      return gridLines;
-    }
 
     function doPreWork(bypassTouchscreen) {
       if (!bypassTouchscreen) {
@@ -506,9 +494,9 @@ define('JakesJourney',
       game.assets.face = document.getElementById('face');
       game.assets.devgraphics = document.getElementById('devgraphics');
       game.assets.dungeon = document.getElementById('dungeon');
-      game.assets.gridLineCoordinates = generateGridLines();
-      globalDraw = this.globalDraw = new Draw(game, stage, null);
 
+      globalDraw = this.globalDraw = new Draw(game, stage, null);
+      game.assets.gridLineCoordinates = this.globalDraw.generateGridLines();
 
       const keyboard = new Keyboard();
       keyboard.settings.exclusions = ['F5', 'F11', 'F12', 'Control'];

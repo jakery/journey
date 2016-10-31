@@ -13,6 +13,34 @@ define('Hud', ['./Constants', './Coordinates'], (_constants, Coordinates) => {
     this.messageBox.backgroundColor = '';
     this.messageBox.textColor = '';
 
+    this.pauseBox = {
+      border: {
+        fillStyle: 'red',
+        x: 20,
+        y: 20,
+        width: 274,
+        height: 97,
+      },
+      background: {
+        fillStyle: 'rgb(50,50,50)',
+        x: 21,
+        y: 21,
+        width: 272,
+        height: 95,
+      },
+      text: {
+        value: 'PAUSED.\n\nPress P to resume.\nPress Enter to restart level.',
+        x: 26,
+        y: 26,
+        maxWidth: 270,
+        lineHeight: 22,
+        font: '20px sans-serif',
+        fillStyle: 'red',
+      },
+
+    };
+
+
     this.draw = function draw() {
       const ctx = this.globalDraw.ctx;
       if (game.map.parameters.tileset === 'dungeon') {
@@ -184,22 +212,38 @@ define('Hud', ['./Constants', './Coordinates'], (_constants, Coordinates) => {
         // Draw shade over game.
         ctx.save();
         ctx.fillStyle = 'rgba(0,0,0,0.5)';
-        ctx.fillRect(0, 0, stage.playboxWidth, stage.playboxHeight);
+        ctx.fillRect(stage.playboxX, stage.playboxY, stage.playboxWidth, stage.playboxHeight);
         ctx.restore();
 
         // Draw pause box.
         ctx.save();
-        ctx.fillStyle = 'red';
-        ctx.fillRect(20, 20, 274, 97);
-        ctx.fillStyle = 'rgb(50,50,50)';
-        ctx.fillRect(21, 21, 272, 95);
+        ctx.fillStyle = this.pauseBox.border.fillStyle;
+        ctx.fillRect(
+          this.pauseBox.border.x,
+          this.pauseBox.border.y,
+          this.pauseBox.border.width,
+          this.pauseBox.border.height,
+        );
+        ctx.fillStyle = this.pauseBox.background.fillStyle;
+        ctx.fillRect(
+          this.pauseBox.background.x,
+          this.pauseBox.background.y,
+          this.pauseBox.background.width,
+          this.pauseBox.background.height
+        );
         ctx.restore();
 
         // Draw pause text.
         ctx.save();
-        ctx.fillStyle = 'red';
-        ctx.font = '20px sans-serif';
-        this.globalDraw.drawWrappedText('PAUSED.\n\nPress P to resume.\nPress Enter to restart level.', 26, 26, 270, 22);
+        ctx.fillStyle = this.pauseBox.text.fillStyle;
+        ctx.font = this.pauseBox.text.font;
+        this.globalDraw.drawWrappedText(
+          this.pauseBox.text.value,
+          this.pauseBox.text.x,
+          this.pauseBox.text.y,
+          this.pauseBox.text.maxWidth,
+          this.pauseBox.text.lineHeight
+        );
         ctx.restore();
 
         ctx.restore();
