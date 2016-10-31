@@ -1,6 +1,6 @@
-define('Hud', ['./TileCodes', './Coordinates'], (TileCodes, Coordinates) => {
+define('Hud', ['./Constants', './Coordinates'], (_constants, Coordinates) => {
   // TODO: Refactor as class.
-  const gameHudClass = function (game, stage, player, draw) {
+  const Hud = function gameHudClass(game, stage, player, draw) {
     this.game = game;
     this.stage = stage;
     this.player = player;
@@ -13,7 +13,8 @@ define('Hud', ['./TileCodes', './Coordinates'], (TileCodes, Coordinates) => {
     this.messageBox.backgroundColor = '';
     this.messageBox.textColor = '';
 
-    this.Draw = function () {
+    this.Draw = function Draw() {
+      const ctx = this.draw.ctx;
       if (game.map.parameters.tileset === 'dungeon') {
         this.backgroundColor = 'rgb(50,20,10)';
         this.textColor = 'rgb(225,225,185)';
@@ -27,66 +28,69 @@ define('Hud', ['./TileCodes', './Coordinates'], (TileCodes, Coordinates) => {
       }
 
       // Draw background.
-      this.draw.ctx.fillStyle = this.backgroundColor;
-      this.draw.ctx.fillRect(stage.hudCoords.x, stage.hudCoords.y, stage.hudWidth, stage.hudHeight);
+      ctx.fillStyle = this.backgroundColor;
+      ctx.fillRect(stage.hudCoords.x, stage.hudCoords.y, stage.hudWidth, stage.hudHeight);
 
-      this.draw.ctx.fillStyle = this.textColor;
+      ctx.fillStyle = this.textColor;
 
-      if (game.mode === 'normal') {
-        this.DrawNormalHud();
-      } else if (game.mode === 'title') {
+      if (game.mode === _constants.gameModes.normal) {
+        this.drawNormalHud();
+      } else if (game.mode === _constants.gameModes.title) {
         this.drawTitle();
-      } else if (game.mode === 'password') {
+      } else if (game.mode === _constants.gameModes.password) {
         this.drawPassword();
       }
     };
 
-    this.drawTitle = function () {
-      this.draw.ctx.save();
-      this.draw.ctx.font = '28px sans-serif';
+    this.drawTitle = function drawTitle() {
+      const ctx = this.draw.ctx;
+      ctx.save();
+      ctx.font = '28px sans-serif';
 
-      this.draw.ctx.fillText('Jake\'s Journey', 500, 20);
+      ctx.fillText('Jake\'s Journey', 500, 20);
 
-      this.draw.ctx.font = '20px sans-serif';
+      ctx.font = '20px sans-serif';
       this.draw.drawWrappedText('Press ENTER to begin.\nPress X to enter password.', 500, 80, 270, 30);
-      this.draw.ctx.restore();
+      ctx.restore();
     };
 
-    this.drawPassword = function () {
-      this.draw.ctx.save();
-      this.draw.ctx.font = '28px sans-serif';
-      this.draw.ctx.fillStyle = this.textColor;
+    this.drawPassword = function drawPassword() {
+      const ctx = this.draw.ctx;
+      ctx.save();
+      ctx.font = '28px sans-serif';
+      ctx.fillStyle = this.textColor;
       this.draw.drawWrappedText('Jake\'s Journey', 500, 20, 270, 40);
 
-      this.draw.ctx.font = '24px sans-serif';
+      ctx.font = '24px sans-serif';
       this.draw.drawWrappedText('Enter Password.', 500, 60, 270, 40);
 
       // Text box.
-      this.draw.ctx.fillStyle = 'white';
-      this.draw.ctx.font = '20px sans-serif';
-      this.draw.ctx.fillRect(500, 90, stage.hudWidth - 60, 26);
+      ctx.fillStyle = 'white';
+      ctx.font = '20px sans-serif';
+      ctx.fillRect(500, 90, stage.hudWidth - 60, 26);
 
       // Cursor
-      this.draw.ctx.fillStyle = 'rgb(0,255,255)';
-      this.draw.ctx.fillRect(505 + this.draw.ctx.measureText(this.game.enteredPassword).width, 93, 15, 20);
+      ctx.fillStyle = 'rgb(0,255,255)';
+      ctx.fillRect(505 + ctx.measureText(this.game.enteredPassword).width, 93, 15, 20);
 
-      this.draw.ctx.fillStyle = 'rgb(0,0,0)';
-      this.draw.ctx.fillText(this.game.enteredPassword, 505, 92);
+      ctx.fillStyle = 'rgb(0,0,0)';
+      ctx.fillText(this.game.enteredPassword, 505, 92);
 
       // Message.
       if (game.passwordHudMessage.length > 0) {
-        this.draw.ctx.save();
-        this.draw.ctx.fillStyle = 'rgb(255,0,0)';
-        this.draw.ctx.fillText(game.passwordHudMessage, 500, 118);
-        this.draw.ctx.restore();
+        ctx.save();
+        ctx.fillStyle = 'rgb(255,0,0)';
+        ctx.fillText(game.passwordHudMessage, 500, 118);
+        ctx.restore();
       }
 
       this.draw.drawWrappedText('Press ENTER to submit.\nPress ESC to return to title.', 500, 160, 270, 30);
 
-      this.draw.ctx.restore();
+      ctx.restore();
     };
 
-    this.DrawNormalHud = function () {
+    this.drawNormalHud = function drawNormalHud() {
+      const ctx = this.draw.ctx;
       let drawLevel = game.level;
       if (drawLevel === 54) {
         drawLevel = 27;
@@ -95,29 +99,30 @@ define('Hud', ['./TileCodes', './Coordinates'], (TileCodes, Coordinates) => {
       }
 
       // Draw level text.
-      this.draw.ctx.fillStyle = this.textColor;
-      this.draw.ctx.fillText(`Level  ${drawLevel}`, 500, 20);
+      ctx.fillStyle = this.textColor;
+      ctx.fillText(`Level  ${drawLevel}`, 500, 20);
 
       // Draw game clock.
       if (game.clock > -1) {
-        this.draw.ctx.fillText(`Time:  ${game.clock}`, 620, 20);
+        ctx.fillText(`Time:  ${game.clock}`, 620, 20);
       } else {
-        this.draw.ctx.fillText('Time: \u221E', 620, 20);
+        ctx.fillText('Time: \u221E', 620, 20);
       }
 
       // Draw password.
-      this.draw.ctx.fillText(`Password: ${game.password}`, 500, 50);
+      ctx.fillText(`Password: ${game.password}`, 500, 50);
 
       // Draw money count:
       let interval = Math.floor(273 / game.moneyCount);
       interval = Math.min(interval, 13);
       for (let i = 0; i < game.moneyCount; i += 1) {
+        const xBase = new Coordinates(495 + (i * interval));
         if (i < player.inventory.money) {
           // Collected money:
-          this.draw.drawTileAbsolute(TileCodes.coin, new Coordinates(495 + (i * interval), 80));
+          this.draw.drawTileAbsolute(_constants.tileCodes.coin, xBase, 80);
         } else {
           // Uncollected money:
-          this.draw.drawTileAbsolute(TileCodes.coinUncollected, new Coordinates(495 + (i * interval), 80));
+          this.draw.drawTileAbsolute(_constants.tileCodes.coinUncollected, xBase, 80);
         }
       }
 
@@ -134,21 +139,21 @@ define('Hud', ['./TileCodes', './Coordinates'], (TileCodes, Coordinates) => {
 
       // Draw yellow key inventory.
       for (let i = 0; i < player.inventory.yellowKeys; i += 1) {
-        this.draw.drawTileAbsolute(TileCodes.yellowKey,
+        this.draw.drawTileAbsolute(_constants.tileCodes.yellowKey,
           new Coordinates(500 + (keyDrawIndex * keyInterval), 110));
         keyDrawIndex += 1;
       }
 
       // Draw red key inventory.
       for (let i = 0; i < player.inventory.redKeys; i += 1) {
-        this.draw.drawTileAbsolute(TileCodes.redKey,
+        this.draw.drawTileAbsolute(_constants.tileCodes.redKey,
           new Coordinates(500 + (keyDrawIndex * keyInterval), 110));
         keyDrawIndex += 1;
       }
 
       // Draw cyan key inventory.
       for (let i = 0; i < player.inventory.cyanKeys; i += 1) {
-        this.draw.drawTileAbsolute(TileCodes.cyanKey,
+        this.draw.drawTileAbsolute(_constants.tileCodes.cyanKey,
           new Coordinates(500 + (keyDrawIndex * keyInterval), 110));
         keyDrawIndex += 1;
       }
@@ -156,7 +161,7 @@ define('Hud', ['./TileCodes', './Coordinates'], (TileCodes, Coordinates) => {
       // Draw green key inventory.
       for (let i = 0; i < player.inventory.greenKeys; i += 1) {
         this.draw.drawTileAbsolute(
-          TileCodes.greenKey,
+          _constants.tileCodes.greenKey,
           new Coordinates(500 + (keyDrawIndex * keyInterval), 110)
         );
         keyDrawIndex += 1;
@@ -164,42 +169,42 @@ define('Hud', ['./TileCodes', './Coordinates'], (TileCodes, Coordinates) => {
 
       // Draw help message.
       if (game.showMessage) {
-        this.draw.ctx.save();
-        this.draw.ctx.fillStyle = this.messageBox.backgroundColor;
-        this.draw.ctx.font = '12px sans-serif';
-        this.draw.ctx.fillRect(500, 160, 280, 200);
-        this.draw.ctx.fillStyle = this.messageBox.textColor;
+        ctx.save();
+        ctx.fillStyle = this.messageBox.backgroundColor;
+        ctx.font = '12px sans-serif';
+        ctx.fillRect(500, 160, 280, 200);
+        ctx.fillStyle = this.messageBox.textColor;
         this.draw.drawWrappedText(game.messageText, 510, 170, 270, 18);
-        this.draw.ctx.restore();
+        ctx.restore();
       }
 
       if (game.isPaused) {
-        this.draw.ctx.save();
+        ctx.save();
 
         // Draw shade over game.
-        this.draw.ctx.save();
-        this.draw.ctx.fillStyle = 'rgba(0,0,0,0.5)';
-        this.draw.ctx.fillRect(0, 0, stage.playboxWidth, stage.playboxHeight);
-        this.draw.ctx.restore();
+        ctx.save();
+        ctx.fillStyle = 'rgba(0,0,0,0.5)';
+        ctx.fillRect(0, 0, stage.playboxWidth, stage.playboxHeight);
+        ctx.restore();
 
         // Draw pause box.
-        this.draw.ctx.save();
-        this.draw.ctx.fillStyle = 'red';
-        this.draw.ctx.fillRect(20, 20, 274, 97);
-        this.draw.ctx.fillStyle = 'rgb(50,50,50)';
-        this.draw.ctx.fillRect(21, 21, 272, 95);
-        this.draw.ctx.restore();
+        ctx.save();
+        ctx.fillStyle = 'red';
+        ctx.fillRect(20, 20, 274, 97);
+        ctx.fillStyle = 'rgb(50,50,50)';
+        ctx.fillRect(21, 21, 272, 95);
+        ctx.restore();
 
         // Draw pause text.
-        this.draw.ctx.save();
-        this.draw.ctx.fillStyle = 'red';
-        this.draw.ctx.font = '20px sans-serif';
+        ctx.save();
+        ctx.fillStyle = 'red';
+        ctx.font = '20px sans-serif';
         this.draw.drawWrappedText('PAUSED.\n\nPress P to resume.\nPress Enter to restart level.', 26, 26, 270, 22);
-        this.draw.ctx.restore();
+        ctx.restore();
 
-        this.draw.ctx.restore();
+        ctx.restore();
       }
     };
   };
-  return gameHudClass;
+  return Hud;
 });

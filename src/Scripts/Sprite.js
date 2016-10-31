@@ -1,4 +1,4 @@
-define('Sprite', ['./Constants','./DeathMessages', './TileCodes', './Coordinates', './Keyboard', './Utility', './Draw'], (Constants, DeathMessages, TileCodes, Coordinates, Keyboard, Utility, Draw) => {
+define('Sprite', ['./Constants', './DeathMessages', './TileCodes', './Coordinates', './Keyboard', './Utility', './Draw'], (Constants, DeathMessages, TileCodes, Coordinates, Keyboard, Utility, Draw) => {
   const SpriteNS = {
     Inventory: function Inventory() {
       this.yellowKeys = 0;
@@ -10,7 +10,9 @@ define('Sprite', ['./Constants','./DeathMessages', './TileCodes', './Coordinates
 
     Sprite: null,
   };
-  SpriteNS.Sprite = function (game, stage, keyboard, draw, pwh, player) {
+  SpriteNS.Sprite = function Sprite(game, stage, keyboard, draw, pwh, player) {
+    this.clipping = true;
+    this.movementAnimationSettings = { easing: 'linear', duration: 200 };
     this.game = game;
     this.stage = stage;
     this.keyboard = keyboard;
@@ -52,7 +54,8 @@ define('Sprite', ['./Constants','./DeathMessages', './TileCodes', './Coordinates
     this.type = '';
     this.subType = '';
 
-    this.isKey = function () { return this.subType == 'yellowKey' || this.subType == 'redKey' || this.subType == 'cyanKey' || this.subType == 'greenKey' };
+    // TODO: Migrate these string literals to the constants file.
+    this.isKey = () => (this.subType === 'yellowKey' || this.subType === 'redKey' || this.subType === 'cyanKey' || this.subType === 'greenKey');
     this.hitRegistered = false;
 
     this.imageType = '';
@@ -79,16 +82,16 @@ define('Sprite', ['./Constants','./DeathMessages', './TileCodes', './Coordinates
 
     this.animationFrame = 0;
     this.animationDirection = 1;
-    this.direction = 'down';
+    this.direction = Constants.directions.down;
     this.rotation = 0;
 
     this.position = new Coordinates(0, 0);
 
-    this.tileDistanceToSprite = function (sprite) {
+    this.tileDistanceToSprite = function tileDistanceToSprite(sprite) {
       return this.tileDistanceBetween(this.position, sprite.position);
     };
     this.surroundingTiles = null;
-    this.getSurroundingTiles = function (coords) {
+    this.getSurroundingTiles = function getSurroundingTiles(coords) {
       const surroundingTiles = {};
       surroundingTiles.up = {
         coords: new Coordinates(coords.x, coords.y - 1),
@@ -112,19 +115,25 @@ define('Sprite', ['./Constants','./DeathMessages', './TileCodes', './Coordinates
         score: null,
 
       };
-      // up
-      Utility.aGreenBlockInactiveconsole.log('nothing');
       if (this.game.map.isInBounds(surroundingTiles.up.coords)) {
-        surroundingTiles.up.type = this.game.map.getTileTypeByCoords(surroundingTiles.up.coords.x, surroundingTiles.up.coords.y);
+        surroundingTiles.up.type = this.game.map.getTileTypeByCoords(
+          surroundingTiles.up.coords.x,
+          surroundingTiles.up.coords.y);
       }
       if (this.game.map.isInBounds(surroundingTiles.down.coords)) {
-        surroundingTiles.down.type = this.game.map.getTileTypeByCoords(surroundingTiles.down.coords.x, surroundingTiles.down.coords.y);
+        surroundingTiles.down.type = this.game.map.getTileTypeByCoords(
+          surroundingTiles.down.coords.x,
+          surroundingTiles.down.coords.y);
       }
       if (this.game.map.isInBounds(surroundingTiles.left.coords)) {
-        surroundingTiles.left.type = this.game.map.getTileTypeByCoords(surroundingTiles.left.coords.x, surroundingTiles.left.coords.y);
+        surroundingTiles.left.type = this.game.map.getTileTypeByCoords(
+          surroundingTiles.left.coords.x,
+          surroundingTiles.left.coords.y);
       }
       if (this.game.map.isInBounds(surroundingTiles.right.coords)) {
-        surroundingTiles.right.type = this.game.map.getTileTypeByCoords(surroundingTiles.right.coords.x, surroundingTiles.right.coords.y);
+        surroundingTiles.right.type = this.game.map.getTileTypeByCoords(
+          surroundingTiles.right.coords.x,
+          surroundingTiles.right.coords.y);
       }
       return surroundingTiles;
     };
@@ -138,24 +147,24 @@ define('Sprite', ['./Constants','./DeathMessages', './TileCodes', './Coordinates
 
     this.recursivePathIterations = 0;
 
-    this.getTarget = function () {
+    this.getTarget = function getTarget() {
       const targetPosition = new Coordinates(this.position.x, this.position.y);
-      if (this.direction == 'left') {
+      if (this.direction === Constants.directions.left) {
         targetPosition.x -= 1;
         if (targetPosition.x < 0) {
           targetPosition.x = this.game.map.width - 1;
         }
-      } else if (this.direction == 'right') {
+      } else if (this.direction === Constants.directions.right) {
         targetPosition.x += 1;
         if (targetPosition.x >= this.game.map.width) {
           targetPosition.x = 0;
         }
-      } else if (this.direction == 'up') {
+      } else if (this.direction === Constants.directions.up) {
         targetPosition.y -= 1;
         if (targetPosition.y < 0) {
           targetPosition.y = this.game.map.height - 1;
         }
-      } else if (this.direction == 'down') {
+      } else if (this.direction === Constants.directions.down) {
         targetPosition.y += 1;
         if (targetPosition.y >= this.game.map.height) {
           targetPosition.y = 0;
@@ -164,10 +173,7 @@ define('Sprite', ['./Constants','./DeathMessages', './TileCodes', './Coordinates
       return targetPosition;
     };
 
-    this.clipping = true;
-    this.movementAnimationSettings = { easing: 'linear', duration: 200 };
-
-    this.canMove = function (coordinates) {
+    this.canMove = function canMove(coordinates) {
       const destination = (coordinates == null) ? this.getTarget() : coordinates;
 
       // Get all tile layers.
@@ -292,84 +298,84 @@ define('Sprite', ['./Constants','./DeathMessages', './TileCodes', './Coordinates
       return true;
     };
 
-    this.turn = function (direction) {
+    this.turn = function turn(direction) {
       this.direction = direction;
       this.rotation = this.getRotation();
     };
 
-    this.getRotation = function () {
+    this.getRotation = function getRotation() {
       switch (this.direction) {
-        case 'up':
+        case Constants.directions.up:
           return 0;
-        case 'down':
+        case Constants.directions.down:
           return 180;
-        case 'left':
+        case Constants.directions.left:
           return -90;
-        case 'right':
+        case Constants.directions.right:
           return 90;
         default:
-          return;
+          return null;
       }
     };
 
-    this.turnAround = function () {
+    this.turnAround = function turnAround() {
       switch (this.direction) {
-        case 'left':
-          this.turn('right');
+        case Constants.directions.left:
+          this.turn(Constants.directions.right);
           break;
-        case 'right':
-          this.turn('left');
+        case Constants.directions.right:
+          this.turn(Constants.directions.left);
           break;
-        case 'up':
-          this.turn('down');
+        case Constants.directions.up:
+          this.turn(Constants.directions.down);
           break;
-        case 'down':
-          this.turn('up');
+        case Constants.directions.down:
+          this.turn(Constants.directions.up);
           break;
         default:
           break;
       }
     };
 
-    this.turnAntiClockwise = function () {
+    this.turnAntiClockwise = function turnAntiClockwise() {
       switch (this.direction) {
-        case 'left':
-          this.turn('down');
+        case Constants.directions.left:
+          this.turn(Constants.directions.down);
           break;
-        case 'right':
-          this.turn('up');
+        case Constants.directions.right:
+          this.turn(Constants.directions.up);
           break;
-        case 'up':
-          this.turn('left');
+        case Constants.directions.up:
+          this.turn(Constants.directions.left);
           break;
-        case 'down':
-          this.turn('right');
+        case Constants.directions.down:
+          this.turn(Constants.directions.right);
           break;
         default:
           break;
       }
     };
 
-    this.turnProClockwise = function () {
+    this.turnProClockwise = function turnProClockwise() {
       switch (this.direction) {
-        case 'left':
-          this.turn('up');
+        case Constants.directions.left:
+          this.turn(Constants.directions.up);
           break;
-        case 'right':
-          this.turn('down');
+        case Constants.directions.right:
+          this.turn(Constants.directions.down);
           break;
-        case 'up':
-          this.turn('right');
+        case Constants.directions.up:
+          this.turn(Constants.directions.right);
           break;
-        case 'down':
-          this.turn('left');
+        case Constants.directions.down:
+          this.turn(Constants.directions.left);
           break;
         default:
           break;
       }
     };
 
-    this.goForward = function (d) {
+    this.goForward = function goForward(d) {
       if (d != null) {
         this.turn(d);
       }
@@ -383,13 +389,13 @@ define('Sprite', ['./Constants','./DeathMessages', './TileCodes', './Coordinates
       }
     };
 
-    this.checkTile = function () {
+    this.checkTile = function checkTile() {
       // var tileIndex = game.map.getTileIndexByCoords
       const tileType = this.game.map.getTileTypeByCoords(this.position.x, this.position.y);
 
       // Normal.
       if (tileType === TileCodes.floor) {
-        return;
+        return true;
       }
 
       // Yellow Door.
@@ -470,31 +476,26 @@ define('Sprite', ['./Constants','./DeathMessages', './TileCodes', './Coordinates
         if (this.type === 'player') {
           const message = Utility.array.getRandomElement(DeathMessages.water);
           this.game.setDeadMessage(message);
-        }
-
-        else if (this.type === 'enemy') {
-          // game.enemies.remove(Utility.array.findByProperty(game.enemies, "spriteID", this.spriteID));
+        } else if (this.type === 'enemy') {
           this.destroy();
-        }
-
-        // Block hits water and disappears.
-        else if (this.subType === 'pushBlock') {
+        } else if (this.subType === 'pushBlock') {
+          // Block hits water and disappears.
           this.game.tools.remove(Utility.array.findByProperty(this.game.tools, 'spriteID', this.spriteID));
         }
         // }
       }
+      return false;
     };
 
     // Todo: move all of this to a separate file. This is outside the scope of sprites.
-    this.GetInput = function () {
-      const keyboard = this.keyboard;
+    this.GetInput = function GetInput() {
       const keyIsDown = this.keyboard.keyIsDown;
       const keyIsRegistered = this.keyboard.keyIsRegistered;
       // Todo: Refactor these literals to constants defined in separate file.
 
       // Player is at title screen. Press enter to start.
       // Press X to enter password. No other input allowed except for konami code.
-      if (this.game.mode === 'title') {
+      if (this.game.mode === Constants.gameModes.title) {
         // TODO: Change all (keyIsDown && !keyIsRegistered) calls into a control mapping function
         //       with a callback for when the event is true.
         if (keyIsDown.Enter && !keyIsRegistered.Enter) {
@@ -502,13 +503,13 @@ define('Sprite', ['./Constants','./DeathMessages', './TileCodes', './Coordinates
           this.game.nextLevel();
         } else if ((keyIsDown.X && !keyIsRegistered.X) || (keyIsDown.x && !keyIsRegistered.x)) {
           keyIsRegistered.X = true;
-          this.game.mode = 'password';
+          this.game.mode = Constants.gameModes.password;
         } else if (keyboard.konamiCode()) {
           // :)
-          this.game.mode = 'normal';
+          this.game.mode = Constants.gameModes.normal;
         }
         return;
-      } else if (this.game.mode === 'password') {
+      } else if (this.game.mode === Constants.gameModes.password) {
         if (keyIsDown.Enter && !keyIsRegistered.Enter) {
           keyIsRegistered.Enter = true;
 
@@ -517,7 +518,7 @@ define('Sprite', ['./Constants','./DeathMessages', './TileCodes', './Coordinates
           keyIsRegistered.Esc = true;
           this.game.passwordHudMessage = '';
           this.game.enteredPassword = '';
-          this.game.mode = 'title';
+          this.game.mode = Constants.gameModes.normal;
         } else if (keyIsDown.Backspace && !keyIsRegistered.Backspace) {
           keyIsRegistered.Backspace = true;
           this.game.enteredPassword = this.game.enteredPassword.slice(0, -1);
@@ -526,7 +527,7 @@ define('Sprite', ['./Constants','./DeathMessages', './TileCodes', './Coordinates
           for (let i = 0; i < keyboard.alphanumeric.length; i += 1) {
             const alphanumericTX = keyboard.alphanumericTX[i];
             if (keyIsDown[alphanumericTX] && !keyIsRegistered[alphanumericTX]) {
-              keyboard.keyIsRegistered[alphanumericTX] = true;
+              keyIsRegistered[alphanumericTX] = true;
 
               if (this.game.enteredPassword.length < this.maxPasswordLength) {
                 this.game.enteredPassword += keyboard.alphanumeric[i];
@@ -538,7 +539,7 @@ define('Sprite', ['./Constants','./DeathMessages', './TileCodes', './Coordinates
         if (this.game.enteredPassword.length > 0) {
           this.game.passwordHudMessage = '';
         }
-      } else if (this.game.mode === 'credits') {
+      } else if (this.game.mode === Constants.gameModes.credits) {
         if (keyIsDown.Enter && !keyIsRegistered.Enter) {
           keyIsRegistered.Enter = true;
 
@@ -598,17 +599,19 @@ define('Sprite', ['./Constants','./DeathMessages', './TileCodes', './Coordinates
           }
 
           // Execute "goForward" movement from first key to return true.
+          // TODO: Refactor this into an array and loop.
+          // eslint-disable-next-line no-unused-vars
           let stopCheck = false;
 
           stopCheck =
-            this.executeInput('A', this.keyboardRepeatTickDelay, this.goForward, ['left']) ||
-            this.executeInput('D', this.keyboardRepeatTickDelay, this.goForward, ['right']) ||
-            this.executeInput('W', this.keyboardRepeatTickDelay, this.goForward, ['up']) ||
-            this.executeInput('S', this.keyboardRepeatTickDelay, this.goForward, ['down']) ||
-            this.executeInput('LEFT', this.keyboardRepeatTickDelay, this.goForward, ['left']) ||
-            this.executeInput('RIGHT', this.keyboardRepeatTickDelay, this.goForward, ['right']) ||
-            this.executeInput('UP', this.keyboardRepeatTickDelay, this.goForward, ['up']) ||
-            this.executeInput('DOWN', this.keyboardRepeatTickDelay, this.goForward, ['down']);
+            this.executeInput('A', this.keyboardRepeatTickDelay, this.goForward, [Constants.directions.left]) ||
+            this.executeInput('D', this.keyboardRepeatTickDelay, this.goForward, [Constants.directions.right]) ||
+            this.executeInput('W', this.keyboardRepeatTickDelay, this.goForward, [Constants.directions.up]) ||
+            this.executeInput('S', this.keyboardRepeatTickDelay, this.goForward, [Constants.directions.down]) ||
+            this.executeInput('LEFT', this.keyboardRepeatTickDelay, this.goForward, [Constants.directions.left]) ||
+            this.executeInput('RIGHT', this.keyboardRepeatTickDelay, this.goForward, [Constants.directions.right]) ||
+            this.executeInput('UP', this.keyboardRepeatTickDelay, this.goForward, [Constants.directions.up]) ||
+            this.executeInput('DOWN', this.keyboardRepeatTickDelay, this.goForward, [Constants.directions.down]);
           return;
         } else if (this.game.theEnd) {
           if (this.startCountup) {
@@ -622,7 +625,7 @@ define('Sprite', ['./Constants','./DeathMessages', './TileCodes', './Coordinates
               if (this.game.gameTimer % 6 !== 0) {
                 return;
               }
-              this.turn('right');
+              this.turn(Constants.directions.right);
               this.goForward();
             }
           }
@@ -778,15 +781,15 @@ define('Sprite', ['./Constants','./DeathMessages', './TileCodes', './Coordinates
 
             if (this.position.x === this.player.position.x) {
               if (this.position.y > this.player.position.y) {
-                this.turn('up');
+                this.turn(Constants.directions.up);
               } else {
-                this.turn('down');
+                this.turn(Constants.directions.down);
               }
             } else if (this.position.y === this.player.position.y) {
               if (this.position.x > this.player.position.x) {
-                this.turn('left');
+                this.turn(Constants.directions.left);
               } else {
-                this.turn('right');
+                this.turn(Constants.directions.right);
               }
             }
 
@@ -812,7 +815,7 @@ define('Sprite', ['./Constants','./DeathMessages', './TileCodes', './Coordinates
                   return false;
                 }
 
-                this.turn('right');
+                this.turn(Constants.directions.right);
                 this.goForward();
               }
             }
@@ -825,37 +828,37 @@ define('Sprite', ['./Constants','./DeathMessages', './TileCodes', './Coordinates
                 if (this.game.gameTimer % 40 !== 0) {
                   return false;
                 }
-                this.turn('left');
+                this.turn(Constants.directions.left);
                 this.goForward();
               } else if (this.position.y === 9 && this.position.x > 4) {
                 if (this.game.gameTimer % 200 !== 0) {
                   return false;
                 }
-                this.turn('left');
+                this.turn(Constants.directions.left);
                 this.goForward();
               } else if (this.position.y === 9 && this.position.x > 3) {
                 if (this.game.gameTimer % 100 !== 0) {
                   return false;
                 }
-                this.turn('left');
+                this.turn(Constants.directions.left);
                 this.goForward();
               } else if (this.position.y > 6) {
                 if (this.game.gameTimer % 40 !== 0) {
                   return false;
                 }
-                this.turn('up');
+                this.turn(Constants.directions.up);
                 this.goForward();
               } else if (this.position.x < 4) {
                 if (this.game.gameTimer % 40 !== 0) {
                   return false;
                 }
-                this.turn('right');
+                this.turn(Constants.directions.right);
                 this.goForward();
               } else if (this.position.x < 5) {
                 if (this.game.gameTimer % 100 !== 0) {
                   return false;
                 }
-                this.turn('right');
+                this.turn(Constants.directions.right);
                 this.goForward();
               } else {
                 this.player.startCountup = true;
@@ -875,28 +878,28 @@ define('Sprite', ['./Constants','./DeathMessages', './TileCodes', './Coordinates
 
       if (xDist > yDist) {
         if (this.position.x > this.player.position.x) {
-          this.turn('left');
+          this.turn(Constants.directions.left);
         } else {
-          this.turn('right');
+          this.turn(Constants.directions.right);
         }
         if (!this.canMove()) {
           if (this.position.y > this.player.position.y) {
-            this.turn('up');
+            this.turn(Constants.directions.up);
           } else if (this.position.y < this.player.position.y) {
-            this.turn('down');
+            this.turn(Constants.directions.down);
           }
         }
       } else {
         if (this.position.y > this.player.position.y) {
-          this.turn('up');
+          this.turn(Constants.directions.up);
         } else {
-          this.turn('down');
+          this.turn(Constants.directions.down);
         }
         if (!this.canMove()) {
           if (this.position.x > this.player.position.x) {
-            this.turn('left');
+            this.turn(Constants.directions.left);
           } else if (this.position.x < this.player.position.x) {
-            this.turn('right');
+            this.turn(Constants.directions.right);
           }
         }
       }

@@ -1,8 +1,8 @@
 const $ = require('jquery');
 
 define('JakesJourney',
-  ['./DeathMessages', './TileCodes', './Coordinates', './Sprite', './Keyboard', './Utility', './ObscurelyNamedFile', './Draw', './Hud', './Credits'],
-  (DeathMessages, TileCodes, Coordinates, Sprite, Keyboard, Utility, ObscurelyNamedFile, Draw, Hud, Credits) => {
+  ['./Constants','./DeathMessages', './TileCodes', './Coordinates', './Sprite', './Keyboard', './Utility', './ObscurelyNamedFile', './Draw', './Hud', './Credits'],
+  (Constants, DeathMessages, TileCodes, Coordinates, Sprite, Keyboard, Utility, ObscurelyNamedFile, Draw, Hud, Credits) => {
     const $j = $.noConflict();
 
     let master;
@@ -236,7 +236,7 @@ define('JakesJourney',
 
                 // Change initial enemy facing direction.
                 if (typeof (eData.properties.direction) !== 'undefined') {
-                  enemy.direction = eData.properties.direction;
+                  enemy.direction = Constants.directions[eData.properties.direction];
                   if (enemy.subType === 'player2') {
                     enemy.rotation = enemy.getRotation();
                   }
@@ -272,7 +272,7 @@ define('JakesJourney',
 
                 // Change initial enemy facing direction.
                 if (typeof (tData.properties.direction) !== 'undefined') {
-                  tool.direction = tData.properties.direction;
+                  tool.direction = Constants.directions[tData.properties.direction];
                 }
 
                 game.tools.push(tool);
@@ -289,7 +289,7 @@ define('JakesJourney',
               tileset: 'devgraphics',
             };
             stage.isOffset = true;
-            game.mode = 'normal';
+            game.mode = Constants.gameModes.normal;
             game.password = passwordHandler.passwords[game.level];
             game.nextLevelNumber = game.level + 1;
 
@@ -309,7 +309,7 @@ define('JakesJourney',
               }
 
               if (typeof (p.properties.mode) !== 'undefined') {
-                game.mode = p.properties.mode;
+                game.mode = Constants.gameModes[p.properties.mode];
               }
 
               if (typeof (p.properties.password) !== 'undefined') {
@@ -494,7 +494,7 @@ define('JakesJourney',
       // Reset message box visibility.
       game.showMessage = false;
 
-      if (game.mode === 'credits') {
+      if (game.mode === Constants.gameModes.credits) {
         game.credits.update();
         return;
       }
@@ -503,7 +503,7 @@ define('JakesJourney',
         if (game.theEnd) {
           if (game.credits.isStarted === false) {
             // Credits sequence!
-            game.mode = 'credits';
+            game.mode = Constants.gameModes.credits;
             game.credits.isStarted = true;
           }
         } else {

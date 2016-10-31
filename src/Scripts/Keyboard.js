@@ -1,12 +1,12 @@
-define('Keyboard', [], () => {
-  const Keyboard = function () {
+define('Keyboard', [], () => (
+  function Keyboard() {
     this.settings = {
       exclusions: [],
       sticky: true,
     };
 
 
-    this.keyboard = function () {
+    this.Keys = function Keys() {
       this.Backspace = 8;
       this.Tab = 9;
       this.Enter = 13;
@@ -135,10 +135,10 @@ define('Keyboard', [], () => {
       this.F15 = 126;
     };
 
-    this.keys = new this.keyboard();
-    this.keyIsDown = new this.keyboard();
-    this.keyHeldDuration = new this.keyboard();
-    this.keyIsRegistered = new this.keyboard();
+    this.keys = new this.Keys();
+    this.keyIsDown = new this.Keys();
+    this.keyHeldDuration = new this.Keys();
+    this.keyIsRegistered = new this.Keys();
     for (const k of Object.keys(this.keys)) {
       this.keyIsDown[k] = false;
       this.keyIsRegistered[k] = false;
@@ -165,10 +165,11 @@ define('Keyboard', [], () => {
         'w', 'x', 'y', 'z', '1', '2', '3', '4',
         '5', '6', '7', '8', '9', '0'];
 
-    this.corrupt = function (offset) {
+    this.corrupt = function corrupt(o) {
+      let offset = o;
       offset %= this.alphanumeric.length;
 
-      if (offset == 0) {
+      if (offset === 0) {
         return this;
       }
 
@@ -177,7 +178,7 @@ define('Keyboard', [], () => {
       for (let i = 0; i < this.length; i += 1) {
         const char = this[i];
         const charIndex = this.alphanumeric.indexOf(char);
-        if (charIndex == -1) {
+        if (charIndex === -1) {
           output.push(this[i]);
         } else {
           const change = (charIndex + offset) % this.alphanumeric.length;
@@ -188,16 +189,16 @@ define('Keyboard', [], () => {
       return output.join('');
     };
 
-    this.getKeyByCode = function (keyCode) {
+    this.getKeyByCode = function getKeyByCode(keyCode) {
       for (const k of Object.keys(this.keys)) {
-        if (keyCode == this.keys[k]) {
+        if (+keyCode === this.keys[k]) {
           return k;
         }
       }
       return null;
     };
 
-    this.registerKey = function (keyCode) {
+    this.registerKey = function registerKey(keyCode) {
       const key = this.getKeyByCode(keyCode);
       this.keyIsDown[key] = true;
     };
@@ -206,11 +207,12 @@ define('Keyboard', [], () => {
     // Adapted from Konami Code plugin by Joel Sutherland. http://www.gethifi.com/blog/konami-code-jquery-plugin-pointlessly-easy
     this.konami = '38,38,40,40,37,39,37,39,66,65';
     this.keyLog = [];
-    this.konamiCode = function () {
-      return (this.keyLog.toString() == this.konami);
+    this.konamiCode = function konamiCode() {
+      return (this.keyLog.toString() === this.konami);
     };
 
-    this.wireUp = function (htmlElement) {
+    this.wireUp = function wireUp(he) {
+      const htmlElement = he;
       // Exclude keys from listener events.
       if (this.settings.exclusions.length > 0) {
         for (let i = 0; i < this.settings.exclusions.length; i += 1) {
@@ -243,6 +245,5 @@ define('Keyboard', [], () => {
         }
       });
     };
-  };
-  return Keyboard;
-});
+  }
+));

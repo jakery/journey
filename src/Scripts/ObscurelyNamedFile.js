@@ -11,7 +11,7 @@ Therefore, here's your reward for delving into the source code.
 */
 
 define('ObscurelyNamedFile', [], () => {
-  const ObscurelyNamedFile = function (game) {
+  const ObscurelyNamedFile = function ObscurelyNamedFile(game) {
     this.game = game;
 
     this.passwords = [
@@ -77,7 +77,8 @@ define('ObscurelyNamedFile', [], () => {
       let enteredPassword = password;
       enteredPassword = enteredPassword.toLowerCase();
       // Begins with "level" & is not "level1 - level5"
-      // TODO: There's probably a good way to refactor this into a single Regex statement, but I've got bigger fish to fry.
+      // TODO: There's probably a good way to refactor this
+      //    into a single Regex statement, but I've got bigger fish to fry.
       if (enteredPassword !== 'level' && enteredPassword.indexOf('level') === 0 && enteredPassword.match(/^level[1-5]\s*$/g) === null) {
         // CHEATER!
         this.game.level = -10000;

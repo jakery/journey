@@ -88,7 +88,7 @@ define('Credits', ['./CreditsText'], CreditsText => function (game, stage, draw)
   };
 
   this.Draw = function () {
-    if (game.mode === 'credits') {
+    if (game.mode === Constants.gameModes.credits) {
       this.draw.ctx.save();
 
       // Draw black bg.
