@@ -1,4 +1,5 @@
 define('Constants', ['./TileCodes'], TileCodes => ({
+  baseUnit: 32,
   tileCodes: TileCodes,
   gameModes: {
     title: 0,
