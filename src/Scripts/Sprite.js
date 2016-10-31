@@ -1,4 +1,4 @@
-define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard', './Utility', './Draw'], (DeathMessages, TileCodes, Coordinates, Keyboard, Utility, Draw) => {
+define('Sprite', ['./Constants','./DeathMessages', './TileCodes', './Coordinates', './Keyboard', './Utility', './Draw'], (Constants, DeathMessages, TileCodes, Coordinates, Keyboard, Utility, Draw) => {
   const SpriteNS = {
     Inventory: function Inventory() {
       this.yellowKeys = 0;
@@ -487,44 +487,49 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
 
     // Todo: move all of this to a separate file. This is outside the scope of sprites.
     this.GetInput = function () {
-      // Todo: refactor these conditionals to "game.mode".
+      const keyboard = this.keyboard;
+      const keyIsDown = this.keyboard.keyIsDown;
+      const keyIsRegistered = this.keyboard.keyIsRegistered;
+      // Todo: Refactor these literals to constants defined in separate file.
 
-      // Player is at title screen. Press enter to start. Press X to enter password. No other input allowed except for konami code.
-      if (this.game.mode == 'title') {
-        if (this.keyboard.keyIsDown.Enter && !this.keyboard.keyIsRegistered.Enter) {
-          this.keyboard.keyIsRegistered.Enter = true;
+      // Player is at title screen. Press enter to start.
+      // Press X to enter password. No other input allowed except for konami code.
+      if (this.game.mode === 'title') {
+        // TODO: Change all (keyIsDown && !keyIsRegistered) calls into a control mapping function
+        //       with a callback for when the event is true.
+        if (keyIsDown.Enter && !keyIsRegistered.Enter) {
+          keyIsRegistered.Enter = true;
           this.game.nextLevel();
-        } else if ((this.keyboard.keyIsDown.X && !this.keyboard.keyIsRegistered.X) || (this.keyboard.keyIsDown.x && !this.keyboard.keyIsRegistered.x)) {
-          this.keyboard.keyIsRegistered.X = true;
+        } else if ((keyIsDown.X && !keyIsRegistered.X) || (keyIsDown.x && !keyIsRegistered.x)) {
+          keyIsRegistered.X = true;
           this.game.mode = 'password';
-        } else if (this.keyboard.konamiCode()) {
+        } else if (keyboard.konamiCode()) {
           // :)
           this.game.mode = 'normal';
         }
         return;
-      } else if (this.game.mode == 'password') {
-        if (this.keyboard.keyIsDown.Enter && !this.keyboard.keyIsRegistered.Enter) {
-          this.keyboard.keyIsRegistered.Enter = true;
+      } else if (this.game.mode === 'password') {
+        if (keyIsDown.Enter && !keyIsRegistered.Enter) {
+          keyIsRegistered.Enter = true;
 
           this.passwordHandler.process();
-        } else if (this.keyboard.keyIsDown.Esc && !this.keyboard.keyIsRegistered.Esc) {
-          this.keyboard.keyIsRegistered.Esc = true;
+        } else if (keyIsDown.Esc && !keyIsRegistered.Esc) {
+          keyIsRegistered.Esc = true;
           this.game.passwordHudMessage = '';
           this.game.enteredPassword = '';
           this.game.mode = 'title';
-        } else if (this.keyboard.keyIsDown.Backspace && !this.keyboard.keyIsRegistered.Backspace) {
-          this.keyboard.keyIsRegistered.Backspace = true;
+        } else if (keyIsDown.Backspace && !keyIsRegistered.Backspace) {
+          keyIsRegistered.Backspace = true;
           this.game.enteredPassword = this.game.enteredPassword.slice(0, -1);
-        }
-
-        else {
-          // Get this.keyboard.alphanumeric input.
-          for (let i = 0; i < this.keyboard.alphanumeric.length; i += 1) {
-            if (this.keyboard.keyIsDown[this.keyboard.alphanumericTX[i]] && !this.keyboard.keyIsRegistered[this.keyboard.alphanumericTX[i]]) {
-              this.keyboard.keyIsRegistered[this.keyboard.alphanumericTX[i]] = true;
+        } else {
+          // Get keyboard.alphanumeric input.
+          for (let i = 0; i < keyboard.alphanumeric.length; i += 1) {
+            const alphanumericTX = keyboard.alphanumericTX[i];
+            if (keyIsDown[alphanumericTX] && !keyIsRegistered[alphanumericTX]) {
+              keyboard.keyIsRegistered[alphanumericTX] = true;
 
               if (this.game.enteredPassword.length < this.maxPasswordLength) {
-                this.game.enteredPassword += this.keyboard.alphanumeric[i];
+                this.game.enteredPassword += keyboard.alphanumeric[i];
               }
             }
           }
@@ -533,30 +538,26 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         if (this.game.enteredPassword.length > 0) {
           this.game.passwordHudMessage = '';
         }
-      } else if (this.game.mode == 'credits') {
-        if (this.keyboard.keyIsDown.Enter && !this.keyboard.keyIsRegistered.Enter) {
-          this.keyboard.keyIsRegistered.Enter = true;
+      } else if (this.game.mode === 'credits') {
+        if (keyIsDown.Enter && !keyIsRegistered.Enter) {
+          keyIsRegistered.Enter = true;
 
           // Hit enter once to skip credit fades. Hit it again to return to title.
-          if (this.game.credits.sequence == 2) {
+          if (this.game.credits.sequence === 2) {
             this.game.returnToTitle();
           } else {
             this.game.credits.sequence = 2;
           }
-        }
-
-        else {
+        } else {
           return;
         }
-      }
-
-      else {
+      } else {
         // Player is at exit. Press enter to continue. No other input allowed.
         if (this.game.atExit) {
           // If the game is perma-corrupted, you can't manually advance to the next level.
           if (!this.game.incrementCorruption && !this.game.theEnd) {
-            if (this.keyboard.keyIsDown.Enter && !this.keyboard.keyIsRegistered.Enter) {
-              this.keyboard.keyIsRegistered.Enter = true;
+            if (keyIsDown.Enter && !keyIsRegistered.Enter) {
+              keyIsRegistered.Enter = true;
               this.game.nextLevel();
             }
           }
@@ -565,8 +566,8 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
 
         // Player is dead. Press enter to restart. No other input allowed.
         if (this.player.isDead) {
-          if (this.keyboard.keyIsDown.Enter && !this.keyboard.keyIsRegistered.Enter) {
-            this.keyboard.keyIsRegistered.Enter = true;
+          if (keyIsDown.Enter && !keyIsRegistered.Enter) {
+            keyIsRegistered.Enter = true;
             this.game.restartLevel();
           }
           return;
@@ -574,24 +575,24 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
 
         // Game paused. Press enter to restart. May also press "P" to unpause game.
         if (this.game.isPaused) {
-          if (this.keyboard.keyIsDown.Enter && !this.keyboard.keyIsRegistered.Enter) {
-            this.keyboard.keyIsRegistered.Enter = true;
+          if (keyIsDown.Enter && !keyIsRegistered.Enter) {
+            keyIsRegistered.Enter = true;
             this.game.restartLevel();
             return;
           }
         }
 
         // Pause or unpause game.
-        if (this.keyboard.keyIsDown.P && !this.keyboard.keyIsRegistered.P) {
-          this.keyboard.keyIsRegistered.P = true;
+        if (keyIsDown.P && !keyIsRegistered.P) {
+          keyIsRegistered.P = true;
           this.game.isPaused = this.game.isPaused.toggle();
         }
 
         if (!this.game.isPaused && !this.game.theEnd) {
           // Next level for debug purposes.
           if (this.game.betaTest) {
-            if (this.keyboard.keyIsDown.N && !this.keyboard.keyIsRegistered.N) {
-              this.keyboard.keyIsRegistered.N = true;
+            if (keyIsDown.N && !keyIsRegistered.N) {
+              keyIsRegistered.N = true;
               this.game.nextLevel();
             }
           }
@@ -600,17 +601,16 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
           let stopCheck = false;
 
           stopCheck =
-            this.checkInputAndExecute('A', this.keyboardRepeatTickDelay, this.goForward, ['left']) ||
-            this.checkInputAndExecute('D', this.keyboardRepeatTickDelay, this.goForward, ['right']) ||
-            this.checkInputAndExecute('W', this.keyboardRepeatTickDelay, this.goForward, ['up']) ||
-            this.checkInputAndExecute('S', this.keyboardRepeatTickDelay, this.goForward, ['down']) ||
-            this.checkInputAndExecute('LEFT', this.keyboardRepeatTickDelay, this.goForward, ['left']) ||
-            this.checkInputAndExecute('RIGHT', this.keyboardRepeatTickDelay, this.goForward, ['right']) ||
-            this.checkInputAndExecute('UP', this.keyboardRepeatTickDelay, this.goForward, ['up']) ||
-            this.checkInputAndExecute('DOWN', this.keyboardRepeatTickDelay, this.goForward, ['down']);
-        }
-
-        else if (this.game.theEnd) {
+            this.executeInput('A', this.keyboardRepeatTickDelay, this.goForward, ['left']) ||
+            this.executeInput('D', this.keyboardRepeatTickDelay, this.goForward, ['right']) ||
+            this.executeInput('W', this.keyboardRepeatTickDelay, this.goForward, ['up']) ||
+            this.executeInput('S', this.keyboardRepeatTickDelay, this.goForward, ['down']) ||
+            this.executeInput('LEFT', this.keyboardRepeatTickDelay, this.goForward, ['left']) ||
+            this.executeInput('RIGHT', this.keyboardRepeatTickDelay, this.goForward, ['right']) ||
+            this.executeInput('UP', this.keyboardRepeatTickDelay, this.goForward, ['up']) ||
+            this.executeInput('DOWN', this.keyboardRepeatTickDelay, this.goForward, ['down']);
+          return;
+        } else if (this.game.theEnd) {
           if (this.startCountup) {
             this.ticks += 1;
 
@@ -619,10 +619,9 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
             if (this.ticks > 20) {
               this.autoMove = true;
               // TODO: Remove magic number.
-              if (this.game.gameTimer % 6 != 0) {
+              if (this.game.gameTimer % 6 !== 0) {
                 return;
               }
-
               this.turn('right');
               this.goForward();
             }
@@ -631,23 +630,24 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       }
     };
 
-    this.checkInputAndExecute = function (keyName, repeatDelay, callback, args) {
+    this.executeInput = function executeInput(keyName, repeatDelay, callback, args) {
+      const keyHeldDuration = this.keyboard.keyHeldDuration;
       if (this.keyboard.keyIsDown[keyName]) {
-        if (this.keyboard.keyHeldDuration[keyName] == 0 || this.keyboard.keyHeldDuration[keyName] > repeatDelay) {
+        if (keyHeldDuration[keyName] === 0 || keyHeldDuration[keyName] > repeatDelay) {
           // TODO: Remove magic number.
-          if (this.keyboard.keyHeldDuration[keyName] % 2 == 0) {
+          if (keyHeldDuration[keyName] % 2 === 0) {
             callback.apply(this, args);
           }
         }
-        this.keyboard.keyHeldDuration[keyName] += 1;
+        keyHeldDuration[keyName] += 1;
         return true;
       }
       return false;
     };
 
-    this.Update = function () {
-
-      // TODO: Refactor out all sprite callbacks into separate file. Instantiate update functions upon load.
+    this.Update = function Update() {
+      // TODO: Refactor out all sprite callbacks into separate file.
+      //       Instantiate update functions upon load.
       if (!this.isAlive) {
         return false;
       }
@@ -668,8 +668,8 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
 
           case 'ball':
             // TODO: Remove magic number.
-            if (this.game.gameTimer % 8 != 0) {
-              return;
+            if (this.game.gameTimer % 8 !== 0) {
+              return false;
             }
 
             if (!this.canMove()) {
@@ -682,8 +682,8 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
 
           case 'nascar':
             // TODO: Remove magic number.
-            if (this.game.gameTimer % 8 != 0) {
-              return;
+            if (this.game.gameTimer % 8 !== 0) {
+              return false;
             }
 
             if (!this.canMove()) {
@@ -695,8 +695,8 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
 
           case 'britishNascar':
             // TODO: Remove magic number.
-            if (this.game.gameTimer % 8 != 0) {
-              return;
+            if (this.game.gameTimer % 8 !== 0) {
+              return false;
             }
 
             if (!this.canMove()) {
@@ -707,19 +707,22 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
             break;
 
           case 'gronpree':
-            // Gronpree:
-            // Move forward until hit obstacle.
+            /* Gronpree:
+            Move forward until hit obstacle.
 
-            // In event of obstacle:
-            // Try turning clockwise, then counter clockwise, then going in reverse.
+            In event of obstacle:
+            Try turning clockwise, then counter clockwise, then going in reverse.
 
-            // In event of next obstacle:
-            // Try turning counterclockwise, then clockwise, then going in reverse.
+            In event of next obstacle:
+            Try turning counterclockwise, then clockwise, then going in reverse.
 
-            // Switch back and forth between counterclockwise and clockwise preference on every obstacle encountered.
-            // TODO: Remove magic number.
-            if (this.game.gameTimer % 8 != 0) {
-              return;
+            Switch back and forth between counterclockwise
+              and clockwise preference on every obstacle encountered.
+
+            TODO: Remove magic number.
+            */
+            if (this.game.gameTimer % 8 !== 0) {
+              return false;
             }
 
             if (!this.canMove()) {
@@ -754,7 +757,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
             // regardless of obstacles.
             // TODO: Remove magic number.
             if (this.game.gameTimer % 8 !== 0) {
-              return;
+              return false;
             }
 
             this.movePredator();
@@ -762,7 +765,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
 
           case 'smartPredator':
             if (this.game.gameTimer % this.speed !== 0) {
-              return;
+              return false;
             }
             this.movePredator();
             break;
@@ -866,7 +869,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       }
     };
 
-    this.movePredator = function () {
+    this.movePredator = function movePredator() {
       const xDist = Math.abs(this.position.x - this.player.position.x);
       const yDist = Math.abs(this.position.y - this.player.position.y);
 
@@ -902,7 +905,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
 
     // Crush check.
     // Only applies to player.
-    this.crushCheck = function () {
+    this.crushCheck = function crushCheck() {
       if (this.type === 'player' && !this.canMove(this.position)) {
         this.isDead = true;
         const message = Utility.array.getRandomElement(DeathMessages.crush);
@@ -910,7 +913,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       }
     };
 
-    this.registerHit = function (s) {
+    this.registerHit = function registerHit(s) {
       const sprite = s;
       if (!this.isAlive) {
         return false;
@@ -1082,20 +1085,27 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       return false;
     };
 
-    this.Draw = function () {
+    this.Draw = function drawSprite() {
+      const ctx = this.draw.ctx;
+
       if (!this.isAlive) {
         return false;
       }
       let sign = 1;
 
       if (this.type === 'player') {
-        this.draw.ctx.save();
-        this.draw.ctx.translate(this.position.x * this.baseUnit + this.halfBaseUnit + this.stage.drawOffset.x, this.position.y * this.baseUnit + this.halfBaseUnit + this.stage.drawOffset.y);
-        this.draw.ctx.rotate(Utility.math.toRadians(this.rotation));
+        ctx.save();
+        const offsetX = this.halfBaseUnit + this.stage.drawOffset.x;
+        const offsetY = this.halfBaseUnit + this.stage.drawOffset.y;
+        ctx.translate(
+          (this.position.x * this.baseUnit) + offsetX,
+          (this.position.y * this.baseUnit) + offsetY
+        );
+        ctx.rotate(Utility.math.toRadians(this.rotation));
         if (this.imageType === 'image') {
-          this.draw.ctx.drawImage(this.image, -this.halfBaseUnit, -this.halfBaseUnit);
+          ctx.drawImage(this.image, -this.halfBaseUnit, -this.halfBaseUnit);
         }
-        this.draw.ctx.restore();
+        ctx.restore();
       } else if (this.type === 'enemy' || this.type === 'item' || this.type === 'tool') {
         let tileNumber = this.tileGraphic;
 
@@ -1105,7 +1115,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         }
         if (this.subType === 'teleporter') {
           // Teleporter animation.
-          tileNumber += Math.floor(this.game.gameTimer % 9 / 3);
+          tileNumber += Math.floor((this.game.gameTimer % 9) / 3);
         } else if (this.game.brownSwitch && this.subType === 'switch') {
           // Draw switch toggling.
           if (this.color === 'brown') {
@@ -1123,14 +1133,17 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
         const coords = this.position;
 
         if (this.subType === 'player2') {
-          this.draw.ctx.save();
+          ctx.save();
+          const translateX = (this.position.x * this.baseUnit)
+            + this.halfBaseUnit + this.stage.drawOffset.x;
+          const translateY = (this.position.y * this.baseUnit)
+            + this.halfBaseUnit + this.stage.drawOffset.y;
+          ctx.translate(translateX, translateY);
+          ctx.rotate(Utility.math.toRadians(this.rotation));
 
-          this.draw.ctx.translate(this.position.x * this.baseUnit + this.halfBaseUnit + this.stage.drawOffset.x, this.position.y * this.baseUnit + this.halfBaseUnit + this.stage.drawOffset.y);
-          this.draw.ctx.rotate(Utility.math.toRadians(this.rotation));
+          ctx.drawImage(this.player.image, -this.halfBaseUnit, -this.halfBaseUnit);
 
-          this.draw.ctx.drawImage(this.player.image, -this.halfBaseUnit, -this.halfBaseUnit);
-
-          this.draw.ctx.restore();
+          ctx.restore();
         } else {
           this.draw.drawTileOffset(tileNumber, coords, sign);
         }
@@ -1138,7 +1151,7 @@ define('Sprite', ['./DeathMessages', './TileCodes', './Coordinates', './Keyboard
       return false;
     };
 
-    this.destroy = function () {
+    this.destroy = function destroy() {
       let pool = null;
       switch (this.type) {
 
