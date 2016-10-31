@@ -1,8 +1,28 @@
 const $ = require('jquery');
 
 define('JakesJourney',
-  ['./Constants', './DeathMessages', './TileCodes', './Coordinates', './Sprite', './Keyboard', './Utility', './ObscurelyNamedFile', './Draw', './Hud', './Credits'],
-  (Constants, DeathMessages, TileCodes, Coordinates, Sprite, Keyboard, Utility, ObscurelyNamedFile, Draw, Hud, Credits) => {
+  ['./Constants',
+    './DeathMessages',
+    './TileCodes',
+    './Coordinates',
+    './Sprite',
+    './Keyboard',
+    './Utility',
+    './ObscurelyNamedFile',
+    './Draw',
+    './Hud',
+    './Credits'],
+  (Constants,
+    DeathMessages,
+    TileCodes,
+    Coordinates,
+    Sprite,
+    Keyboard,
+    Utility,
+    ObscurelyNamedFile,
+    Draw,
+    Hud,
+    Credits) => {
     const $j = $.noConflict();
 
     let player;
@@ -11,8 +31,8 @@ define('JakesJourney',
     let stage;
     let passwordHandler;
     let bypass;
-    let draw;
-    this.draw = null;
+    let globalDraw;
+    this.globalDraw = null;
 
     const StageObject = function StageObject() {
       this.isOffset = true;
@@ -183,7 +203,7 @@ define('JakesJourney',
             if (game.iDataArray !== null) {
               for (let i = 0; i < game.iDataArray.objects.length; i += 1) {
                 const iData = game.iDataArray.objects[i];
-                const item = new Sprite.Sprite(game, stage, null, this.draw, null, player);
+                const item = new Sprite.Sprite(game, stage, null, this.globalDraw, null, player);
 
                 item.tileGraphic = iData.gid;
                 item.spriteID = `item ${i}`;
@@ -230,7 +250,7 @@ define('JakesJourney',
             if (game.eDataArray !== null) {
               for (let i = 0; i < game.eDataArray.objects.length; i += 1) {
                 const eData = game.eDataArray.objects[i];
-                const enemy = new Sprite.Sprite(game, stage, null, this.draw, null, player);
+                const enemy = new Sprite.Sprite(game, stage, null, this.globalDraw, null, player);
 
                 enemy.tileGraphic = eData.gid;
                 enemy.spriteID = `enemy ${i}`;
@@ -270,7 +290,7 @@ define('JakesJourney',
             if (game.tDataArray !== null) {
               for (let i = 0; i < game.tDataArray.objects.length; i += 1) {
                 const tData = game.tDataArray.objects[i];
-                const tool = new Sprite.Sprite(game, stage, null, this.draw, null, player);
+                const tool = new Sprite.Sprite(game, stage, null, this.globalDraw, null, player);
 
                 tool.tileGraphic = tData.gid;
                 tool.spriteID = `tool ${i}`;
@@ -366,7 +386,7 @@ define('JakesJourney',
       };
 
       this.hud = null;
-      this.credits = new Credits(this, stage);
+      this.credits = null;
 
       this.iDataArray = null;
       this.items = null;
@@ -483,22 +503,23 @@ define('JakesJourney',
       game.assets.devgraphics = document.getElementById('devgraphics');
       game.assets.dungeon = document.getElementById('dungeon');
       game.assets.gridLineCoordinates = generateGridLines();
-      draw = this.draw = new Draw(game, stage, null);
+      globalDraw = this.globalDraw = new Draw(game, stage, null);
 
 
       const keyboard = new Keyboard();
       keyboard.settings.exclusions = ['F5', 'F11', 'F12', 'Control'];
       keyboard.wireUp(document);
 
-      player = new Sprite.Sprite(game, stage, keyboard, this.draw, passwordHandler, null);
+      player = new Sprite.Sprite(game, stage, keyboard, this.globalDraw, passwordHandler, null);
       player.imageType = 'image';
       player.image = game.assets.face;
       player.type = 'player';
       player.player = player;
 
-      this.draw.player = player;
+      this.globalDraw.player = player;
 
-      game.hud = new Hud(game, stage, player, draw);
+      game.hud = new Hud(game, stage, player, globalDraw);
+      game.credits = new Credits(this, stage, this.globalDraw);
 
       return true;
     }
@@ -648,7 +669,7 @@ define('JakesJourney',
         update();
         checkCollision();
       }
-      this.draw.beginDraw();
+      this.globalDraw.beginDraw();
     }
     function run(bypassTouchscreen = false) {
       if (gameInterval !== null) {

@@ -1,7 +1,7 @@
-define('Credits', ['./Constants', './CreditsText'], (Constants, CreditsText) => function Credits(game, stage, draw) {
+define('Credits', ['./Constants', './CreditsText'], (Constants, CreditsText) => function Credits(game, stage, globalDraw) {
   this.game = game;
   this.stage = stage;
-  this.draw = draw;
+  this.globalDraw = globalDraw;
   this.creditsArray = [
     // new CreditsText('Jake's Journey', '255,255,255', '28px sans-serif', 0, 4000, 4000, 70),
     new CreditsText('Created by Jacob King', '220,220,230', '24px sans-serif', 0, 4000, 4500, 120),
@@ -87,24 +87,25 @@ define('Credits', ['./Constants', './CreditsText'], (Constants, CreditsText) => 
     } // this.sequence >= 1;
   };
 
-  this.Draw = function Draw() {
+  this.draw = function draw() {
+    const ctx = this.globalDraw.ctx;
     if (game.mode === Constants.gameModes.credits) {
-      this.draw.ctx.save();
+      ctx.save();
 
       // Draw black bg.
       if (this.sequence >= 0) {
-        this.draw.ctx.fillStyle = `rgba(0,0,0, ${this.fadeOut})`;
-        this.draw.ctx.fillRect(0, 0, stage.width, stage.height);
+        ctx.fillStyle = `rgba(0,0,0, ${this.fadeOut})`;
+        ctx.fillRect(0, 0, stage.width, stage.height);
       }
       if (this.sequence >= 1) {
         for (let i = 0; i < this.creditsArray.length; i += 1) {
           const cred = this.creditsArray[i];
-          this.draw.ctx.fillStyle = `rgba(${cred.color}, ${cred.alpha})`;
-          this.draw.ctx.font = cred.font;
-          this.draw.ctx.centerText(cred.text, 0, stage.width, cred.y);
+          ctx.fillStyle = `rgba(${cred.color}, ${cred.alpha})`;
+          ctx.font = cred.font;
+          ctx.centerText(cred.text, 0, stage.width, cred.y);
         }
       }
-      this.draw.ctx.restore();
+      ctx.restore();
     }
   };
 }

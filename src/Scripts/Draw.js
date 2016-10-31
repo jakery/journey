@@ -1,5 +1,5 @@
-define('Draw', ['./Coordinates', './TileCodes'], (Coordinates, TileCodes) => {
-  const Draw = function (game, stage, player) {
+define('Draw', ['./Constants', './Coordinates', './TileCodes'], (Constants, Coordinates, TileCodes) => {
+  const Draw = function Draw(game, stage, player) {
     this.game = game;
     this.stage = stage;
     this.player = player;
@@ -13,17 +13,26 @@ define('Draw', ['./Coordinates', './TileCodes'], (Coordinates, TileCodes) => {
     this.ctx.textBaseline = 'top';
 
     this.tileIsInDrawBounds = function tileIsInDrawBounds(coords) {
-      return !(coords.x < 0 || coords.x > this.stage.playboxWidth || coords.y < 0 || coords.y > this.stage.playboxHeight);
+      return !(coords.x < 0 ||
+        coords.x > this.stage.playboxWidth ||
+        coords.y < 0 ||
+        coords.y > this.stage.playboxHeight
+      );
     };
 
+    // TODO: Refactor this as an object.
     this.getTileCoordsFromImage = function getTileCoordsFromImage(tileNumber, sign = 1) {
       const tileIndex = tileNumber - 1;
-      const sx = ((tileIndex + (game.corruption * sign)) % game.map.tilesets[0].indexWidth) * 32;
-      const sy = (Math.floor((tileIndex + (game.corruption * sign)) / game.map.tilesets[0].indexWidth)) * 32;
-      const swidth = 32;
-      const sheight = 32;
+      const tileX = ((tileIndex + (game.corruption * sign))
+        % game.map.tilesets[0].indexWidth)
+        * Constants.baseUnit;
+      const tileY = (Math.floor((tileIndex + (game.corruption * sign)) /
+        game.map.tilesets[0].indexWidth))
+        * Constants.baseUnit;
+      const tileWidth = Constants.baseUnit;
+      const tileHeight = Constants.baseUnit;
 
-      return { sx, sy, swidth, sheight };
+      return { tileX, tileY, tileWidth, tileHeight };
     };
 
     this.drawTileAbsolute = function drawTileAbsolute(tileNumber, coords, sign = 1) {
@@ -31,8 +40,18 @@ define('Draw', ['./Coordinates', './TileCodes'], (Coordinates, TileCodes) => {
       if (tileNumber < 1) {
         return;
       }
-      const t = this.getTileCoordsFromImage(tileNumber, sign); // TODO: This is compeltely cacheable.
-      this.ctx.drawImage(this.game.assets[game.map.parameters.tileset], t.sx, t.sy, t.swidth, t.sheight, coords.x, coords.y, 32, 32);
+      // TODO: This is compeltely cacheable.
+      const t = this.getTileCoordsFromImage(tileNumber, sign);
+      this.ctx.drawImage(
+        this.game.assets[game.map.parameters.tileset],
+        t.tileX,
+        t.tileY,
+        t.tileWidth,
+        t.tileHeight,
+        coords.x,
+        coords.y,
+        Constants.baseUnit,
+        Constants.baseUnit);
     };
 
     this.drawTilex = function drawTilex(tileNumber, c, sign = 1) {
@@ -53,9 +72,7 @@ define('Draw', ['./Coordinates', './TileCodes'], (Coordinates, TileCodes) => {
 
         if (coords.y < 0) {
           coords.y += this.game.map.pixelHeight;
-        }
-
-        else if (coords.y > this.stage.playboxHeight - 32) {
+        } else if (coords.y > this.stage.playboxHeight - 32) {
           coords.y -= this.game.map.pixelHeight;
         }
       }
@@ -84,8 +101,8 @@ define('Draw', ['./Coordinates', './TileCodes'], (Coordinates, TileCodes) => {
 
     this.getTileDrawOffsetCoords = function getTileDrawOffsetCoords(coords) {
       const drawC = new Coordinates();
-      drawC.x = (coords.x) * 32 + this.stage.drawOffset.x;
-      drawC.y = (coords.y) * 32 + this.stage.drawOffset.y;
+      drawC.x = (coords.x * Constants.baseUnit) + this.stage.drawOffset.x;
+      drawC.y = (coords.y * Constants.baseUnit) + this.stage.drawOffset.y;
       return drawC;
     };
 
@@ -115,7 +132,8 @@ define('Draw', ['./Coordinates', './TileCodes'], (Coordinates, TileCodes) => {
 
       // Draw map.
 
-      // To prevent slowdown on larger maps, only loop through relevant portions of map relative to player position.
+      // To prevent slowdown on larger maps,
+      //    only loop through relevant portions of map relative to player position.
 
       let minY = 0;
       let maxY = this.game.map.layers[0].data.length;
@@ -132,7 +150,8 @@ define('Draw', ['./Coordinates', './TileCodes'], (Coordinates, TileCodes) => {
         const coords = this.game.map.getCoordsByTileIndex(i); // TODO: Is this cacheable?
         const tileOffsetCoords = this.getTileDrawOffsetCoords(coords);
 
-        // TODO: Refactor this check to be outside the for loop; reconstruct for loop based on starting position.
+        // TODO: Refactor this check to be outside the for loop;
+        //    reconstruct for loop based on starting position.
         // Don't process tiles that are out of bounds of the draw screen.
         if (!this.tileIsInDrawBounds(tileOffsetCoords) && this.game.map.parameters.wrapAround !== 'true') {
           continue;
@@ -209,7 +228,7 @@ define('Draw', ['./Coordinates', './TileCodes'], (Coordinates, TileCodes) => {
           // Don't draw hidden switches when out of debug mode.
           case TileCodes.hiddenSwitch:
             if (!this.game.debug) {
-              continue;
+              tileNumber = TileCodes.nothing;
             }
             break;
           default: break;
@@ -220,31 +239,31 @@ define('Draw', ['./Coordinates', './TileCodes'], (Coordinates, TileCodes) => {
 
       // Draw items.
       for (let i = 0; i < this.game.items.length; i += 1) {
-        this.game.items[i].Draw();
+        this.game.items[i].draw();
       }
 
       // Draw tools.
       for (let i = 0; i < this.game.tools.length; i += 1) {
-        this.game.tools[i].Draw();
+        this.game.tools[i].draw();
       }
 
       // Draw player.
 
       if (!this.game.atExit) {
-        this.player.Draw();
+        this.player.draw();
       }
 
       // Draw enemies.
       for (let i = 0; i < this.game.enemies.length; i += 1) {
-        this.game.enemies[i].Draw();
+        this.game.enemies[i].draw();
       }
 
-      this.game.hud.Draw();
+      this.game.hud.draw();
 
-      this.game.credits.Draw();
+      this.game.credits.draw();
     };
 
-    this.drawTileOffset = function (tileNumber, coords, sign) {
+    this.drawTileOffset = function drawTileOffset(tileNumber, coords, sign) {
       // Tile number isn't valid. Probably a blank square on the map. Ignore.
       if (tileNumber < 1) {
         return;

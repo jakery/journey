@@ -1,11 +1,11 @@
 define('Hud', ['./Constants', './Coordinates'], (_constants, Coordinates) => {
   // TODO: Refactor as class.
-  const Hud = function gameHudClass(game, stage, player, draw) {
+  const Hud = function gameHudClass(game, stage, player, globalDraw) {
     this.game = game;
     this.stage = stage;
     this.player = player;
     if (!this.player) throw new Error('no player');
-    this.draw = draw;
+    this.globalDraw = globalDraw;
 
     this.backgroundColor = '';
     this.textColor = '';
@@ -13,8 +13,8 @@ define('Hud', ['./Constants', './Coordinates'], (_constants, Coordinates) => {
     this.messageBox.backgroundColor = '';
     this.messageBox.textColor = '';
 
-    this.Draw = function Draw() {
-      const ctx = this.draw.ctx;
+    this.draw = function draw() {
+      const ctx = this.globalDraw.ctx;
       if (game.map.parameters.tileset === 'dungeon') {
         this.backgroundColor = 'rgb(50,20,10)';
         this.textColor = 'rgb(225,225,185)';
@@ -43,26 +43,26 @@ define('Hud', ['./Constants', './Coordinates'], (_constants, Coordinates) => {
     };
 
     this.drawTitle = function drawTitle() {
-      const ctx = this.draw.ctx;
+      const ctx = this.globalDraw.ctx;
       ctx.save();
       ctx.font = '28px sans-serif';
 
       ctx.fillText('Jake\'s Journey', 500, 20);
 
       ctx.font = '20px sans-serif';
-      this.draw.drawWrappedText('Press ENTER to begin.\nPress X to enter password.', 500, 80, 270, 30);
+      this.globalDraw.drawWrappedText('Press ENTER to begin.\nPress X to enter password.', 500, 80, 270, 30);
       ctx.restore();
     };
 
     this.drawPassword = function drawPassword() {
-      const ctx = this.draw.ctx;
+      const ctx = this.globalDraw.ctx;
       ctx.save();
       ctx.font = '28px sans-serif';
       ctx.fillStyle = this.textColor;
-      this.draw.drawWrappedText('Jake\'s Journey', 500, 20, 270, 40);
+      this.globalDraw.drawWrappedText('Jake\'s Journey', 500, 20, 270, 40);
 
       ctx.font = '24px sans-serif';
-      this.draw.drawWrappedText('Enter Password.', 500, 60, 270, 40);
+      this.globalDraw.drawWrappedText('Enter Password.', 500, 60, 270, 40);
 
       // Text box.
       ctx.fillStyle = 'white';
@@ -84,13 +84,13 @@ define('Hud', ['./Constants', './Coordinates'], (_constants, Coordinates) => {
         ctx.restore();
       }
 
-      this.draw.drawWrappedText('Press ENTER to submit.\nPress ESC to return to title.', 500, 160, 270, 30);
+      this.globalDraw.drawWrappedText('Press ENTER to submit.\nPress ESC to return to title.', 500, 160, 270, 30);
 
       ctx.restore();
     };
 
     this.drawNormalHud = function drawNormalHud() {
-      const ctx = this.draw.ctx;
+      const ctx = this.globalDraw.ctx;
       let drawLevel = game.level;
       if (drawLevel === 54) {
         drawLevel = 27;
@@ -119,10 +119,10 @@ define('Hud', ['./Constants', './Coordinates'], (_constants, Coordinates) => {
         const xBase = new Coordinates(495 + (i * interval));
         if (i < player.inventory.money) {
           // Collected money:
-          this.draw.drawTileAbsolute(_constants.tileCodes.coin, xBase, 80);
+          this.globalDraw.drawTileAbsolute(_constants.tileCodes.coin, xBase, 80);
         } else {
           // Uncollected money:
-          this.draw.drawTileAbsolute(_constants.tileCodes.coinUncollected, xBase, 80);
+          this.globalDraw.drawTileAbsolute(_constants.tileCodes.coinUncollected, xBase, 80);
         }
       }
 
@@ -139,28 +139,28 @@ define('Hud', ['./Constants', './Coordinates'], (_constants, Coordinates) => {
 
       // Draw yellow key inventory.
       for (let i = 0; i < player.inventory.yellowKeys; i += 1) {
-        this.draw.drawTileAbsolute(_constants.tileCodes.yellowKey,
+        this.globalDraw.drawTileAbsolute(_constants.tileCodes.yellowKey,
           new Coordinates(500 + (keyDrawIndex * keyInterval), 110));
         keyDrawIndex += 1;
       }
 
       // Draw red key inventory.
       for (let i = 0; i < player.inventory.redKeys; i += 1) {
-        this.draw.drawTileAbsolute(_constants.tileCodes.redKey,
+        this.globalDraw.drawTileAbsolute(_constants.tileCodes.redKey,
           new Coordinates(500 + (keyDrawIndex * keyInterval), 110));
         keyDrawIndex += 1;
       }
 
       // Draw cyan key inventory.
       for (let i = 0; i < player.inventory.cyanKeys; i += 1) {
-        this.draw.drawTileAbsolute(_constants.tileCodes.cyanKey,
+        this.globalDraw.drawTileAbsolute(_constants.tileCodes.cyanKey,
           new Coordinates(500 + (keyDrawIndex * keyInterval), 110));
         keyDrawIndex += 1;
       }
 
       // Draw green key inventory.
       for (let i = 0; i < player.inventory.greenKeys; i += 1) {
-        this.draw.drawTileAbsolute(
+        this.globalDraw.drawTileAbsolute(
           _constants.tileCodes.greenKey,
           new Coordinates(500 + (keyDrawIndex * keyInterval), 110)
         );
@@ -174,7 +174,7 @@ define('Hud', ['./Constants', './Coordinates'], (_constants, Coordinates) => {
         ctx.font = '12px sans-serif';
         ctx.fillRect(500, 160, 280, 200);
         ctx.fillStyle = this.messageBox.textColor;
-        this.draw.drawWrappedText(game.messageText, 510, 170, 270, 18);
+        this.globalDraw.drawWrappedText(game.messageText, 510, 170, 270, 18);
         ctx.restore();
       }
 
@@ -199,7 +199,7 @@ define('Hud', ['./Constants', './Coordinates'], (_constants, Coordinates) => {
         ctx.save();
         ctx.fillStyle = 'red';
         ctx.font = '20px sans-serif';
-        this.draw.drawWrappedText('PAUSED.\n\nPress P to resume.\nPress Enter to restart level.', 26, 26, 270, 22);
+        this.globalDraw.drawWrappedText('PAUSED.\n\nPress P to resume.\nPress Enter to restart level.', 26, 26, 270, 22);
         ctx.restore();
 
         ctx.restore();

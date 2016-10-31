@@ -1,4 +1,6 @@
 define('TileCodes', [], {
+  nothing: 0,
+
   floor: 1,
   wall: 2,
   yellowDoor: 3,

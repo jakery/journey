@@ -13,13 +13,13 @@ define(
 
       Sprite: null,
     };
-    SpriteNS.Sprite = function Sprite(game, stage, keyboard, draw, pwh, player) {
+    SpriteNS.Sprite = function Sprite(game, stage, keyboard, globalDraw, pwh, player) {
       this.clipping = true;
       this.movementAnimationSettings = { easing: 'linear', duration: 200 };
       this.game = game;
       this.stage = stage;
       this.keyboard = keyboard;
-      this.draw = new Draw(game, stage, null, null);
+      this.globalDraw = new Draw(game, stage, null, null);
       this.passwordHandler = pwh || null;
       this.player = player;
 
@@ -652,7 +652,7 @@ define(
         return false;
       };
 
-      this.Update = function Update() {
+      this.update = function update() {
         // TODO: Refactor out all sprite callbacks into separate file.
         //       Instantiate update functions upon load.
         if (!this.isAlive) {
@@ -874,6 +874,7 @@ define(
               break;
           } // switch(this.subType)
         }
+        return true;
       };
 
       this.movePredator = function movePredator() {
@@ -1092,8 +1093,8 @@ define(
         return false;
       };
 
-      this.Draw = function drawSprite() {
-        const ctx = this.draw.ctx;
+      this.draw = function drawSprite() {
+        const ctx = this.globalDraw.ctx;
 
         if (!this.isAlive) {
           return false;
@@ -1152,7 +1153,7 @@ define(
 
             ctx.restore();
           } else {
-            this.draw.drawTileOffset(tileNumber, coords, sign);
+            this.globalDraw.drawTileOffset(tileNumber, coords, sign);
           }
         }
         return false;
@@ -1178,7 +1179,7 @@ define(
           default:
             break;
         }
-        pool.remove(Utility.array.findByProperty(pool, 'spriteID', this.spriteID));
+        Utility.array.removeBySpriteId(pool, this.spriteID);
       };
     };
 
