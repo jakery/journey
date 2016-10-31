@@ -29,7 +29,7 @@ define('Credits', ['./Constants', './CreditsText'], (Constants, CreditsText) => 
   };
 
   this.doFadeOut = function doFadeOut() {
-    if (this.sequence === 0) {
+    if (!this.sequence) {
       // Fadeout sequence.
       if (this.fadeOut < 1) {
         this.fadeOut += 0.005;

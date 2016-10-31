@@ -425,7 +425,7 @@ define('JakesJourney',
         let message = m;
         this.deathCount += 1;
         this.showMessage = true;
-        if (this.deathCount % 10 === 0) {
+        if (!(this.deathCount % 10)) {
           message = Utility.array.getRandomElement(DeathMessages.miscDeath);
         }
         this.messageText = `${message}\n\nPress enter to restart.`;
@@ -554,7 +554,7 @@ define('JakesJourney',
 
       game.gameTimer += 1;
 
-      if (game.gameTimer % 50 === 0) {
+      if (!(game.gameTimer % 50)) {
         if (game.clock > -1) {
           game.clock -= 1;
         }
@@ -632,7 +632,7 @@ define('JakesJourney',
         }
       }
 
-      if (game.clock === 0) {
+      if (!game.clock) {
         player.isDead = true;
         const message = Utility.array.getRandomElement(DeathMessages.time);
         game.setDeadMessage(message);

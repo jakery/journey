@@ -48,9 +48,9 @@ define('Utility', [], () => {
       };
 
       // Convert currency string to integer.
-      this.parseIntCurrency = function parseIntCurrency(radix) {
+      this.parseIntCurrency = function parseIntCurrency(radix = 10) {
         // Default to Base-10.
-        return parseInt(this.replace(currencyPattern, ''), radix || 10);
+        return parseInt(this.replace(currencyPattern, ''), radix);
       };
 
       // Convert number to formatted currency string.
@@ -140,7 +140,7 @@ define('Utility', [], () => {
           }
         }
 
-        if (outputArray.length === 0 && !safe) {
+        if (!outputArray.length && !safe) {
           throw new Error(`Couldn't find any objects with property "${propertyName}" having a value of "${value}".`);
         }
         return outputArray;

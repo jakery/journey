@@ -168,7 +168,7 @@ define('Keyboard', [], () => function Keyboard() {
     let offset = o;
     offset %= this.alphanumeric.length;
 
-    if (offset === 0) {
+    if (!offset) {
       return this;
     }
 
@@ -206,6 +206,7 @@ define('Keyboard', [], () => function Keyboard() {
   // Adapted from Konami Code plugin by Joel Sutherland. http://www.gethifi.com/blog/konami-code-jquery-plugin-pointlessly-easy
   this.konami = '38,38,40,40,37,39,37,39,66,65';
   this.keyLog = [];
+  this.keyLog.maxLength = 10;
   this.konamiCode = function konamiCode() {
     return (this.keyLog.toString() === this.konami);
   };
@@ -223,7 +224,7 @@ define('Keyboard', [], () => function Keyboard() {
     htmlElement.onkeydown = ((event) => {
       const code = event.which || event.keyCode;
       this.keyLog.push(code);
-      while (this.keyLog.length > 10) {
+      while (this.keyLog.length > this.keyLog.maxLength) {
         this.keyLog.shift();
       }
       const key = this.getKeyByCode(code);

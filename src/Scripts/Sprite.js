@@ -14,6 +14,7 @@ define(
       Sprite: null,
     };
     SpriteNS.Sprite = function Sprite(game, stage, keyboard, globalDraw, pwh, player) {
+
       this.clipping = true;
       this.movementAnimationSettings = { easing: 'linear', duration: 200 };
       this.game = game;
@@ -43,6 +44,7 @@ define(
       this.image = null;
       this.tileGraphic = null;
       this.speed = null;
+      this.defaultSpeedModulus = 8;
 
       this.callback = null;
       this.destroyOnUse = false;
@@ -626,7 +628,7 @@ define(
               if (this.ticks > 20) {
                 this.autoMove = true;
                 // TODO: Remove magic number.
-                if (this.game.gameTimer % 6 !== 0) {
+                if (this.game.gameTimer % 6) {
                   return;
                 }
                 this.turn(Constants.directions.right);
@@ -640,9 +642,9 @@ define(
       this.executeInput = function executeInput(keyName, repeatDelay, callback, args) {
         const keyHeldDuration = this.keyboard.keyHeldDuration;
         if (this.keyboard.keyIsDown[keyName]) {
-          if (keyHeldDuration[keyName] === 0 || keyHeldDuration[keyName] > repeatDelay) {
+          if (!keyHeldDuration[keyName] || keyHeldDuration[keyName] > repeatDelay) {
             // TODO: Remove magic number.
-            if (keyHeldDuration[keyName] % 2 === 0) {
+            if (!(keyHeldDuration[keyName] % 2)) {
               callback.apply(this, args);
             }
           }
@@ -670,12 +672,12 @@ define(
           }
         }
         if (this.type === 'enemy') {
+          let speedModulus = 8;
           // Enemy movement patterns.
           switch (this.subType) {
 
             case 'ball':
-              // TODO: Remove magic number.
-              if (this.game.gameTimer % 8 !== 0) {
+              if (this.game.gameTimer % speedModulus) {
                 return false;
               }
 
@@ -688,8 +690,7 @@ define(
               break;
 
             case 'nascar':
-              // TODO: Remove magic number.
-              if (this.game.gameTimer % 8 !== 0) {
+              if (this.game.gameTimer % speedModulus) {
                 return false;
               }
 
@@ -701,8 +702,7 @@ define(
               break;
 
             case 'britishNascar':
-              // TODO: Remove magic number.
-              if (this.game.gameTimer % 8 !== 0) {
+              if (this.game.gameTimer % speedModulus) {
                 return false;
               }
 
@@ -726,9 +726,8 @@ define(
               Switch back and forth between counterclockwise
                 and clockwise preference on every obstacle encountered.
 
-              TODO: Remove magic number.
               */
-              if (this.game.gameTimer % 8 !== 0) {
+              if (this.game.gameTimer % speedModulus) {
                 return false;
               }
 
@@ -762,8 +761,7 @@ define(
             case 'predator':
               // Try to close distance to player by means of an absolute direct path,
               // regardless of obstacles.
-              // TODO: Remove magic number.
-              if (this.game.gameTimer % 8 !== 0) {
+              if (this.game.gameTimer % speedModulus) {
                 return false;
               }
 
@@ -771,15 +769,14 @@ define(
               break;
 
             case 'smartPredator':
-              if (this.game.gameTimer % this.speed !== 0) {
+              if (this.game.gameTimer % this.speed) {
                 return false;
               }
               this.movePredator();
               break;
 
             case 'berzerker':
-              // TODO: Remove magic number.
-              if (this.game.gameTimer % 8 !== 0) {
+              if (this.game.gameTimer % speedModulus) {
                 return false;
               }
 
@@ -806,16 +803,18 @@ define(
 
             case 'player2':
               if (this.startCountup) {
+                const tickDelay = 20;
+                speedModulus = 4;
                 this.ticks += 1;
 
                 // 20-tick delay.
-                if (this.ticks > 20) {
+                if (this.ticks > tickDelay) {
                   this.autoMove = true;
                   if (!this.autoMove) {
                     break;
                   }
 
-                  if (this.game.gameTimer % 4 !== 0) {
+                  if (this.game.gameTimer % speedModulus) {
                     return false;
                   }
 
@@ -824,42 +823,44 @@ define(
                 }
               }
               // TODO: Refactor The End into its own class.
+              // TODO: This is magic number hell. Figure out how to replace
+              //   this with a proper custom-movement system.
               if (this.startTheEnd) {
                 this.ticks += 1;
 
                 if (this.position.y === 9 && this.position.x > 5) {
                   this.player.rotation = 0;
-                  if (this.game.gameTimer % 40 !== 0) {
+                  if (this.game.gameTimer % 40) {
                     return false;
                   }
                   this.turn(Constants.directions.left);
                   this.goForward();
                 } else if (this.position.y === 9 && this.position.x > 4) {
-                  if (this.game.gameTimer % 200 !== 0) {
+                  if (this.game.gameTimer % 200) {
                     return false;
                   }
                   this.turn(Constants.directions.left);
                   this.goForward();
                 } else if (this.position.y === 9 && this.position.x > 3) {
-                  if (this.game.gameTimer % 100 !== 0) {
+                  if (this.game.gameTimer % 100) {
                     return false;
                   }
                   this.turn(Constants.directions.left);
                   this.goForward();
                 } else if (this.position.y > 6) {
-                  if (this.game.gameTimer % 40 !== 0) {
+                  if (this.game.gameTimer % 40) {
                     return false;
                   }
                   this.turn(Constants.directions.up);
                   this.goForward();
                 } else if (this.position.x < 4) {
-                  if (this.game.gameTimer % 40 !== 0) {
+                  if (this.game.gameTimer % 40) {
                     return false;
                   }
                   this.turn(Constants.directions.right);
                   this.goForward();
                 } else if (this.position.x < 5) {
-                  if (this.game.gameTimer % 100 !== 0) {
+                  if (this.game.gameTimer % 100) {
                     return false;
                   }
                   this.turn(Constants.directions.right);
@@ -1123,7 +1124,9 @@ define(
           }
           if (this.subType === 'teleporter') {
             // Teleporter animation.
-            tileNumber += Math.floor((this.game.gameTimer % 9) / 3);
+            const speedModulus = 9;
+            const totalAnimationFrames = 3;
+            tileNumber += Math.floor((this.game.gameTimer % speedModulus) / totalAnimationFrames);
           } else if (this.game.brownSwitch && this.subType === 'switch') {
             // Draw switch toggling.
             if (this.color === 'brown') {

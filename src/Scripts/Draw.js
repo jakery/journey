@@ -4,7 +4,7 @@ define('Draw', ['./Constants', './Coordinates', './TileCodes'], (Constants, Coor
     this.stage = stage;
     this.player = player;
 
-    this.tilesAreCacheable = sign => this.game.corruption === 0 && sign === 1;
+    this.tilesAreCacheable = sign => !this.game.corruption && sign === 1;
 
     // Define default canvas parameters.
     this.ctx = this.stage.gameCanvas.getContext('2d');
