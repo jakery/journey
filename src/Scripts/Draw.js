@@ -12,6 +12,26 @@ define('Draw', ['./Constants', './Coordinates', './TileCodes'], (Constants, Coor
     this.ctx.font = '20px sans-serif';
     this.ctx.textBaseline = 'top';
 
+
+    this.generateGridLines = function generateGridLines() {
+      const gridLines = [];
+
+      for (let x = 0; x <= stage.width; x += Constants.baseUnit) {
+        const coord = [x + 0.5, 0.5, x + 0.5, stage.height + 0.5];
+        if (x === stage.width) {
+          coord[0] -= 1;
+          coord[2] -= 1;
+        }
+        gridLines.push(coord);
+      }
+      for (let y = 0; y <= stage.height; y += Constants.baseUnit) {
+        const coord = [0.5, y + 0.5, stage.width + 0.5, y + 0.5];
+        if (y === stage.height) coord[3] -= 1;
+        gridLines.push(coord);
+      }
+      return gridLines;
+    };
+
     this.tileIsInDrawBounds = function tileIsInDrawBounds(coords) {
       return !(coords.x < 0 ||
         coords.x > this.stage.playboxWidth ||
