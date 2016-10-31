@@ -1,5 +1,5 @@
-define('Coordinates', [], () => {
-  return function (px, py) {
+define('Coordinates', [], () => (
+  function Coordinates(px, py) {
     this.x = null;
     this.y = null;
     if (isFinite(px)) {
@@ -8,5 +8,5 @@ define('Coordinates', [], () => {
     if (isFinite(py)) {
       this.y = py;
     }
-  };
-});
+  }
+));
