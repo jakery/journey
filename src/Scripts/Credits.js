@@ -1,4 +1,4 @@
-define('Credits', ['./CreditsText'], CreditsText => function (game, stage, draw) {
+define('Credits', ['./Constants', './CreditsText'], (Constants, CreditsText) => function Credits(game, stage, draw) {
   this.game = game;
   this.stage = stage;
   this.draw = draw;
@@ -23,12 +23,12 @@ define('Credits', ['./CreditsText'], CreditsText => function (game, stage, draw)
 
   this.fadeOut = 0;
 
-  this.update = function () {
+  this.update = function update() {
     this.doFadeOut();
     this.fadeInCredits();
   };
 
-  this.doFadeOut = function () {
+  this.doFadeOut = function doFadeOut() {
     if (this.sequence === 0) {
       // Fadeout sequence.
       if (this.fadeOut < 1) {
@@ -41,7 +41,7 @@ define('Credits', ['./CreditsText'], CreditsText => function (game, stage, draw)
     }
   };
 
-  this.fadeInCredits = function () {
+  this.fadeInCredits = function fadeInCredits() {
     if (this.creditsFinished) {
       if (this.sequence === 1) {
         this.sequence += 1;
@@ -87,7 +87,7 @@ define('Credits', ['./CreditsText'], CreditsText => function (game, stage, draw)
     } // this.sequence >= 1;
   };
 
-  this.Draw = function () {
+  this.Draw = function Draw() {
     if (game.mode === Constants.gameModes.credits) {
       this.draw.ctx.save();
 
