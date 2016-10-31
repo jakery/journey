@@ -33,7 +33,7 @@ define('JakesJourney',
     let bypass;
     let globalDraw;
     this.globalDraw = null;
-
+    this.gameLoopInterval = 20;
     const StageObject = function StageObject() {
       this.isOffset = true;
 
@@ -119,6 +119,10 @@ define('JakesJourney',
       this.atExit = false;
       this.winMessage = null;
       this.theEnd = false;
+      this.corruptionSpeedupThreshold = 52;
+      this.maxCorruption = 58;
+
+      this.timerModulus = 50;
 
       this.loadMap = function loadMap(levelNumberArg) {
         let levelNumber = levelNumberArg;
@@ -554,7 +558,7 @@ define('JakesJourney',
 
       game.gameTimer += 1;
 
-      if (!(game.gameTimer % 50)) {
+      if (!(game.gameTimer % game.timerModulus)) {
         if (game.clock > -1) {
           game.clock -= 1;
         }
@@ -645,13 +649,13 @@ define('JakesJourney',
         // Permanent corruption.
         game.corruption += 1;
 
-        if (game.atExit && game.corruption < 52) {
+        if (game.atExit && game.corruption < this.game.corruptionSpeedupThreshold) {
           game.corruptionTimer = 10;
         } else {
           game.corruptionTimer = 50;
         }
 
-        if (game.corruption > 58) {
+        if (game.corruption > game.maxCorruption) {
           game.incrementCorruption = false;
           game.nextLevel();
         }
@@ -671,6 +675,7 @@ define('JakesJourney',
       }
       this.globalDraw.beginDraw();
     }
+
     function run(bypassTouchscreen = false) {
       if (gameInterval !== null) {
         window.clearInterval(gameInterval);
@@ -682,11 +687,11 @@ define('JakesJourney',
       game.nextLevel();
 
       // Game Loop.
-      gameInterval = setInterval(gameLoop, 20);
+      gameInterval = setInterval(gameLoop, this.gameLoopInterval);
     }
 
     bypass = function b(e) {
-      if (e.keyCode === 13) {
+      if (e.keyCode === Keyboard.keys.Enter) {
         $j(window).off('keydown', bypass);
         run(true);
       }
