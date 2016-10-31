@@ -664,7 +664,7 @@ define('JakesJourney',
       this.globalDraw.beginDraw();
     }
 
-    function run(bypassTouchscreen = false) {
+    this.run = function run(bypassTouchscreen = false) {
       if (gameInterval !== null) {
         window.clearInterval(gameInterval);
       }
@@ -676,16 +676,16 @@ define('JakesJourney',
 
       // Game Loop.
       gameInterval = setInterval(gameLoop, this.gameLoopInterval);
-    }
+    };
 
     bypass = function b(e) {
       if (e.keyCode === Keyboard.keys.Enter) {
         $j(window).off('keydown', bypass);
-        run(true);
+        this.run(true);
       }
     };
 
     $j(() => {
-      run(false);
+      this.run(false);
     });
   });
