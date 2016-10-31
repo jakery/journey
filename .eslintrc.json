@@ -4,7 +4,9 @@
         "standard",
         "promise"
     ],
-    "rules": {},
+    "rules": {
+        "no-magic-numbers":2
+    },
     "globals": {
         "define": false,
         "window": false,
