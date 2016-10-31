@@ -1,11 +1,10 @@
 const $ = require('jquery');
 
 define('JakesJourney',
-  ['./Constants','./DeathMessages', './TileCodes', './Coordinates', './Sprite', './Keyboard', './Utility', './ObscurelyNamedFile', './Draw', './Hud', './Credits'],
+  ['./Constants', './DeathMessages', './TileCodes', './Coordinates', './Sprite', './Keyboard', './Utility', './ObscurelyNamedFile', './Draw', './Hud', './Credits'],
   (Constants, DeathMessages, TileCodes, Coordinates, Sprite, Keyboard, Utility, ObscurelyNamedFile, Draw, Hud, Credits) => {
     const $j = $.noConflict();
 
-    let master;
     let player;
     let gameInterval = null;
     let game;
@@ -15,8 +14,7 @@ define('JakesJourney',
     let draw;
     this.draw = null;
 
-    const yOffset = 0;
-    const stageObject = function () {
+    const StageObject = function StageObject() {
       this.isOffset = true;
 
       this.gameCanvas = document.getElementById('gameCanvas');
@@ -37,18 +35,18 @@ define('JakesJourney',
       this.halfBoxWidthLess16 = null;
       this.halfBoxHeightLess16 = null;
       this.playboxTileCount = null;
-      this.init = function () {
+      this.init = function init() {
         this.width = $j(this.gameCanvas).width();
         this.height = $j(this.gameCanvas).height();
 
-        this.playboxWidth = this.playBlockWidth * 32;
-        this.playboxHeight = this.playBlockHeight * 32;
+        this.playboxWidth = this.playBlockWidth * Constants.baseUnit;
+        this.playboxHeight = this.playBlockHeight * Constants.baseUnit;
 
         this.halfBoxWidthLess16 = (this.playboxWidth / 2) - 16;
         this.halfBoxHeightLess16 = (this.playboxHeight / 2);
 
-        this.playboxTileWidth = this.playboxWidth / 32;
-        this.playboxTileHeight = this.playboxHeight / 32;
+        this.playboxTileWidth = this.playboxWidth / Constants.baseUnit;
+        this.playboxTileHeight = this.playboxHeight / Constants.baseUnit;
 
         this.playboxTileCount = this.playboxTileWidth * this.playboxTileHeight;
 
@@ -57,7 +55,7 @@ define('JakesJourney',
         this.hudHeight = this.height;
       };
 
-      this.getCoordsByTileIndex = function (i) {
+      this.getCoordsByTileIndex = function getCoordsByTileIndex(i) {
         return new Coordinates(
           i % this.playboxTileWidth,
           Math.floor(i / this.playboxTileWidth)
@@ -88,21 +86,22 @@ define('JakesJourney',
     }
 
     // TODO: Modularize this.
-    const gameObject = function () {
+    const GameObject = function GameObject() {
       this.debug = false;
       this.betaTest = true;
       this.gameTimer = -1;
       this.clock = -1;
       this.level = -1;
       this.nextLevelNumber = 0;
-      this.setLevelClock = function () {
+      this.setLevelClock = function setLevelClock() {
         this.clock = Math.floor(this.gameTimer / 50);
       };
       this.atExit = false;
       this.winMessage = null;
       this.theEnd = false;
 
-      this.loadMap = function loadMap(levelNumber) {
+      this.loadMap = function loadMap(levelNumberArg) {
+        let levelNumber = levelNumberArg;
         game.winMessage = null;
         game.isPaused = false;
         game.atExit = false;
@@ -123,6 +122,7 @@ define('JakesJourney',
             awesomeError({ attemptedFunction: 'loadMap (ajax)', errorCode: response.status });
           },
           success(response) {
+            // TODO: Refactor all of this into a "map" module.
             if (typeof (response) === 'string') {
               game.map = $j.parseJSON(response);
             } else {
@@ -131,33 +131,35 @@ define('JakesJourney',
 
             game.map.tileProperties = game.map.tilesets[0].tileproperties;
 
-            game.map.getTileIndexByCoords = function (x, y) {
-              return y * this.width + x;
+            game.map.getTileIndexByCoords = function getTileIndexByCoords(x, y) {
+              return (y * this.width) + x;
             };
 
-            game.map.getTileTypeByCoords = function (x, y) {
+            game.map.getTileTypeByCoords = function getTileTypeByCoords(x, y) {
               const arrayIndex = this.getTileIndexByCoords(x, y);
               return this.layers[0].data[arrayIndex];
             };
 
-            game.map.getCoordsByTileIndex = function (i) {
+            game.map.getCoordsByTileIndex = function getCoordsByTileIndex(i) {
               return new Coordinates(
                 i % game.map.width,
                 Math.floor(i / game.map.width)
               );
             };
 
-            game.map.changeTileType = function (x, y, type) {
+            game.map.changeTileType = function changeTileType(x, y, type) {
               const arrayIndex = this.getTileIndexByCoords(x, y);
               game.map.layers[0].data[arrayIndex] = type;
             };
 
             for (let i = 0; i < game.map.tilesets.length; i += 1) {
-              game.map.tilesets[i].indexWidth = game.map.tilesets[0].imagewidth / game.map.tilesets[0].tilewidth;
-              game.map.tilesets[i].indexHeight = game.map.tilesets[0].imageheight / game.map.tilesets[0].tileheight;
+              game.map.tilesets[i].indexWidth =
+                game.map.tilesets[0].imagewidth / game.map.tilesets[0].tilewidth;
+              game.map.tilesets[i].indexHeight =
+                game.map.tilesets[0].imageheight / game.map.tilesets[0].tileheight;
             }
 
-            game.map.isInBounds = function (coords) {
+            game.map.isInBounds = function isInBounds(coords) {
               return coords.x >= 0
                 && coords.x < game.map.width
                 && coords.y > 0
@@ -166,11 +168,13 @@ define('JakesJourney',
 
             game.map.mdMap = getMultiDimensionalMap(game.map.layers[0].data, game.map.width);
 
-            game.map.pixelWidth = game.map.width * 32;
-            game.map.pixelHeight = game.map.height * 32;
+            game.map.pixelWidth = game.map.width * Constants.baseUnit;
+            game.map.pixelHeight = game.map.height * Constants.baseUnit;
 
             // Put player on start tile.
-            player.position = game.map.getCoordsByTileIndex(game.map.layers[0].data.indexOf(TileCodes.start));
+            player.position = game.map.getCoordsByTileIndex(
+              game.map.layers[0].data.indexOf(TileCodes.start)
+            );
 
             // Load items.
             game.items = [];
@@ -197,7 +201,10 @@ define('JakesJourney',
                 }
                 item.imageType = 'tile';
                 item.color = game.map.tileProperties[iData.gid - 1].color;
-                item.position = new Coordinates((iData.x) / 32, (iData.y - 32) / 32);
+                item.position = new Coordinates(
+                  (iData.x) / Constants.baseUnit,
+                  (iData.y - Constants.baseUnit) / Constants.baseUnit
+                );
                 item.linksTo = iData.properties.linksTo;
 
                 item.message = iData.properties.Text;
@@ -231,7 +238,10 @@ define('JakesJourney',
                 enemy.type = 'enemy';
                 enemy.subType = game.map.tileProperties[eData.gid - 1].type;
                 enemy.imageType = 'tile';
-                enemy.position = new Coordinates(eData.x / 32, (eData.y - 32) / 32);
+                enemy.position = new Coordinates(
+                  eData.x / Constants.baseUnit,
+                  (eData.y - Constants.baseUnit) / Constants.baseUnit
+                );
                 enemy.speed = game.defaultEnemySpeed;
 
                 // Change initial enemy facing direction.
@@ -268,7 +278,10 @@ define('JakesJourney',
                 tool.subType = game.map.tileProperties[tData.gid - 1].type;
                 tool.imageType = 'tile';
                 tool.color = game.map.tileProperties[tData.gid - 1].color;
-                tool.position = new Coordinates(tData.x / 32, (tData.y - 32) / 32);
+                tool.position = new Coordinates(
+                  tData.x / Constants.baseUnit,
+                  (tData.y - Constants.baseUnit) / Constants.baseUnit
+                );
 
                 // Change initial enemy facing direction.
                 if (typeof (tData.properties.direction) !== 'undefined') {
@@ -332,18 +345,18 @@ define('JakesJourney',
         });
       };
 
-      this.restartLevel = function () {
+      this.restartLevel = function restartLevel() {
         this.loadMap(game.level);
       };
 
-      this.nextLevel = function () {
+      this.nextLevel = function nextLevel() {
         this.level = game.nextLevelNumber;
         this.atExit = false;
         player.inventory = new Sprite.Inventory();
         this.loadMap(this.level);
       };
 
-      this.returnToTitle = function () {
+      this.returnToTitle = function returnToTitle() {
         this.level = -1;
         this.nextLevelNumber = 0;
         this.winMessage = null;
@@ -388,7 +401,8 @@ define('JakesJourney',
 
       this.deathCount = 0;
 
-      this.setDeadMessage = function (message) {
+      this.setDeadMessage = function setDeadMessage(m) {
+        let message = m;
         this.deathCount += 1;
         this.showMessage = true;
         if (this.deathCount % 10 === 0) {
@@ -409,7 +423,7 @@ define('JakesJourney',
     function generateGridLines() {
       const gridLines = [];
 
-      for (let x = 0; x <= stage.width; x += 32) {
+      for (let x = 0; x <= stage.width; x += Constants.baseUnit) {
         const coord = [x + 0.5, 0.5, x + 0.5, stage.height + 0.5];
         if (x === stage.width) {
           coord[0] -= 1;
@@ -417,7 +431,7 @@ define('JakesJourney',
         }
         gridLines.push(coord);
       }
-      for (let y = 0; y <= stage.height; y += 32) {
+      for (let y = 0; y <= stage.height; y += Constants.baseUnit) {
         const coord = [0.5, y + 0.5, stage.width + 0.5, y + 0.5];
         if (y === stage.height) coord[3] -= 1;
         gridLines.push(coord);
@@ -440,7 +454,9 @@ define('JakesJourney',
       $j('.errorPanel').remove();
 
       // Check for browser support.
-      if (!Modernizr.fontface || Array.prototype.indexOf === undefined || !window.HTMLCanvasElement) {
+      if (!Modernizr.fontface
+        || Array.prototype.indexOf === undefined
+        || !window.HTMLCanvasElement) {
         $j('#main').before('<div class="errorPanel"><h1>Your browser does not have the capabilities to run this game.</h1><p>Please consider installing <a href="http://www.google.com/chrome">Google Chrome</a>. Hey, <strong>I</strong> use it, and look how I turned out.</p></div>');
         $j('#main').hide();
         return false;
@@ -456,12 +472,9 @@ define('JakesJourney',
       // Turn off padding to make game fit in small monitors.
       $j('#main').css('padding', '0px');
 
-      master = $j('.master');
-      // master.css('backgroundColor','white');
-
-      stage = new stageObject();
+      stage = new StageObject();
       stage.init();
-      game = new gameObject();
+      game = new GameObject();
 
       passwordHandler = new ObscurelyNamedFile(game);
 
@@ -490,7 +503,7 @@ define('JakesJourney',
       return true;
     }
 
-    function Update() {
+    function update() {
       // Reset message box visibility.
       game.showMessage = false;
 
@@ -529,24 +542,28 @@ define('JakesJourney',
       if (!player.isDead) {
         // Must update tools before updating enemies to prevent pushblock bug.
         for (let i = 0; i < game.tools.length; i += 1) {
-          game.tools[i].Update();
+          game.tools[i].update();
         }
 
         for (let i = 0; i < game.enemies.length; i += 1) {
-          game.enemies[i].Update();
+          game.enemies[i].update();
         }
       }
     }
 
-    function CheckCollision() {
+    function checkCollision() {
       game.redSwitch = false;
       game.yellowSwitch = false;
       game.greenSwitch = false;
       game.onQuickCorruptTile = false;
 
       // Register item hits.
+      // TODO: Reevaluate all of this logic.
+      //   See if I can/should get rid of the "continue" statements.
       for (let i = 0; i < game.items.length; i += 1) {
-        if (player.position.x === game.items[i].position.x && player.position.y === game.items[i].position.y) {
+        // TODO: Refactor with "areSpritesColliding".
+        if (player.position.x === game.items[i].position.x
+          && player.position.y === game.items[i].position.y) {
           // Player interacts with item.
           game.items[i].registerHit(player);
           continue;
@@ -554,8 +571,9 @@ define('JakesJourney',
 
         for (let j = 0; j < game.enemies.length; j += 1) {
           const enemy = game.enemies[j];
-
-          if (enemy.position.x === game.items[i].position.x && enemy.position.y === game.items[i].position.y) {
+          // TODO: Refactor with "areSpritesColliding".
+          if (enemy.position.x === game.items[i].position.x
+            && enemy.position.y === game.items[i].position.y) {
             // Enemy interacts with item.
             game.items[i].registerHit(enemy);
             continue;
@@ -563,6 +581,7 @@ define('JakesJourney',
         }
 
         for (let j = 0; j < game.tools.length; j += 1) {
+          // Check if pushblocks collide with items (switches?).
           const tool = game.tools[j];
 
           if (Utility.areSpritesColliding(tool, game.items[i])) {
@@ -576,7 +595,8 @@ define('JakesJourney',
 
       // Register enemy hits.
       for (let i = 0; i < game.enemies.length; i += 1) {
-        if (player.position.x === game.enemies[i].position.x && player.position.y === game.enemies[i].position.y) {
+        if (player.position.x === game.enemies[i].position.x
+          && player.position.y === game.enemies[i].position.y) {
           player.isDead = true;
           game.enemies[i].hasKilledPlayer = true;
 
@@ -623,10 +643,10 @@ define('JakesJourney',
     }
 
     function gameLoop() {
-      player.GetInput();
+      player.getInput();
       if (!player.isDead && !game.isPaused) {
-        Update();
-        CheckCollision();
+        update();
+        checkCollision();
       }
       this.draw.beginDraw();
     }
@@ -644,7 +664,7 @@ define('JakesJourney',
       gameInterval = setInterval(gameLoop, 20);
     }
 
-    bypass = function (e) {
+    bypass = function b(e) {
       if (e.keyCode === 13) {
         $j(window).off('keydown', bypass);
         run(true);
