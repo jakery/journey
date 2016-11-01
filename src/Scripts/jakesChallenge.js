@@ -8,7 +8,7 @@ define('JakesJourney',
     './Keyboard',
     './Utility',
     './ObscurelyNamedFile',
-    './Draw',
+    './Draw/Draw',
     './Hud/Sidebar',
     './Credits'],
   (Constants,
@@ -83,7 +83,7 @@ define('JakesJourney',
         );
       };
     };
-
+    // TODO: Refactor this into separate module.
     function awesomeError(data) {
       Utility.alert(
         `YOU WIN!\n\nActually, you didn't win. You've encountered a bug that's broken the game. I was trying to make you feel better about it.\n\n` +
@@ -149,6 +149,7 @@ define('JakesJourney',
             awesomeError({ attemptedFunction: 'loadMap (ajax)', errorCode: response.status });
           },
           success(response) {
+            const TileCodes = Constants.tileCodes;
             // TODO: Refactor all of this into a "map" module.
             if (typeof (response) === 'string') {
               game.map = $j.parseJSON(response);
@@ -200,7 +201,7 @@ define('JakesJourney',
 
             // Put player on start tile.
             player.position = game.map.getCoordsByTileIndex(
-              game.map.layers[0].data.indexOf(Constants.TileCodes.start)
+              game.map.layers[0].data.indexOf(TileCodes.start)
             );
 
             // Load items.

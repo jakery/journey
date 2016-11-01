@@ -1,6 +1,6 @@
 define(
   'Sprite',
-  ['./Constants/Constants', './DeathMessages', './Coordinates', './Keyboard', './Utility', './Draw'],
+  ['./Constants/Constants', './DeathMessages', './Coordinates', './Keyboard', './Utility', './Draw/Draw'],
   (Constants, DeathMessages, Coordinates, Keyboard, Utility, Draw) => {
     const SpriteNS = {
       Inventory: function Inventory() {
@@ -178,7 +178,7 @@ define(
       };
 
       this.canMove = function canMove(coordinates) {
-        const TileCodes = Constants.TileCodes;
+        const TileCodes = Constants.tileCodes;
         const destination = (coordinates == null) ? this.getTarget() : coordinates;
 
         // Get all tile layers.
@@ -396,7 +396,7 @@ define(
       };
 
       this.checkTile = function checkTile() {
-        const TileCodes = Constants.TileCodes;
+        const TileCodes = Constants.tileCodes;
         // var tileIndex = game.map.getTileIndexByCoords
         const tileType = this.game.map.getTileTypeByCoords(this.position.x, this.position.y);
 
@@ -924,7 +924,7 @@ define(
       };
 
       this.registerHit = function registerHit(s) {
-        const TileCodes = Constants.TileCodes;
+        const TileCodes = Constants.tileCodes;
         const sprite = s;
         if (!this.isAlive) {
           return false;
