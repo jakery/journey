@@ -1,4 +1,4 @@
-define('Sidebar', ['../Constants', '../Coordinates', './PauseOverlay'], (_constants, Coordinates, PauseOverlay) => {
+define('Sidebar', ['../Constants/Constants', '../Coordinates', './PauseOverlay'], (_constants, Coordinates, PauseOverlay) => {
   // TODO: Refactor as class.
   const Sidebar = function Sidebar(game, stage, player, globalDraw) {
     this.game = game;

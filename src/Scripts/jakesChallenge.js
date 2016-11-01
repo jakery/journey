@@ -3,7 +3,6 @@ const $ = require('jquery');
 define('JakesJourney',
   ['./Constants/Constants',
     './DeathMessages',
-    './TileCodes',
     './Coordinates',
     './Sprite',
     './Keyboard',
@@ -14,7 +13,6 @@ define('JakesJourney',
     './Credits'],
   (Constants,
     DeathMessages,
-    TileCodes,
     Coordinates,
     Sprite,
     Keyboard,
@@ -202,7 +200,7 @@ define('JakesJourney',
 
             // Put player on start tile.
             player.position = game.map.getCoordsByTileIndex(
-              game.map.layers[0].data.indexOf(TileCodes.start)
+              game.map.layers[0].data.indexOf(Constants.TileCodes.start)
             );
 
             // Load items.
