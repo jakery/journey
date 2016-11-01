@@ -1,6 +1,6 @@
 define(
   'Sprite',
-  ['./Constants', './DeathMessages', './TileCodes', './Coordinates', './Keyboard', './Utility', './Draw'],
+  ['./Constants/Constants', './DeathMessages', './TileCodes', './Coordinates', './Keyboard', './Utility', './Draw'],
   (Constants, DeathMessages, TileCodes, Coordinates, Keyboard, Utility, Draw) => {
     const SpriteNS = {
       Inventory: function Inventory() {
@@ -522,7 +522,7 @@ define(
             this.passwordHandler.process();
           } else if (keyIsDown.Esc && !keyIsRegistered.Esc) {
             keyIsRegistered.Esc = true;
-            this.game.passwordHudMessage = '';
+            this.game.passwordSidebarMessage = '';
             this.game.enteredPassword = '';
             this.game.mode = Constants.gameModes.normal;
           } else if (keyIsDown.Backspace && !keyIsRegistered.Backspace) {
@@ -543,7 +543,7 @@ define(
           }
 
           if (this.game.enteredPassword.length > 0) {
-            this.game.passwordHudMessage = '';
+            this.game.passwordSidebarMessage = '';
           }
         } else if (this.game.mode === Constants.gameModes.credits) {
           if (keyIsDown.Enter && !keyIsRegistered.Enter) {

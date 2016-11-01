@@ -1,7 +1,7 @@
 const $ = require('jquery');
 
 define('JakesJourney',
-  ['./Constants',
+  ['./Constants/Constants',
     './DeathMessages',
     './TileCodes',
     './Coordinates',

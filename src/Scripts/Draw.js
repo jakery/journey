@@ -1,4 +1,4 @@
-define('Draw', ['./Constants', './Coordinates', './TileCodes'], (Constants, Coordinates, TileCodes) => {
+define('Draw', ['./Constants/Constants', './Coordinates', './TileCodes'], (Constants, Coordinates, TileCodes) => {
   const Draw = function Draw(game, stage, player) {
     this.game = game;
     this.stage = stage;
