@@ -10,7 +10,7 @@ define('JakesJourney',
     './Utility',
     './ObscurelyNamedFile',
     './Draw',
-    './Hud',
+    './Sidebar/Sidebar',
     './Credits'],
   (Constants,
     DeathMessages,
@@ -21,7 +21,7 @@ define('JakesJourney',
     Utility,
     ObscurelyNamedFile,
     Draw,
-    Hud,
+    Sidebar,
     Credits) => {
     const $j = $.noConflict();
 
@@ -442,7 +442,7 @@ define('JakesJourney',
         this.messageText = `${message}\n\nPress enter to restart.`;
       };
 
-      this.passwordHudMessage = '';
+      this.passwordSidebarMessage = '';
 
       this.defaultEnemySpeed = 8;
 
@@ -510,7 +510,7 @@ define('JakesJourney',
 
       this.globalDraw.player = player;
 
-      game.hud = new Hud(game, stage, player, globalDraw);
+      game.hud = new Sidebar(game, stage, player, globalDraw);
       game.credits = new Credits(this, stage, this.globalDraw);
 
       return true;

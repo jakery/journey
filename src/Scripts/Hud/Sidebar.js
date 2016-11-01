@@ -1,6 +1,6 @@
-define('Hud', ['./Constants', './Coordinates', './PauseOverlay'], (_constants, Coordinates, PauseOverlay) => {
+define('Sidebar', ['./Constants', './Coordinates', './PauseOverlay'], (_constants, Coordinates, PauseOverlay) => {
   // TODO: Refactor as class.
-  const Hud = function gameHudClass(game, stage, player, globalDraw) {
+  const Sidebar = function Sidebar(game, stage, player, globalDraw) {
     this.game = game;
     this.stage = stage;
     this.player = player;
@@ -57,7 +57,7 @@ define('Hud', ['./Constants', './Coordinates', './PauseOverlay'], (_constants, C
       ctx.fillStyle = this.textColor;
 
       if (game.mode === _constants.gameModes.normal) {
-        this.drawNormalHud();
+        this.drawNormalSidebar();
       } else if (game.mode === _constants.gameModes.title) {
         this.drawTitle();
       } else if (game.mode === _constants.gameModes.password) {
@@ -100,10 +100,10 @@ define('Hud', ['./Constants', './Coordinates', './PauseOverlay'], (_constants, C
       ctx.fillText(this.game.enteredPassword, 505, 92);
 
       // Message.
-      if (game.passwordHudMessage.length > 0) {
+      if (game.passwordSidebarMessage.length > 0) {
         ctx.save();
         ctx.fillStyle = 'rgb(255,0,0)';
-        ctx.fillText(game.passwordHudMessage, 500, 118);
+        ctx.fillText(game.passwordSidebarMessage, 500, 118);
         ctx.restore();
       }
 
@@ -112,7 +112,7 @@ define('Hud', ['./Constants', './Coordinates', './PauseOverlay'], (_constants, C
       ctx.restore();
     };
 
-    this.drawNormalHud = function drawNormalHud() {
+    this.drawNormalSidebar = function drawNormalSidebar() {
       const ctx = this.globalDraw.ctx;
       let drawLevel = game.level;
       if (drawLevel === 54) {
@@ -206,5 +206,5 @@ define('Hud', ['./Constants', './Coordinates', './PauseOverlay'], (_constants, C
       }
     };
   };
-  return Hud;
+  return Sidebar;
 });

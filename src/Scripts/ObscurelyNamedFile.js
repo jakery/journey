@@ -93,12 +93,12 @@ define('ObscurelyNamedFile', [], () => {
 
         if (passwordLevel === -1) {
           // Bad password.
-          this.game.passwordHudMessage = "That ain't no password.";
+          this.game.passwordSidebarMessage = "That ain't no password.";
         } else {
           // Good password.
           this.game.level = passwordLevel;
           this.game.loadMap(this.game.level);
-          this.game.passwordHudMessage = '';
+          this.game.passwordSidebarMessage = '';
         }
       }
       // Clear entered password.
