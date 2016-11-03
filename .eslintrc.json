@@ -5,7 +5,7 @@
         "promise"
     ],
     "rules": {
-        "no-magic-numbers": 1
+        "no-magic-numbers": 0
     },
     "globals": {
         "define": false,
