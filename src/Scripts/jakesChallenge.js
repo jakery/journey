@@ -331,7 +331,7 @@ define('JakesJourney',
             };
             stage.isOffset = true;
             game.mode = Constants.gameModes.normal;
-            game.password = passwordHandler.passwords[game.level];
+            game.password = passwordHandler.passwordArray[game.level];
             game.nextLevelNumber = game.level + 1;
 
             if (p !== null && typeof (p.properties) !== 'undefined') {

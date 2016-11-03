@@ -14,7 +14,7 @@ define('ObscurelyNamedFile', [], () => {
   const ObscurelyNamedFile = function ObscurelyNamedFile(game) {
     this.game = game;
 
-    this.passwords = [
+    this.passwordArray = [
       'title',
       'level1',
       'level2',
@@ -73,8 +73,8 @@ define('ObscurelyNamedFile', [], () => {
       'waitjack',
     ];
 
-    this.process = function process(password) {
-      let enteredPassword = password;
+    this.process = function process() {
+      let enteredPassword = this.game.enteredPassword;
       enteredPassword = enteredPassword.toLowerCase();
       // Begins with "level" & is not "level1 - level5"
       // TODO: There's probably a good way to refactor this
@@ -89,7 +89,7 @@ define('ObscurelyNamedFile', [], () => {
           enteredPassword = 'asthma';
         }
 
-        const passwordLevel = password.indexOf(enteredPassword);
+        const passwordLevel = this.passwordArray.indexOf(enteredPassword);
 
         if (passwordLevel === -1) {
           // Bad password.
@@ -102,7 +102,7 @@ define('ObscurelyNamedFile', [], () => {
         }
       }
       // Clear entered password.
-      enteredPassword = '';
+      this.game.enteredPassword = '';
     };
   };
   return ObscurelyNamedFile;
