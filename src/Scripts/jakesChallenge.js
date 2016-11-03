@@ -636,7 +636,7 @@ define('JakesJourney',
         // Permanent corruption.
         game.corruption += 1;
 
-        if (game.atExit && game.corruption < this.game.corruptionSpeedupThreshold) {
+        if (game.atExit && game.corruption < game.corruptionSpeedupThreshold) {
           game.corruptionTimer = 10;
         } else {
           game.corruptionTimer = 50;
