@@ -1,7 +1,7 @@
 // Karma configuration
 // Generated on Thu Nov 03 2016 13:15:07 GMT-0400 (Eastern Daylight Time)
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -15,7 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'src/Scripts/**/*.js'
+      'src/Scripts/**/*_test.js'
     ],
 
 
@@ -28,9 +28,16 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'src/scripts/bundle.js': ['webpack', 'sourcemap'],
+      'src/Scripts/**/*_test.js': ['webpack', 'sourcemap']
     },
+    webpack: require('./webpack.config'),
 
-
+    webpackMiddleware: {
+      // webpack-dev-middleware configuration
+      // i. e.
+      stats: 'errors-only'
+    },
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
@@ -56,7 +63,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome', 'PhantomJS'],
+    browsers: ['Chrome'],
 
 
     // Continuous Integration mode
