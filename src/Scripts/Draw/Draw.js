@@ -170,8 +170,8 @@ define('Draw',
 
         let minY = 0;
         let maxY = this.game.map.layers[0].data.length;
-
-        if (this.game.map.parameters.wrapAround !== 'true' && this.stage.isOffset) {
+        const onlyDrawVisibleMap = this.game.map.parameters.wrapAround !== 'true' && this.stage.isOffset;
+        if (onlyDrawVisibleMap) {
           minY = Math.max(this.game.map.width * (this.player.position.y - 6), minY);
           maxY = Math.min(this.game.map.width * (this.player.position.y + 6), maxY);
         }
