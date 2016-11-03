@@ -570,39 +570,32 @@ define('JakesJourney',
       game.onQuickCorruptTile = false;
 
       // Register item hits.
-      // TODO: Reevaluate all of this logic.
-      //   See if I can/should get rid of the "continue" statements.
       for (let i = 0; i < game.items.length; i += 1) {
         // TODO: Refactor with "areSpritesColliding".
         if (player.position.x === game.items[i].position.x
           && player.position.y === game.items[i].position.y) {
           // Player interacts with item.
           game.items[i].registerHit(player);
-          continue;
-        }
+        } else {
+          for (let j = 0; j < game.enemies.length; j += 1) {
+            const enemy = game.enemies[j];
+            // TODO: Refactor with "areSpritesColliding".
+            if (enemy.position.x === game.items[i].position.x
+              && enemy.position.y === game.items[i].position.y) {
+              // Enemy interacts with item.
+              game.items[i].registerHit(enemy);
+            }
+          }
+          for (let j = 0; j < game.tools.length; j += 1) {
+            // Check if pushblocks collide with items (switches?).
+            const tool = game.tools[j];
 
-        for (let j = 0; j < game.enemies.length; j += 1) {
-          const enemy = game.enemies[j];
-          // TODO: Refactor with "areSpritesColliding".
-          if (enemy.position.x === game.items[i].position.x
-            && enemy.position.y === game.items[i].position.y) {
-            // Enemy interacts with item.
-            game.items[i].registerHit(enemy);
-            continue;
+            if (Utility.areSpritesColliding(tool, game.items[i])) {
+              // Enemy interacts with item.
+              game.items[i].registerHit(tool);
+            }
           }
         }
-
-        for (let j = 0; j < game.tools.length; j += 1) {
-          // Check if pushblocks collide with items (switches?).
-          const tool = game.tools[j];
-
-          if (Utility.areSpritesColliding(tool, game.items[i])) {
-            // Enemy interacts with item.
-            game.items[i].registerHit(tool);
-            continue;
-          }
-        }
-        continue;
       }
 
       // Register enemy hits.
