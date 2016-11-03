@@ -24,7 +24,7 @@ define('Sidebar',
       this.textColor = '';
 
       this.messageBox = new MessageBox(this.game, this.globalDraw);
-      this.pauseOverlay = new PauseOverlay(this.stage);
+      this.pauseOverlay = new PauseOverlay(this.stage, this.globalDraw);
       this.inventory = new Inventory(this.game, this.player, this.globalDraw);
 
       this.draw = function draw() {

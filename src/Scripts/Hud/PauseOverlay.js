@@ -1,5 +1,6 @@
 define('PauseOverlay', [], () => {
-  function PauseOverlay(stage) {
+  function PauseOverlay(stage, globalDraw) {
+    this.globalDraw = globalDraw;
     this.settings = {
       border: {
         fillStyle: 'red',
