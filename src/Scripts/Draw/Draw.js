@@ -1,5 +1,8 @@
 define('Draw',
-  ['../Constants/Constants', '../Coordinates'],
+  [
+    '../Constants/Constants',
+    '../Coordinates',
+  ],
   (Constants, Coordinates) => {
     const Draw = function Draw(game, stage, player) {
       this.game = game;
