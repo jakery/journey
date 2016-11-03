@@ -510,7 +510,7 @@ define('JakesJourney',
       this.globalDraw.player = player;
 
       game.hud = new Sidebar(game, stage, player, globalDraw);
-      game.credits = new Credits(this, stage, this.globalDraw);
+      game.credits = new Credits(game, stage, this.globalDraw);
 
       return true;
     }
