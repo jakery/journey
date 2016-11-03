@@ -487,7 +487,7 @@ define(
             this.destroy();
           } else if (this.subType === 'pushBlock') {
             // Block hits water and disappears.
-            this.game.tools.remove(Utility.array.findByProperty(this.game.tools, 'spriteID', this.spriteID));
+            Utility.array.removeBySpriteId(this.game.tools, this.spriteId);
           }
           // }
         }
