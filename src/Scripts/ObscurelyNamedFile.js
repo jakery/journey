@@ -73,30 +73,36 @@ define('ObscurelyNamedFile', [], () => {
       'waitjack',
     ];
 
+    // Begins with "level" & is not "level1 - level5"
+    this.isCrappyCheatAttempt = enteredPassword =>
+      enteredPassword.match(/^level([6-9]|\d{2,})\s*$/g) !== null;
+
     this.process = function process() {
       let enteredPassword = this.game.enteredPassword;
       enteredPassword = enteredPassword.toLowerCase();
-      // Begins with "level" & is not "level1 - level5"
-      if (enteredPassword.match(/^level([6-9]|\d{2,})\s*$/g) !== null) {
-        // CHEATER!
-        this.game.level = -9999;
-        this.game.loadMap(this.game.level);
-      } else {
-        // Derp. Stay in school, kids.
-        if (enteredPassword === 'athsma') {
-          enteredPassword = 'asthma';
-        }
-        const passwordLevel = this.passwordArray.indexOf(enteredPassword);
-        if (passwordLevel === -1) {
-          // Bad password.
-          this.game.passwordSidebarMessage = "That ain't no password.";
-        } else {
-          // Good password.
-          this.game.level = passwordLevel;
-          this.game.loadMap(this.game.level);
-          this.game.passwordSidebarMessage = '';
-        }
+
+
+      // Derp. Stay in school, kids.
+      if (enteredPassword === 'athsma') {
+        enteredPassword = 'asthma';
       }
+      const passwordLevel = this.passwordArray.indexOf(enteredPassword);
+      if (passwordLevel === -1) {
+        // Bad password.
+        if (this.isCrappyCheatAttempt(enteredPassword)) {
+          // CHEATER!
+          this.game.level = -9999;
+          this.game.loadMap(this.game.level);
+        } else {
+          this.game.passwordSidebarMessage = "That ain't no password.";
+        }
+      } else {
+        // Good password.
+        this.game.level = passwordLevel;
+        this.game.loadMap(this.game.level);
+        this.game.passwordSidebarMessage = '';
+      }
+
       // Clear entered password.
       this.game.enteredPassword = '';
     };
