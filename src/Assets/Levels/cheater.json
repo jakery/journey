@@ -10,7 +10,7 @@
          "width":6,
          "x":0,
          "y":0
-        }, 
+        },
         {
          "height":7,
          "name":"Enemies",
@@ -21,7 +21,7 @@
          "width":6,
          "x":0,
          "y":0
-        }, 
+        },
         {
          "height":7,
          "name":"Items",
@@ -46,7 +46,7 @@
          "width":6,
          "x":0,
          "y":0
-        }, 
+        },
         {
          "height":7,
          "name":"Tools",
@@ -57,7 +57,7 @@
          "width":6,
          "x":0,
          "y":0
-        }, 
+        },
         {
          "height":7,
          "name":"Parameters",
@@ -65,7 +65,7 @@
          "opacity":1,
          "properties":
             {
-             "time":"0",
+             "time":"-1",
              "wrapAround":"false"
             },
          "type":"objectgroup",

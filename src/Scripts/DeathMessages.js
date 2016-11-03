@@ -1,4 +1,4 @@
-const randomMessages = {
+define('DeathMessages', [], {
 
   ball: [
     'Remember when Indiana Jones got chased by that boulder? This is the same thing, except you died.',
@@ -113,4 +113,4 @@ const randomMessages = {
 
   ],
 
-};
+});

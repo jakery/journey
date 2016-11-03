@@ -1,3 +1,4 @@
 **/*.min.js
 **/modernizr.*.js
 **/Assets/*
+src/Scripts/bundle.js

@@ -1,4 +1,6 @@
-const tileCodes = {
+define('TileCodes', [], {
+  nothing: 0,
+
   floor: 1,
   wall: 2,
   yellowDoor: 3,
@@ -61,5 +63,4 @@ const tileCodes = {
   brownButtonUnpressed: 52,
   brownBlockInactive: 53,
   brownBlockActive: 54,
-
-};
+});

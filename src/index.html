@@ -13,20 +13,20 @@
 </head>
 
 <body>
+	<noscript>
+		<div class="errorPanel">
+			<h1>
+				<p>
+					Jake's Journey is written entirely in JavaScript. Consequently, you must have JavaScript enabled on your browser to play.
+				</p>
+			</h1>
+		</div>
+	</noscript>
 	<div class="page">
 		<div class="page-inner">
 			<div class="clear"></div>
 		</div>
 		<div id="main">
-			<noscript>
-				<div class="errorPanel">
-					<h1>
-						<p>
-							Jake's Journey is written entirely in JavaScript. Consequently, you must have JavaScript enabled on your browser to play.
-						</p>
-					</h1>
-				</div>
-			</noscript>
 			<h2>Jake's Journey</h2>
 
 			<!-- begin game -->
@@ -36,7 +36,6 @@
 						<canvas id="gameCanvas" width="800" height="384"></canvas>
 					</div>
 				</div>
-				b
 				<div class="clear">
 				</div>
 			</div>
@@ -60,16 +59,8 @@
 	<!-- end assets -->
 
 	<!-- begin scripts -->
-
-	<script src="Scripts/jquery-1.7.0.min.js" type="text/javascript"></script>
-	<script src="Scripts/Utility.js" type="text/javascript"></script>
 	<script src="Scripts/modernizr.custom.26847.js" type="text/javascript"></script>
-	<script src="Scripts/jquery.keyboard.js" type="text/javascript"></script>
-	<script src="Scripts/tileCodes.js" type="text/javascript"></script>
-	<script src="Scripts/Sprite.js" type="text/javascript"></script>
-	<script src="Scripts/ObscurelyNamedFile.js" type="text/javascript"></script>
-	<script src="Scripts/DeathMessages.js" type="text/javascript"></script>
-	<script src="Scripts/jakesChallenge.js?nocache=1" type="text/javascript"></script>
+	<script src="Scripts/bundle.js" type="text/javascript"></script>
 
 	<!-- end scripts -->
 </body>
