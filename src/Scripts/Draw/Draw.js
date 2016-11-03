@@ -2,9 +2,14 @@ define('Draw',
   [
     '../Constants/Constants',
     '../Coordinates',
+    './DrawHelpers',
   ],
-  (Constants, Coordinates) => {
-    const Draw = function Draw(game, stage, player) {
+  (
+    Constants,
+    Coordinates,
+    DrawHelpers
+  ) => {
+    function Draw(game, stage, player) {
       this.game = game;
       this.stage = stage;
       this.player = player;
@@ -17,6 +22,7 @@ define('Draw',
       this.ctx.font = '20px sans-serif';
       this.ctx.textBaseline = 'top';
 
+      this.DrawHelpers = new DrawHelpers(this.ctx);
 
       this.generateGridLines = function generateGridLines() {
         const gridLines = [];
