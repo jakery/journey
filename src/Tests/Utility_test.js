@@ -1,6 +1,6 @@
 
-let Utility = require('./Utility');
-let Coordinates = require('./Coordinates');
+let Utility = require('../Scripts/Utility');
+let Coordinates = require('../Scripts/Coordinates');
 describe('Utility', () => {
   describe('tileDistanceBetween', function () {
     it('should return 1', function () {

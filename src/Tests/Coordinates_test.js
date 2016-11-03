@@ -1,4 +1,4 @@
-let Coordinates = require('./Coordinates');
+let Coordinates = require('../Scripts/Coordinates');
 describe('CoordinatesTest', () => {
   describe('Coordinates', function () {
     it('should create coordinates.', function () {

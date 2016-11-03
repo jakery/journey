@@ -15,21 +15,19 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'src/Scripts/**/*_test.js'
+      'src/Tests/*_test.js'
     ],
 
 
     // list of files to exclude
-    exclude: [
-      'src/Scripts/lib/*'
-    ],
+    exclude: [],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       'src/scripts/bundle.js': ['webpack', 'sourcemap'],
-      'src/Scripts/**/*_test.js': ['webpack', 'sourcemap']
+      'src/Tests/*_test.js': ['webpack', 'sourcemap']
     },
     webpack: require('./webpack.config'),
 
