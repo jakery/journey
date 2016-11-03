@@ -81,16 +81,14 @@ define('ObscurelyNamedFile', [], () => {
       //    into a single Regex statement, but I've got bigger fish to fry.
       if (enteredPassword !== 'level' && !enteredPassword.indexOf('level') && enteredPassword.match(/^level[1-5]\s*$/g) === null) {
         // CHEATER!
-        this.game.level = -10000;
+        this.game.level = -9999;
         this.game.loadMap(this.game.level);
       } else {
         // Derp. Stay in school, kids.
         if (enteredPassword === 'athsma') {
           enteredPassword = 'asthma';
         }
-
         const passwordLevel = this.passwordArray.indexOf(enteredPassword);
-
         if (passwordLevel === -1) {
           // Bad password.
           this.game.passwordSidebarMessage = "That ain't no password.";
