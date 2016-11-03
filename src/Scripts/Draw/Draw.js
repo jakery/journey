@@ -177,97 +177,93 @@ define('Draw',
         }
 
         for (let i = minY; i < maxY; i += 1) {
-          const data = this.game.map.layers[0].data;
-
-          let tileNumber = data[i];
           const coords = this.game.map.getCoordsByTileIndex(i); // TODO: Is this cacheable?
           const tileOffsetCoords = this.getTileDrawOffsetCoords(coords);
 
-          // TODO: Refactor this check to be outside the for loop;
-          //    reconstruct for loop based on starting position.
-          // Don't process tiles that are out of bounds of the draw screen.
-          if (!this.tileIsInDrawBounds(tileOffsetCoords) && this.game.map.parameters.wrapAround !== 'true') {
-            continue;
+          const tileIsOnscreen = !(!this.tileIsInDrawBounds(tileOffsetCoords) && this.game.map.parameters.wrapAround !== 'true');
+          if (tileIsOnscreen) {
+            const data = this.game.map.layers[0].data;
+
+            let tileNumber = data[i];
+            // Check for special changes to block display.
+
+            switch (tileNumber) {
+              case TileCodes.floor:
+              case TileCodes.wall:
+                break;
+
+              // Red disappearing tile.
+              case (TileCodes.dRedBlockInactive):
+                if (this.game.redSwitch) {
+                  tileNumber = TileCodes.dRedBlockActive;
+                }
+                break;
+
+              // Red appearing tile.
+              case (TileCodes.aRedBlockInactive):
+                if (this.game.redSwitch) {
+                  tileNumber = TileCodes.aRedBlockActive;
+                }
+                break;
+
+              // Yellow disappearing tile.
+              case (TileCodes.dYellowBlockInactive):
+                if (this.game.yellowSwitch) {
+                  tileNumber = TileCodes.dYellowBlockActive;
+                }
+                break;
+
+              // Yellow appearing tile.
+              case (TileCodes.aYellowBlockInactive):
+                if (this.game.yellowSwitch) {
+                  tileNumber = TileCodes.aYellowBlockActive;
+                }
+                break;
+
+              // Green disappearing tile.
+              case (TileCodes.dGreenBlockInactive):
+                if (this.game.greenSwitch) {
+                  tileNumber = TileCodes.dGreenBlockActive;
+                }
+                break;
+
+              // Green appearing tile.
+              case (TileCodes.aGreenBlockInactive):
+                if (this.game.greenSwitch) {
+                  tileNumber = TileCodes.aGreenBlockActive;
+                }
+                break;
+
+              case (TileCodes.brownBlockActive):
+                if (this.game.brownSwitch) {
+                  tileNumber = TileCodes.brownBlockInactive;
+                }
+                break;
+
+              case (TileCodes.brownBlockInactive):
+                if (this.game.brownSwitch) {
+                  tileNumber = TileCodes.brownBlockActive;
+                }
+                break;
+
+              case TileCodes.toll:
+                // Toll collected? Green toll door.
+                if (this.player.inventory.money >= this.game.moneyCount) {
+                  tileNumber = TileCodes.tollGreen;
+                }
+                break;
+
+              // Don't draw hidden switches when out of debug mode.
+              case TileCodes.hiddenSwitch:
+                if (!this.game.debug) {
+                  tileNumber = TileCodes.nothing;
+                }
+                break;
+              default: break;
+            }
+
+            this.drawTilex(tileNumber, tileOffsetCoords);
           }
-
-          // Check for special changes to block display.
-
-          switch (tileNumber) {
-            case TileCodes.floor:
-            case TileCodes.wall:
-              break;
-
-            // Red disappearing tile.
-            case (TileCodes.dRedBlockInactive):
-              if (this.game.redSwitch) {
-                tileNumber = TileCodes.dRedBlockActive;
-              }
-              break;
-
-            // Red appearing tile.
-            case (TileCodes.aRedBlockInactive):
-              if (this.game.redSwitch) {
-                tileNumber = TileCodes.aRedBlockActive;
-              }
-              break;
-
-            // Yellow disappearing tile.
-            case (TileCodes.dYellowBlockInactive):
-              if (this.game.yellowSwitch) {
-                tileNumber = TileCodes.dYellowBlockActive;
-              }
-              break;
-
-            // Yellow appearing tile.
-            case (TileCodes.aYellowBlockInactive):
-              if (this.game.yellowSwitch) {
-                tileNumber = TileCodes.aYellowBlockActive;
-              }
-              break;
-
-            // Green disappearing tile.
-            case (TileCodes.dGreenBlockInactive):
-              if (this.game.greenSwitch) {
-                tileNumber = TileCodes.dGreenBlockActive;
-              }
-              break;
-
-            // Green appearing tile.
-            case (TileCodes.aGreenBlockInactive):
-              if (this.game.greenSwitch) {
-                tileNumber = TileCodes.aGreenBlockActive;
-              }
-              break;
-
-            case (TileCodes.brownBlockActive):
-              if (this.game.brownSwitch) {
-                tileNumber = TileCodes.brownBlockInactive;
-              }
-              break;
-
-            case (TileCodes.brownBlockInactive):
-              if (this.game.brownSwitch) {
-                tileNumber = TileCodes.brownBlockActive;
-              }
-              break;
-
-            case TileCodes.toll:
-              // Toll collected? Green toll door.
-              if (this.player.inventory.money >= this.game.moneyCount) {
-                tileNumber = TileCodes.tollGreen;
-              }
-              break;
-
-            // Don't draw hidden switches when out of debug mode.
-            case TileCodes.hiddenSwitch:
-              if (!this.game.debug) {
-                tileNumber = TileCodes.nothing;
-              }
-              break;
-            default: break;
-          }
-
-          this.drawTilex(tileNumber, tileOffsetCoords);
         }
 
         // Draw items.
@@ -306,5 +302,7 @@ define('Draw',
       };
       this.drawCenterText = this.DrawHelpers.drawCenterText;
       this.drawWrappedText = this.DrawHelpers.drawWrappedText;
+    }
     return Draw;
-  });
+  }
+);
