@@ -29,7 +29,7 @@ define('Credits', ['./Constants/Constants', './CreditsText'], (Constants, Credit
   };
 
   this.doFadeOut = function doFadeOut() {
-    if (!this.sequence) {
+    if (this.sequence === 0) {
       // Fadeout sequence.
       if (this.fadeOut < 1) {
         this.fadeOut += 0.005;
@@ -102,11 +102,10 @@ define('Credits', ['./Constants/Constants', './CreditsText'], (Constants, Credit
           const cred = this.creditsArray[i];
           ctx.fillStyle = `rgba(${cred.color}, ${cred.alpha})`;
           ctx.font = cred.font;
-          ctx.centerText(cred.text, 0, stage.width, cred.y);
+          this.globalDraw.drawCenterText(cred.text, 0, stage.width, cred.y);
         }
       }
       ctx.restore();
     }
   };
-}
-);
+});
