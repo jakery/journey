@@ -456,6 +456,7 @@ define('JakesJourney',
     };
 
     function doPreWork(bypassTouchscreen) {
+      let mainDiv = document.getElementById('main');
       if (!bypassTouchscreen) {
         // Don't run game on touchscreen devices.
         if (('ontouchstart' in window) || window.navigator.msMaxTouchPoints > 0) {
@@ -491,8 +492,7 @@ define('JakesJourney',
       }
 
       // Turn off padding to make game fit in small monitors.
-      // TODO: Remove jQuery.
-      $j('#main').css('padding', '0px');
+      mainDiv.style.padding = '0px';
 
       stage = new StageObject();
       stage.init();
