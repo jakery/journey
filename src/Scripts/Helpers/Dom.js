@@ -1,6 +1,10 @@
 // jQuery's greatest hits, but much lighter.
 define('Dom', [], () => function Dom(element) {
   this.element = element;
+  this.before = function before(htmlText) {
+    this.element.insertAdjacentHTML('beforeBegin', htmlText);
+    return this;
+  };
   this.style = function style(name, value) {
     if (name == null) {
       return this.element.style;

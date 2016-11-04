@@ -1,10 +1,18 @@
 let Dom = require('../Scripts/Helpers/Dom');
 
 describe('Dom', () => {
-    describe('Dom', function () {
-    const myElement = document.createElement('div');
-    myElement.innerHTML = 'test div';
-    const myDom = new Dom(myElement);
+  describe('Dom', function () {
+
+    let myElement;
+    let myDom;
+    beforeEach(function () {
+      myElement = document.createElement('div');
+
+      myElement.innerHTML = 'test div';
+      document.body.appendChild(myElement);
+      myDom = new Dom(myElement);
+    });
+
 
     describe('new', function () {
       it('should be a new Dom object.', function () {
@@ -12,7 +20,17 @@ describe('Dom', () => {
         assert.isTrue(typeof myDom.style === 'function');
       });
     });
-
+    describe('.before(text)', function () {
+      it('should insert text (html) just before the element', function () {
+        myDom.before('<div id="newElement">I\'m new!</div>');
+        let newElement = myElement.previousSibling;
+        assert.equal(newElement.tagName.toLowerCase(), 'div');
+        assert.equal(newElement.id, 'newElement');
+      });
+      it('should return the dom object.', function () {
+        assert.deepEqual(myDom.before(), myDom);
+      });
+    });
     describe('.style()', function () {
       it('should set the color style to red.', function () {
         myDom.style('color', 'red');
