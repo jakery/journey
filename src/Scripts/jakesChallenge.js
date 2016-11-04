@@ -475,7 +475,10 @@ define('JakesJourney',
         }
       }
       // TODO: Remove jQuery.
-      $j('.errorPanel').remove();
+      const error = document.getElementsByClassName('errorPanel')[0];
+      if (error.length) {
+        error.parentNode.remove(error);
+      }
 
       // Check for browser support.
       if (!Modernizr.fontface

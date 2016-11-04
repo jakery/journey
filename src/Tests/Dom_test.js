@@ -104,8 +104,5 @@ describe('Dom', () => {
         assert.deepEqual(myDom, myDom.ready());
       });
     });
-
-
-
   });
 });
