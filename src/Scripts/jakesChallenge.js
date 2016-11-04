@@ -158,8 +158,7 @@ define('JakesJourney',
             const TileCodes = Constants.tileCodes;
             // TODO: Refactor all of this into a "map" module.
             if (typeof (response) === 'string') {
-              // TODO: Remove jQuery.
-              game.map = $j.parseJSON(response);
+              game.map = JSON.parse(response);
             } else {
               game.map = response;
             }
