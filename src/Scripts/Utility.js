@@ -178,6 +178,10 @@ define('Utility', [], () => {
       toRadians: degrees => (degrees * Math.PI) / 180,
       toDegrees: radians => (radians * 180) / Math.PI,
     };
+
+    this.domReady = function domReady(callback) {
+      document.addEventListener('DOMContentLoaded', callback);
+    };
   };
 
   return new Utility();

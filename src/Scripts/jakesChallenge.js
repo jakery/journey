@@ -1,3 +1,4 @@
+// TODO: Remove jQuery.
 const $ = require('jquery');
 
 define('JakesJourney',
@@ -21,6 +22,7 @@ define('JakesJourney',
     Draw,
     Sidebar,
     Credits) => {
+    // TODO: Remove jQuery.
     const $j = $.noConflict();
 
     let player;
@@ -57,7 +59,9 @@ define('JakesJourney',
       this.halfBoxHeightLess16 = null;
       this.playboxTileCount = null;
       this.init = function init() {
+        // TODO: Remove jQuery.
         this.width = $j(this.gameCanvas).width();
+        // TODO: Remove jQuery.
         this.height = $j(this.gameCanvas).height();
 
         this.playboxWidth = this.playBlockWidth * Constants.baseUnit;
@@ -141,7 +145,7 @@ define('JakesJourney',
         if (game.level < 0) {
           levelNumber = 'cheater';
         }
-
+        // TODO: Remove jQuery.
         $j.ajax({
           url: `Assets/Levels/${levelNumber}.json`,
           async: false,
@@ -152,6 +156,7 @@ define('JakesJourney',
             const TileCodes = Constants.tileCodes;
             // TODO: Refactor all of this into a "map" module.
             if (typeof (response) === 'string') {
+              // TODO: Remove jQuery.
               game.map = $j.parseJSON(response);
             } else {
               game.map = response;
@@ -454,33 +459,39 @@ define('JakesJourney',
       if (!bypassTouchscreen) {
         // Don't run game on touchscreen devices.
         if (('ontouchstart' in window) || window.navigator.msMaxTouchPoints > 0) {
+          // TODO: Remove jQuery.
           $j('#main').before('<div class="errorPanel"><h1><p>Notice: This game requires a physical keyboard to play. Touchscreen is not supported.</p><p>If you are using a hybrid, touchscreen-keyboard-combination device (such as Microsoft Surface), press Enter on your physical keyboard to bypass this message and continue to the game. (This feature is untested! You are a pioneer!)</p></div>');
-
+          // TODO: Remove jQuery.
           $j(window).keydown(bypass);
 
           return false;
         }
       }
-
+      // TODO: Remove jQuery.
       $j('.errorPanel').remove();
 
       // Check for browser support.
       if (!Modernizr.fontface
         || Array.prototype.indexOf === undefined
         || !window.HTMLCanvasElement) {
+        // TODO: Remove jQuery.
         $j('#main').before('<div class="errorPanel"><h1>Your browser does not have the capabilities to run this game.</h1><p>Please consider installing <a href="http://www.google.com/chrome">Google Chrome</a>. Hey, <strong>I</strong> use it, and look how I turned out.</p></div>');
+        // TODO: Remove jQuery.
         $j('#main').hide();
         return false;
       }
 
       // Check for file:///
       if (window.location.protocol === 'file:') {
+        // TODO: Remove jQuery.
         $j('#main').before('<div class="errorPanel"><h1>Running this game directly from the filesystem is unsupported.</h1><p>You are running this game directly from your filesystem. (file:///). This won\'t work, because file:/// doesn\'t support AJAX, and this game needs AJAX to load the levels. Instead, you can install NodeJS and run this game using \'npm start dev\', or you can spin up your own local web server and host this project in there.</p></div>');
+        // TODO: Remove jQuery.
         $j('#main').hide();
         return false;
       }
 
       // Turn off padding to make game fit in small monitors.
+      // TODO: Remove jQuery.
       $j('#main').css('padding', '0px');
 
       stage = new StageObject();
@@ -672,12 +683,13 @@ define('JakesJourney',
 
     bypass = function b(e) {
       if (e.keyCode === Keyboard.keys.Enter) {
+        // TODO: Remove jQuery.
         $j(window).off('keydown', bypass);
         this.run(true);
       }
     };
 
-    $j(() => {
+    Utility.domReady(() => {
       this.run(false);
     });
   });
