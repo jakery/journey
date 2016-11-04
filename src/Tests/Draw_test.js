@@ -1,9 +1,12 @@
 let Coordinates = require('../Scripts/Coordinates');
 let Draw = require('../Scripts/Draw/Draw');
+let testMap = require('json!./Mocks/testMap.json');
 describe('Draw', function () {
   describe('tileIsInDrawBounds', function () {
     var canvas = document.createElement('canvas');
-    let game = {};
+    let game = {
+      map: testMap,
+    };
     let stage = {
       playboxWidth: 15 * 32,
       playboxHeight: 12 * 32,
