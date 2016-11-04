@@ -104,7 +104,9 @@ describe('Dom', function () {
       assert.deepEqual(myDom, myDom.ready());
     });
   });
-
+  describe('.remove()', function () {
+    assert.isTrue(false);
+  });
 
 });
 
