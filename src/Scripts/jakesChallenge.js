@@ -41,6 +41,7 @@ define('JakesJourney',
       this.isOffset = true;
 
       this.gameCanvas = document.getElementById('gameCanvas');
+      this.gameCanvasDom = new Dom(this.gameCanvas);
       this.width = null;
       this.height = null;
       this.playBlockWidth = 15;
@@ -61,10 +62,8 @@ define('JakesJourney',
       this.halfBoxHeightLess16 = null;
       this.playboxTileCount = null;
       this.init = function init() {
-        // TODO: Remove jQuery.
-        this.width = $j(this.gameCanvas).width();
-        // TODO: Remove jQuery.
-        this.height = $j(this.gameCanvas).height();
+        this.width = this.gameCanvasDom.width();
+        this.height = this.gameCanvasDom.height();
 
         this.playboxWidth = this.playBlockWidth * Constants.baseUnit;
         this.playboxHeight = this.playBlockHeight * Constants.baseUnit;

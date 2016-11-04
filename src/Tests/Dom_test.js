@@ -47,6 +47,19 @@ describe('Dom', () => {
       });
     });
 
+    describe('.width()', function width() {
+      it('should return the width of the element.', function test() {
+        let width = myDom.width();
+        assert.isNumber(width);
+      });
+    });
+    describe('.height()', function () {
+      it('should return the height of the element.', function test() {
+        let height = myDom.height();
+        assert.isNumber(height);
+      });
+    });
+
     describe('.hide()', function () {
       it('should hide the element.', function () {
         myDom.hide();
