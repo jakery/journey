@@ -5,6 +5,7 @@ define('JakesJourney',
   ['./Constants/Constants',
     './DeathMessages',
     './Coordinates',
+    './Helpers/Dom',
     './Sprite',
     './Keyboard',
     './Utility',
@@ -15,6 +16,7 @@ define('JakesJourney',
   (Constants,
     DeathMessages,
     Coordinates,
+    Dom,
     Sprite,
     Keyboard,
     Utility,
@@ -456,7 +458,8 @@ define('JakesJourney',
     };
 
     function doPreWork(bypassTouchscreen) {
-      let mainDiv = document.getElementById('main');
+      const mainDiv = new Dom(document.getElementById('main'));
+
       if (!bypassTouchscreen) {
         // Don't run game on touchscreen devices.
         if (('ontouchstart' in window) || window.navigator.msMaxTouchPoints > 0) {
@@ -478,7 +481,7 @@ define('JakesJourney',
         // TODO: Remove jQuery.
         $j('#main').before('<div class="errorPanel"><h1>Your browser does not have the capabilities to run this game.</h1><p>Please consider installing <a href="http://www.google.com/chrome">Google Chrome</a>. Hey, <strong>I</strong> use it, and look how I turned out.</p></div>');
         // TODO: Remove jQuery.
-        $j('#main').hide();
+        mainDiv.hide();
         return false;
       }
 
@@ -486,13 +489,12 @@ define('JakesJourney',
       if (window.location.protocol === 'file:') {
         // TODO: Remove jQuery.
         $j('#main').before('<div class="errorPanel"><h1>Running this game directly from the filesystem is unsupported.</h1><p>You are running this game directly from your filesystem. (file:///). This won\'t work, because file:/// doesn\'t support AJAX, and this game needs AJAX to load the levels. Instead, you can install NodeJS and run this game using \'npm start dev\', or you can spin up your own local web server and host this project in there.</p></div>');
-        // TODO: Remove jQuery.
-        $j('#main').hide();
+        mainDiv.hide();
         return false;
       }
 
       // Turn off padding to make game fit in small monitors.
-      mainDiv.style.padding = '0px';
+      mainDiv.style('padding', '0px');
 
       stage = new StageObject();
       stage.init();
@@ -688,8 +690,8 @@ define('JakesJourney',
         this.run(true);
       }
     };
-
-    Utility.domReady(() => {
+    const myDoc = new Dom(document);
+    myDoc.ready(() => {
       this.run(false);
     });
   });
