@@ -133,6 +133,7 @@ define('JakesJourney',
 
       this.timerModulus = 50;
 
+      // TODO: All of the map stuff should be its own module, or even a group of modules.
       this.loadMap = function loadMap(levelNumberArg) {
         let levelNumber = levelNumberArg;
         game.winMessage = null;
@@ -163,6 +164,7 @@ define('JakesJourney',
             } else {
               game.map = response;
             }
+
 
             game.map.tileProperties = game.map.tilesets[0].tileproperties;
 

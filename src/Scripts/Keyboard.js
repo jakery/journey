@@ -134,6 +134,7 @@ define('Keyboard', [], () => function Keyboard() {
     this.F15 = 126;
   };
 
+  // TODO: Refactor these four things into just one thing.
   this.keys = new this.Keys();
   this.keyIsDown = new this.Keys();
   this.keyHeldDuration = new this.Keys();
