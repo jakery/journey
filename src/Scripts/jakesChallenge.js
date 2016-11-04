@@ -465,7 +465,7 @@ define('JakesJourney',
       if (!bypassTouchscreen) {
         // Don't run game on touchscreen devices.
         if (('ontouchstart' in window) || window.navigator.msMaxTouchPoints > 0) {
-          mainDiv.before('<div class="errorPanel"><h1><p>Notice: This game requires a physical keyboard to play. Touchscreen is not supported.</p><p>If you are using a hybrid, touchscreen-keyboard-combination device (such as Microsoft Surface), press Enter on your physical keyboard to bypass this message and continue to the game. (This feature is untested! You are a pioneer!)</p></div>');
+          mainDiv.before('<div class="errorPanel"><h1>Notice: This game requires a physical keyboard to play. Touchscreen is not supported.</h1><p>If you are using a hybrid, touchscreen-keyboard-combination device (such as Microsoft Surface), press Enter on your physical keyboard to bypass this message and continue to the game. (This feature is untested! You are a pioneer!)</p></div>');
           // TODO: Remove jQuery.
           $j(window).keydown(bypass);
 
