@@ -2,3 +2,5 @@
 **/modernizr.*.js
 **/Assets/*
 src/Scripts/bundle.js
+karma.conf.js
+**/*_test.js

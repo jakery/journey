@@ -7,9 +7,9 @@
     "dev": "lite-server",
     "test": "test",
     "lint": "node ./node_modules/eslint/bin/eslint.js './src/**/*.js'",
-    "lint-watch" : "node ./node_modules/eslint-watch/bin/esw -w --color --ignore-path ./.eslintignore --config ./.eslintrc.json",
+    "lint-watch": "node ./node_modules/eslint-watch/bin/esw -w --color --ignore-path ./.eslintignore --config ./.eslintrc.json",
     "webpack": "node ./node_modules/webpack/bin/webpack.js ./src/Scripts/jakesChallenge.js ./src/Scripts/bundle.js",
-    "webpack-watch":"node ./node_modules/webpack/bin/webpack.js ./src/Scripts/jakesChallenge.js ./src/Scripts/bundle.js --watch",
+    "webpack-watch": "node ./node_modules/webpack/bin/webpack.js ./src/Scripts/jakesChallenge.js ./src/Scripts/bundle.js --watch",
     "webpack-dev-server": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server"
   },
   "repository": {
@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/jakery/journey#readme",
   "devDependencies": {
+    "chai": "^3.5.0",
     "eslint": "^3.8.1",
     "eslint-config-standard": "^6.2.0",
     "eslint-plugin-promise": "^3.3.0",
@@ -34,12 +35,20 @@
     "eslint-watch": "^2.1.14",
     "json-files-merge-loader": "^1.1.0",
     "json-loader": "^0.5.4",
+    "karma": "^1.3.0",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-mocha": "^1.2.0",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^1.8.0",
     "lite-server": "^2.2.2",
+    "mocha": "^3.1.2",
     "script-loader": "^0.7.0",
-    "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
-    "jquery": "^1.11.0"
+    "jquery": "^1.11.0",
+    "webpack": "^1.13.2"
   }
 }
