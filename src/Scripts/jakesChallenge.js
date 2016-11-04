@@ -467,6 +467,10 @@ define('JakesJourney',
         if (('ontouchstart' in window) || window.navigator.msMaxTouchPoints > 0) {
           mainDiv.before('<div class="errorPanel"><h1>Notice: This game requires a physical keyboard to play. Touchscreen is not supported.</h1><p>If you are using a hybrid, touchscreen-keyboard-combination device (such as Microsoft Surface), press Enter on your physical keyboard to bypass this message and continue to the game. (This feature is untested! You are a pioneer!)</p></div>');
           // TODO: Remove jQuery.
+          // It turns out that removing this event listener opens
+          //    a huge can of scope worms that I'm not ready to deal with yet.
+          //    The solution is to finish modularizing everything in this file,
+          //    and by that time, the scoping issues should have been fixed.
           $j(window).keydown(bypass);
 
           return false;
@@ -684,6 +688,9 @@ define('JakesJourney',
     bypass = function b(e) {
       if (e.keyCode === Keyboard.keys.Enter) {
         // TODO: Remove jQuery.
+        // It turns out that removing this event listener opens
+        //    a huge can of scope worms that I'm not ready to deal with yet.
+        //    See note further up in file.
         $j(window).off('keydown', bypass);
         this.run(true);
       }
