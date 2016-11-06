@@ -1,9 +1,11 @@
+// TODO: Remove jQuery.
 const $ = require('jquery');
 
 define('JakesJourney',
   ['./Constants/Constants',
     './DeathMessages',
     './Coordinates',
+    './Helpers/Dom',
     './Sprite',
     './Keyboard',
     './Utility',
@@ -14,6 +16,7 @@ define('JakesJourney',
   (Constants,
     DeathMessages,
     Coordinates,
+    Dom,
     Sprite,
     Keyboard,
     Utility,
@@ -21,6 +24,7 @@ define('JakesJourney',
     Draw,
     Sidebar,
     Credits) => {
+    // TODO: Remove jQuery.
     const $j = $.noConflict();
 
     let player;
@@ -37,6 +41,7 @@ define('JakesJourney',
       this.isOffset = true;
 
       this.gameCanvas = document.getElementById('gameCanvas');
+      this.gameCanvasDom = new Dom(this.gameCanvas);
       this.width = null;
       this.height = null;
       this.playBlockWidth = 15;
@@ -57,8 +62,8 @@ define('JakesJourney',
       this.halfBoxHeightLess16 = null;
       this.playboxTileCount = null;
       this.init = function init() {
-        this.width = $j(this.gameCanvas).width();
-        this.height = $j(this.gameCanvas).height();
+        this.width = this.gameCanvasDom.width();
+        this.height = this.gameCanvasDom.height();
 
         this.playboxWidth = this.playBlockWidth * Constants.baseUnit;
         this.playboxHeight = this.playBlockHeight * Constants.baseUnit;
@@ -127,6 +132,7 @@ define('JakesJourney',
 
       this.timerModulus = 50;
 
+      // TODO: All of the map stuff should be its own module, or even a group of modules.
       this.loadMap = function loadMap(levelNumberArg) {
         let levelNumber = levelNumberArg;
         game.winMessage = null;
@@ -141,7 +147,7 @@ define('JakesJourney',
         if (game.level < 0) {
           levelNumber = 'cheater';
         }
-
+        // TODO: Remove jQuery.
         $j.ajax({
           url: `Assets/Levels/${levelNumber}.json`,
           async: false,
@@ -152,10 +158,11 @@ define('JakesJourney',
             const TileCodes = Constants.tileCodes;
             // TODO: Refactor all of this into a "map" module.
             if (typeof (response) === 'string') {
-              game.map = $j.parseJSON(response);
+              game.map = JSON.parse(response);
             } else {
               game.map = response;
             }
+
 
             game.map.tileProperties = game.map.tilesets[0].tileproperties;
 
@@ -451,37 +458,49 @@ define('JakesJourney',
     };
 
     function doPreWork(bypassTouchscreen) {
+      const mainDiv = new Dom(document.getElementById('main'));
+
       if (!bypassTouchscreen) {
         // Don't run game on touchscreen devices.
         if (('ontouchstart' in window) || window.navigator.msMaxTouchPoints > 0) {
-          $j('#main').before('<div class="errorPanel"><h1><p>Notice: This game requires a physical keyboard to play. Touchscreen is not supported.</p><p>If you are using a hybrid, touchscreen-keyboard-combination device (such as Microsoft Surface), press Enter on your physical keyboard to bypass this message and continue to the game. (This feature is untested! You are a pioneer!)</p></div>');
-
+          mainDiv.before('<div class="errorPanel"><h1>Notice: This game requires a physical keyboard to play. Touchscreen is not supported.</h1><p>If you are using a hybrid, touchscreen-keyboard-combination device (such as Microsoft Surface), press Enter on your physical keyboard to bypass this message and continue to the game. (This feature is untested! You are a pioneer!)</p></div>');
+          // TODO: Remove jQuery.
+          // It turns out that removing this event listener opens
+          //    a huge can of scope worms that I'm not ready to deal with yet.
+          //    The solution is to finish modularizing everything in this file,
+          //    and by that time, the scoping issues should have been fixed.
           $j(window).keydown(bypass);
 
           return false;
         }
       }
-
-      $j('.errorPanel').remove();
+      // TODO: Turn this into a Dom method.
+      const errorPanels = document.getElementsByClassName('errorPanel');
+      if (errorPanels.length) {
+        for (let i = 0; i < errorPanels.length; i += 1) {
+          const error = errorPanels[i];
+          error.parentNode.remove(error);
+        }
+      }
 
       // Check for browser support.
       if (!Modernizr.fontface
         || Array.prototype.indexOf === undefined
         || !window.HTMLCanvasElement) {
-        $j('#main').before('<div class="errorPanel"><h1>Your browser does not have the capabilities to run this game.</h1><p>Please consider installing <a href="http://www.google.com/chrome">Google Chrome</a>. Hey, <strong>I</strong> use it, and look how I turned out.</p></div>');
-        $j('#main').hide();
+        mainDiv.before('<div class="errorPanel"><h1>Your browser does not have the capabilities to run this game.</h1><p>Please consider installing <a href="http://www.google.com/chrome">Google Chrome</a>. Hey, <strong>I</strong> use it, and look how I turned out.</p></div>');
+        mainDiv.hide();
         return false;
       }
 
       // Check for file:///
       if (window.location.protocol === 'file:') {
-        $j('#main').before('<div class="errorPanel"><h1>Running this game directly from the filesystem is unsupported.</h1><p>You are running this game directly from your filesystem. (file:///). This won\'t work, because file:/// doesn\'t support AJAX, and this game needs AJAX to load the levels. Instead, you can install NodeJS and run this game using \'npm start dev\', or you can spin up your own local web server and host this project in there.</p></div>');
-        $j('#main').hide();
+        mainDiv.before('<div class="errorPanel"><h1>Running this game directly from the filesystem is unsupported.</h1><p>You are running this game directly from your filesystem. (file:///). This won\'t work, because file:/// doesn\'t support AJAX, and this game needs AJAX to load the levels... for now. Instead, you can install NodeJS and run this game using \'npm start dev\'.</div>');
+        mainDiv.hide();
         return false;
       }
 
       // Turn off padding to make game fit in small monitors.
-      $j('#main').css('padding', '0px');
+      mainDiv.style('padding', '0px');
 
       stage = new StageObject();
       stage.init();
@@ -672,12 +691,16 @@ define('JakesJourney',
 
     bypass = function b(e) {
       if (e.keyCode === Keyboard.keys.Enter) {
+        // TODO: Remove jQuery.
+        // It turns out that removing this event listener opens
+        //    a huge can of scope worms that I'm not ready to deal with yet.
+        //    See note further up in file.
         $j(window).off('keydown', bypass);
         this.run(true);
       }
     };
-
-    $j(() => {
+    const myDoc = new Dom(document);
+    myDoc.ready(() => {
       this.run(false);
     });
   });
