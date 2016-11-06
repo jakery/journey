@@ -6,6 +6,7 @@ define('JakesJourney',
     './DeathMessages',
     './Coordinates',
     './Helpers/Dom',
+    './Stage',
     './Sprite',
     './Keyboard',
     './Utility',
@@ -17,6 +18,7 @@ define('JakesJourney',
     DeathMessages,
     Coordinates,
     Dom,
+    Stage,
     Sprite,
     Keyboard,
     Utility,
@@ -37,57 +39,7 @@ define('JakesJourney',
     this.globalDraw = null;
     this.gameLoopInterval = 20;
     // TODO: Move this to stage.js
-    const StageObject = function StageObject() {
-      this.isOffset = true;
 
-      this.gameCanvas = document.getElementById('gameCanvas');
-      this.gameCanvasDom = new Dom(this.gameCanvas);
-      this.width = null;
-      this.height = null;
-      this.playBlockWidth = 15;
-      this.playboxWidth = null;
-      this.playBlockHeight = 12;
-      this.playboxHeight = null;
-      this.playboxX = 0;
-      this.playboxY = 0;
-      this.hudCoords = {};
-      this.hudWidth = null;
-      this.hudHeight = null;
-
-      this.playboxTileWidth = null;
-      this.playboxTileHeight = null;
-
-      this.drawOffset = null;
-      this.halfBoxWidthLess16 = null;
-      this.halfBoxHeightLess16 = null;
-      this.playboxTileCount = null;
-      this.init = function init() {
-        this.width = this.gameCanvasDom.width();
-        this.height = this.gameCanvasDom.height();
-
-        this.playboxWidth = this.playBlockWidth * Constants.baseUnit;
-        this.playboxHeight = this.playBlockHeight * Constants.baseUnit;
-
-        this.halfBoxWidthLess16 = (this.playboxWidth / 2) - (Constants.baseUnit / 2);
-        this.halfBoxHeightLess16 = (this.playboxHeight / 2);
-
-        this.playboxTileWidth = this.playboxWidth / Constants.baseUnit;
-        this.playboxTileHeight = this.playboxHeight / Constants.baseUnit;
-
-        this.playboxTileCount = this.playboxTileWidth * this.playboxTileHeight;
-
-        this.hudCoords = new Coordinates(this.playboxWidth, 0);
-        this.hudWidth = this.width - this.playboxWidth;
-        this.hudHeight = this.height;
-      };
-
-      this.getCoordsByTileIndex = function getCoordsByTileIndex(i) {
-        return new Coordinates(
-          i % this.playboxTileWidth,
-          Math.floor(i / this.playboxTileWidth)
-        );
-      };
-    };
     // TODO: Refactor this into separate module.
     function awesomeError(data) {
       Utility.alert(
@@ -148,6 +100,8 @@ define('JakesJourney',
           levelNumber = 'cheater';
         }
         // TODO: Remove jQuery.
+        //       This can't be accomplished until I get the bundling working for all of the
+        //       JSON-formatted level files.
         $j.ajax({
           url: `Assets/Levels/${levelNumber}.json`,
           async: false,
@@ -502,7 +456,7 @@ define('JakesJourney',
       // Turn off padding to make game fit in small monitors.
       mainDiv.style('padding', '0px');
 
-      stage = new StageObject();
+      stage = new Stage();
       stage.init();
       game = new GameObject();
 

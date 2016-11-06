@@ -105,7 +105,10 @@ describe('Dom', function () {
     });
   });
   describe('.remove()', function () {
-    assert.isTrue(false);
+    it("should have a unit test.", function () {
+      throw new Error(`It doesn't.`);
+    });
+
   });
 
 });
