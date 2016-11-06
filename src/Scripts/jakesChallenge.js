@@ -474,10 +474,13 @@ define('JakesJourney',
           return false;
         }
       }
-      // TODO: Remove jQuery.
-      const error = document.getElementsByClassName('errorPanel')[0];
-      if (error.length) {
-        error.parentNode.remove(error);
+      // TODO: Turn this into a Dom method.
+      const errorPanels = document.getElementsByClassName('errorPanel');
+      if (errorPanels.length) {
+        for (let i = 0; i < errorPanels.length; i += 1) {
+          const error = errorPanels[i];
+          error.parentNode.remove(error);
+        }
       }
 
       // Check for browser support.
