@@ -32,12 +32,14 @@ define('Dom', [], () => function Dom(element) {
     this.style('visibility', 'hidden');
     return this;
   };
-  this.show = function hide() {
+  this.show = function show() {
     this.style('visibility', 'visible');
     return this;
   };
   this.ready = function ready(callback) {
     this.element.addEventListener('DOMContentLoaded', callback);
     return this;
+  };
+  this.remove = function remove() {
   };
 });
