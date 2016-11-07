@@ -1,6 +1,12 @@
 // jQuery's greatest hits, but much lighter.
 define('Dom', [], () => function Dom(element) {
-  this.element = element;
+  if (element.isArray) {
+    this.element = element;
+    this.length = element.length;
+  } else {
+    this.element = this[0] = element;
+    this.length = 1;
+  }
   this.before = function before(htmlText) {
     this.element.insertAdjacentHTML('beforeBegin', htmlText);
     return this;
@@ -36,8 +42,12 @@ define('Dom', [], () => function Dom(element) {
     this.style('visibility', 'visible');
     return this;
   };
-  this.html = function html() {
-    // TODO: make it.
+  this.html = function html(value) {
+    if (typeof value !== 'string') {
+      return this.element.innerHTML;
+    }
+    this.element.innerHTML = value;
+    return this;
   };
   this.ready = function ready(callback) {
     this.element.addEventListener('DOMContentLoaded', callback);
@@ -52,5 +62,7 @@ define('Dom', [], () => function Dom(element) {
   }
   this.remove = function remove() {
     this.element.parentNode.removeChild(this.element);
+    return this;
   };
+  return this;
 });

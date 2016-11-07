@@ -75,8 +75,13 @@ describe('Dom', function () {
   });
 
   describe('.html()', function () {
-    it('should set the html', function () {
-      throw new Error('not implemented.');
+    it('should GET the innerHTML of the element.', function () {
+      assert.equal(myDom.html(), myElement.innerHTML);
+    });
+    it('should SET the innerHTML of the element.', function () {
+      let newHtml = 'NEW HTML VALUE';
+      myDom.html(newHtml);
+      assert.equal(myElement.innerHTML, newHtml);
     });
   });
 
@@ -119,6 +124,9 @@ describe('Dom', function () {
 
       let reCheck = document.getElementById('myDiv');
       assert.isTrue(reCheck === null);
+    });
+    it('should return the dom object.', function () {
+      assert.deepEqual(myDom.remove(), myDom);
     });
   });
 
