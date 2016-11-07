@@ -12,4 +12,9 @@ describe('AwesomeError', function () {
       assert.include(awesomeError.message, "unitTest");
     });
   });
+  describe('additional unit tests', function(){
+    it('should be around', function(){
+      throw new Error (`but they just ain't here!!!`);
+    });
+  });
 });

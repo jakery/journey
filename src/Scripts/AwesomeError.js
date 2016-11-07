@@ -8,5 +8,8 @@ define('AwesomeError', ['./Utility'], Utility => function AwesomeError(data) {
     `Level : ${typeof (this.data.level) !== 'undefined' ? this.data.level : 0}\n` +
     `Player Coords : ${this.data.position.x},${this.data.position.y}\n` +
     `Error Code : ${typeof (this.data.errorCode) !== 'undefined' ? this.data.errorCode : 'none'}\n\n`;
-  this.go = Utility.alert(this.message);
+  // TODO: Change 'popup' to new Dom('.errorMessage');
+  this.go = function go() {
+    Utility.alert(this.message, 'popup');
+  };
 });

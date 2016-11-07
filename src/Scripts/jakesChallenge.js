@@ -2,7 +2,8 @@
 const $ = require('jquery');
 
 define('JakesJourney',
-  ['./Constants/Constants',
+  ['./AwesomeError',
+    './Constants/Constants',
     './DeathMessages',
     './Coordinates',
     './Helpers/Dom',
@@ -14,7 +15,8 @@ define('JakesJourney',
     './Draw/Draw',
     './Hud/Sidebar',
     './Credits'],
-  (Constants,
+  (AwesomeError,
+    Constants,
     DeathMessages,
     Coordinates,
     Dom,
@@ -39,20 +41,6 @@ define('JakesJourney',
     this.globalDraw = null;
     this.gameLoopInterval = 20;
     // TODO: Move this to stage.js
-
-    // TODO: Refactor this into separate module.
-    function awesomeError(data) {
-      Utility.alert(
-        `YOU WIN!\n\nActually, you didn't win. You've encountered a bug that's broken the game. I was trying to make you feel better about it.\n\n` +
-        `Contact me and tell me, or else I'll never find out and this will never get fixed.\n\n` +
-        `Also, "It's broken" with no further information is worse than saying nothing at all. That's why you get crappy tech support at your job.\n\n` +
-        `Say what the specific problem is, and also say this stuff too:\n` +
-        `Attempted function :  ${data.attemptedFunction} \n` +
-        `Level : ${typeof (game.level) !== 'undefined' ? game.level : 0}\n` +
-        `Player Coords : ${player.position.x},${player.position.y}\n` +
-        `Error Code : ${typeof (data.errorCode) !== 'undefined' ? data.errorCode : 'none'}\n\n`
-      );
-    }
 
     function getMultiDimensionalMap(originalArray, width) {
       const mdMap = [];
@@ -106,7 +94,13 @@ define('JakesJourney',
           url: `Assets/Levels/${levelNumber}.json`,
           async: false,
           error(response) {
-            awesomeError({ attemptedFunction: 'loadMap (ajax)', errorCode: response.status });
+            const awesomeError = new AwesomeError({
+              attemptedFunction: 'loadMap (ajax)',
+              errorCode: response.status,
+              position: player.position,
+              level: game.level,
+            });
+            awesomeError.go();
           },
           success(response) {
             const TileCodes = Constants.tileCodes;
