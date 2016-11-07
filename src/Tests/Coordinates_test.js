@@ -1,5 +1,5 @@
 let Coordinates = require('../Scripts/Coordinates');
-describe('CoordinatesTest', () => {
+describe('CoordinatesTest', function () {
   describe('Coordinates', function () {
     it('should create coordinates.', function () {
       let c = new Coordinates(0, 0);
@@ -9,8 +9,8 @@ describe('CoordinatesTest', () => {
 
     it('should have null X and Y properties.', function () {
       let c = new Coordinates(Infinity, NaN);
-      assert.equal(null, c.x);
-      assert.equal(null, c.y);
+      assert.isNull(c.x);
+      assert.isNull(c.y);
     });
   });
 });
