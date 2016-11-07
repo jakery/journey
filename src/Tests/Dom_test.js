@@ -1,19 +1,13 @@
 let Dom = require('../Scripts/Helpers/Dom');
-
-
 describe('Dom', function () {
-
   let myElement;
   let myDom;
   beforeEach(function () {
     myElement = document.createElement('div');
-
     myElement.innerHTML = 'test div';
     document.body.appendChild(myElement);
     myDom = new Dom(myElement);
   });
-
-
   describe('new', function () {
     it('should be a new Dom object.', function () {
       assert.equal(myDom.element.innerHTML, 'test div');

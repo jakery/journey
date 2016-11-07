@@ -9,7 +9,7 @@ describe('AwesomeError', function () {
         level: 1,
       });
       assert.include(awesomeError.message, "Attempted function : unitTest");
-            assert.include(awesomeError.message, "unitTest");
+      assert.include(awesomeError.message, "unitTest");
     });
   });
 });
