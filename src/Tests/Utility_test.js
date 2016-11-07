@@ -21,4 +21,9 @@ describe('Utility', () => {
       assert.isTrue(Utility.areColliding(sprite1, sprite2));
     });
   });
+  describe('additional unit tests', function(){
+    it('should have unit tests for every method.', function(){
+      throw new Error(`alas, they don't exist.`);
+    });
+  });
 });
