@@ -9,7 +9,29 @@ describe('Map', function () {
       }
     });
   });
+  describe('getTileIndexByCoords()', function () {
+    it('should have unit tests', function () {
+      throw new Error('but it doesn\'t.');
+    });
+  });
 
+  describe('getTileTypeByCoords()', function () {
+    it('should have unit tests', function () {
+      throw new Error('but it doesn\'t.');
+    });
+  });
+
+  describe('getCoordsByTileIndex()', function () {
+    it('should have unit tests', function () {
+      throw new Error('but it doesn\'t.');
+    });
+  });
+
+    describe('changeTileType()', function () {
+    it('should have unit tests', function () {
+      throw new Error('but it doesn\'t.');
+    });
+  });
   describe('isInBounds()', function () {
     it('should return true', function () {
       assert.isTrue(map.isInBounds({ x: 32, y: 32 }));

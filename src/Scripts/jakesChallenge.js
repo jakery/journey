@@ -9,6 +9,7 @@ define('JakesJourney',
     './Helpers/Dom',
     './Stage',
     './Sprite',
+    './Map',
     './Keyboard',
     './Utility',
     './ObscurelyNamedFile',
@@ -22,6 +23,7 @@ define('JakesJourney',
     Dom,
     Stage,
     Sprite,
+    Map,
     Keyboard,
     Utility,
     ObscurelyNamedFile,
@@ -38,18 +40,9 @@ define('JakesJourney',
     let passwordHandler;
     let bypass;
     let globalDraw;
+    let mapModule;
     this.globalDraw = null;
     this.gameLoopInterval = 20;
-    // TODO: Move this to stage.js
-
-    function getMultiDimensionalMap(originalArray, width) {
-      const mdMap = [];
-      for (let i = 0; i < originalArray.length; i += width) {
-        const smallarray = originalArray.slice(i, i + width);
-        mdMap.push(smallarray);
-      }
-      return mdMap;
-    }
 
     // TODO: Modularize this.
     const GameObject = function GameObject() {
@@ -111,48 +104,8 @@ define('JakesJourney',
               game.map = response;
             }
 
+            mapModule.wireUp(game.map);
 
-            game.map.tileProperties = game.map.tilesets[0].tileproperties;
-
-            game.map.getTileIndexByCoords = function getTileIndexByCoords(x, y) {
-              return (y * this.width) + x;
-            };
-
-            game.map.getTileTypeByCoords = function getTileTypeByCoords(x, y) {
-              const arrayIndex = this.getTileIndexByCoords(x, y);
-              return this.layers[0].data[arrayIndex];
-            };
-
-            game.map.getCoordsByTileIndex = function getCoordsByTileIndex(i) {
-              return new Coordinates(
-                i % game.map.width,
-                Math.floor(i / game.map.width)
-              );
-            };
-
-            game.map.changeTileType = function changeTileType(x, y, type) {
-              const arrayIndex = this.getTileIndexByCoords(x, y);
-              game.map.layers[0].data[arrayIndex] = type;
-            };
-
-            for (let i = 0; i < game.map.tilesets.length; i += 1) {
-              game.map.tilesets[i].indexWidth =
-                game.map.tilesets[0].imagewidth / game.map.tilesets[0].tilewidth;
-              game.map.tilesets[i].indexHeight =
-                game.map.tilesets[0].imageheight / game.map.tilesets[0].tileheight;
-            }
-
-            game.map.isInBounds = function isInBounds(coords) {
-              return coords.x >= 0
-                && coords.x < game.map.width
-                && coords.y > 0
-                && coords.y < game.map.height;
-            };
-
-            game.map.mdMap = getMultiDimensionalMap(game.map.layers[0].data, game.map.width);
-
-            game.map.pixelWidth = game.map.width * Constants.baseUnit;
-            game.map.pixelHeight = game.map.height * Constants.baseUnit;
 
             // Put player on start tile.
             player.position = game.map.getCoordsByTileIndex(
@@ -418,7 +371,6 @@ define('JakesJourney',
           //    The solution is to finish modularizing everything in this file,
           //    and by that time, the scoping issues should have been fixed.
           $j(window).keydown(bypass);
-
           return false;
         }
       }
@@ -453,6 +405,8 @@ define('JakesJourney',
       stage = new Stage();
       stage.init();
       game = new GameObject();
+      mapModule = new Map(game);
+
 
       passwordHandler = new ObscurelyNamedFile(game);
 
@@ -478,6 +432,7 @@ define('JakesJourney',
 
       game.hud = new Sidebar(game, stage, player, globalDraw);
       game.credits = new Credits(game, stage, this.globalDraw);
+
 
       return true;
     }
