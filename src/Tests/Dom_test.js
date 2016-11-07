@@ -105,10 +105,21 @@ describe('Dom', function () {
     });
   });
   describe('.remove()', function () {
-    it("should have a unit test.", function () {
-      throw new Error(`It doesn't.`);
-    });
+    it("should remove the element from the document.", function () {
+      let myElementToRemove = document.createElement('div');
+      myElementToRemove.innerHTML = 'remove me';
+      myElementToRemove.id = 'myDiv';
+      document.body.appendChild(myElementToRemove);
+      let myDomToRemove = new Dom(myElementToRemove);
+      let parentElement = myElementToRemove.parentNode;
+      let check = document.getElementById('myDiv');
+      assert.isTrue(check.id === 'myDiv');
 
+      myDomToRemove.remove();
+
+      let reCheck = document.getElementById('myDiv');
+      assert.isTrue(reCheck === null);
+    });
   });
 
 });

@@ -428,12 +428,12 @@ define('JakesJourney',
           return false;
         }
       }
-      // TODO: Turn this into a Dom method.
+      // TODO: Add support to Dom object for array of dom elements.
       const errorPanels = document.getElementsByClassName('errorPanel');
       if (errorPanels.length) {
         for (let i = 0; i < errorPanels.length; i += 1) {
-          const error = errorPanels[i];
-          error.parentNode.remove(error);
+          const error = new Dom(errorPanels[i]);
+          error.remove();
         }
       }
 
