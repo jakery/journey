@@ -26,4 +26,12 @@ describe('Utility', () => {
       throw new Error(`alas, they don't exist.`);
     });
   });
+  describe('alert()', function () {
+    it('should have complete tests.', function () {
+      throw new Error(`NOPE!`);
+    });
+    it('should throw an error.', function () {
+      assert.throws(() => Utility.alert('theMessage', {}), Error, 'not properly configured');
+    });
+  });
 });

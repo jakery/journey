@@ -178,6 +178,21 @@ define('Utility', [], () => {
       toRadians: degrees => (degrees * Math.PI) / 180,
       toDegrees: radians => (radians * 180) / Math.PI,
     };
+
+    this.alert = function alert(message, output = 'popup') {
+      if (output.constructor === 'Dom') {
+        output.show();
+        output.html(message);
+      } else if (output === 'popup') {
+        // eslint-disable-next-line no-alert
+        window.alert(message);
+      } else if (output === 'console') {
+        // eslint-disable-next-line no-console
+        console.error(message);
+      } else {
+        throw new Error('Alert message not properly configured.');
+      }
+    };
   };
 
   return new Utility();
