@@ -36,6 +36,9 @@ define('Dom', [], () => function Dom(element) {
     this.style('visibility', 'visible');
     return this;
   };
+  this.html = function html() {
+    // TODO: make it.
+  };
   this.ready = function ready(callback) {
     this.element.addEventListener('DOMContentLoaded', callback);
     return this;

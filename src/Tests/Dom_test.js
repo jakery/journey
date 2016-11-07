@@ -80,6 +80,12 @@ describe('Dom', function () {
     });
   });
 
+  describe('.html()', function () {
+    it('should set the html', function () {
+      throw new Error('not implemented.');
+    });
+  });
+
   describe('.ready()', function () {
     it('should execute a callback when the document is loaded.', function () {
       let myNumber = 1;
