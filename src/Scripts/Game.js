@@ -1,4 +1,4 @@
-define('Game', ['./DeathMessages', './Utility'], (DeathMessages, Utility) => function Game() {
+define('Game', ['./Constants/Constants', './DeathMessages', './Utility'], (Constants, DeathMessages, Utility) => function Game() {
   // TODO: Refactor these properties into a hierarchy.
   this.debug = false;
   this.betaTest = true;
@@ -22,7 +22,7 @@ define('Game', ['./DeathMessages', './Utility'], (DeathMessages, Utility) => fun
   this.tools = null;
   this.showMessage = false;
   this.messageText = '';
-  this.mode = 'normal'; // TODO: Remove this magic string.
+  this.mode = Constants.gameModes.normal;
   this.enteredPassword = '';
   this.password = '';
   // Todo: refactor 'isPaused' into 'game.mode = 'paused'
@@ -48,7 +48,7 @@ define('Game', ['./DeathMessages', './Utility'], (DeathMessages, Utility) => fun
     this.nextLevelNumber = 0;
     this.winMessage = null;
     this.theEnd = false;
-    this.mode = 'title';
+    this.mode = Constants.gameModes.title;
     this.nextLevel();
   };
 
