@@ -40,7 +40,6 @@ define('JakesJourney',
     let passwordHandler;
     let bypass;
     let globalDraw;
-    let mapModule;
     this.globalDraw = null;
     this.gameLoopInterval = 20;
 
