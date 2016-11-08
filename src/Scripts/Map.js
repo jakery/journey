@@ -29,21 +29,21 @@ define('Map', ['./Constants/Constants', './Coordinates'], (Constants, Coordinate
     this.layers[0].data[arrayIndex] = type;
   };
 
-  Object.assign(this, map);
+  this.setDrawDimensions = function setDrawDimensions() {
+    // TODO: Rename all references to these.
+    this.drawWidth = this.pixelWidth = this.width * Constants.baseUnit;
+    this.drawHeight = this.pixelHeight = this.height * Constants.baseUnit;
 
-  this.tileProperties = this.tilesets[0].tileproperties;
-
-  // TODO: Refactor these.
-  this.drawWidth = this.pixelWidth = this.width * Constants.baseUnit;
-  this.drawHeight = this.pixelHeight = this.height * Constants.baseUnit;
-
-
-  // TODO: Make this a function.
-  for (let i = 0; i < this.tilesets.length; i += 1) {
-    this.tilesets[i].indexWidth =
-      this.tilesets[0].imagewidth / this.tilesets[0].tilewidth;
-    this.tilesets[i].indexHeight =
-      this.tilesets[0].imageheight / this.tilesets[0].tileheight;
+    for (let i = 0; i < this.tilesets.length; i += 1) {
+      this.tilesets[i].indexWidth =
+        this.tilesets[0].imagewidth / this.tilesets[0].tilewidth;
+      this.tilesets[i].indexHeight =
+        this.tilesets[0].imageheight / this.tilesets[0].tileheight;
+    }
   }
 
+  Object.assign(this, map);
+  this.setDrawDimensions();
+
+  this.tileProperties = this.tilesets[0].tileproperties;
 });

@@ -280,4 +280,22 @@ describe('Map', function () {
       assert.isFalse(map.isInBounds({ x: map.width, y: map.height }));
     });
   });
+
+  describe('properties', function () {
+    it('should have correct drawWidth', function () {
+      assert.equal(map.drawWidth, 5 * 32);
+    });
+    it('should have correct drawHeight', function () {
+      assert.equal(map.drawHeight, 5 * 32);
+    });
+    it('should have correct indexWidth', function () {
+      assert.equal(map.tilesets[0].indexWidth, 6);
+    });
+    it('should have correct indexHeight', function () {
+      assert.equal(map.tilesets[0].indexHeight, 9);
+    });
+    it('should have tileProperties', function () {
+      assert.equal(map.tileProperties[0].type, 'floor');
+    });
+  });
 });
