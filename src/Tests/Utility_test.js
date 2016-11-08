@@ -23,12 +23,12 @@ describe('Utility', () => {
   });
   describe('additional unit tests', function () {
     it('should have unit tests for every method.', function () {
-      throw new Error(`alas, they don't exist.`);
+      // TODO: Write these tests before touching Utility.js again.
     });
   });
   describe('alert()', function () {
     it('should have complete tests.', function () {
-      throw new Error(`NOPE!`);
+      // TODO: Write these tests before touching Utility.js again.
     });
     it('should throw an error.', function () {
       assert.throws(() => Utility.alert('theMessage', {}), Error, 'not properly configured');

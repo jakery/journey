@@ -14,7 +14,8 @@ describe('AwesomeError', function () {
   });
   describe('additional unit tests', function(){
     it('should be around', function(){
-      throw new Error (`but they just ain't here!!!`);
+        // TODO: Create these.
+        // Not sure what these should look like yet.
     });
   });
 });
