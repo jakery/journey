@@ -99,13 +99,10 @@ define('JakesJourney',
             const TileCodes = Constants.tileCodes;
             // TODO: Refactor all of this into a "map" module.
             if (typeof (response) === 'string') {
-              game.map = JSON.parse(response);
+              game.map = new Map(JSON.parse(response));
             } else {
-              game.map = response;
+              game.map = new Map(response);
             }
-
-            mapModule.wireUp(game.map);
-
 
             // Put player on start tile.
             player.position = game.map.getCoordsByTileIndex(
@@ -405,7 +402,6 @@ define('JakesJourney',
       stage = new Stage();
       stage.init();
       game = new GameObject();
-      mapModule = new Map(game);
 
 
       passwordHandler = new ObscurelyNamedFile(game);

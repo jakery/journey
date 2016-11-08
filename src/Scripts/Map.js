@@ -1,10 +1,5 @@
 define('Map', ['./Constants/Constants', './Coordinates'], (Constants, Coordinates) => function Map(map) {
 
-
-  this.width = null;
-  this.height = null;
-  this.tilesets = null;
-
   this.getTileIndexByCoords = function getTileIndexByCoords(x, y) {
     return (y * this.width) + x;
   };
@@ -36,6 +31,7 @@ define('Map', ['./Constants/Constants', './Coordinates'], (Constants, Coordinate
 
   Object.assign(this, map);
 
+  this.tileProperties = this.tilesets[0].tileproperties;
 
   // TODO: Refactor these.
   this.drawWidth = this.pixelWidth = this.width * Constants.baseUnit;
