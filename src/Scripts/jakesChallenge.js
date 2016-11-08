@@ -15,7 +15,8 @@ define('JakesJourney',
     './ObscurelyNamedFile',
     './Draw/Draw',
     './Hud/Sidebar',
-    './Credits'],
+    './Credits',
+    './Game'],
   (AwesomeError,
     Constants,
     DeathMessages,
@@ -29,7 +30,8 @@ define('JakesJourney',
     ObscurelyNamedFile,
     Draw,
     Sidebar,
-    Credits) => {
+    Credits,
+    Game) => {
     // TODO: Remove jQuery.
     const $j = $.noConflict();
 
@@ -45,31 +47,12 @@ define('JakesJourney',
 
     // TODO: Modularize this.
     const GameObject = function GameObject() {
-      this.debug = false;
-      this.betaTest = true;
-      this.gameTimer = -1;
-      this.clock = -1;
-      this.level = -1;
-      this.nextLevelNumber = 0;
-      this.displayClockModifier = 50;
-
-      this.setLevelClock = function setLevelClock() {
-        this.clock = Math.floor(this.gameTimer / this.displayClockModifier);
-      };
-      this.atExit = false;
-      this.winMessage = null;
-      this.theEnd = false;
-      this.corruptionSpeedupThreshold = 52;
-      this.maxCorruption = 58;
-
-      this.timerModulus = 50;
-      this.processMap = function processMap(response) {
+      this.processMap = function processMap(data) {
         const TileCodes = Constants.tileCodes;
-        // TODO: Refactor all of this into a "map" module.
-        if (typeof (response) === 'string') {
-          game.map = new Map(JSON.parse(response));
+        if (typeof (data) === 'string') {
+          game.map = new Map(JSON.parse(data));
         } else {
-          game.map = new Map(response);
+          game.map = new Map(data);
         }
 
         // Put player on start tile.
@@ -287,73 +270,9 @@ define('JakesJourney',
         player.inventory = new Sprite.Inventory();
         this.loadMap(this.level);
       };
-
-      this.returnToTitle = function returnToTitle() {
-        this.level = -1;
-        this.nextLevelNumber = 0;
-        this.winMessage = null;
-        this.theEnd = false;
-        this.mode = 'title';
-        this.nextLevel();
-      };
-
-      this.hud = null;
-      this.credits = null;
-
-      this.iDataArray = null;
-      this.items = null;
-
-      this.eDataArray = null;
-      this.enemies = null;
-
-      this.tools = null;
-
-      this.showMessage = false;
-      this.messageText = '';
-
-      this.mode = 'normal';
-
-      this.enteredPassword = '';
-      this.password = '';
-
-      // Todo: refactor 'isPaused' into 'game.mode = 'paused'
-      this.isPaused = false;
-
-      this.moneyCount = 0;
-
-      this.redSwitch = false;
-      this.yellowSwitch = false;
-      this.greenSwitch = false;
-      this.brownSwitch = false;
-
-      this.onQuickCorruptTile = false;
-      this.quickCorruptTriggered = false;
-      this.corruption = 0;
-      this.corruptionTimer = 0;
-
-      this.deathCount = 0;
-
-      this.lotsOfDeathsModulus = 10;
-
-      this.setDeadMessage = function setDeadMessage(m) {
-        let message = m;
-        this.deathCount += 1;
-        this.showMessage = true;
-        if (!(this.deathCount % this.lotsOfDeathsModulus)) {
-          message = Utility.array.getRandomElement(DeathMessages.miscDeath);
-        }
-        this.messageText = `${message}\n\nPress enter to restart.`;
-      };
-
-      this.passwordSidebarMessage = '';
-
-      this.defaultEnemySpeed = 8;
-
-      this.fadeOut = 0;
-
-      this.assets = {};
     };
 
+    // TODO: Move to Init.js
     function doPreWork(bypassTouchscreen) {
       const mainDiv = new Dom(document.getElementById('main'));
 
@@ -400,8 +319,8 @@ define('JakesJourney',
 
       stage = new Stage();
       stage.init();
-      game = new GameObject();
-
+      game = new Game();
+      Object.assign(game, new GameObject());
 
       passwordHandler = new ObscurelyNamedFile(game);
 
