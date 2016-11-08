@@ -43,11 +43,6 @@ define('Game', ['./Utility'], (Utility) => function Game() {
   this.fadeOut = 0;
   this.assets = {};
 
-  this.setLevelClock = function setLevelClock() {
-    this.clock = Math.floor(this.gameTimer / this.displayClockModifier);
-  };
-
-
   this.returnToTitle = function returnToTitle() {
     this.level = -1;
     this.nextLevelNumber = 0;
