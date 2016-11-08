@@ -63,7 +63,186 @@ define('JakesJourney',
       this.maxCorruption = 58;
 
       this.timerModulus = 50;
+      this.processMap = function processMap(response) {
+        const TileCodes = Constants.tileCodes;
+        // TODO: Refactor all of this into a "map" module.
+        if (typeof (response) === 'string') {
+          game.map = new Map(JSON.parse(response));
+        } else {
+          game.map = new Map(response);
+        }
 
+        // Put player on start tile.
+        player.position = game.map.getCoordsByTileIndex(
+          game.map.layers[0].data.indexOf(TileCodes.start)
+        );
+
+        // Load items.
+        game.items = [];
+        game.iDataArray = Utility.array.findByProperty(game.map.layers, 'name', 'Items', true);
+
+        if (game.iDataArray !== null) {
+          for (let i = 0; i < game.iDataArray.objects.length; i += 1) {
+            const iData = game.iDataArray.objects[i];
+            const item = new Sprite.Sprite(game, stage, null, this.globalDraw, null, player);
+
+            item.tileGraphic = iData.gid;
+            item.spriteID = `item ${i}`;
+            item.nameID = iData.name;
+            item.type = 'item';
+
+            if (game.map.tileProperties[iData.gid - 1] === null) {
+              if (game.debug) {
+                Utility.console.log(`NULL:  ${iData.gid}`);
+              }
+            }
+            item.subType = game.map.tileProperties[iData.gid - 1].type;
+            if (game.debug) {
+              Utility.console.log(item.subType);
+            }
+            item.imageType = 'tile';
+            item.color = game.map.tileProperties[iData.gid - 1].color;
+            item.position = new Coordinates(
+              (iData.x) / Constants.baseUnit,
+              (iData.y - Constants.baseUnit) / Constants.baseUnit
+            );
+            item.linksTo = iData.properties.linksTo;
+
+            item.message = iData.properties.Text;
+
+            item.callback = iData.properties.callback;
+            item.destroyOnUse = iData.properties.destroyOnUse === 'true';
+
+            game.items.push(item);
+
+            if (typeof (iData.properties.destination) !== 'undefined') {
+              item.destination = iData.properties.destination;
+            }
+          }
+        }
+
+        // Count money.
+        game.moneyCount = Utility.array.findAllByProperty(game.items, 'subType', 'money', true).length;
+
+        // Load enemies.
+        game.enemies = [];
+
+        game.eDataArray = Utility.array.findByProperty(game.map.layers, 'name', 'Enemies', true);
+        if (game.eDataArray !== null) {
+          for (let i = 0; i < game.eDataArray.objects.length; i += 1) {
+            const eData = game.eDataArray.objects[i];
+            const enemy = new Sprite.Sprite(game, stage, null, this.globalDraw, null, player);
+
+            enemy.tileGraphic = eData.gid;
+            enemy.spriteID = `enemy ${i}`;
+            enemy.nameID = eData.name;
+            enemy.type = 'enemy';
+            enemy.subType = game.map.tileProperties[eData.gid - 1].type;
+            enemy.imageType = 'tile';
+            enemy.position = new Coordinates(
+              eData.x / Constants.baseUnit,
+              (eData.y - Constants.baseUnit) / Constants.baseUnit
+            );
+            enemy.speed = game.defaultEnemySpeed;
+
+            // Change initial enemy facing direction.
+            if (typeof (eData.properties.direction) !== 'undefined') {
+              enemy.direction = Constants.directions[eData.properties.direction];
+              if (enemy.subType === 'player2') {
+                enemy.rotation = enemy.getRotation();
+              }
+            }
+
+            if (typeof (eData.properties.autoMove) !== 'undefined') {
+              enemy.autoMove = eData.properties.autoMove === 'true';
+            }
+
+            if (enemy.subType === 'smartPredator') {
+              enemy.speed = 3;
+            }
+
+            game.enemies.push(enemy);
+          }
+        }
+
+        game.tools = [];
+
+        game.tDataArray = Utility.array.findByProperty(game.map.layers, 'name', 'Tools', true);
+        if (game.tDataArray !== null) {
+          for (let i = 0; i < game.tDataArray.objects.length; i += 1) {
+            const tData = game.tDataArray.objects[i];
+            const tool = new Sprite.Sprite(game, stage, null, this.globalDraw, null, player);
+
+            tool.tileGraphic = tData.gid;
+            tool.spriteID = `tool ${i}`;
+            tool.type = 'tool';
+            tool.subType = game.map.tileProperties[tData.gid - 1].type;
+            tool.imageType = 'tile';
+            tool.color = game.map.tileProperties[tData.gid - 1].color;
+            tool.position = new Coordinates(
+              tData.x / Constants.baseUnit,
+              (tData.y - Constants.baseUnit) / Constants.baseUnit
+            );
+
+            // Change initial enemy facing direction.
+            if (typeof (tData.properties.direction) !== 'undefined') {
+              tool.direction = Constants.directions[tData.properties.direction];
+            }
+
+            game.tools.push(tool);
+          }
+        }
+
+        // TODO: Refactor parameters. Make it freaking consistent.
+
+        const p = Utility.array.findByProperty(game.map.layers, 'name', 'Parameters', true);
+
+        // Defaults. Will be overridden below if replacement parameters exist.
+        game.map.parameters = {
+          wrapAround: false,
+          tileset: 'devgraphics',
+        };
+        stage.isOffset = true;
+        game.mode = Constants.gameModes.normal;
+        game.password = passwordHandler.passwordArray[game.level];
+        game.nextLevelNumber = game.level + 1;
+
+        if (p !== null && typeof (p.properties) !== 'undefined') {
+          game.map.parameters = p.properties;
+
+          if (typeof (p.properties.stageOffset) !== 'undefined') {
+            if (p.properties.stageOffset === 'false') {
+              stage.isOffset = false;
+            }
+          }
+
+          if (typeof (p.properties.tileset) !== 'undefined') {
+            game.map.parameters.tileset = p.properties.tileset;
+          } else {
+            game.map.parameters.tileset = 'devgraphics';
+          }
+
+          if (typeof (p.properties.mode) !== 'undefined') {
+            game.mode = Constants.gameModes[p.properties.mode];
+          }
+
+          if (typeof (p.properties.password) !== 'undefined') {
+            game.password = p.properties.password;
+          }
+
+          if (typeof (p.properties.nextLevel) !== 'undefined') {
+            game.nextLevelNumber = p.properties.nextLevel;
+          }
+
+          if (typeof (p.properties.tileset) !== 'undefined') {
+            game.map.parameters.tileset = p.properties.tileset;
+          }
+
+          if (typeof (p.properties.time) !== 'undefined') {
+            game.clock = parseInt(p.properties.time, 10);
+          }
+        }
+      };
       // TODO: All of the map stuff should be its own module, or even a group of modules.
       this.loadMap = function loadMap(levelNumberArg) {
         let levelNumber = levelNumberArg;
@@ -94,186 +273,7 @@ define('JakesJourney',
             });
             awesomeError.go();
           },
-          success(response) {
-            const TileCodes = Constants.tileCodes;
-            // TODO: Refactor all of this into a "map" module.
-            if (typeof (response) === 'string') {
-              game.map = new Map(JSON.parse(response));
-            } else {
-              game.map = new Map(response);
-            }
-
-            // Put player on start tile.
-            player.position = game.map.getCoordsByTileIndex(
-              game.map.layers[0].data.indexOf(TileCodes.start)
-            );
-
-            // Load items.
-            game.items = [];
-            game.iDataArray = Utility.array.findByProperty(game.map.layers, 'name', 'Items', true);
-
-            if (game.iDataArray !== null) {
-              for (let i = 0; i < game.iDataArray.objects.length; i += 1) {
-                const iData = game.iDataArray.objects[i];
-                const item = new Sprite.Sprite(game, stage, null, this.globalDraw, null, player);
-
-                item.tileGraphic = iData.gid;
-                item.spriteID = `item ${i}`;
-                item.nameID = iData.name;
-                item.type = 'item';
-
-                if (game.map.tileProperties[iData.gid - 1] === null) {
-                  if (game.debug) {
-                    Utility.console.log(`NULL:  ${iData.gid}`);
-                  }
-                }
-                item.subType = game.map.tileProperties[iData.gid - 1].type;
-                if (game.debug) {
-                  Utility.console.log(item.subType);
-                }
-                item.imageType = 'tile';
-                item.color = game.map.tileProperties[iData.gid - 1].color;
-                item.position = new Coordinates(
-                  (iData.x) / Constants.baseUnit,
-                  (iData.y - Constants.baseUnit) / Constants.baseUnit
-                );
-                item.linksTo = iData.properties.linksTo;
-
-                item.message = iData.properties.Text;
-
-                item.callback = iData.properties.callback;
-                item.destroyOnUse = iData.properties.destroyOnUse === 'true';
-
-                game.items.push(item);
-
-                if (typeof (iData.properties.destination) !== 'undefined') {
-                  item.destination = iData.properties.destination;
-                }
-              }
-            }
-
-            // Count money.
-            game.moneyCount = Utility.array.findAllByProperty(game.items, 'subType', 'money', true).length;
-
-            // Load enemies.
-            game.enemies = [];
-
-            game.eDataArray = Utility.array.findByProperty(game.map.layers, 'name', 'Enemies', true);
-            if (game.eDataArray !== null) {
-              for (let i = 0; i < game.eDataArray.objects.length; i += 1) {
-                const eData = game.eDataArray.objects[i];
-                const enemy = new Sprite.Sprite(game, stage, null, this.globalDraw, null, player);
-
-                enemy.tileGraphic = eData.gid;
-                enemy.spriteID = `enemy ${i}`;
-                enemy.nameID = eData.name;
-                enemy.type = 'enemy';
-                enemy.subType = game.map.tileProperties[eData.gid - 1].type;
-                enemy.imageType = 'tile';
-                enemy.position = new Coordinates(
-                  eData.x / Constants.baseUnit,
-                  (eData.y - Constants.baseUnit) / Constants.baseUnit
-                );
-                enemy.speed = game.defaultEnemySpeed;
-
-                // Change initial enemy facing direction.
-                if (typeof (eData.properties.direction) !== 'undefined') {
-                  enemy.direction = Constants.directions[eData.properties.direction];
-                  if (enemy.subType === 'player2') {
-                    enemy.rotation = enemy.getRotation();
-                  }
-                }
-
-                if (typeof (eData.properties.autoMove) !== 'undefined') {
-                  enemy.autoMove = eData.properties.autoMove === 'true';
-                }
-
-                if (enemy.subType === 'smartPredator') {
-                  enemy.speed = 3;
-                }
-
-                game.enemies.push(enemy);
-              }
-            }
-
-            game.tools = [];
-
-            game.tDataArray = Utility.array.findByProperty(game.map.layers, 'name', 'Tools', true);
-            if (game.tDataArray !== null) {
-              for (let i = 0; i < game.tDataArray.objects.length; i += 1) {
-                const tData = game.tDataArray.objects[i];
-                const tool = new Sprite.Sprite(game, stage, null, this.globalDraw, null, player);
-
-                tool.tileGraphic = tData.gid;
-                tool.spriteID = `tool ${i}`;
-                tool.type = 'tool';
-                tool.subType = game.map.tileProperties[tData.gid - 1].type;
-                tool.imageType = 'tile';
-                tool.color = game.map.tileProperties[tData.gid - 1].color;
-                tool.position = new Coordinates(
-                  tData.x / Constants.baseUnit,
-                  (tData.y - Constants.baseUnit) / Constants.baseUnit
-                );
-
-                // Change initial enemy facing direction.
-                if (typeof (tData.properties.direction) !== 'undefined') {
-                  tool.direction = Constants.directions[tData.properties.direction];
-                }
-
-                game.tools.push(tool);
-              }
-            }
-
-            // TODO: Refactor parameters. Make it freaking consistent.
-
-            const p = Utility.array.findByProperty(game.map.layers, 'name', 'Parameters', true);
-
-            // Defaults. Will be overridden below if replacement parameters exist.
-            game.map.parameters = {
-              wrapAround: false,
-              tileset: 'devgraphics',
-            };
-            stage.isOffset = true;
-            game.mode = Constants.gameModes.normal;
-            game.password = passwordHandler.passwordArray[game.level];
-            game.nextLevelNumber = game.level + 1;
-
-            if (p !== null && typeof (p.properties) !== 'undefined') {
-              game.map.parameters = p.properties;
-
-              if (typeof (p.properties.stageOffset) !== 'undefined') {
-                if (p.properties.stageOffset === 'false') {
-                  stage.isOffset = false;
-                }
-              }
-
-              if (typeof (p.properties.tileset) !== 'undefined') {
-                game.map.parameters.tileset = p.properties.tileset;
-              } else {
-                game.map.parameters.tileset = 'devgraphics';
-              }
-
-              if (typeof (p.properties.mode) !== 'undefined') {
-                game.mode = Constants.gameModes[p.properties.mode];
-              }
-
-              if (typeof (p.properties.password) !== 'undefined') {
-                game.password = p.properties.password;
-              }
-
-              if (typeof (p.properties.nextLevel) !== 'undefined') {
-                game.nextLevelNumber = p.properties.nextLevel;
-              }
-
-              if (typeof (p.properties.tileset) !== 'undefined') {
-                game.map.parameters.tileset = p.properties.tileset;
-              }
-
-              if (typeof (p.properties.time) !== 'undefined') {
-                game.clock = parseInt(p.properties.time, 10);
-              }
-            }
-          },
+          success: this.processMap,
         });
       };
 
