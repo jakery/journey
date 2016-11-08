@@ -1,8 +1,8 @@
-define('Game', ['./Utility'], (Utility) => function Game() {
+define('Game', ['./DeathMessages', './Utility'], (DeathMessages, Utility) => function Game() {
   // TODO: Refactor these properties into a hierarchy.
   this.debug = false;
   this.betaTest = true;
-  this.gameTimer = -1;
+  this.ticks = this.gameTimer = -1;
   this.clock = -1;
   this.level = -1;
   this.nextLevelNumber = 0;
