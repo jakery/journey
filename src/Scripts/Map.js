@@ -6,14 +6,6 @@ define('Map', ['./Constants/Constants', './Coordinates'], (Constants, Coordinate
     return (y * this.width) + x;
   };
 
-  this.getMultiDimensionalMap = function getMultiDimensionalMap(originalArray, width) {
-    const mdMap = [];
-    for (let i = 0; i < originalArray.length; i += width) {
-      const smallarray = originalArray.slice(i, i + width);
-      mdMap.push(smallarray);
-    }
-    return mdMap;
-  };
 
   this.isInBounds = function isInBounds(coords) {
     return coords.x >= 0
