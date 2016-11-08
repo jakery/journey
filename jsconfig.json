@@ -1,0 +1,8 @@
+{
+    "target": "ES6",
+    "exclude": [
+        "node_modules",
+        "bin",
+        "src/Scripts/bundle.js"
+    ]
+}
