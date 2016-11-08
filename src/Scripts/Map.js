@@ -38,8 +38,6 @@ define('Map', ['./Constants/Constants', './Coordinates'], (Constants, Coordinate
 
 
   // TODO: Refactor these.
-  this.mdMap = this.getMultiDimensionalMap(this.layers[0].data, this.width);
-
   this.drawWidth = this.pixelWidth = this.width * Constants.baseUnit;
   this.drawHeight = this.pixelHeight = this.height * Constants.baseUnit;
 
