@@ -2,7 +2,8 @@
 const $ = require('jquery');
 
 define('JakesJourney',
-  ['./AwesomeError',
+  [
+    './AwesomeError',
     './Constants/Constants',
     './DeathMessages',
     './Coordinates',
@@ -17,7 +18,8 @@ define('JakesJourney',
     './Hud/Sidebar',
     './Credits',
     './Game'],
-  (AwesomeError,
+  (
+    AwesomeError,
     Constants,
     DeathMessages,
     Coordinates,
@@ -31,7 +33,8 @@ define('JakesJourney',
     Draw,
     Sidebar,
     Credits,
-    Game) => {
+    Game
+  ) => {
     // TODO: Remove jQuery.
     const $j = $.noConflict();
 
