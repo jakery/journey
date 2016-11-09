@@ -11,6 +11,7 @@ define('JakesJourney',
     './Helpers/Dom',
     './Stage',
     './Sprite',
+    './Player',
     './Map',
     './Keyboard',
     './Utility',
@@ -28,6 +29,7 @@ define('JakesJourney',
     Dom,
     Stage,
     Sprite,
+    Player,
     Map,
     Keyboard,
     Utility,
@@ -135,24 +137,18 @@ define('JakesJourney',
       keyboard.settings.exclusions = ['F5', 'F11', 'F12', 'Control'];
       keyboard.wireUp(document);
 
-      self.player = this.player = new Sprite.Sprite(
-        self.game,
+      self.player = this.player = new Player(self.game,
         self.stage,
         keyboard,
         self.draw,
         self.passwordHandler,
-        null
+        self.game.assets.face
       );
-      self.player.imageType = 'image';
-      self.player.image = self.game.assets.face;
-      self.player.type = 'player';
-      self.player.player = self.player;
 
       self.draw.player = self.player;
 
       self.game.hud = new Sidebar(self.game, self.stage, self.player, self.draw);
       self.game.credits = new Credits(self.game, self.stage, self.draw);
-
 
       return true;
     }
