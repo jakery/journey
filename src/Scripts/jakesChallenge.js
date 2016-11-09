@@ -345,18 +345,12 @@ define('JakesJourney',
 
       // Register item hits.
       for (let i = 0; i < self.game.items.length; i += 1) {
-        // TODO: Refactor with "areSpritesColliding".
-        if (self.player.position.x === self.game.items[i].position.x
-          && self.player.position.y === self.game.items[i].position.y) {
-          // Player interacts with item.
+        if (Utility.areSpritesColliding(self.player, self.game.items[i])) {
           self.game.items[i].registerHit(self.player);
         } else {
           for (let j = 0; j < self.game.enemies.length; j += 1) {
             const enemy = self.game.enemies[j];
-            // TODO: Refactor with "areSpritesColliding".
-            if (enemy.position.x === self.game.items[i].position.x
-              && enemy.position.y === self.game.items[i].position.y) {
-              // Enemy interacts with item.
+            if (Utility.areSpritesColliding(enemy, self.game.items[i])) {
               self.game.items[i].registerHit(enemy);
             }
           }
@@ -375,8 +369,7 @@ define('JakesJourney',
       // Register enemy hits.
       for (let i = 0; i < self.game.enemies.length; i += 1) {
         // TODO: Refactor with "areSpritesColliding".
-        if (self.player.position.x === self.game.enemies[i].position.x
-          && self.player.position.y === self.game.enemies[i].position.y) {
+        if (Utility.areSpritesColliding(self.player, self.game.enemies[i])) {
           self.player.isDead = true;
           self.game.enemies[i].hasKilledPlayer = true;
 
