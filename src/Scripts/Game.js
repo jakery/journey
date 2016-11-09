@@ -1,4 +1,4 @@
-define('Game', ['./Constants/Constants', './DeathMessages', './Utility'], (Constants, DeathMessages, Utility) => function Game() {
+define('Game', ['./Constants/Constants', './DeathMessages', './Utility/Utility'], (Constants, DeathMessages, Utility) => function Game() {
   // TODO: Refactor these properties into a hierarchy.
   this.debug = false;
   this.betaTest = true;

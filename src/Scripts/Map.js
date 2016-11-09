@@ -1,4 +1,4 @@
-define('Map', ['./Constants/Constants', './Coordinates', './Utility', './ObscurelyNamedFile', './Sprite/Sprite'], (Constants, Coordinates, Utility, PasswordHandler, Sprite) => function Map(map, game, stage) {
+define('Map', ['./Constants/Constants', './Coordinates', './Utility/Utility', './ObscurelyNamedFile', './Sprite/Sprite'], (Constants, Coordinates, Utility, PasswordHandler, Sprite) => function Map(map, game, stage) {
   this.game = game;
   this.stage = stage;
   this.passwordHandler = new PasswordHandler();

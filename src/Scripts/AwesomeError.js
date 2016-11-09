@@ -1,4 +1,4 @@
-define('AwesomeError', ['./Utility'], Utility => function AwesomeError(data) {
+define('AwesomeError', ['./Utility/Utility'], Utility => function AwesomeError(data) {
   this.data = data;
   this.message = `YOU WIN!\n\nActually, you didn't win. You've encountered a bug that's broken the game. I was trying to make you feel better about it.\n\n` +
     `Contact me and tell me, or else I'll never find out and this will never get fixed.\n\n` +
