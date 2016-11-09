@@ -41,7 +41,11 @@ define('Game', ['./Constants/Constants', './DeathMessages', './Utility'], (Const
   this.passwordSidebarMessage = '';
   this.defaultEnemySpeed = 8;
   this.fadeOut = 0;
-  this.assets = {};
+  this.assets = {
+    face: document.getElementById('face'),
+    devgraphics: document.getElementById('devgraphics'),
+    dungeon: document.getElementById('dungeon'),
+  };
 
   this.returnToTitle = function returnToTitle() {
     this.level = -1;
