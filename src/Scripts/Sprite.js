@@ -1,3 +1,5 @@
+// TODO: Refactor this out into a group of modules.
+// TODO: Create unit tests.
 define(
   'Sprite',
   ['./Constants/Constants', './DeathMessages', './Coordinates', './Keyboard', './Utility', './Draw/Draw'],
@@ -90,6 +92,11 @@ define(
       this.rotation = 0;
 
       this.position = new Coordinates(0, 0);
+
+      this.resetLevelVariables = function resetLevelVariables() {
+        this.inventory = new SpriteNS.Inventory();
+        this.isDead = false;
+      };
 
       this.tileDistanceToSprite = function tileDistanceToSprite(sprite) {
         return this.tileDistanceBetween(this.position, sprite.position);

@@ -21,4 +21,17 @@ describe('Utility', () => {
       assert.isTrue(Utility.areColliding(sprite1, sprite2));
     });
   });
+  describe('additional unit tests', function () {
+    it('should have unit tests for every method.', function () {
+      // TODO: Write these tests before touching Utility.js again.
+    });
+  });
+  describe('alert()', function () {
+    it('should have complete tests.', function () {
+      // TODO: Write these tests before touching Utility.js again.
+    });
+    it('should throw an error.', function () {
+      assert.throws(() => Utility.alert('theMessage', {}), Error, 'not properly configured');
+    });
+  });
 });

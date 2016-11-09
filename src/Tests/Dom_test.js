@@ -1,19 +1,13 @@
 let Dom = require('../Scripts/Helpers/Dom');
-
-
 describe('Dom', function () {
-
   let myElement;
   let myDom;
   beforeEach(function () {
     myElement = document.createElement('div');
-
     myElement.innerHTML = 'test div';
     document.body.appendChild(myElement);
     myDom = new Dom(myElement);
   });
-
-
   describe('new', function () {
     it('should be a new Dom object.', function () {
       assert.equal(myDom.element.innerHTML, 'test div');
@@ -80,6 +74,17 @@ describe('Dom', function () {
     });
   });
 
+  describe('.html()', function () {
+    it('should GET the innerHTML of the element.', function () {
+      assert.equal(myDom.html(), myElement.innerHTML);
+    });
+    it('should SET the innerHTML of the element.', function () {
+      let newHtml = 'NEW HTML VALUE';
+      myDom.html(newHtml);
+      assert.equal(myElement.innerHTML, newHtml);
+    });
+  });
+
   describe('.ready()', function () {
     it('should execute a callback when the document is loaded.', function () {
       let myNumber = 1;
@@ -105,7 +110,24 @@ describe('Dom', function () {
     });
   });
   describe('.remove()', function () {
-    assert.isTrue(false);
+    it("should remove the element from the document.", function () {
+      let myElementToRemove = document.createElement('div');
+      myElementToRemove.innerHTML = 'remove me';
+      myElementToRemove.id = 'myDiv';
+      document.body.appendChild(myElementToRemove);
+      let myDomToRemove = new Dom(myElementToRemove);
+      let parentElement = myElementToRemove.parentNode;
+      let check = document.getElementById('myDiv');
+      assert.isTrue(check.id === 'myDiv');
+
+      myDomToRemove.remove();
+
+      let reCheck = document.getElementById('myDiv');
+      assert.isTrue(reCheck === null);
+    });
+    it('should return the dom object.', function () {
+      assert.deepEqual(myDom.remove(), myDom);
+    });
   });
 
 });
