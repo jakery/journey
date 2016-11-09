@@ -61,4 +61,8 @@ define('Game', ['./Constants/Constants', './DeathMessages', './Utility'], (Const
     }
     this.messageText = `${message}\n\nPress enter to restart.`;
   };
+
+  this.setProperties = function setProperties(obj) {
+    Object.assign(this, obj);
+  };
 });
