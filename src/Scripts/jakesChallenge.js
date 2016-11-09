@@ -1,3 +1,4 @@
+// TODO: Rename this to app.js
 // TODO: Remove jQuery.
 const $ = require('jquery');
 
@@ -53,9 +54,9 @@ define('JakesJourney',
       this.processMap = function processMap(data) {
         const TileCodes = Constants.tileCodes;
         if (typeof (data) === 'string') {
-          game.map = new Map(JSON.parse(data));
+          game.map = new Map(JSON.parse(data), game, stage);
         } else {
-          game.map = new Map(data);
+          game.map = new Map(data, game, stage);
         }
 
         // Put player on start tile.
@@ -178,56 +179,7 @@ define('JakesJourney',
             game.tools.push(tool);
           }
         }
-
-        // TODO: Refactor parameters. Make it freaking consistent.
-
-        const p = Utility.array.findByProperty(game.map.layers, 'name', 'Parameters', true);
-
-        // Defaults. Will be overridden below if replacement parameters exist.
-        game.map.parameters = {
-          wrapAround: false,
-          tileset: 'devgraphics',
-        };
-        stage.isOffset = true;
-        game.mode = Constants.gameModes.normal;
-        game.password = passwordHandler.passwordArray[game.level];
-        game.nextLevelNumber = game.level + 1;
-
-        if (p !== null && typeof (p.properties) !== 'undefined') {
-          game.map.parameters = p.properties;
-
-          if (typeof (p.properties.stageOffset) !== 'undefined') {
-            if (p.properties.stageOffset === 'false') {
-              stage.isOffset = false;
-            }
-          }
-
-          if (typeof (p.properties.tileset) !== 'undefined') {
-            game.map.parameters.tileset = p.properties.tileset;
-          } else {
-            game.map.parameters.tileset = 'devgraphics';
-          }
-
-          if (typeof (p.properties.mode) !== 'undefined') {
-            game.mode = Constants.gameModes[p.properties.mode];
-          }
-
-          if (typeof (p.properties.password) !== 'undefined') {
-            game.password = p.properties.password;
-          }
-
-          if (typeof (p.properties.nextLevel) !== 'undefined') {
-            game.nextLevelNumber = p.properties.nextLevel;
-          }
-
-          if (typeof (p.properties.tileset) !== 'undefined') {
-            game.map.parameters.tileset = p.properties.tileset;
-          }
-
-          if (typeof (p.properties.time) !== 'undefined') {
-            game.clock = parseInt(p.properties.time, 10);
-          }
-        }
+        game.map.setProperties();
       };
       // TODO: All of the map stuff should be its own module, or even a group of modules.
       this.loadMap = function loadMap(levelNumberArg) {
@@ -238,7 +190,7 @@ define('JakesJourney',
         player.inventory = new Sprite.Inventory();
         player.isDead = false;
         game.gameTimer = 0;
-        game.clock = 0;
+        game.clock = -1;
         game.brownSwitch = false;
 
         if (game.level < 0) {
