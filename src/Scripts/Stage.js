@@ -23,6 +23,19 @@ define('Stage', ['./Constants/Constants', './Coordinates', './Helpers/Dom'],
     this.halfBoxWidthLess16 = null;
     this.halfBoxHeightLess16 = null;
     this.playboxTileCount = null;
+
+    this.setProperties = function setProperties(obj) {
+      Object.assign(this, obj);
+    };
+
+    // TODO: Move this to a utility/draw module.
+    this.getCoordsByTileIndex = function getCoordsByTileIndex(i) {
+      return new Coordinates(
+        i % this.playboxTileWidth,
+        Math.floor(i / this.playboxTileWidth)
+      );
+    };
+
     this.init = function init() {
       this.width = this.gameCanvasDom.width();
       this.height = this.gameCanvasDom.height();
@@ -42,16 +55,5 @@ define('Stage', ['./Constants/Constants', './Coordinates', './Helpers/Dom'],
       this.hudWidth = this.width - this.playboxWidth;
       this.hudHeight = this.height;
     };
-
-    this.setProperties = function setProperties(obj) {
-      Object.assign(this, obj);
-    };
-
-    // TODO: Move this to a utility/draw module.
-    this.getCoordsByTileIndex = function getCoordsByTileIndex(i) {
-      return new Coordinates(
-        i % this.playboxTileWidth,
-        Math.floor(i / this.playboxTileWidth)
-      );
-    };
+    this.init();
   });
