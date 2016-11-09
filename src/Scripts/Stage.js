@@ -43,6 +43,10 @@ define('Stage', ['./Constants/Constants', './Coordinates', './Helpers/Dom'],
       this.hudHeight = this.height;
     };
 
+    this.setProperties = function setProperties(obj) {
+      Object.assign(this, obj);
+    };
+
     // TODO: Move this to a utility/draw module.
     this.getCoordsByTileIndex = function getCoordsByTileIndex(i) {
       return new Coordinates(
