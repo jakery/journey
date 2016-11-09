@@ -2,7 +2,7 @@
 // TODO: Create unit tests.
 define(
   'Sprite',
-  ['./Constants/Constants', './DeathMessages', './Coordinates', './Keyboard', './Utility', './Draw/Draw'],
+  ['../Constants/Constants', '../DeathMessages', '../Coordinates', '../Keyboard', '../Utility', '../Draw/Draw'],
   (Constants, DeathMessages, Coordinates, Keyboard, Utility, Draw) => {
     const SpriteNS = {
       Inventory: function Inventory() {
