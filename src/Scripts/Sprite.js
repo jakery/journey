@@ -94,7 +94,7 @@ define(
       this.position = new Coordinates(0, 0);
 
       this.resetLevelVariables = function resetLevelVariables() {
-        this.inventory = new Sprite.Inventory();
+        this.inventory = new SpriteNS.Inventory();
         this.isDead = false;
       };
 
