@@ -1,3 +1,5 @@
+// TODO: Refactor this out into a group of modules.
+// TODO: Create unit tests.
 define(
   'Sprite',
   ['./Constants/Constants', './DeathMessages', './Coordinates', './Keyboard', './Utility', './Draw/Draw'],
