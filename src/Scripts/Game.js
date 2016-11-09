@@ -78,4 +78,8 @@ define('Game', ['./Constants/Constants', './DeathMessages', './Utility'], (Const
   this.setProperties = function setProperties(obj) {
     Object.assign(this, obj);
   };
+
+  this.restartLevel = function restartLevel() {
+    this.loadMap(this.level);
+  };
 });

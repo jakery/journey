@@ -102,10 +102,6 @@ define('JakesJourney',
         });
       };
 
-      this.restartLevel = function restartLevel() {
-        this.loadMap(self.game.level);
-      };
-
       this.nextLevel = function nextLevel() {
         this.level = self.game.nextLevelNumber;
         this.atExit = false;
