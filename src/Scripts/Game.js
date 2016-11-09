@@ -47,6 +47,15 @@ define('Game', ['./Constants/Constants', './DeathMessages', './Utility'], (Const
     dungeon: document.getElementById('dungeon'),
   };
 
+  this.resetLevelVariables = function resetLevelVariables() {
+    this.winMessage = null;
+    this.isPaused = false;
+    this.atExit = false;
+    this.gameTimer = 0;
+    this.clock = -1;
+    this.brownSwitch = false;
+  };
+
   this.returnToTitle = function returnToTitle() {
     this.level = -1;
     this.nextLevelNumber = 0;

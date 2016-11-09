@@ -207,12 +207,7 @@ define('JakesJourney',
       // TODO: All of the map stuff should be its own module, or even a group of modules.
       this.loadMap = function loadMap(levelNumberArg) {
         let levelNumber = levelNumberArg;
-        self.game.winMessage = null;
-        self.game.isPaused = false;
-        self.game.atExit = false;
-        self.game.gameTimer = 0;
-        self.game.clock = -1;
-        self.game.brownSwitch = false;
+        self.game.resetLevelVariables();
 
         self.player.inventory = new Sprite.Inventory();
         self.player.isDead = false;
