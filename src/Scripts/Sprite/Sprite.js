@@ -2,8 +2,8 @@
 // TODO: Create unit tests.
 define(
   'Sprite',
-  ['../Constants/Constants', '../DeathMessages', '../Coordinates', '../Keyboard', '../Utility/Utility', '../Draw/Draw'],
-  (Constants, DeathMessages, Coordinates, Keyboard, Utility, Draw) => {
+  ['../Constants/Constants', '../Constants/TileCodes', '../DeathMessages', '../Coordinates', '../Keyboard', '../Utility/Utility', '../Draw/Draw'],
+  (Constants, TileCodes, DeathMessages, Coordinates, Keyboard, Utility, Draw) => {
     const SpriteNS = {
       Inventory: function Inventory() {
         this.yellowKeys = 0;
@@ -185,7 +185,6 @@ define(
       };
 
       this.canMove = function canMove(coordinates) {
-        const TileCodes = Constants.tileCodes;
         const destination = (coordinates == null) ? this.getTarget() : coordinates;
 
         // Get all tile layers.
@@ -403,7 +402,6 @@ define(
       };
 
       this.checkTile = function checkTile() {
-        const TileCodes = Constants.tileCodes;
         // var tileIndex = game.map.getTileIndexByCoords
         const tileType = this.game.map.getTileTypeByCoords(this.position.x, this.position.y);
 
@@ -931,7 +929,6 @@ define(
       };
 
       this.registerHit = function registerHit(s) {
-        const TileCodes = Constants.tileCodes;
         const sprite = s;
         if (!this.isAlive) {
           return false;

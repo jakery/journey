@@ -5,6 +5,7 @@ define('App',
   [
     './AwesomeError',
     './Constants/Constants',
+    './Constants/TileCodes',
     './DeathMessages',
     './Coordinates',
     './Helpers/Dom',
@@ -16,13 +17,14 @@ define('App',
     './Utility/Utility',
     './ObscurelyNamedFile',
     './Draw/Draw',
-    './Hud/Sidebar',
-    './Credits',
+    './Display/Sidebar',
+    './Display/Credits',
     './Game',
     './Init'],
   (
     AwesomeError,
     Constants,
+    TileCodes,
     DeathMessages,
     Coordinates,
     Dom,
@@ -55,7 +57,6 @@ define('App',
     // TODO: Modularize this.
     const GameObject = function GameObject() {
       this.processMap = function processMap(data) {
-        const TileCodes = Constants.tileCodes;
         if (typeof (data) === 'string') {
           self.game.map = new Map(JSON.parse(data), self.game, self.stage);
         } else {

@@ -1,4 +1,4 @@
-define('Credits', ['./Constants/Constants', './CreditsText'], (Constants, CreditsText) => function Credits(game, stage, globalDraw) {
+define('Credits', ['../Constants/Constants', './CreditsText'], (Constants, CreditsText) => function Credits(game, stage, globalDraw) {
   this.game = game;
   this.stage = stage;
   this.globalDraw = globalDraw;

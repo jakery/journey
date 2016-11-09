@@ -1,11 +1,13 @@
 define('Draw',
   [
     '../Constants/Constants',
+    '../Constants/TileCodes',
     '../Coordinates',
     './DrawHelpers',
   ],
   (
     Constants,
+    TileCodes,
     Coordinates,
     DrawHelpers
   ) => function Draw(game, stage, player) {
@@ -85,7 +87,6 @@ define('Draw',
     };
 
     this.drawTilex = function drawTilex(tileNumber, c, sign = 1) {
-      const TileCodes = Constants.tileCodes;
       const coords = c;
       // Tile number isn't valid. Probably a blank square on the map. Ignore.
       if (tileNumber < 1) {
@@ -138,7 +139,6 @@ define('Draw',
     };
 
     this.beginDraw = function beginDraw() {
-      const TileCodes = Constants.tileCodes;
       // Set stage offset to center on player.
       if (this.stage.isOffset) {
         this.stage.drawOffset = new Coordinates(

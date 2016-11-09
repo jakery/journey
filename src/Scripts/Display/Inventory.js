@@ -1,6 +1,6 @@
 define('Inventory',
-  ['../Constants/Constants', '../Coordinates'],
-  (Constants, Coordinates) => {
+  ['../Constants/Constants', '../Constants/TileCodes', '../Coordinates'],
+  (Constants, TileCodes, Coordinates) => {
     function Inventory(game, player, globalDraw) {
       this.game = game;
       this.player = player;
@@ -14,10 +14,10 @@ define('Inventory',
           const xBase = new Coordinates(495 + (i * interval), 80);
           if (i < this.player.inventory.money) {
             // Collected money:
-            this.globalDraw.drawTileAbsolute(Constants.tileCodes.coin, xBase);
+            this.globalDraw.drawTileAbsolute(TileCodes.coin, xBase);
           } else {
             // Uncollected money:
-            this.globalDraw.drawTileAbsolute(Constants.tileCodes.coinUncollected, xBase);
+            this.globalDraw.drawTileAbsolute(TileCodes.coinUncollected, xBase);
           }
         }
       };
@@ -34,7 +34,7 @@ define('Inventory',
           ? Constants.baseUnit
           : Math.floor(273 / (totalKeys));
         for (const keyColor of this.keyColors) {
-          const keyTileCode = Constants.tileCodes[`${keyColor}Key`];
+          const keyTileCode = TileCodes[`${keyColor}Key`];
           for (let i = 0; i < this.player.inventory[`${keyColor}Keys`]; i += 1) {
             this.globalDraw.drawTileAbsolute(keyTileCode,
               new Coordinates(500 + (keyDrawIndex * keyInterval), 110));
