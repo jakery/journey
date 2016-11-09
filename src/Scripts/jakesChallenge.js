@@ -18,7 +18,8 @@ define('JakesJourney',
     './Draw/Draw',
     './Hud/Sidebar',
     './Credits',
-    './Game'],
+    './Game',
+    './Init'],
   (
     AwesomeError,
     Constants,
@@ -34,7 +35,8 @@ define('JakesJourney',
     Draw,
     Sidebar,
     Credits,
-    Game
+    Game,
+    Init
   ) => {
     // TODO: Remove jQuery.
     const $j = $.noConflict();
@@ -44,7 +46,7 @@ define('JakesJourney',
     let game;
     let stage;
     let passwordHandler;
-    let bypass;
+
     let globalDraw;
     this.globalDraw = null;
     this.gameLoopInterval = 20;
@@ -229,22 +231,9 @@ define('JakesJourney',
 
     // TODO: Move to Init.js
     function doPreWork(bypassTouchscreen) {
-      const mainDiv = new Dom(document.getElementById('main'));
+      const init = new Init();
+      if (!init.handleTouchScreen(bypassTouchscreen)) { return false; }
 
-      if (!bypassTouchscreen) {
-        // Don't run game on touchscreen devices.
-        // TODO: Move these error messages to a new constants module.
-        if (('ontouchstart' in window) || window.navigator.msMaxTouchPoints > 0) {
-          mainDiv.before('<div class="errorPanel"><h1>Notice: This game requires a physical keyboard to play. Touchscreen is not supported.</h1><p>If you are using a hybrid, touchscreen-keyboard-combination device (such as Microsoft Surface), press Enter on your physical keyboard to bypass this message and continue to the game. (This feature is untested! You are a pioneer!)</p></div>');
-          // TODO: Remove jQuery.
-          // It turns out that removing this event listener opens
-          //    a huge can of scope worms that I'm not ready to deal with yet.
-          //    The solution is to finish modularizing everything in this file,
-          //    and by that time, the scoping issues should have been fixed.
-          $j(window).keydown(bypass);
-          return false;
-        }
-      }
       // TODO: Add support to Dom object for array of dom elements.
       const errorPanels = document.getElementsByClassName('errorPanel');
       if (errorPanels.length) {
@@ -254,36 +243,16 @@ define('JakesJourney',
         }
       }
 
-      // Check for browser support.
-      if (!Modernizr.fontface
-        || Array.prototype.indexOf === undefined
-        || !window.HTMLCanvasElement) {
-        mainDiv.before('<div class="errorPanel"><h1>Your browser does not have the capabilities to run this game.</h1><p>Please consider installing <a href="http://www.google.com/chrome">Google Chrome</a>. Hey, <strong>I</strong> use it, and look how I turned out.</p></div>');
-        mainDiv.hide();
-        return false;
-      }
+      if (!init.checkBrowserSupport()) { return false; }
+      if (!init.checkProtocol()) { return false; }
+      init.setStyle();
 
-      // Check for file:///
-      if (window.location.protocol === 'file:') {
-        mainDiv.before('<div class="errorPanel"><h1>Running this game directly from the filesystem is unsupported.</h1><p>You are running this game directly from your filesystem. (file:///). This won\'t work, because file:/// doesn\'t support AJAX, and this game needs AJAX to load the levels... for now. Instead, you can install NodeJS and run this game using \'npm start dev\'.</div>');
-        mainDiv.hide();
-        return false;
-      }
-
-      // Turn off padding to make game fit in small monitors.
-      mainDiv.style('padding', '0px');
 
       stage = new Stage();
-      stage.init();
       game = new Game();
       Object.assign(game, new GameObject());
 
       passwordHandler = new ObscurelyNamedFile(game);
-
-      // Define assets.
-      game.assets.face = document.getElementById('face');
-      game.assets.devgraphics = document.getElementById('devgraphics');
-      game.assets.dungeon = document.getElementById('dungeon');
 
       globalDraw = this.globalDraw = new Draw(game, stage, null);
       game.assets.gridLineCoordinates = this.globalDraw.generateGridLines();
@@ -464,16 +433,6 @@ define('JakesJourney',
       gameInterval = setInterval(gameLoop, this.gameLoopInterval);
     };
 
-    bypass = function b(e) {
-      if (e.keyCode === Keyboard.keys.Enter) {
-        // TODO: Remove jQuery.
-        // It turns out that removing this event listener opens
-        //    a huge can of scope worms that I'm not ready to deal with yet.
-        //    See note further up in file.
-        $j(window).off('keydown', bypass);
-        this.run(true);
-      }
-    };
     const myDoc = new Dom(document);
     myDoc.ready(() => {
       this.run(false);
