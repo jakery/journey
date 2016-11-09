@@ -281,6 +281,7 @@ define('JakesJourney',
 
       if (!bypassTouchscreen) {
         // Don't run game on touchscreen devices.
+        // TODO: Move these error messages to a new constants module.
         if (('ontouchstart' in window) || window.navigator.msMaxTouchPoints > 0) {
           mainDiv.before('<div class="errorPanel"><h1>Notice: This game requires a physical keyboard to play. Touchscreen is not supported.</h1><p>If you are using a hybrid, touchscreen-keyboard-combination device (such as Microsoft Surface), press Enter on your physical keyboard to bypass this message and continue to the game. (This feature is untested! You are a pioneer!)</p></div>');
           // TODO: Remove jQuery.
@@ -439,6 +440,7 @@ define('JakesJourney',
 
       // Register enemy hits.
       for (let i = 0; i < game.enemies.length; i += 1) {
+        // TODO: Refactor with "areSpritesColliding".
         if (player.position.x === game.enemies[i].position.x
           && player.position.y === game.enemies[i].position.y) {
           player.isDead = true;
@@ -448,6 +450,7 @@ define('JakesJourney',
           if (typeof (DeathMessages[game.enemies[i].subType]) !== 'undefined') {
             message = Utility.array.getRandomElement(DeathMessages[game.enemies[i].subType]);
           } else {
+            // TODO: Refactor as constants message.
             message = `BUG!\n\nThe game has registered you as dead. If you're seeing this message, it's a bug in the level. Contact Jake and tell him that he accidentally put a(n) ${game.enemies[i].subType} in the Enemy array (which is why you died when you touched it). )`;
           }
 
