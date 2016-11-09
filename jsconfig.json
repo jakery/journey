@@ -2,7 +2,7 @@
     "exclude": [
         "node_modules",
         "bin",
-        "src/Scripts/bundle.js"
+        "src/bundle.js"
     ],
     "compilerOptions": {
         "target": "ES6",
