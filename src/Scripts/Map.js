@@ -1,4 +1,4 @@
-define('Map', ['./Constants/Constants', './Coordinates', './Utility', './ObscurelyNamedFile'], (Constants, Coordinates, Utility, PasswordHandler) => function Map(map, game, stage) {
+define('Map', ['./Constants/Constants', './Coordinates', './Utility', './ObscurelyNamedFile', './Sprite'], (Constants, Coordinates, Utility, PasswordHandler, Sprite) => function Map(map, game, stage) {
   this.game = game;
   this.stage = stage;
   this.passwordHandler = new PasswordHandler();
@@ -73,6 +73,7 @@ define('Map', ['./Constants/Constants', './Coordinates', './Utility', './Obscure
         ? parseInt(this.parameters.time, 10)
         : -1,
     });
+    // TODO: The three load___() functions should be merged into one.
 
 
     this.stage.setProperties({
@@ -83,6 +84,147 @@ define('Map', ['./Constants/Constants', './Coordinates', './Utility', './Obscure
     this.parameters.tileset = typeof (this.parameters.tileset) !== 'undefined'
       ? this.parameters.tileset
       : 'devgraphics'; // TODO: Remove magic string.
+  };
+
+  this.loadItems = function loadItems() {
+    const itemDataArray = Utility.array.findByProperty(this.layers, 'name', 'Items', true);
+    const items = [];
+    if (itemDataArray !== null) {
+      for (let i = 0; i < itemDataArray.objects.length; i += 1) {
+        const itemData = itemDataArray.objects[i];
+        const item = new Sprite.Sprite(
+          this.game,
+          this.stage,
+          null,
+          this.globalDraw,
+          null,
+          this.player
+        );
+
+        item.tileGraphic = itemData.gid;
+        item.spriteID = `item ${i}`;
+        item.nameID = itemData.name;
+        item.type = 'item';
+
+        if (this.tileProperties[itemData.gid - 1] === null) {
+          if (game.debug) {
+            Utility.console.log(`NULL:  ${itemData.gid}`);
+          }
+        }
+        item.subType = this.tileProperties[itemData.gid - 1].type;
+        if (game.debug) {
+          Utility.console.log(item.subType);
+        }
+        item.imageType = 'tile';
+        item.color = this.tileProperties[itemData.gid - 1].color;
+        item.position = new Coordinates(
+          (itemData.x) / Constants.baseUnit,
+          (itemData.y - Constants.baseUnit) / Constants.baseUnit
+        );
+        item.linksTo = itemData.properties.linksTo;
+
+        item.message = itemData.properties.Text;
+
+        item.callback = itemData.properties.callback;
+        item.destroyOnUse = itemData.properties.destroyOnUse === 'true';
+
+        items.push(item);
+
+        if (typeof (itemData.properties.destination) !== 'undefined') {
+          item.destination = itemData.properties.destination;
+        }
+      }
+    }
+    return items;
+  };
+
+  // TODO: The three load___() functions should be merged into one.
+  this.loadEnemies = function loadEnemies() {
+    const enemies = [];
+    const enemyDataArray = Utility.array.findByProperty(this.layers, 'name', 'Enemies', true);
+    if (enemyDataArray !== null) {
+      for (let i = 0; i < enemyDataArray.objects.length; i += 1) {
+        const eData = enemyDataArray.objects[i];
+        const enemy = new Sprite.Sprite(
+          this.game,
+          this.stage,
+          null,
+          this.draw,
+          null,
+          this.player
+        );
+
+        enemy.tileGraphic = eData.gid;
+        enemy.spriteID = `enemy ${i}`;
+        enemy.nameID = eData.name;
+        enemy.type = 'enemy';
+        enemy.subType = this.tileProperties[eData.gid - 1].type;
+        enemy.imageType = 'tile';
+        enemy.position = new Coordinates(
+          eData.x / Constants.baseUnit,
+          (eData.y - Constants.baseUnit) / Constants.baseUnit
+        );
+        enemy.speed = this.game.defaultEnemySpeed;
+
+        // Change initial enemy facing direction.
+        if (typeof (eData.properties.direction) !== 'undefined') {
+          enemy.direction = Constants.directions[eData.properties.direction];
+          if (enemy.subType === 'player2') {
+            enemy.rotation = enemy.getRotation();
+          }
+        }
+
+        if (typeof (eData.properties.autoMove) !== 'undefined') {
+          enemy.autoMove = eData.properties.autoMove === 'true';
+        }
+
+        if (enemy.subType === 'smartPredator') {
+          enemy.speed = 3;
+        }
+
+        enemies.push(enemy);
+      }
+    }
+    return enemies;
+  };
+
+  // TODO: The three load___() functions should be merged into one.
+  this.loadTools = function loadTools() {
+    const tools = [];
+
+    const tDataArray = Utility.array.findByProperty(this.layers, 'name', 'Tools', true);
+    if (tDataArray !== null) {
+      for (let i = 0; i < tDataArray.objects.length; i += 1) {
+        const tData = tDataArray.objects[i];
+        const tool = new Sprite.Sprite(
+          this.game,
+          this.stage,
+          null,
+          this.draw,
+          null,
+          this.player
+        );
+
+        tool.tileGraphic = tData.gid;
+        tool.spriteID = `tool ${i}`;
+        tool.type = 'tool';
+        tool.subType = this.tileProperties[tData.gid - 1].type;
+        tool.imageType = 'tile';
+        tool.color = this.tileProperties[tData.gid - 1].color;
+        tool.position = new Coordinates(
+          tData.x / Constants.baseUnit,
+          (tData.y - Constants.baseUnit) / Constants.baseUnit
+        );
+
+        // Change initial enemy facing direction.
+        if (typeof (tData.properties.direction) !== 'undefined') {
+          tool.direction = Constants.directions[tData.properties.direction];
+        }
+
+        tools.push(tool);
+      }
+    }
+    return tools;
   };
 
   Object.assign(this, map);
