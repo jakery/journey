@@ -24,6 +24,17 @@ define('Init', ['./Helpers/Dom', './Keyboard'], (Dom, Keyboard) => function Init
     return true;
   };
 
+  this.removeErrorPanels = function removeErrorPanels() {
+    // TODO: Add support to Dom object for array of dom elements.
+    const errorPanels = document.getElementsByClassName('errorPanel');
+    if (errorPanels.length) {
+      for (let i = 0; i < errorPanels.length; i += 1) {
+        const error = new Dom(errorPanels[i]);
+        error.remove();
+      }
+    }
+  };
+
   this.checkBrowserSupport = function checkBrowserSupport() {
     // Check for browser support.
     if (!Modernizr.fontface
