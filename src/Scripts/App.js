@@ -1,8 +1,7 @@
-// TODO: Rename this to app.js
 // TODO: Remove jQuery.
 const $ = require('jquery');
 
-define('JakesJourney',
+define('App',
   [
     './AwesomeError',
     './Constants/Constants',

@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 
 module.exports = {
-  entry: './src/Scripts/jakesChallenge.js',
+  entry: './src/Scripts/app.js',
   output: {
     path: __dirname,
     filename: './src/bundle.js',
