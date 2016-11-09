@@ -91,6 +91,11 @@ define(
 
       this.position = new Coordinates(0, 0);
 
+      this.resetLevelVariables = function resetLevelVariables() {
+        this.inventory = new Sprite.Inventory();
+        this.isDead = false;
+      };
+
       this.tileDistanceToSprite = function tileDistanceToSprite(sprite) {
         return this.tileDistanceBetween(this.position, sprite.position);
       };

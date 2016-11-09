@@ -208,9 +208,7 @@ define('JakesJourney',
       this.loadMap = function loadMap(levelNumberArg) {
         let levelNumber = levelNumberArg;
         self.game.resetLevelVariables();
-
-        self.player.inventory = new Sprite.Inventory();
-        self.player.isDead = false;
+        self.player.resetLevelVariables();
 
         if (self.game.level < 0) {
           levelNumber = 'cheater';
