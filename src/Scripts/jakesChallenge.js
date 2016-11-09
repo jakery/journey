@@ -141,6 +141,7 @@ define('JakesJourney',
         self.game.assets.face
       );
 
+      self.game.player = self.player;
       self.draw.player = self.player;
 
       self.game.hud = new Sidebar(self.game, self.stage, self.player, self.draw);
