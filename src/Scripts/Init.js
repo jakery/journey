@@ -76,7 +76,7 @@ define('Init', ['./Constants/ErrorMessages', './Helpers/Dom', './Keyboard'], (Er
       //    a huge can of scope worms that I'm not ready to deal with yet.
       //    See note further up in file.
       window.removeEventListener('keydown', this.boundBypass);
-      this.app.run.apply(this.app, [true, this.app]);
+      this.app.run(true, this.app);
     }
   };
   this.boundBypass = this.bypass.bind(this);
