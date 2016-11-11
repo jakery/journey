@@ -10,7 +10,7 @@ Therefore, here's your reward for delving into the source code.
 
 */
 
-define('ObscurelyNamedFile', [], () => {
+define('ObscurelyNamedFile', ['./Constants/ErrorMessages'], (ErrorMessages) => {
   const ObscurelyNamedFile = function ObscurelyNamedFile(game) {
     this.game = game;
 
@@ -94,7 +94,7 @@ define('ObscurelyNamedFile', [], () => {
           this.game.level = -9999;
           this.game.loadMap(this.game.level);
         } else {
-          this.game.passwordSidebarMessage = "That ain't no password.";
+          this.game.passwordSidebarMessage = ErrorMessages.badPassword;
         }
       } else {
         // Good password.
