@@ -48,6 +48,7 @@ define('Utility', ['../Constants/ErrorMessages', './String', './Array'], (ErrorM
       toDegrees: radians => (radians * 180) / Math.PI,
     };
 
+    // TODO: Refactor magic strings into enumerables.
     this.alert = function alert(message, output = 'popup') {
       if (output.constructor === 'Dom') {
         output.show();
