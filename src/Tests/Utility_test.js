@@ -26,12 +26,21 @@ describe('Utility', () => {
       // TODO: Write these tests before touching Utility.js again.
     });
   });
+
   describe('alert()', function () {
     it('should have complete tests.', function () {
       // TODO: Write these tests before touching Utility.js again.
     });
     it('should throw an error.', function () {
       assert.throws(() => Utility.alert('theMessage', {}), Error, 'not properly configured');
+    });
+  });
+
+  describe('StringHelper', function () {
+    describe('new', function () {
+      it('should be a new StringHelper object.', function () {
+        assert.equal(Utility.string.constructor.name, 'StringHelper');
+      });
     });
   });
 });
