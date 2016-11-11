@@ -1,5 +1,8 @@
 define('Utility', ['../Constants/ErrorMessages', './String', './Array'], (ErrorMessages, UtilityString, UtilityArray) => {
   const Utility = function Utility() {
+    this.string = new UtilityString();
+
+    this.array = new UtilityArray();
 
     // Math
     // TODO: Move to Math.js
@@ -49,15 +52,6 @@ define('Utility', ['../Constants/ErrorMessages', './String', './Array'], (ErrorM
       timeStamp() { },
       trace() { },
       warn() { },
-    };
-
-    this.string = new UtilityString();
-
-    this.array = new UtilityArray();
-
-    this.math = {
-      toRadians: degrees => (degrees * Math.PI) / 180,
-      toDegrees: radians => (radians * 180) / Math.PI,
     };
 
     // TODO: Refactor magic strings into enumerables.
