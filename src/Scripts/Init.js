@@ -41,7 +41,6 @@ define('Init', ['./Constants/ErrorMessages', './Helpers/Dom', './Keyboard'], (Er
   };
 
   this.checkBrowserSupport = function checkBrowserSupport() {
-    // Check for browser support.
     if (!Modernizr.fontface
       || Array.prototype.indexOf === undefined
       || !window.HTMLCanvasElement) {
@@ -53,7 +52,6 @@ define('Init', ['./Constants/ErrorMessages', './Helpers/Dom', './Keyboard'], (Er
   };
 
   this.checkProtocol = function checkProtocol() {
-    // Check for file:///
     if (window.location.protocol === 'file:') {
       this.mainDiv.before(this.formatErrorMessage(ErrorMessages.fileProtocol));
       this.mainDiv.hide();
