@@ -1,4 +1,4 @@
-define('Constants', [], () => ({
+define('Constants', [], {
   baseUnit: 32,
   gameModes: {
     title: 0,
@@ -12,4 +12,4 @@ define('Constants', [], () => ({
     down: 2,
     left: 3,
   },
-}));
+});
