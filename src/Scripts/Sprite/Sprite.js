@@ -15,6 +15,7 @@ define(
 
       Sprite: null,
     };
+    // TODO: Remove 'player' parameter.
     SpriteNS.Sprite = function Sprite(game, stage, keyboard, globalDraw, pwh, player) {
       this.clipping = true;
       this.movementAnimationSettings = { easing: 'linear', duration: 200 };
@@ -578,7 +579,7 @@ define(
           }
 
           // Player is dead. Press enter to restart. No other input allowed.
-          if (this.player.isDead) {
+          if (this.game.player.isDead) {
             if (keyIsDown.Enter && !keyIsRegistered.Enter) {
               keyIsRegistered.Enter = true;
               this.game.restartLevel();
@@ -670,7 +671,7 @@ define(
         if (this.type === 'tool') {
           if (this.subType === 'pushBlock') {
             if (this.gettingPushed) {
-              this.direction = this.player.direction;
+              this.direction = this.game.player.direction;
               this.goForward();
 
               this.gettingPushed = false;
@@ -786,14 +787,14 @@ define(
                 return false;
               }
 
-              if (this.position.x === this.player.position.x) {
-                if (this.position.y > this.player.position.y) {
+              if (this.position.x === this.game.player.position.x) {
+                if (this.position.y > this.game.player.position.y) {
                   this.turn(Constants.directions.up);
                 } else {
                   this.turn(Constants.directions.down);
                 }
-              } else if (this.position.y === this.player.position.y) {
-                if (this.position.x > this.player.position.x) {
+              } else if (this.position.y === this.game.player.position.y) {
+                if (this.position.x > this.game.player.position.x) {
                   this.turn(Constants.directions.left);
                 } else {
                   this.turn(Constants.directions.right);
@@ -835,7 +836,7 @@ define(
                 this.ticks += 1;
 
                 if (this.position.y === 9 && this.position.x > 5) {
-                  this.player.rotation = 0;
+                  this.game.player.rotation = 0;
                   if (this.game.gameTimer % 40) {
                     return false;
                   }
@@ -872,7 +873,7 @@ define(
                   this.turn(Constants.directions.right);
                   this.goForward();
                 } else {
-                  this.player.startCountup = true;
+                  this.game.player.startCountup = true;
                 }
               }
               break;
@@ -885,32 +886,32 @@ define(
       };
 
       this.movePredator = function movePredator() {
-        const xDist = Math.abs(this.position.x - this.player.position.x);
-        const yDist = Math.abs(this.position.y - this.player.position.y);
+        const xDist = Math.abs(this.position.x - this.game.player.position.x);
+        const yDist = Math.abs(this.position.y - this.game.player.position.y);
 
         if (xDist > yDist) {
-          if (this.position.x > this.player.position.x) {
+          if (this.position.x > this.game.player.position.x) {
             this.turn(Constants.directions.left);
           } else {
             this.turn(Constants.directions.right);
           }
           if (!this.canMove()) {
-            if (this.position.y > this.player.position.y) {
+            if (this.position.y > this.game.player.position.y) {
               this.turn(Constants.directions.up);
-            } else if (this.position.y < this.player.position.y) {
+            } else if (this.position.y < this.game.player.position.y) {
               this.turn(Constants.directions.down);
             }
           }
         } else {
-          if (this.position.y > this.player.position.y) {
+          if (this.position.y > this.game.player.position.y) {
             this.turn(Constants.directions.up);
           } else {
             this.turn(Constants.directions.down);
           }
           if (!this.canMove()) {
-            if (this.position.x > this.player.position.x) {
+            if (this.position.x > this.game.player.position.x) {
               this.turn(Constants.directions.left);
-            } else if (this.position.x < this.player.position.x) {
+            } else if (this.position.x < this.game.player.position.x) {
               this.turn(Constants.directions.right);
             }
           }
@@ -1158,7 +1159,7 @@ define(
             ctx.translate(translateX, translateY);
             ctx.rotate(Utility.math.toRadians(this.rotation));
 
-            ctx.drawImage(this.player.image, -this.halfBaseUnit, -this.halfBaseUnit);
+            ctx.drawImage(game.assets.face, -this.halfBaseUnit, -this.halfBaseUnit);
 
             ctx.restore();
           } else {
