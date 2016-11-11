@@ -1,4 +1,4 @@
-define('Utility', ['./String', './Array'], (UtilityString, UtilityArray) => {
+define('Utility', ['../Constants/ErrorMessages', './String', './Array'], (ErrorMessages, UtilityString, UtilityArray) => {
   const Utility = function Utility() {
     this.tileDistanceBetween = function tileDistanceBetween(coords1, coords2) {
       const xDist = Math.abs(coords1.x - coords2.x);
@@ -59,7 +59,7 @@ define('Utility', ['./String', './Array'], (UtilityString, UtilityArray) => {
         // eslint-disable-next-line no-console
         console.error(message);
       } else {
-        throw new Error('Alert message not properly configured.');
+        throw new Error(ErrorMessages.alertUtility);
       }
     };
   };
