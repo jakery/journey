@@ -103,9 +103,9 @@ define('App',
     };
 
     // TODO: Move to Init.js
-    function doPreWork(bypassTouchscreen) {
+    function doPreWork(bypassTouchscreen, app) {
       const init = new Init();
-      if (!init.handleTouchScreen(bypassTouchscreen)) { return false; }
+      if (!init.handleTouchScreen(bypassTouchscreen, app)) { return false; }
       init.removeErrorPanels();
       if (!init.checkBrowserSupport()) { return false; }
       if (!init.checkProtocol()) { return false; }
@@ -283,7 +283,7 @@ define('App',
         window.clearInterval(self.gameInterval);
       }
 
-      const continueRunning = doPreWork(bypassTouchscreen);
+      const continueRunning = doPreWork(bypassTouchscreen, this);
       if (!continueRunning) { return; }
 
       self.game.nextLevel();
