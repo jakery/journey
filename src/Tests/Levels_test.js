@@ -6,7 +6,6 @@ describe('Levels', function () {
       assert.isNotNull(levels);
       assert.isDefined(levels['testMap']);
       assert.equal(levels['testMap'].width, 35);
-      console.log(levels['testMap'].layers[0]);
     });
   });
 });
