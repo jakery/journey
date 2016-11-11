@@ -12,13 +12,8 @@ define('Init', ['./Constants/ErrorMessages', './Helpers/Dom', './Keyboard'], (Er
     if (!bypassTouchscreen) {
       // Don't run game on touchscreen devices.
       // TODO: Move these error messages to a new constants module.
-      if (true || ('ontouchstart' in window) || window.navigator.msMaxTouchPoints > 0) {
+      if (('ontouchstart' in window) || window.navigator.msMaxTouchPoints > 0) {
         this.mainDiv.before(this.formatErrorMessage(ErrorMessages.touchscreen));
-        // TODO: Remove jQuery.
-        // It turns out that removing this event listener opens
-        //    a huge can of scope worms that I'm not ready to deal with yet.
-        //    The solution is to finish modularizing everything in this file,
-        //    and by that time, the scoping issues should have been fixed.
         window.addEventListener('keydown', this.boundBypass);
         return false;
       }
@@ -65,10 +60,6 @@ define('Init', ['./Constants/ErrorMessages', './Helpers/Dom', './Keyboard'], (Er
   this.bypass = function bypass(e) {
     const keyboard = new Keyboard();
     if (e.keyCode === keyboard.keys.Enter) {
-      // TODO: Remove jQuery.
-      // It turns out that removing this event listener opens
-      //    a huge can of scope worms that I'm not ready to deal with yet.
-      //    See note further up in file.
       window.removeEventListener('keydown', this.boundBypass);
       this.app.run(true, this.app);
     }
