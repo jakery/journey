@@ -1,6 +1,6 @@
 define('Inventory',
-  ['../Constants/Constants', '../Constants/TileCodes', '../Coordinates'],
-  (Constants, TileCodes, Coordinates) => {
+  ['../Constants/Constants', '../Constants/RenderSettings', '../Constants/TileCodes', '../Coordinates'],
+  (Constants, RenderSettings, TileCodes, Coordinates) => {
     function Inventory(game, player, globalDraw) {
       this.game = game;
       this.player = player;
@@ -31,7 +31,7 @@ define('Inventory',
         let keyDrawIndex = 0;
         const totalKeys = this.totalKeys();
         const keyInterval = (totalKeys < 9)
-          ? Constants.baseUnit
+          ? RenderSettings.baseUnit
           : Math.floor(273 / (totalKeys));
         for (const keyColor of this.keyColors) {
           const keyTileCode = TileCodes[`${keyColor}Key`];

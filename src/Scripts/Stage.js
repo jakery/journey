@@ -1,5 +1,5 @@
-define('Stage', ['./Constants/Constants', './Coordinates', './Helpers/Dom'],
-  (Constants, Coordinates, Dom) => function Stage() {
+define('Stage', ['./Constants/RenderSettings', './Coordinates', './Helpers/Dom'],
+  (RenderSettings, Coordinates, Dom) => function Stage() {
     this.isOffset = true;
 
     this.gameCanvas = document.getElementById('gameCanvas');
@@ -40,14 +40,14 @@ define('Stage', ['./Constants/Constants', './Coordinates', './Helpers/Dom'],
       this.width = this.gameCanvasDom.width();
       this.height = this.gameCanvasDom.height();
 
-      this.playboxWidth = this.playBlockWidth * Constants.baseUnit;
-      this.playboxHeight = this.playBlockHeight * Constants.baseUnit;
+      this.playboxWidth = this.playBlockWidth * RenderSettings.baseUnit;
+      this.playboxHeight = this.playBlockHeight * RenderSettings.baseUnit;
 
-      this.halfBoxWidthLess16 = (this.playboxWidth / 2) - (Constants.baseUnit / 2);
+      this.halfBoxWidthLess16 = (this.playboxWidth / 2) - (RenderSettings.baseUnit / 2);
       this.halfBoxHeightLess16 = (this.playboxHeight / 2);
 
-      this.playboxTileWidth = this.playboxWidth / Constants.baseUnit;
-      this.playboxTileHeight = this.playboxHeight / Constants.baseUnit;
+      this.playboxTileWidth = this.playboxWidth / RenderSettings.baseUnit;
+      this.playboxTileHeight = this.playboxHeight / RenderSettings.baseUnit;
 
       this.playboxTileCount = this.playboxTileWidth * this.playboxTileHeight;
 

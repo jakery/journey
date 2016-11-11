@@ -1,5 +1,4 @@
 define('Constants', [], {
-  baseUnit: 32,
   gameModes: {
     title: 0,
     password: 1,
