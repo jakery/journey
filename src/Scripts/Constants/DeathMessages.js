@@ -1,4 +1,3 @@
-// TODO: Move to Constants directory.
 define('DeathMessages', [], {
 
   ball: [
