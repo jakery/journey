@@ -1,6 +1,3 @@
-// TODO: Remove jQuery.
-const $ = require('jquery');
-
 define('App',
   [
     './AwesomeError',
@@ -12,7 +9,7 @@ define('App',
     './Stage',
     './Sprite/Sprite',
     './Sprite/Player',
-    './Map',
+    './Map/Map',
     './Keyboard',
     './Utility/Utility',
     './ObscurelyNamedFile',
@@ -41,9 +38,6 @@ define('App',
     Game,
     Init
   ) => {
-    // TODO: Remove jQuery.
-    const $j = $.noConflict();
-
     const self = this;
 
     this.player = null;
@@ -83,23 +77,20 @@ define('App',
         if (self.game.level < 0) {
           levelNumber = 'cheater';
         }
-        // TODO: Remove jQuery.
-        //       This can't be accomplished until I get the bundling working for all of the
-        //       JSON-formatted level files.
-        $j.ajax({
-          url: `Assets/Levels/${levelNumber}.json`,
-          async: false,
-          error(response) {
-            const awesomeError = new AwesomeError({
-              attemptedFunction: 'loadMap (ajax)',
-              errorCode: response.status,
-              position: self.player.position,
-              level: self.game.level,
-            });
-            awesomeError.go();
-          },
-          success: this.processMap,
-        });
+
+        if ({}.hasOwnProperty.call(self.game.levels, levelNumber)
+          && self.game.levels[levelNumber]) {
+          this.processMap(self.game.levels[levelNumber]);
+        } else {
+          const awesomeError = new AwesomeError({
+            attemptedFunction: 'loadMap ()',
+            errorCode: 'Level doesn\'t exist',
+            position: self.player.position,
+            level: self.game.level,
+          });
+          awesomeError.go();
+          throw new Error('Level doesn\'t exist.');
+        }
       };
 
       // TODO: Swap 'self' with 'this'; move to Game.js.

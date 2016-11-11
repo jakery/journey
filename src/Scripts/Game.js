@@ -1,4 +1,4 @@
-define('Game', ['./Constants/Constants', './Constants/DeathMessages', './Utility/Utility'], (Constants, DeathMessages, Utility) => function Game() {
+define('Game', ['./Constants/Constants', './Constants/DeathMessages', './Utility/Utility', './Map/Levels'], (Constants, DeathMessages, Utility, Levels) => function Game() {
   // TODO: Refactor these properties into a hierarchy.
   this.debug = false;
   this.betaTest = true;
@@ -46,6 +46,7 @@ define('Game', ['./Constants/Constants', './Constants/DeathMessages', './Utility
     devgraphics: document.getElementById('devgraphics'),
     dungeon: document.getElementById('dungeon'),
   };
+  this.levels = Levels.load();
 
   this.resetLevelVariables = function resetLevelVariables() {
     this.winMessage = null;

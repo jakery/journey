@@ -39,4 +39,13 @@ define('String', [], () => function String() {
   this.rtrim = function rtrim(string) {
     return string.replace(/\s+$/, '');
   };
+
+
+  this.getFileNameOnly = function getFileNameOnly(filePath) {
+    return filePath.split('/').pop().split('.').shift();
+  };
+
+  this.getFileExtensionOnly = function getFileExtensionOnly(filePath) {
+    return filePath.split('/').pop().split('.').pop();
+  };
 });
