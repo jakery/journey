@@ -1,7 +1,6 @@
-const $ = require('jquery');
+const $j = require('jquery');
 
 // TODO: Remove jQuery.
-const $j = $.noConflict();
 
 define('Init', ['./Constants/ErrorMessages', './Helpers/Dom', './Keyboard'], (ErrorMessages, Dom, Keyboard) => function Init() {
   this.mainDiv = new Dom(document.getElementById('main'));
