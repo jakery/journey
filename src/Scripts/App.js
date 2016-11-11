@@ -102,6 +102,7 @@ define('App',
         });
       };
 
+      // TODO: Swap 'self' with 'this'; move to Game.js.
       this.nextLevel = function nextLevel() {
         this.level = self.game.nextLevelNumber;
         this.atExit = false;
