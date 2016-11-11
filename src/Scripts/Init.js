@@ -1,7 +1,3 @@
-const $j = require('jquery');
-
-// TODO: Remove jQuery.
-
 define('Init', ['./Constants/ErrorMessages', './Helpers/Dom', './Keyboard'], (ErrorMessages, Dom, Keyboard) => function Init() {
   this.app = null;
   this.mainDiv = new Dom(document.getElementById('main'));
@@ -10,8 +6,6 @@ define('Init', ['./Constants/ErrorMessages', './Helpers/Dom', './Keyboard'], (Er
     //       Move this template to a constants file.
     return `<div class="errorPanel"><h1>${messageObject.header}</h1><p>${messageObject.body}</p></div>`;
   };
-
-
 
   this.handleTouchScreen = function handleTouchScreen(bypassTouchscreen, app = null) {
     if (app !== null) { this.app = app; }
