@@ -1,29 +1,30 @@
-// TODO: Rename this to app.js
 // TODO: Remove jQuery.
 const $ = require('jquery');
 
-define('JakesJourney',
+define('App',
   [
     './AwesomeError',
     './Constants/Constants',
-    './DeathMessages',
+    './Constants/TileCodes',
+    './Constants/DeathMessages',
     './Coordinates',
     './Helpers/Dom',
     './Stage',
-    './Sprite',
-    './Player',
+    './Sprite/Sprite',
+    './Sprite/Player',
     './Map',
     './Keyboard',
-    './Utility',
+    './Utility/Utility',
     './ObscurelyNamedFile',
     './Draw/Draw',
-    './Hud/Sidebar',
-    './Credits',
+    './Display/Sidebar',
+    './Display/Credits',
     './Game',
     './Init'],
   (
     AwesomeError,
     Constants,
+    TileCodes,
     DeathMessages,
     Coordinates,
     Dom,
@@ -56,7 +57,6 @@ define('JakesJourney',
     // TODO: Modularize this.
     const GameObject = function GameObject() {
       this.processMap = function processMap(data) {
-        const TileCodes = Constants.tileCodes;
         if (typeof (data) === 'string') {
           self.game.map = new Map(JSON.parse(data), self.game, self.stage);
         } else {
@@ -102,6 +102,7 @@ define('JakesJourney',
         });
       };
 
+      // TODO: Swap 'self' with 'this'; move to Game.js.
       this.nextLevel = function nextLevel() {
         this.level = self.game.nextLevelNumber;
         this.atExit = false;

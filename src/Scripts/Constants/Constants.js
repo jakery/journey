@@ -1,6 +1,4 @@
-define('Constants', ['./TileCodes'], TileCodes => ({
-  baseUnit: 32,
-  tileCodes: TileCodes,
+define('Constants', [], {
   gameModes: {
     title: 0,
     password: 1,
@@ -13,4 +11,4 @@ define('Constants', ['./TileCodes'], TileCodes => ({
     down: 2,
     left: 3,
   },
-}));
+});

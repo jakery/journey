@@ -1,11 +1,11 @@
 var webpack = require('webpack');
 
 module.exports = {
-  entry: './src/Scripts/jakesChallenge.js',
+  entry: './src/Scripts/App.js',
   output: {
     path: __dirname,
-    filename: './src/Scripts/bundle.js',
-    sourceMapFilename: './src/Scripts/bundle.js.map',
+    filename: './src/bundle.js',
+    sourceMapFilename: './src/bundle.js.map',
   },
   devtool: 'inline-source-map',
   loaders: [

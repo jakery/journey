@@ -145,6 +145,7 @@ define('Keyboard', [], () => function Keyboard() {
     this.keyHeldDuration[k] = 0;
   }
 
+  // TODO: Add Numpad0-Numpad9 support for alphanumeric array.
   this.alphanumericTX =
     ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
       'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',

@@ -1,4 +1,4 @@
-define('Map', ['./Constants/Constants', './Coordinates', './Utility', './ObscurelyNamedFile', './Sprite'], (Constants, Coordinates, Utility, PasswordHandler, Sprite) => function Map(map, game, stage) {
+define('Map', ['./Constants/Constants', './Constants/RenderSettings', './Coordinates', './Utility/Utility', './ObscurelyNamedFile', './Sprite/Sprite'], (Constants, RenderSettings, Coordinates, Utility, PasswordHandler, Sprite) => function Map(map, game, stage) {
   this.game = game;
   this.stage = stage;
   this.passwordHandler = new PasswordHandler();
@@ -39,8 +39,8 @@ define('Map', ['./Constants/Constants', './Coordinates', './Utility', './Obscure
 
   this.setDrawDimensions = function setDrawDimensions() {
     // TODO: Rename all references to these.
-    this.drawWidth = this.pixelWidth = this.width * Constants.baseUnit;
-    this.drawHeight = this.pixelHeight = this.height * Constants.baseUnit;
+    this.drawWidth = this.pixelWidth = this.width * RenderSettings.baseUnit;
+    this.drawHeight = this.pixelHeight = this.height * RenderSettings.baseUnit;
 
     for (let i = 0; i < this.tilesets.length; i += 1) {
       this.tilesets[i].indexWidth =
@@ -118,8 +118,8 @@ define('Map', ['./Constants/Constants', './Coordinates', './Utility', './Obscure
         item.imageType = 'tile';
         item.color = this.tileProperties[itemData.gid - 1].color;
         item.position = new Coordinates(
-          (itemData.x) / Constants.baseUnit,
-          (itemData.y - Constants.baseUnit) / Constants.baseUnit
+          (itemData.x) / RenderSettings.baseUnit,
+          (itemData.y - RenderSettings.baseUnit) / RenderSettings.baseUnit
         );
         item.linksTo = itemData.properties.linksTo;
 
@@ -161,8 +161,8 @@ define('Map', ['./Constants/Constants', './Coordinates', './Utility', './Obscure
         enemy.subType = this.tileProperties[eData.gid - 1].type;
         enemy.imageType = 'tile';
         enemy.position = new Coordinates(
-          eData.x / Constants.baseUnit,
-          (eData.y - Constants.baseUnit) / Constants.baseUnit
+          eData.x / RenderSettings.baseUnit,
+          (eData.y - RenderSettings.baseUnit) / RenderSettings.baseUnit
         );
         enemy.speed = this.game.defaultEnemySpeed;
 
@@ -212,8 +212,8 @@ define('Map', ['./Constants/Constants', './Coordinates', './Utility', './Obscure
         tool.imageType = 'tile';
         tool.color = this.tileProperties[tData.gid - 1].color;
         tool.position = new Coordinates(
-          tData.x / Constants.baseUnit,
-          (tData.y - Constants.baseUnit) / Constants.baseUnit
+          tData.x / RenderSettings.baseUnit,
+          (tData.y - RenderSettings.baseUnit) / RenderSettings.baseUnit
         );
 
         // Change initial enemy facing direction.

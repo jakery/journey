@@ -8,8 +8,8 @@
     "test": "node ./node_modules/karma/bin/karma start --color",
     "lint": "node ./node_modules/eslint/bin/eslint.js './src/**/*.js'",
     "lint-watch": "node ./node_modules/eslint-watch/bin/esw -w --color --ignore-path ./.eslintignore --config ./.eslintrc.json",
-    "webpack": "node ./node_modules/webpack/bin/webpack.js ./src/Scripts/jakesChallenge.js ./src/Scripts/bundle.js",
-    "webpack-watch": "node ./node_modules/webpack/bin/webpack.js ./src/Scripts/jakesChallenge.js ./src/Scripts/bundle.js --watch",
+    "webpack": "node ./node_modules/webpack/bin/webpack.js ./src/Scripts/App.js ./src/bundle.js",
+    "webpack-watch": "node ./node_modules/webpack/bin/webpack.js ./src/Scripts/App.js ./src/bundle.js --watch",
     "webpack-dev-server": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server"
   },
   "repository": {

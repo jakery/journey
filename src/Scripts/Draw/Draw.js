@@ -1,11 +1,13 @@
 define('Draw',
   [
-    '../Constants/Constants',
+    '../Constants/RenderSettings',
+    '../Constants/TileCodes',
     '../Coordinates',
     './DrawHelpers',
   ],
   (
-    Constants,
+    RenderSettings,
+    TileCodes,
     Coordinates,
     DrawHelpers
   ) => function Draw(game, stage, player) {
@@ -26,7 +28,7 @@ define('Draw',
     this.generateGridLines = function generateGridLines() {
       const gridLines = [];
 
-      for (let x = 0; x <= stage.width; x += Constants.baseUnit) {
+      for (let x = 0; x <= stage.width; x += RenderSettings.baseUnit) {
         const coord = [x + 0.5, 0.5, x + 0.5, stage.height + 0.5];
         if (x === stage.width) {
           coord[0] -= 1;
@@ -34,7 +36,7 @@ define('Draw',
         }
         gridLines.push(coord);
       }
-      for (let y = 0; y <= stage.height; y += Constants.baseUnit) {
+      for (let y = 0; y <= stage.height; y += RenderSettings.baseUnit) {
         const coord = [0.5, y + 0.5, stage.width + 0.5, y + 0.5];
         if (y === stage.height) coord[3] -= 1;
         gridLines.push(coord);
@@ -55,12 +57,12 @@ define('Draw',
       const tileIndex = tileNumber - 1;
       const tileX = ((tileIndex + (game.corruption * sign))
         % game.map.tilesets[0].indexWidth)
-        * Constants.baseUnit;
+        * RenderSettings.baseUnit;
       const tileY = (Math.floor((tileIndex + (game.corruption * sign)) /
         game.map.tilesets[0].indexWidth))
-        * Constants.baseUnit;
-      const tileWidth = Constants.baseUnit;
-      const tileHeight = Constants.baseUnit;
+        * RenderSettings.baseUnit;
+      const tileWidth = RenderSettings.baseUnit;
+      const tileHeight = RenderSettings.baseUnit;
 
       return { tileX, tileY, tileWidth, tileHeight };
     };
@@ -80,12 +82,11 @@ define('Draw',
         t.tileHeight,
         coords.x,
         coords.y,
-        Constants.baseUnit,
-        Constants.baseUnit);
+        RenderSettings.baseUnit,
+        RenderSettings.baseUnit);
     };
 
     this.drawTilex = function drawTilex(tileNumber, c, sign = 1) {
-      const TileCodes = Constants.tileCodes;
       const coords = c;
       // Tile number isn't valid. Probably a blank square on the map. Ignore.
       if (tileNumber < 1) {
@@ -132,13 +133,12 @@ define('Draw',
 
     this.getTileDrawOffsetCoords = function getTileDrawOffsetCoords(coords) {
       const drawC = new Coordinates();
-      drawC.x = (coords.x * Constants.baseUnit) + this.stage.drawOffset.x;
-      drawC.y = (coords.y * Constants.baseUnit) + this.stage.drawOffset.y;
+      drawC.x = (coords.x * RenderSettings.baseUnit) + this.stage.drawOffset.x;
+      drawC.y = (coords.y * RenderSettings.baseUnit) + this.stage.drawOffset.y;
       return drawC;
     };
 
     this.beginDraw = function beginDraw() {
-      const TileCodes = Constants.tileCodes;
       // Set stage offset to center on player.
       if (this.stage.isOffset) {
         this.stage.drawOffset = new Coordinates(
