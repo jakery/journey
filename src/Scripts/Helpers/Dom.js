@@ -53,13 +53,6 @@ define('Dom', [], () => function Dom(element) {
     this.element.addEventListener('DOMContentLoaded', callback);
     return this;
   };
-  const errorPanels = document.getElementsByClassName('errorPanel');
-  if (errorPanels.length) {
-    for (let i = 0; i < errorPanels.length; i += 1) {
-      const error = errorPanels[i];
-      error.parentNode.remove(error);
-    }
-  }
   this.remove = function remove() {
     this.element.parentNode.removeChild(this.element);
     return this;
