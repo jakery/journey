@@ -1,7 +1,37 @@
 
 let Utility = require('./Utility');
 let Coordinates = require('../Coordinates');
+let Sprite = require('../Sprite/Sprite');
 describe('Utility', () => {
+
+  describe('math', function () {
+    describe('toRadians', function () {
+      it('should convert degrees to radians.', function () {
+        assert.equal(Utility.math.toRadians(180), Math.PI);
+        assert.equal(Utility.math.toRadians(90), (Math.PI / 2));
+        assert.equal(Utility.math.toRadians(45), (Math.PI / 4));
+        assert.equal(Utility.math.toRadians(30), (Math.PI / 6));
+        assert.equal(Utility.math.toRadians(2), (Math.PI / 90));
+        assert.equal(Utility.math.toRadians(0), 0);
+        assert.equal(Utility.math.toRadians(-90), (-Math.PI / 2));
+        assert.equal(Utility.math.toRadians(-150), (-5 * Math.PI) / 6);
+        assert.equal(Utility.math.toRadians(-180), -Math.PI);
+      });
+    });
+    describe('toDegrees', function () {
+      it('should convert radians to degrees.', function () {
+        assert.equal(Utility.math.toDegrees(Math.PI), 180);
+        assert.equal(Utility.math.toDegrees(Math.PI / 2), 90);
+        assert.equal(Utility.math.toDegrees(0), 0);
+        assert.equal(Utility.math.toDegrees(-Math.PI / 2), -90);
+      });
+    });
+    describe('TAU', function () {
+      it('should equal 2 * Math.PI', function () {
+        assert.equal(Utility.math.TAU, Math.PI * 2);
+      });
+    });
+  });
   describe('tileDistanceBetween', function () {
     it('should return 1', function () {
       const sprite1 = new Coordinates(-1, -1);
@@ -16,11 +46,29 @@ describe('Utility', () => {
   });
   describe('areColliding', function () {
     it('should return true', function () {
-      const sprite1 = new Coordinates(5, 5);
-      const sprite2 = new Coordinates(5, 5);
-      assert.isTrue(Utility.areColliding(sprite1, sprite2));
+      const coords1 = new Coordinates(5, 5);
+      const coords2 = new Coordinates(5, 5);
+      assert.isTrue(Utility.areColliding(coords1, coords2));
+    });
+    it('should return false', function () {
+      const coords1 = new Coordinates(10, 5);
+      const coords2 = new Coordinates(5, 5);
+      assert.isFalse(Utility.areColliding(coords1, coords2));
     });
   });
+  describe('areSpritesColliding', function () {
+    it('should return true', function () {
+      const sprite1 = new Sprite.Sprite();
+      sprite1.position = new Coordinates(5, 20);
+
+      const sprite2 = new Sprite.Sprite();
+      sprite2.position = new Coordinates(5, 20);
+      assert.isTrue(Utility.areSpritesColliding(sprite1, sprite2));
+
+    });
+  });
+
+
   describe('additional unit tests', function () {
     it('should have unit tests for every method.', function () {
       // TODO: Write these tests before touching Utility.js again.
@@ -39,7 +87,7 @@ describe('Utility', () => {
   describe('StringHelper', function () {
     describe('new', function () {
       it('should be a new StringHelper object.', function () {
-        assert.equal(Utility.string.constructor.name, 'StringHelper');
+        assert.equal(Utility.stringHelper.constructor.name, 'StringHelper');
       });
     });
   });

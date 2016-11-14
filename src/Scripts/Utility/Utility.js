@@ -1,6 +1,6 @@
-define('Utility', ['../Constants/ErrorMessages', './String', './Array'], (ErrorMessages, UtilityString, UtilityArray) => {
+define('Utility', ['../Constants/ErrorMessages', './String', './Array'], (ErrorMessages, StringHelper, UtilityArray) => {
   const Utility = function Utility() {
-    this.string = new UtilityString();
+    this.stringHelper = new StringHelper();
 
     this.array = new UtilityArray();
 
@@ -9,6 +9,7 @@ define('Utility', ['../Constants/ErrorMessages', './String', './Array'], (ErrorM
     this.math = {
       toRadians: degrees => (degrees * Math.PI) / 180,
       toDegrees: radians => (radians * 180) / Math.PI,
+      TAU: 2 * Math.PI,
     };
 
     this.tileDistanceBetween = function tileDistanceBetween(coords1, coords2) {

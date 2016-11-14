@@ -1,4 +1,4 @@
-define('String', [], () => function String() {
+define('StringHelper', [], () => function StringHelper() {
   const currencyPattern = /,|$/g;
 
   // Convert currency string to float.

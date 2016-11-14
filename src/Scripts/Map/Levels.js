@@ -1,4 +1,4 @@
-define('Levels', ['../Utility/String'], (StringHelper) => {
+define('Levels', ['../Utility/StringHelper'], (StringHelper) => {
   this.load = function load(isTest = false) {
     const stringHelper = new StringHelper();
     const requireContext = isTest
