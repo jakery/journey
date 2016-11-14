@@ -1,8 +1,11 @@
-let Map = require('./Map');
-describe('Map', function () {
+/* eslint-disable prefer-arrow-callback */
+const Map = require('./Map');
+
+describe('Map', function DescribeMap() {
   let map;
-  beforeEach(function () {
+  beforeEach(function beforeEach() {
     map = new Map({
+      /* eslint-disable */
       width: 5,
       height: 5,
       layers: [
@@ -227,10 +230,12 @@ describe('Map', function () {
         },
         "tilewidth": 32
       }]
+
+      /* eslint-enable */
     });
   });
-  describe('getTileIndexByCoords()', function () {
-    it('should return one dimensional index of coordinate.', function () {
+  describe('getTileIndexByCoords()', function getTileIndexByCoords() {
+    it('should return one dimensional index of coordinate.', function tests() {
       assert.equal(map.getTileIndexByCoords(0, 0), 0);
       assert.equal(map.getTileIndexByCoords(1, 0), 1);
       assert.equal(map.getTileIndexByCoords(2, 0), 2);
@@ -241,39 +246,38 @@ describe('Map', function () {
     });
   });
 
-  describe('getTileTypeByCoords()', function () {
-    it('should return value in data array corresponding to one-dimensional conversion.', function () {
+  describe('getTileTypeByCoords()', function getTileTypeByCoords() {
+    it('should return value in data array corresponding to one-dimensional conversion.', function tests() {
       assert.equal(map.getTileTypeByCoords(2, 4), 22);
     });
   });
 
-  describe('getCoordsByTileIndex()', function () {
-
-    it('should return 2d coordinates converted from array index', function () {
+  describe('getCoordsByTileIndex()', function getCoordsByTileIndex() {
+    it('should return 2d coordinates converted from array index', function tests() {
       assert.deepEqual(map.getCoordsByTileIndex(0), { x: 0, y: 0 });
       assert.deepEqual(map.getCoordsByTileIndex(13), { x: 3, y: 2 });
       assert.deepEqual(map.getCoordsByTileIndex(24), { x: 4, y: 4 });
     });
   });
 
-  describe('changeTileType()', function () {
-    it('should change the value of map.layers[0].data[0] to 20.', function () {
+  describe('changeTileType()', function changeTileType() {
+    it('should change the value of map.layers[0].data[0] to 20.', function tests() {
       assert.equal(map.layers[0].data[0], 50);
       map.changeTileType(0, 0, 20);
       assert.equal(map.layers[0].data[0], 20);
     });
-    it('should change the value of map.layers[0].data[21] to 0.', function () {
+    it('should change the value of map.layers[0].data[21] to 0.', function tests() {
       assert.equal(map.layers[0].data[21], 21);
       map.changeTileType(1, 4, 0);
       assert.equal(map.layers[0].data[21], 0);
     });
   });
-  describe('isInBounds()', function () {
-    it('should return true', function () {
+  describe('isInBounds()', function isInBounds() {
+    it('should return true', function tests() {
       assert.isTrue(map.isInBounds({ x: map.width - 1, y: map.height - 1 }));
       assert.isTrue(map.isInBounds({ x: 0, y: map.height - 1 }));
     });
-    it('should return false', function () {
+    it('should return false', function tests() {
       assert.isFalse(map.isInBounds({ x: -1, y: map.height }));
       assert.isFalse(map.isInBounds({ x: map.width, y: -1 }));
       assert.isFalse(map.isInBounds({ x: map.width + 1, y: map.height }));
@@ -281,20 +285,20 @@ describe('Map', function () {
     });
   });
 
-  describe('properties', function () {
-    it('should have correct drawWidth', function () {
+  describe('properties', function properties() {
+    it('should have correct drawWidth', function tests() {
       assert.equal(map.drawWidth, 5 * 32);
     });
-    it('should have correct drawHeight', function () {
+    it('should have correct drawHeight', function tests() {
       assert.equal(map.drawHeight, 5 * 32);
     });
-    it('should have correct indexWidth', function () {
+    it('should have correct indexWidth', function tests() {
       assert.equal(map.tilesets[0].indexWidth, 6);
     });
-    it('should have correct indexHeight', function () {
+    it('should have correct indexHeight', function tests() {
       assert.equal(map.tilesets[0].indexHeight, 9);
     });
-    it('should have tileProperties', function () {
+    it('should have tileProperties', function tests() {
       assert.equal(map.tileProperties[0].type, 'floor');
     });
   });
