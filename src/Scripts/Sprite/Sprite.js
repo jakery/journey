@@ -2,17 +2,32 @@
 // TODO: Create unit tests.
 define(
   'Sprite',
-  ['../Constants/Constants', '../Constants/TileCodes', '../Constants/DeathMessages', '../Coordinates', '../Keyboard', '../Utility/Utility', '../Draw/Draw'],
-  (Constants, TileCodes, DeathMessages, Coordinates, Keyboard, Utility, Draw) => {
+  ['../Constants/Constants',
+    '../Constants/TileCodes',
+    '../Constants/DeathMessages',
+    '../Coordinates',
+    './Inventory',
+    '../Keyboard',
+    '../Utility/Utility',
+    '../Draw/Draw'],
+  (
+    Constants,
+    TileCodes,
+    DeathMessages,
+    Coordinates,
+    Inventory,
+    Keyboard,
+    Utility,
+    Draw
+  ) => {
     const SpriteNS = {
-      Inventory: function Inventory() {
+      Inventory: function removeme_Inventory() {
         this.yellowKeys = 0;
         this.redKeys = 0;
         this.cyanKeys = 0;
         this.greenKeys = 0;
         this.money = 0;
       },
-
       Sprite: null,
     };
     // TODO: Remove 'player' parameter.
