@@ -1,3 +1,4 @@
+// TODO: Create better tests for draw functions.
 /* eslint-disable prefer-arrow-callback */
 const Coordinates = require('../Coordinates');
 const Draw = require('./Draw');
