@@ -14,7 +14,7 @@ define(
     Inventory,
     Utility,
     Levels,
-    Sprite,
+    Sprite
   ) => function Game() {
     // TODO: Refactor these properties into a hierarchy.
     this.debug = false;
