@@ -1,3 +1,4 @@
+// TODO: Rename to "Enumerables".
 define('Constants', [], {
   gameModes: {
     title: 0,
