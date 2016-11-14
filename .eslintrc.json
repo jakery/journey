@@ -12,6 +12,9 @@
         "define": false,
         "window": false,
         "document": false,
-        "Modernizr": false
+        "Modernizr": false,
+        "describe": false,
+        "assert": false,
+        "it": false
     }
 }
