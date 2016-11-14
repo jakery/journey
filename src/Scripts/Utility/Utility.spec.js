@@ -68,11 +68,6 @@ describe('Utility', () => {
     });
   });
 
-
-  describe('additional unit tests', function () {
-    it('should have unit tests for every method.', function () {
-      // TODO: Write these tests before touching Utility.js again.
-    });
   });
 
   describe('alert()', function () {
