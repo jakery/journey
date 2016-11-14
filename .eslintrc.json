@@ -15,6 +15,7 @@
         "Modernizr": false,
         "describe": false,
         "assert": false,
-        "it": false
+        "it": false,
+        "beforeEach": false
     }
 }
