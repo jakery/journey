@@ -1,5 +1,8 @@
-let Dom = require('./Dom');
-describe('Dom', function () {
+/* eslint-disable prefer-arrow-callback */
+/* eslint-disable func-names */
+const Dom = require('./Dom');
+
+describe('Dom', function DomTests() {
   let myElement;
   let myDom;
   beforeEach(function () {
@@ -17,7 +20,7 @@ describe('Dom', function () {
   describe('.before(text)', function () {
     it('should insert text (html) just before the element', function () {
       myDom.before('<div id="newElement">I\'m new!</div>');
-      let newElement = myElement.previousSibling;
+      const newElement = myElement.previousSibling;
       assert.equal(newElement.tagName.toLowerCase(), 'div');
       assert.equal(newElement.id, 'newElement');
     });
@@ -31,7 +34,7 @@ describe('Dom', function () {
       assert.equal(myDom.element.style.color, 'red');
     });
     it('should output the element\'s CSSStyleDeclaration', function () {
-      var theStyle = myDom.style();
+      const theStyle = myDom.style();
       assert.equal(theStyle.constructor.name, 'CSSStyleDeclaration');
     });
     it('should output the element\'s single style value.', function () {
@@ -41,15 +44,15 @@ describe('Dom', function () {
     });
   });
 
-  describe('.width()', function width() {
+  describe('.width()', function descrtibeWidth() {
     it('should return the width of the element.', function test() {
-      let width = myDom.width();
+      const width = myDom.width();
       assert.isNumber(width);
     });
   });
   describe('.height()', function () {
     it('should return the height of the element.', function test() {
-      let height = myDom.height();
+      const height = myDom.height();
       assert.isNumber(height);
     });
   });
@@ -67,7 +70,7 @@ describe('Dom', function () {
   describe('.show()', function () {
     it('should show the element.', function () {
       myDom.show();
-      assert.equal('visible', myDom.element.style.visibility)
+      assert.equal('visible', myDom.element.style.visibility);
     });
     it('should return the dom object.', function () {
       assert.deepEqual(myDom, myDom.show());
@@ -79,7 +82,7 @@ describe('Dom', function () {
       assert.equal(myDom.html(), myElement.innerHTML);
     });
     it('should SET the innerHTML of the element.', function () {
-      let newHtml = 'NEW HTML VALUE';
+      const newHtml = 'NEW HTML VALUE';
       myDom.html(newHtml);
       assert.equal(myElement.innerHTML, newHtml);
     });
@@ -87,48 +90,43 @@ describe('Dom', function () {
 
   describe('.ready()', function () {
     it('should execute a callback when the document is loaded.', function () {
-      let myNumber = 1;
-      let myDocument = new Dom(document);
+      const myDocument = new Dom(document);
       let callbackExecuted = false;
 
-      let myCallback = function myCallback() {
+      const myCallback = function myCallback() {
         callbackExecuted = true;
       };
       myDocument.ready(myCallback);
 
       // Manually trigger DOMContentLoaded.
-      var DOMContentLoaded_event = document.createEvent("Event")
-      DOMContentLoaded_event.initEvent("DOMContentLoaded", true, true)
-      window.document.dispatchEvent(DOMContentLoaded_event);
+      const domContentLoadedEvent = document.createEvent('Event');
+      domContentLoadedEvent.initEvent('DOMContentLoaded', true, true);
+      window.document.dispatchEvent(domContentLoadedEvent);
 
       assert.isTrue(callbackExecuted);
-
     });
 
-    it('should return the dom object.', function () {
+    it('should return the dom object', function () {
       assert.deepEqual(myDom, myDom.ready());
     });
   });
   describe('.remove()', function () {
-    it("should remove the element from the document.", function () {
-      let myElementToRemove = document.createElement('div');
+    it('should remove the element from the document', function () {
+      const myElementToRemove = document.createElement('div');
       myElementToRemove.innerHTML = 'remove me';
       myElementToRemove.id = 'myDiv';
       document.body.appendChild(myElementToRemove);
-      let myDomToRemove = new Dom(myElementToRemove);
-      let parentElement = myElementToRemove.parentNode;
-      let check = document.getElementById('myDiv');
+      const myDomToRemove = new Dom(myElementToRemove);
+      const check = document.getElementById('myDiv');
       assert.isTrue(check.id === 'myDiv');
 
       myDomToRemove.remove();
 
-      let reCheck = document.getElementById('myDiv');
+      const reCheck = document.getElementById('myDiv');
       assert.isTrue(reCheck === null);
     });
     it('should return the dom object.', function () {
       assert.deepEqual(myDom.remove(), myDom);
     });
   });
-
 });
-
