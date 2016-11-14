@@ -4,6 +4,7 @@ let Coordinates = require('../Coordinates');
 let Sprite = require('../Sprite/Sprite');
 describe('Utility', () => {
 
+  // MATH
   describe('math', function () {
     describe('toRadians', function () {
       it('should convert degrees to radians.', function () {
@@ -68,6 +69,7 @@ describe('Utility', () => {
     });
   });
 
+  // POLYFILLS
   });
 
   describe('alert()', function () {
@@ -79,6 +81,7 @@ describe('Utility', () => {
     });
   });
 
+  // STRING
   describe('StringHelper', function () {
     describe('new', function () {
       it('should be a new StringHelper object.', function () {
@@ -86,4 +89,5 @@ describe('Utility', () => {
       });
     });
   });
+  // ARRAY
 });
