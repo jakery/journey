@@ -1,4 +1,4 @@
-define('Utility', ['../Constants/ErrorMessages', './String', './Array'], (ErrorMessages, StringHelper, UtilityArray) => {
+define('Utility', ['../Constants/ErrorMessages', './StringHelper', './Array'], (ErrorMessages, StringHelper, UtilityArray) => {
   const Utility = function Utility() {
     this.stringHelper = new StringHelper();
 
