@@ -92,6 +92,12 @@ describe('Utility', () => {
       assert.equal(document.getElementById('error').style.visibility, 'visible');
       assert.equal(document.getElementById('error').innerHTML, 'Error Message!');
     });
+
+    it('should trigger a popup message', function () {
+      // TODO: Create a spy for testing window alerts here.
+    });
+    it('should create a message in the console', function () {
+      // TODO: Create a spy for testing console error messages.
     });
     it('should throw an error.', function () {
       assert.throws(() => Utility.alert('theMessage', {}), Error, 'not properly configured');
