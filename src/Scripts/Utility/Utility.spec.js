@@ -3,6 +3,7 @@
 const Utility = require('./Utility');
 const Coordinates = require('../Coordinates');
 const Sprite = require('../Sprite/Sprite');
+const Dom = require('../Helpers/Dom');
 
 describe('Utility', () => {
   // MATH
@@ -76,6 +77,21 @@ describe('Utility', () => {
   });
 
   describe('alert()', function () {
+    it('should output to a Dom node.', function () {
+      const myErrorDiv = document.createElement('div');
+      myErrorDiv.innerHTML = 'old HTML';
+      myErrorDiv.id = 'error';
+      document.body.appendChild(myErrorDiv);
+      myErrorDiv.style.backgroundColor = 'red';
+      myErrorDiv.style.color = 'white';
+      myErrorDiv.style.display = 'inline';
+      myErrorDiv.style.visibility = 'hidden';
+      const outputDomNode = new Dom(document.getElementById('error'));
+      Utility.alert('Error Message!', outputDomNode);
+
+      assert.equal(document.getElementById('error').style.visibility, 'visible');
+      assert.equal(document.getElementById('error').innerHTML, 'Error Message!');
+    });
     });
     it('should throw an error.', function () {
       assert.throws(() => Utility.alert('theMessage', {}), Error, 'not properly configured');

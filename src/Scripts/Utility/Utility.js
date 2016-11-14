@@ -57,7 +57,7 @@ define('Utility', ['../Constants/ErrorMessages', './StringHelper', './Array'], (
 
     // TODO: Refactor magic strings into enumerables.
     this.alert = function alert(message, output = 'popup') {
-      if (output.constructor === 'Dom') {
+      if (output.constructor.name === 'Dom') {
         output.show();
         output.html(message);
       } else if (output === 'popup') {
