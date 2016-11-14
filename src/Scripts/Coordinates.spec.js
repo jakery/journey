@@ -1,16 +1,16 @@
-let Coordinates = require('../Scripts/Coordinates');
-describe('CoordinatesTest', function () {
-  describe('Coordinates', function () {
-    it('should create coordinates.', function () {
-      let c = new Coordinates(0, 0);
-      assert.equal(0, c.x);
-      assert.equal(0, c.y);
-    });
+/* eslint-disable prefer-arrow-callback */
+const Coordinates = require('../Scripts/Coordinates');
 
-    it('should have null X and Y properties.', function () {
-      let c = new Coordinates(Infinity, NaN);
-      assert.isNull(c.x);
-      assert.isNull(c.y);
-    });
+describe('CoordinatesTest', function CoordinatesTests() {
+  it('should create coordinates.', function test() {
+    const coordinates = new Coordinates(0, 0);
+    assert.equal(0, coordinates.x);
+    assert.equal(0, coordinates.y);
+  });
+
+  it('should have null X and Y properties.', function test() {
+    const coordinates = new Coordinates(Infinity, NaN);
+    assert.isNull(coordinates.x);
+    assert.isNull(coordinates.y);
   });
 });
