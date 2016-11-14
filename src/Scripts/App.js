@@ -5,6 +5,7 @@ define('App',
     './Constants/TileCodes',
     './Constants/DeathMessages',
     './Coordinates',
+    './Sprite/Inventory',
     './Helpers/Dom',
     './Stage',
     './Sprite/Sprite',
@@ -24,6 +25,7 @@ define('App',
     TileCodes,
     DeathMessages,
     Coordinates,
+    Inventory,
     Dom,
     Stage,
     Sprite,
@@ -97,7 +99,7 @@ define('App',
       this.nextLevel = function nextLevel() {
         this.level = self.game.nextLevelNumber;
         this.atExit = false;
-        self.player.inventory = new Sprite.Inventory();
+        self.player.inventory = new Inventory();
         this.loadMap(this.level);
       };
     };

@@ -1,12 +1,14 @@
 define('Game', [
   './Constants/Constants',
   './Constants/DeathMessages',
+  './Sprite/Inventory',
   './Utility/Utility',
   './Map/Levels',
   './Sprite/Sprite',
 ], (
   Constants,
   DeathMessages,
+  Inventory,
   Utility,
   Levels,
   Sprite
@@ -95,7 +97,7 @@ define('Game', [
   this.nextLevel = function nextLevel() {
     // this.level = this.nextLevelNumber;
     // this.atExit = false;
-    // this.player.inventory = new Sprite.Inventory();
+    // this.player.inventory = new Inventory();
     // this.loadMap(this.level);
   };
 
