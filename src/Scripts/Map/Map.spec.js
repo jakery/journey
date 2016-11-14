@@ -287,23 +287,33 @@ describe('Map', function DescribeMap() {
   });
 
   describe('setDrawDimensions', function setDrawDimensions() {
-
+    it('', function tests() {
+      assert.isTrue(false);
+    });
   });
 
   describe('setProperties', function setProperties() {
-
+    it('', function tests() {
+      assert.isTrue(false);
+    });
   });
 
   describe('loadItems', function loadItems() {
-
+    it('', function tests() {
+      assert.isTrue(false);
+    });
   });
 
   describe('loadEnemies', function loadEnemies() {
-
+    it('', function tests() {
+      assert.isTrue(false);
+    });
   });
 
   describe('loadTools', function loadTools() {
-
+    it('', function tests() {
+      assert.isTrue(false);
+    });
   });
 
   describe('properties', function properties() {
