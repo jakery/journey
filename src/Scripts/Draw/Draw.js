@@ -10,7 +10,7 @@ define('Draw',
     TileCodes,
     Coordinates,
     DrawHelpers
-  ) => function Draw(game, stage, player) {
+  ) => function Draw(game = null, stage = null, player = null) {
     this.game = game;
     this.stage = stage;
     this.player = player;
@@ -18,11 +18,12 @@ define('Draw',
     this.tilesAreCacheable = sign => !this.game.corruption && sign === 1;
 
     // Define default canvas parameters.
-    this.ctx = this.stage.gameCanvas.getContext('2d');
-    this.ctx.lineWidth = 1;
-    this.ctx.font = '20px sans-serif';
-    this.ctx.textBaseline = 'top';
-
+    if (this.stage !== null && this.stage.gameCanvas) {
+      this.ctx = this.stage.gameCanvas.getContext('2d');
+      this.ctx.lineWidth = 1;
+      this.ctx.font = '20px sans-serif';
+      this.ctx.textBaseline = 'top';
+    }
     this.DrawHelpers = new DrawHelpers(this.ctx);
 
     this.generateGridLines = function generateGridLines() {

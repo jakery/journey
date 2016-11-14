@@ -28,7 +28,7 @@ define('Stage', ['./Constants/RenderSettings', './Coordinates', './Helpers/Dom']
       Object.assign(this, obj);
     };
 
-    // TODO: Move this to a utility/draw module.
+    // TODO: This is now part of map.js. Look for references to this version and swap them out.
     this.getCoordsByTileIndex = function getCoordsByTileIndex(i) {
       return new Coordinates(
         i % this.playboxTileWidth,
