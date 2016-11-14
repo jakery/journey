@@ -76,8 +76,6 @@ describe('Utility', () => {
   });
 
   describe('alert()', function () {
-    it('should have complete tests.', function () {
-      // TODO: Write these tests before touching Utility.js again.
     });
     it('should throw an error.', function () {
       assert.throws(() => Utility.alert('theMessage', {}), Error, 'not properly configured');
