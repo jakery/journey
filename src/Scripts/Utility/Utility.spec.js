@@ -91,5 +91,13 @@ describe('Utility', () => {
       });
     });
   });
+
   // ARRAY
+  describe('ArrayHelper', function () {
+    describe('new', function () {
+      it('should be a new ArrayHelper object.', function () {
+        assert.equal(Utility.array.constructor.name, 'Array');
+      });
+    });
+  });
 });
