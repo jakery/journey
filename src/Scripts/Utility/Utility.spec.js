@@ -3,7 +3,6 @@ let Utility = require('./Utility');
 let Coordinates = require('../Coordinates');
 let Sprite = require('../Sprite/Sprite');
 describe('Utility', () => {
-
   // MATH
   describe('math', function () {
     describe('toRadians', function () {
@@ -70,6 +69,9 @@ describe('Utility', () => {
   });
 
   // POLYFILLS
+  describe('console', function () {
+    assert.isDefined(Utility.console);
+    assert.isFunction(Utility.console.assert);
   });
 
   describe('alert()', function () {
