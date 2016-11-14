@@ -1,17 +1,20 @@
-define('Game', [
-  './Constants/Constants',
-  './Constants/DeathMessages',
-  './Sprite/Inventory',
-  './Utility/Utility',
-  './Map/Levels',
-  './Sprite/Sprite',
-], (
-  Constants,
-  DeathMessages,
-  Inventory,
-  Utility,
-  Levels,
-  Sprite,
+define(
+  'Game',
+  [
+    './Constants/Constants',
+    './Constants/DeathMessages',
+    './Sprite/Inventory',
+    './Utility/Utility',
+    './Map/Levels',
+    './Sprite/Sprite',
+  ],
+  (
+    Constants,
+    DeathMessages,
+    Inventory,
+    Utility,
+    Levels,
+    Sprite,
   ) => function Game() {
     // TODO: Refactor these properties into a hierarchy.
     this.debug = false;
