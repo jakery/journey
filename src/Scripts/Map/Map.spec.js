@@ -1,4 +1,4 @@
-let Map = require('../Scripts/Map/Map');
+let Map = require('./Map');
 describe('Map', function () {
   let map;
   beforeEach(function () {

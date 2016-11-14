@@ -1,4 +1,4 @@
-let Dom = require('../Scripts/Helpers/Dom');
+let Dom = require('./Dom');
 describe('Dom', function () {
   let myElement;
   let myDom;

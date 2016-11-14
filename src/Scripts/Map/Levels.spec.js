@@ -1,4 +1,4 @@
-let Levels = require('../Scripts/Map/Levels');
+let Levels = require('./Levels');
 describe('Levels', function () {
   describe('load()', function () {
     it('should load a bunch of JSON files into a single object.', function () {
