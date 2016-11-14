@@ -1,4 +1,16 @@
-define('Game', ['./Constants/Constants', './Constants/DeathMessages', './Utility/Utility', './Map/Levels'], (Constants, DeathMessages, Utility, Levels) => function Game() {
+define('Game', [
+  './Constants/Constants',
+  './Constants/DeathMessages',
+  './Utility/Utility',
+  './Map/Levels',
+  './Sprite/Sprite',
+], (
+  Constants,
+  DeathMessages,
+  Utility,
+  Levels,
+  Sprite
+) => function Game() {
   // TODO: Refactor these properties into a hierarchy.
   this.debug = false;
   this.betaTest = true;
@@ -80,7 +92,18 @@ define('Game', ['./Constants/Constants', './Constants/DeathMessages', './Utility
     Object.assign(this, obj);
   };
 
+  this.nextLevel = function nextLevel() {
+    // this.level = this.nextLevelNumber;
+    // this.atExit = false;
+    // this.player.inventory = new Sprite.Inventory();
+    // this.loadMap(this.level);
+  };
+
   this.restartLevel = function restartLevel() {
     this.loadMap(this.level);
   };
+
+  // this.loadMap = function loadMap() {
+  //   // TODO: Migrate loadMap();
+  // };
 });

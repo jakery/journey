@@ -64,6 +64,13 @@ describe('Game', function GameTests() {
     });
   });
 
+  describe('nextLevel()', function nextLevel() {
+    it('should load the current level', function test() {
+      // game.nextLevel();
+      // Migrate code from App.js and create tests.
+    });
+  });
+
   describe('restartLevel()', function restartLevel() {
     it('should reload the current level', function test() {
       // game.restartLevel();
