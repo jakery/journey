@@ -1,7 +1,9 @@
+/* eslint-disable prefer-arrow-callback */
+/* eslint-disable func-names */
+const Utility = require('./Utility');
+const Coordinates = require('../Coordinates');
+const Sprite = require('../Sprite/Sprite');
 
-let Utility = require('./Utility');
-let Coordinates = require('../Coordinates');
-let Sprite = require('../Sprite/Sprite');
 describe('Utility', () => {
   // MATH
   describe('math', function () {
@@ -64,7 +66,6 @@ describe('Utility', () => {
       const sprite2 = new Sprite.Sprite();
       sprite2.position = new Coordinates(5, 20);
       assert.isTrue(Utility.areSpritesColliding(sprite1, sprite2));
-
     });
   });
 
