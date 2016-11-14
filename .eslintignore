@@ -3,4 +3,3 @@
 **/Assets/*
 src/bundle.js
 karma.conf.js
-**/*.spec.js
