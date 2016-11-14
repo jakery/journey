@@ -246,9 +246,16 @@ describe('Map', function DescribeMap() {
     });
   });
 
-  describe('getTileTypeByCoords()', function getTileTypeByCoords() {
-    it('should return value in data array corresponding to one-dimensional conversion.', function tests() {
-      assert.equal(map.getTileTypeByCoords(2, 4), 22);
+  describe('isInBounds()', function isInBounds() {
+    it('should return true', function tests() {
+      assert.isTrue(map.isInBounds({ x: map.width - 1, y: map.height - 1 }));
+      assert.isTrue(map.isInBounds({ x: 0, y: map.height - 1 }));
+    });
+    it('should return false', function tests() {
+      assert.isFalse(map.isInBounds({ x: -1, y: map.height }));
+      assert.isFalse(map.isInBounds({ x: map.width, y: -1 }));
+      assert.isFalse(map.isInBounds({ x: map.width + 1, y: map.height }));
+      assert.isFalse(map.isInBounds({ x: map.width, y: map.height }));
     });
   });
 
@@ -257,6 +264,12 @@ describe('Map', function DescribeMap() {
       assert.deepEqual(map.getCoordsByTileIndex(0), { x: 0, y: 0 });
       assert.deepEqual(map.getCoordsByTileIndex(13), { x: 3, y: 2 });
       assert.deepEqual(map.getCoordsByTileIndex(24), { x: 4, y: 4 });
+    });
+  });
+
+  describe('getTileTypeByCoords()', function getTileTypeByCoords() {
+    it('should return value in data array corresponding to one-dimensional conversion.', function tests() {
+      assert.equal(map.getTileTypeByCoords(2, 4), 22);
     });
   });
 
@@ -272,17 +285,6 @@ describe('Map', function DescribeMap() {
       assert.equal(map.layers[0].data[21], 0);
     });
   });
-  describe('isInBounds()', function isInBounds() {
-    it('should return true', function tests() {
-      assert.isTrue(map.isInBounds({ x: map.width - 1, y: map.height - 1 }));
-      assert.isTrue(map.isInBounds({ x: 0, y: map.height - 1 }));
-    });
-    it('should return false', function tests() {
-      assert.isFalse(map.isInBounds({ x: -1, y: map.height }));
-      assert.isFalse(map.isInBounds({ x: map.width, y: -1 }));
-      assert.isFalse(map.isInBounds({ x: map.width + 1, y: map.height }));
-      assert.isFalse(map.isInBounds({ x: map.width, y: map.height }));
-    });
   });
 
   describe('properties', function properties() {
