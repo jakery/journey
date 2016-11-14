@@ -285,6 +285,25 @@ describe('Map', function DescribeMap() {
       assert.equal(map.layers[0].data[21], 0);
     });
   });
+
+  describe('setDrawDimensions', function setDrawDimensions() {
+
+  });
+
+  describe('setProperties', function setProperties() {
+
+  });
+
+  describe('loadItems', function loadItems() {
+
+  });
+
+  describe('loadEnemies', function loadEnemies() {
+
+  });
+
+  describe('loadTools', function loadTools() {
+
   });
 
   describe('properties', function properties() {
