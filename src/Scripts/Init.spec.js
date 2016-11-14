@@ -7,16 +7,16 @@ describe('Init()', function InitTests() {
   document.body.appendChild(mainDiv);
   const myInit = new Init();
   describe('handleTouchScreen()', function handleTouchScreen() {
-    // TODO: Get modernizr as a package and require that package so that this test works.
-    // it('should return true', function test() {
-    //   assert.isTrue(myInit.handleTouchScreen(true));
-    // });
+    it('should return true', function test() {
+      assert.isTrue(myInit.handleTouchScreen(true));
+    });
     // TODO: Add spy for when bypass is set to false.
   });
   describe('checkBrowserSupport()', function checkBrowserSupport() {
-    it('should return true', function test() {
-      assert.isTrue(myInit.checkBrowserSupport());
-    });
+    // TODO: Get modernizr as a package and require that package so that this test works.
+    // it('should return true', function test() {
+    //   assert.isTrue(myInit.checkBrowserSupport());
+    // });
   });
 
   describe('checkProtocol()', function checkProtocol() {
