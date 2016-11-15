@@ -1,14 +1,13 @@
 /* eslint-disable prefer-arrow-callback */
-/* eslint-disable func-names */
 const Utility = require('./Utility');
 const Coordinates = require('../Coordinates');
 const Sprite = require('../Sprite/Sprite');
 const Dom = require('../Helpers/Dom');
 
-describe('Utility', () => {
+describe('Utility', function UtilityTests() {
   // MATH
-  describe('math', function () {
-    describe('toRadians', function () {
+  describe('math', function math() {
+    describe('toRadians', function toRadians() {
       it('should convert degrees to radians.', function () {
         assert.equal(Utility.math.toRadians(180), Math.PI);
         assert.equal(Utility.math.toRadians(90), (Math.PI / 2));
@@ -21,7 +20,7 @@ describe('Utility', () => {
         assert.equal(Utility.math.toRadians(-180), -Math.PI);
       });
     });
-    describe('toDegrees', function () {
+    describe('toDegrees', function toDegrees() {
       it('should convert radians to degrees.', function () {
         assert.equal(Utility.math.toDegrees(Math.PI), 180);
         assert.equal(Utility.math.toDegrees(Math.PI / 2), 90);
@@ -29,13 +28,13 @@ describe('Utility', () => {
         assert.equal(Utility.math.toDegrees(-Math.PI / 2), -90);
       });
     });
-    describe('TAU', function () {
+    describe('TAU', function TAU() {
       it('should equal 2 * Math.PI', function () {
         assert.equal(Utility.math.TAU, Math.PI * 2);
       });
     });
   });
-  describe('tileDistanceBetween', function () {
+  describe('tileDistanceBetween', function tileDistanceBetween() {
     it('should return 1', function () {
       const sprite1 = new Coordinates(-1, -1);
       const sprite2 = new Coordinates(-2, -1);
@@ -47,7 +46,7 @@ describe('Utility', () => {
       assert.equal(Utility.tileDistanceBetween(sprite1, sprite2), 5);
     });
   });
-  describe('areColliding', function () {
+  describe('areColliding', function areColliding() {
     it('should return true', function () {
       const coords1 = new Coordinates(5, 5);
       const coords2 = new Coordinates(5, 5);
@@ -59,7 +58,7 @@ describe('Utility', () => {
       assert.isFalse(Utility.areColliding(coords1, coords2));
     });
   });
-  describe('areSpritesColliding', function () {
+  describe('areSpritesColliding', function areSpritesColliding() {
     it('should return true', function () {
       const sprite1 = new Sprite.Sprite();
       sprite1.position = new Coordinates(5, 20);
@@ -71,12 +70,12 @@ describe('Utility', () => {
   });
 
   // POLYFILLS
-  describe('console', function () {
+  describe('console', function console() {
     assert.isDefined(Utility.console);
     assert.isFunction(Utility.console.assert);
   });
 
-  describe('alert()', function () {
+  describe('alert()', function alert() {
     it('should output to a Dom node.', function () {
       const myErrorDiv = document.createElement('div');
       myErrorDiv.innerHTML = 'old HTML';
@@ -105,8 +104,8 @@ describe('Utility', () => {
   });
 
   // STRING
-  describe('StringHelper', function () {
-    describe('new', function () {
+  describe('StringHelper', function StringHelper() {
+    describe('new', function newStringHelper() {
       it('should be a new StringHelper object.', function () {
         assert.equal(Utility.stringHelper.constructor.name, 'StringHelper');
       });
@@ -114,8 +113,8 @@ describe('Utility', () => {
   });
 
   // ARRAY
-  describe('ArrayHelper', function () {
-    describe('new', function () {
+  describe('ArrayHelper', function ArrayHelper() {
+    describe('new', function newArrayHelper() {
       it('should be a new ArrayHelper object.', function () {
         assert.equal(Utility.array.constructor.name, 'Array');
       });
