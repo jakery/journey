@@ -2,10 +2,12 @@ define(
   'Movement',
   [
     '../Constants/Constants',
+    '../Constants/TileCodes',
     '../Coordinates',
   ],
   (
     Constants,
+    TileCodes,
     Coordinates
   ) => {
     this.enum = {
@@ -13,6 +15,12 @@ define(
       antiClockwise: direction => (direction + 3) % 4,
       proClockwise: direction => (direction + 1) % 4,
     };
+
+    this.blockers = [{
+      test: destinationTileType => destinationTileType === TileCodes.wall,
+      callback: () => false,
+    }];
+
 
     this.turn = function turn(sprite, direction) {
       const thisSprite = sprite;
@@ -29,6 +37,7 @@ define(
     this.turnProClockwise = sprite =>
       this.turn(sprite, this.enum.proClockwise(sprite.direction));
 
+    // TODO: Enumerate these.
     this.getRotation = function getRotation(direction) {
       switch (direction) {
         case Constants.directions.up:
