@@ -307,12 +307,8 @@ define(
         return true;
       };
 
-      this.turn = function turn(direction) {
-        this.direction = direction;
-        this.rotation = this.getRotation();
-      };
-
       this.getRotation = () => Movement.getRotation(this.direction);
+      this.turn = direction => Movement.turn(this, direction);
 
       this.turnAround = function turnAround() {
         switch (this.direction) {

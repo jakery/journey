@@ -26,6 +26,30 @@ describe('Sprite', function SpriteTests() {
     });
   });
 
+  describe('turn', function turn() {
+    it('should turn up', function test() {
+      sprite.turn(Constants.directions.up);
+      assert.equal(sprite.direction, Constants.directions.up);
+      assert.equal(sprite.rotation, 0);
+    });
+
+    it('should turn down', function test() {
+      sprite.turn(Constants.directions.down);
+      assert.equal(sprite.direction, Constants.directions.down);
+      assert.equal(sprite.rotation, 180);
+    });
+    it('should turn left', function test() {
+      sprite.turn(Constants.directions.left);
+      assert.equal(sprite.direction, Constants.directions.left);
+      assert.equal(sprite.rotation, -90);
+    });
+
+    it('should turn right', function test() {
+      sprite.turn(Constants.directions.right);
+      assert.equal(sprite.direction, Constants.directions.right);
+      assert.equal(sprite.rotation, 90);
+    });
+  });
   describe('getRotation', function getRotation() {
     it('should return 0', function test() {
       sprite.direction = Constants.directions.up;
@@ -108,5 +132,3 @@ describe('Sprite', function SpriteTests() {
   //   });
   // });
 });
-
-

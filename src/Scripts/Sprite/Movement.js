@@ -8,6 +8,12 @@ define(
     Constants,
     Coordinates
   ) => {
+    this.turn = function turn(sprite, direction) {
+      const thisSprite = sprite;
+      thisSprite.direction = direction;
+      thisSprite.rotation = this.getRotation(direction);
+    };
+
     this.getRotation = function getRotation(direction) {
       switch (direction) {
         case Constants.directions.up:
