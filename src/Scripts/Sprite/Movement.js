@@ -8,9 +8,10 @@ define(
     Constants,
     Coordinates
   ) => {
-    this.getEnum = {
-      around: direction => (direction + 2) % 4,
+    this.enum = {
+      behind: direction => (direction + 2) % 4,
       antiClockwise: direction => (direction + 3) % 4,
+      proClockwise: direction => (direction + 1) % 4,
     };
 
     this.turn = function turn(sprite, direction) {
@@ -19,25 +20,14 @@ define(
       thisSprite.rotation = this.getRotation(direction);
     };
 
-    this.turnAround = function turnAround(sprite) {
-      const direction = sprite.direction;
-      const newDirection = this.getEnum.around(direction);
-      this.turn(sprite, newDirection);
-    };
+    this.turnAround = sprite =>
+      this.turn(sprite, this.enum.behind(sprite.direction));
 
-    this.turnAntiClockwise = function turnAntiClockwise(sprite) {
-      const thisSprite = sprite;
-      const direction = thisSprite.direction;
-      const newDirection = (direction + 3) % 4;
-      this.turn(sprite, newDirection);
-    };
+    this.turnAntiClockwise = sprite =>
+      this.turn(sprite, this.enum.antiClockwise(sprite.direction));
 
-    this.turnProClockwise = function turnProClockwise(sprite) {
-      const thisSprite = sprite;
-      const direction = thisSprite.direction;
-      const newDirection = (direction + 1) % 4;
-      this.turn(sprite, newDirection);
-    };
+    this.turnProClockwise = sprite =>
+      this.turn(sprite, this.enum.proClockwise(sprite.direction));
 
     this.getRotation = function getRotation(direction) {
       switch (direction) {
