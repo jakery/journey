@@ -4,73 +4,55 @@ define(
     '../Constants/Constants',
     '../Constants/TileCodes',
     '../Coordinates',
+    './Orientation',
   ],
   (
     Constants,
     TileCodes,
-    Coordinates
+    Coordinates,
+    Orientation
   ) => {
-    this.enum = {
-      behind: direction => (direction + 2) % 4,
-      antiClockwise: direction => (direction + 3) % 4,
-      proClockwise: direction => (direction + 1) % 4,
-    };
-
     this.blockers = [{
       test: destinationTileType => destinationTileType === TileCodes.wall,
       callback: () => false,
     }];
 
+    this.getRotation = direction => (((direction + 1) % 4) * 90) - 90;
 
     this.turn = function turn(sprite, direction) {
       const thisSprite = sprite;
       thisSprite.direction = direction;
+      // TODO: Rotation is no longer needed.
       thisSprite.rotation = this.getRotation(direction);
     };
 
     this.turnAround = sprite =>
-      this.turn(sprite, this.enum.behind(sprite.direction));
+      this.turn(sprite, Orientation.behind(sprite.direction));
 
     this.turnAntiClockwise = sprite =>
-      this.turn(sprite, this.enum.antiClockwise(sprite.direction));
+      this.turn(sprite, Orientation.antiClockwise(sprite.direction));
 
     this.turnProClockwise = sprite =>
-      this.turn(sprite, this.enum.proClockwise(sprite.direction));
-
-    // TODO: Enumerate these.
-    this.getRotation = function getRotation(direction) {
-      switch (direction) {
-        case Constants.directions.up:
-          return 0;
-        case Constants.directions.down:
-          return 180;
-        case Constants.directions.left:
-          return -90;
-        case Constants.directions.right:
-          return 90;
-        default:
-          return null;
-      }
-    };
+      this.turn(sprite, Orientation.proClockwise(sprite.direction));
 
     this.getTarget = function getTarget(direction, position, mapMaxCoords) {
       const targetPosition = new Coordinates(position.x, position.y);
-      if (direction === Constants.directions.left) {
+      if (direction === Orientation.enums.left) {
         targetPosition.x -= 1;
         if (targetPosition.x < 0) {
           targetPosition.x = mapMaxCoords.x - 1;
         }
-      } else if (direction === Constants.directions.right) {
+      } else if (direction === Orientation.enums.right) {
         targetPosition.x += 1;
         if (targetPosition.x >= mapMaxCoords.x) {
           targetPosition.x = 0;
         }
-      } else if (direction === Constants.directions.up) {
+      } else if (direction === Orientation.enums.up) {
         targetPosition.y -= 1;
         if (targetPosition.y < 0) {
           targetPosition.y = mapMaxCoords.y - 1;
         }
-      } else if (direction === Constants.directions.down) {
+      } else if (direction === Orientation.enums.down) {
         targetPosition.y += 1;
         if (targetPosition.y >= mapMaxCoords.y) {
           targetPosition.y = 0;
