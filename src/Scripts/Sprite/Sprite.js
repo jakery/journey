@@ -181,6 +181,7 @@ define(
         new Coordinates(this.game.map.width, this.game.map.height)
       );
 
+      // TODO: Refactor for migration to Movement.js
       this.canMove = function canMove(coordinates) {
         const destination = (coordinates == null) ? this.getTarget() : coordinates;
 
@@ -310,6 +311,7 @@ define(
       this.getRotation = () => Movement.getRotation(this.direction);
       this.turn = direction => Movement.turn(this, direction);
 
+      // TODO: OK to migrate.
       this.turnAround = function turnAround() {
         switch (this.direction) {
           case Constants.directions.left:
@@ -329,6 +331,7 @@ define(
         }
       };
 
+      // TODO: OK to migrate.
       this.turnAntiClockwise = function turnAntiClockwise() {
         switch (this.direction) {
           case Constants.directions.left:
@@ -348,6 +351,7 @@ define(
         }
       };
 
+      // TODO: OK to migrate.
       this.turnProClockwise = function turnProClockwise() {
         switch (this.direction) {
           case Constants.directions.left:
@@ -367,6 +371,7 @@ define(
         }
       };
 
+      // TODO: OK to migrate.
       this.goForward = function goForward(d) {
         if (d != null) {
           this.turn(d);
@@ -864,6 +869,7 @@ define(
         return true;
       };
 
+      // TODO: Refactor to enemy.js or maybe predator.js
       this.movePredator = function movePredator() {
         const xDist = Math.abs(this.position.x - this.game.player.position.x);
         const yDist = Math.abs(this.position.y - this.game.player.position.y);
