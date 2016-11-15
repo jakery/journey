@@ -103,6 +103,8 @@ define(
 
       this.gettingPushed = false;
 
+      // TODO: Refactor this as "teleporterDestination"
+      //       And also move this to Teleporter.js
       this.destination = null;
 
       this.animationFrame = 0;
@@ -310,66 +312,9 @@ define(
 
       this.getRotation = () => Movement.getRotation(this.direction);
       this.turn = direction => Movement.turn(this, direction);
-
-      // TODO: OK to migrate.
-      this.turnAround = function turnAround() {
-        switch (this.direction) {
-          case Constants.directions.left:
-            this.turn(Constants.directions.right);
-            break;
-          case Constants.directions.right:
-            this.turn(Constants.directions.left);
-            break;
-          case Constants.directions.up:
-            this.turn(Constants.directions.down);
-            break;
-          case Constants.directions.down:
-            this.turn(Constants.directions.up);
-            break;
-          default:
-            break;
-        }
-      };
-
-      // TODO: OK to migrate.
-      this.turnAntiClockwise = function turnAntiClockwise() {
-        switch (this.direction) {
-          case Constants.directions.left:
-            this.turn(Constants.directions.down);
-            break;
-          case Constants.directions.right:
-            this.turn(Constants.directions.up);
-            break;
-          case Constants.directions.up:
-            this.turn(Constants.directions.left);
-            break;
-          case Constants.directions.down:
-            this.turn(Constants.directions.right);
-            break;
-          default:
-            break;
-        }
-      };
-
-      // TODO: OK to migrate.
-      this.turnProClockwise = function turnProClockwise() {
-        switch (this.direction) {
-          case Constants.directions.left:
-            this.turn(Constants.directions.up);
-            break;
-          case Constants.directions.right:
-            this.turn(Constants.directions.down);
-            break;
-          case Constants.directions.up:
-            this.turn(Constants.directions.right);
-            break;
-          case Constants.directions.down:
-            this.turn(Constants.directions.left);
-            break;
-          default:
-            break;
-        }
-      };
+      this.turnAround = () => Movement.turnAround(this);
+      this.turnAntiClockwise = () => Movement.turnAntiClockwise(this);
+      this.turnProClockwise = () => Movement.turnProClockwise(this);
 
       // TODO: OK to migrate.
       this.goForward = function goForward(d) {

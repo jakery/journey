@@ -8,10 +8,28 @@ define(
     Constants,
     Coordinates
   ) => {
+    this.getEnum = {
+      around: direction => (direction + 2) % 4,
+      antiClockwise: direction => (direction + 3) % 4,
+    };
+
     this.turn = function turn(sprite, direction) {
       const thisSprite = sprite;
       thisSprite.direction = direction;
       thisSprite.rotation = this.getRotation(direction);
+    };
+
+    this.turnAround = function turnAround(sprite) {
+      const direction = sprite.direction;
+      const newDirection = this.getEnum.around(direction);
+      this.turn(sprite, newDirection);
+    };
+
+    this.turnAntiClockwise = function turnAntiClockwise(sprite) {
+      const thisSprite = sprite;
+      const direction = thisSprite.direction;
+      const newDirection = (direction + 3) % 4;
+      this.turn(sprite, newDirection);
     };
 
     this.getRotation = function getRotation(direction) {
