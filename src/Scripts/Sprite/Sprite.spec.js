@@ -78,8 +78,6 @@ describe('Sprite', function SpriteTests() {
     });
   });
 
-
-
   describe('turnAntiClockwise', function turnAntiClockwise() {
     it('should turn from up to left', function test() {
       sprite.turn(Constants.directions.up);
@@ -105,6 +103,34 @@ describe('Sprite', function SpriteTests() {
       sprite.turnAntiClockwise();
       assert.equal(sprite.direction, Constants.directions.up);
       assert.equal(sprite.rotation, 0);
+    });
+  });
+
+  describe('turnProClockwise', function turnProClockwise() {
+    it('should turn from up to right', function test() {
+      sprite.turn(Constants.directions.up);
+      sprite.turnProClockwise();
+      assert.equal(sprite.direction, Constants.directions.right);
+      assert.equal(sprite.rotation, 90);
+    });
+    it('should turn from down to left', function test() {
+      sprite.turn(Constants.directions.down);
+      sprite.turnProClockwise();
+      assert.equal(sprite.direction, Constants.directions.left);
+      assert.equal(sprite.rotation, -90);
+    });
+    it('should turn from left to up', function test() {
+      sprite.turn(Constants.directions.left);
+      sprite.turnProClockwise();
+      assert.equal(sprite.direction, Constants.directions.up);
+      assert.equal(sprite.rotation, 0);
+    });
+
+    it('should turn from right to down', function test() {
+      sprite.turn(Constants.directions.right);
+      sprite.turnProClockwise();
+      assert.equal(sprite.direction, Constants.directions.down);
+      assert.equal(sprite.rotation, 180);
     });
   });
 

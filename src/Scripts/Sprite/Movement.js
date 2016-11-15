@@ -32,6 +32,13 @@ define(
       this.turn(sprite, newDirection);
     };
 
+    this.turnProClockwise = function turnProClockwise(sprite) {
+      const thisSprite = sprite;
+      const direction = thisSprite.direction;
+      const newDirection = (direction + 1) % 4;
+      this.turn(sprite, newDirection);
+    };
+
     this.getRotation = function getRotation(direction) {
       switch (direction) {
         case Constants.directions.up:
