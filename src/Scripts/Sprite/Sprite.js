@@ -177,9 +177,7 @@ define(
 
       this.recursivePathIterations = 0;
 
-      this.getTarget = () => Movement.getTarget(
-        this.direction,
-        this.position,
+      this.getTarget = () => Movement.getTarget(this.direction, this.position,
         new Coordinates(this.game.map.width, this.game.map.height)
       );
 
