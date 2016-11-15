@@ -9,7 +9,8 @@ define(
     './Inventory',
     '../Keyboard',
     '../Utility/Utility',
-    '../Draw/Draw'],
+    '../Draw/Draw',
+    './Movement'],
   (
     Constants,
     TileCodes,
@@ -18,10 +19,12 @@ define(
     Inventory,
     Keyboard,
     Utility,
-    Draw
+    Draw,
+    Movement
   ) => {
     const SpriteNS = {
-      Inventory: function removeme_Inventory() {
+      // TODO: Remove this.
+      Inventory: function inventory() {
         this.yellowKeys = 0;
         this.redKeys = 0;
         this.cyanKeys = 0;
@@ -174,31 +177,11 @@ define(
 
       this.recursivePathIterations = 0;
 
-      this.getTarget = function getTarget() {
-        const targetPosition = new Coordinates(this.position.x, this.position.y);
-        if (this.direction === Constants.directions.left) {
-          targetPosition.x -= 1;
-          if (targetPosition.x < 0) {
-            targetPosition.x = this.game.map.width - 1;
-          }
-        } else if (this.direction === Constants.directions.right) {
-          targetPosition.x += 1;
-          if (targetPosition.x >= this.game.map.width) {
-            targetPosition.x = 0;
-          }
-        } else if (this.direction === Constants.directions.up) {
-          targetPosition.y -= 1;
-          if (targetPosition.y < 0) {
-            targetPosition.y = this.game.map.height - 1;
-          }
-        } else if (this.direction === Constants.directions.down) {
-          targetPosition.y += 1;
-          if (targetPosition.y >= this.game.map.height) {
-            targetPosition.y = 0;
-          }
-        }
-        return targetPosition;
-      };
+      this.getTarget = () => Movement.getTarget(
+        this.direction,
+        this.position,
+        new Coordinates(this.game.map.width, this.game.map.height)
+      );
 
       this.canMove = function canMove(coordinates) {
         const destination = (coordinates == null) ? this.getTarget() : coordinates;
@@ -331,20 +314,7 @@ define(
         this.rotation = this.getRotation();
       };
 
-      this.getRotation = function getRotation() {
-        switch (this.direction) {
-          case Constants.directions.up:
-            return 0;
-          case Constants.directions.down:
-            return 180;
-          case Constants.directions.left:
-            return -90;
-          case Constants.directions.right:
-            return 90;
-          default:
-            return null;
-        }
-      };
+      this.getRotation = () => Movement.getRotation(this.direction);
 
       this.turnAround = function turnAround() {
         switch (this.direction) {
