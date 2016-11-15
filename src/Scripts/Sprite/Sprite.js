@@ -2,17 +2,35 @@
 // TODO: Create unit tests.
 define(
   'Sprite',
-  ['../Constants/Constants', '../Constants/TileCodes', '../Constants/DeathMessages', '../Coordinates', '../Keyboard', '../Utility/Utility', '../Draw/Draw'],
-  (Constants, TileCodes, DeathMessages, Coordinates, Keyboard, Utility, Draw) => {
+  ['../Constants/Constants',
+    '../Constants/TileCodes',
+    '../Constants/DeathMessages',
+    '../Coordinates',
+    './Inventory',
+    '../Keyboard',
+    '../Utility/Utility',
+    '../Draw/Draw',
+    './Movement'],
+  (
+    Constants,
+    TileCodes,
+    DeathMessages,
+    Coordinates,
+    Inventory,
+    Keyboard,
+    Utility,
+    Draw,
+    Movement
+  ) => {
     const SpriteNS = {
-      Inventory: function Inventory() {
+      // TODO: Remove this.
+      Inventory: function inventory() {
         this.yellowKeys = 0;
         this.redKeys = 0;
         this.cyanKeys = 0;
         this.greenKeys = 0;
         this.money = 0;
       },
-
       Sprite: null,
     };
     // TODO: Remove 'player' parameter.
@@ -85,6 +103,8 @@ define(
 
       this.gettingPushed = false;
 
+      // TODO: Refactor this as "teleporterDestination"
+      //       And also move this to Teleporter.js
       this.destination = null;
 
       this.animationFrame = 0;
@@ -159,32 +179,11 @@ define(
 
       this.recursivePathIterations = 0;
 
-      this.getTarget = function getTarget() {
-        const targetPosition = new Coordinates(this.position.x, this.position.y);
-        if (this.direction === Constants.directions.left) {
-          targetPosition.x -= 1;
-          if (targetPosition.x < 0) {
-            targetPosition.x = this.game.map.width - 1;
-          }
-        } else if (this.direction === Constants.directions.right) {
-          targetPosition.x += 1;
-          if (targetPosition.x >= this.game.map.width) {
-            targetPosition.x = 0;
-          }
-        } else if (this.direction === Constants.directions.up) {
-          targetPosition.y -= 1;
-          if (targetPosition.y < 0) {
-            targetPosition.y = this.game.map.height - 1;
-          }
-        } else if (this.direction === Constants.directions.down) {
-          targetPosition.y += 1;
-          if (targetPosition.y >= this.game.map.height) {
-            targetPosition.y = 0;
-          }
-        }
-        return targetPosition;
-      };
+      this.getTarget = () => Movement.getTarget(this.direction, this.position,
+        new Coordinates(this.game.map.width, this.game.map.height)
+      );
 
+      // TODO: Refactor for migration to Movement.js
       this.canMove = function canMove(coordinates) {
         const destination = (coordinates == null) ? this.getTarget() : coordinates;
 
@@ -311,83 +310,13 @@ define(
         return true;
       };
 
-      this.turn = function turn(direction) {
-        this.direction = direction;
-        this.rotation = this.getRotation();
-      };
+      this.getRotation = () => Movement.getRotation(this.direction);
+      this.turn = direction => Movement.turn(this, direction);
+      this.turnAround = () => Movement.turnAround(this);
+      this.turnAntiClockwise = () => Movement.turnAntiClockwise(this);
+      this.turnProClockwise = () => Movement.turnProClockwise(this);
 
-      this.getRotation = function getRotation() {
-        switch (this.direction) {
-          case Constants.directions.up:
-            return 0;
-          case Constants.directions.down:
-            return 180;
-          case Constants.directions.left:
-            return -90;
-          case Constants.directions.right:
-            return 90;
-          default:
-            return null;
-        }
-      };
-
-      this.turnAround = function turnAround() {
-        switch (this.direction) {
-          case Constants.directions.left:
-            this.turn(Constants.directions.right);
-            break;
-          case Constants.directions.right:
-            this.turn(Constants.directions.left);
-            break;
-          case Constants.directions.up:
-            this.turn(Constants.directions.down);
-            break;
-          case Constants.directions.down:
-            this.turn(Constants.directions.up);
-            break;
-          default:
-            break;
-        }
-      };
-
-      this.turnAntiClockwise = function turnAntiClockwise() {
-        switch (this.direction) {
-          case Constants.directions.left:
-            this.turn(Constants.directions.down);
-            break;
-          case Constants.directions.right:
-            this.turn(Constants.directions.up);
-            break;
-          case Constants.directions.up:
-            this.turn(Constants.directions.left);
-            break;
-          case Constants.directions.down:
-            this.turn(Constants.directions.right);
-            break;
-          default:
-            break;
-        }
-      };
-
-      this.turnProClockwise = function turnProClockwise() {
-        switch (this.direction) {
-          case Constants.directions.left:
-            this.turn(Constants.directions.up);
-            break;
-          case Constants.directions.right:
-            this.turn(Constants.directions.down);
-            break;
-          case Constants.directions.up:
-            this.turn(Constants.directions.right);
-            break;
-          case Constants.directions.down:
-            this.turn(Constants.directions.left);
-            break;
-          default:
-            break;
-        }
-      };
-
+      // TODO: OK to migrate.
       this.goForward = function goForward(d) {
         if (d != null) {
           this.turn(d);
@@ -885,6 +814,7 @@ define(
         return true;
       };
 
+      // TODO: Refactor to enemy.js or maybe predator.js
       this.movePredator = function movePredator() {
         const xDist = Math.abs(this.position.x - this.game.player.position.x);
         const yDist = Math.abs(this.position.y - this.game.player.position.y);
