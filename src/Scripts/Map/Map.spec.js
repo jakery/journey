@@ -617,9 +617,9 @@ describe('Map', function DescribeMap() {
     });
   });
 
-  describe('getAllIndexes()', function getAllIndexes() {
+  describe('getAllIndexesOfTile()', function getAllIndexesOfTile() {
     it('should return indexes', function tests() {
-      const indexes = map.getAllIndexes(TileCodes.dRedBlockInactive);
+      const indexes = map.getAllIndexesOfTile(TileCodes.dRedBlockInactive);
       assert.deepEqual(indexes, [12]);
     });
   });

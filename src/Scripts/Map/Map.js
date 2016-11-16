@@ -36,7 +36,7 @@ define('Map', ['../Constants/Constants', '../Constants/RenderSettings', '../Coor
   };
 
 
-  this.getAllIndexes = function getAllIndexes(type) {
+  this.getAllIndexesOfTile = function getAllIndexesOfTile(type) {
     return Utility.array.getAllIndexes(this.layers[0].data, type);
   };
 
