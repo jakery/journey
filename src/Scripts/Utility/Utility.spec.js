@@ -119,5 +119,18 @@ describe('Utility', function UtilityTests() {
         assert.equal(Utility.array.constructor.name, 'Array');
       });
     });
+
+    describe('getAllIndexes', function getAllIndexes() {
+      it('should return all the indexes of the number 2', function test() {
+        const myArray = [0, 2, 0, 0, 2, 2, 5, 48, 1, 2, 4, 6, 34, 5, 3, 2];
+        const indexesOfNumber2 = Utility.array.getAllIndexes(myArray, 2);
+        assert.deepEqual(indexesOfNumber2, [1, 4, 5, 9, 15]);
+      });
+      it('should return empty array', function test() {
+        const myArray = [0, 1, 2, 5, 12, 500];
+        const indexesOfNumber2 = Utility.array.getAllIndexes(myArray, 46);
+        assert.equal(indexesOfNumber2.length, 0);
+      });
+    });
   });
 });
