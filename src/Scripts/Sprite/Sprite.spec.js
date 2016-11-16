@@ -1,6 +1,7 @@
 /* eslint-disable prefer-arrow-callback */
 const Orientation = require('./Orientation');
 const Sprite = require('./Sprite');
+const Map = require('../Map/Map');
 // eslint-disable-next-line
 const testMap = require('json!../Map/Mocks/testMap.json');
 
@@ -9,16 +10,8 @@ describe('Sprite', function SpriteTests() {
 
   beforeEach(function beforeEach() {
     sprite = new Sprite.Sprite({
-      map: {
-        getTileByCoords: function getTileByCoords() {
-
-        },
-        getTileTypeByCoords: function getTileTypeByCoords() {
-
-        },
-      },
+      map: new Map(testMap),
     });
-    Object.assign(sprite.game.map, testMap);
   });
   describe('new', function newSprite() {
     it('should construct a new sprite', function test() {
@@ -208,12 +201,23 @@ describe('Sprite', function SpriteTests() {
       });
     });
   });
-  // describe('canMove', function canMove() {
-  //   it('should return true', function test() {
-  //     assert.isTrue(sprite.canMove());
-  //   });
-  //   it('should return false', function test() {
-  //     assert.isFalse(sprite.canMove());
-  //   });
-  // });
+  describe('canMove', function canMove() {
+    it('should return true', function test() {
+      sprite.position = { x: 15, y: 15 };
+      assert.isTrue(sprite.canMove());
+    });
+    it('should return false because of a wall tile', function test() {
+      sprite.position = { x: 1, y: 1 };
+      sprite.turn(Orientation.enums.up);
+      assert.equal(sprite.game.map.getTileTypeByCoords(sprite.getTarget()), 2);
+      assert.isFalse(sprite.canMove({ x: 1, y: 0 }));
+    });
+
+    it('should return false because of a wall tile', function test() {
+      sprite.position = { x: 1, y: 1 };
+      sprite.turn(Orientation.enums.up);
+      assert.equal(sprite.game.map.getTileTypeByCoords(sprite.getTarget()), 2);
+      assert.isFalse(sprite.canMove({ x: 1, y: 0 }));
+    });
+  });
 });

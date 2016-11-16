@@ -190,6 +190,9 @@ define(
         // Get all tile layers.
         const destinationTileType = this.game.map.getTileTypeByCoords(destination.x, destination.y);
 
+        // if (!Movement.checkBlockers(destinationTileType, this.game)) {
+        //   return false;
+        // }
         // Wall.
         if (destinationTileType === TileCodes.wall
           || destinationTileType === TileCodes.futureFloor) {
