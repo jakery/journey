@@ -221,3 +221,12 @@ describe('Sprite', function SpriteTests() {
     });
   });
 });
+
+// describe('template', function template() {
+//   it('should ______', function test() {
+//     sprite.property = null;
+//     sprite.method(arg);
+//     assert.equal(sprite.something, 2);
+//     assert.isTrue(sprite.something(arg));
+//   });
+// });
