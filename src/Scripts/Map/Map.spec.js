@@ -2,6 +2,7 @@
 const Map = require('./Map');
 const Game = require('../Game');
 const Stage = require('../Stage');
+const TileCodes = require('../Constants/TileCodes');
 
 describe('Map', function DescribeMap() {
   let map;
@@ -16,7 +17,7 @@ describe('Map', function DescribeMap() {
           data: [
             50, 2, 2, 3, 5,
             5, 6, 2, 2, 10,
-            2, 2, 2, 13, 14,
+            2, 2, 17, 13, 14,
             15, 1, 1, 1, 1,
             1, 21, 22, 23, 2
           ]
@@ -613,6 +614,13 @@ describe('Map', function DescribeMap() {
     });
     it('should break out the object into x and y coordinates and rerun the function.', function tests() {
       assert.equal(map.getTileTypeByCoords({ x: 2, y: 4 }), 22);
+    });
+  });
+
+  describe('getAllIndexes()', function getAllIndexes() {
+    it('should return indexes', function tests() {
+      const indexes = map.getAllIndexes(TileCodes.dRedBlockInactive);
+      assert.deepEqual(indexes, [12]);
     });
   });
 

@@ -35,6 +35,11 @@ define('Map', ['../Constants/Constants', '../Constants/RenderSettings', '../Coor
     return this.layers[0].data[arrayIndex];
   };
 
+
+  this.getAllIndexes = function getAllIndexes(type) {
+    return Utility.array.getAllIndexes(this.layers[0].data, type);
+  };
+
   this.changeTileType = function changeTileType(x, y, type) {
     const arrayIndex = this.getTileIndexByCoords(x, y);
     this.layers[0].data[arrayIndex] = type;
