@@ -1,4 +1,5 @@
 /* eslint-disable prefer-arrow-callback */
+const TileCodes = require('../Constants/TileCodes');
 const Orientation = require('./Orientation');
 const Sprite = require('./Sprite');
 const Map = require('../Map/Map');
@@ -206,19 +207,55 @@ describe('Sprite', function SpriteTests() {
       sprite.position = { x: 15, y: 15 };
       assert.isTrue(sprite.canMove());
     });
-    it('should return false because of a wall tile', function test() {
-      sprite.position = { x: 1, y: 1 };
-      sprite.turn(Orientation.enums.up);
-      assert.equal(sprite.game.map.getTileTypeByCoords(sprite.getTarget()), 2);
-      assert.isFalse(sprite.canMove({ x: 1, y: 0 }));
-    });
 
     it('should return false because of a wall tile', function test() {
       sprite.position = { x: 1, y: 1 };
       sprite.turn(Orientation.enums.up);
-      assert.equal(sprite.game.map.getTileTypeByCoords(sprite.getTarget()), 2);
+      assert.equal(sprite.game.map.getTileTypeByCoords(sprite.getTarget()), TileCodes.wall);
       assert.isFalse(sprite.canMove({ x: 1, y: 0 }));
     });
+
+    it('should return false because of an inactive red block', function test() {
+      sprite.position = { x: 16, y: 6 };
+      sprite.turn(Orientation.enums.up);
+      sprite.game.redSwitch = false;
+      assert.equal(
+        sprite.game.map.getTileTypeByCoords(sprite.getTarget()),
+        TileCodes.dRedBlockInactive
+      );
+      assert.isFalse(sprite.canMove());
+    });
+
+    it('should return false because of an active red block', function test() {
+      sprite.position = { x: 17, y: 6 };
+      sprite.turn(Orientation.enums.up);
+      sprite.game.redSwitch = true;
+      assert.equal(
+        sprite.game.map.getTileTypeByCoords(sprite.getTarget()),
+        TileCodes.aRedBlockInactive
+      );
+      assert.isFalse(sprite.canMove());
+    });
+
+    it('should return false because of an inactive yellow block', function test() {
+      sprite.position = { x: 16, y: 7 };
+      sprite.turn(Orientation.enums.up);
+      sprite.game.redSwitch = true;
+      assert.equal(
+        sprite.game.map.getTileTypeByCoords(sprite.getTarget()),
+        TileCodes.dYellowBlockInactive
+      );
+      assert.isFalse(sprite.canMove());
+    });
+
+
+    // it('***TEST THING***', function test() {
+    //   const indexes = sprite.game.map.getAllIndexesOfTile(TileCodes.dYellowBlockInactive);
+    //   assert.equal(
+    //     0,
+    //     [indexes, sprite.game.map.getCoordsByTileIndex(indexes[0])]
+    //   );
+    // });
   });
 });
 
