@@ -611,6 +611,9 @@ describe('Map', function DescribeMap() {
     it('should return value in data array corresponding to one-dimensional conversion.', function tests() {
       assert.equal(map.getTileTypeByCoords(2, 4), 22);
     });
+    it('should break out the object into x and y coordinates and rerun the function.', function tests() {
+      assert.equal(map.getTileTypeByCoords({ x: 2, y: 4 }), 22);
+    });
   });
 
   describe('changeTileType()', function changeTileType() {

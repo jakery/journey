@@ -28,6 +28,9 @@ define('Map', ['../Constants/Constants', '../Constants/RenderSettings', '../Coor
   };
 
   this.getTileTypeByCoords = function getTileTypeByCoords(x, y) {
+    if (typeof x === 'object' && {}.hasOwnProperty.call(x, 'x') && {}.hasOwnProperty.call(x, 'y')) {
+      return this.getTileTypeByCoords(x.x, x.y);
+    }
     const arrayIndex = this.getTileIndexByCoords(x, y);
     return this.layers[0].data[arrayIndex];
   };
