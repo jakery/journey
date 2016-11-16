@@ -205,7 +205,7 @@ define(
         }
 
         // Appearing red wall.
-        if (destinationTileType === TileCodes.aRedBlockInactive && this.game.redSwitch) {
+        if (destinationTileType === TileCodes.dRedBlockActive && this.game.redSwitch) {
           return false;
         }
 
@@ -215,7 +215,7 @@ define(
         }
 
         // Appearing yellow wall.
-        if (destinationTileType === TileCodes.aYellowBlockInactive && this.game.yellowSwitch) {
+        if (destinationTileType === TileCodes.aYellowBlockActive && this.game.yellowSwitch) {
           return false;
         }
 
@@ -225,7 +225,7 @@ define(
         }
 
         // Appearing green wall.
-        if (destinationTileType === TileCodes.aGreenBlockInactive && this.game.greenSwitch) {
+        if (destinationTileType === TileCodes.aGreenBlockActive && this.game.greenSwitch) {
           return false;
         }
 
