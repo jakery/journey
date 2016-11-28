@@ -35,6 +35,9 @@ define(
     };
     // TODO: Remove 'player' parameter.
     SpriteNS.Sprite = function Sprite(game, stage, keyboard, globalDraw, pwh, player) {
+      if (!game) {
+        throw new Error('Sprite must have an associated game object.');
+      }
       this.clipping = true;
       this.movementAnimationSettings = { easing: 'linear', duration: 200 };
       this.game = game;
@@ -956,7 +959,7 @@ define(
             this.destroy();
           }
         }
-        return false;
+        return true;
       };
 
       this.draw = function drawSprite() {

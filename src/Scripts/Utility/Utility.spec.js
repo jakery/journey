@@ -60,10 +60,10 @@ describe('Utility', function UtilityTests() {
   });
   describe('areSpritesColliding', function areSpritesColliding() {
     it('should return true', function test() {
-      const sprite1 = new Sprite.Sprite();
+      const sprite1 = new Sprite.Sprite({});
       sprite1.position = new Coordinates(5, 20);
 
-      const sprite2 = new Sprite.Sprite();
+      const sprite2 = new Sprite.Sprite({});
       sprite2.position = new Coordinates(5, 20);
       assert.isTrue(Utility.areSpritesColliding(sprite1, sprite2));
     });

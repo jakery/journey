@@ -3,16 +3,18 @@ const TileCodes = require('../Constants/TileCodes');
 const Orientation = require('./Orientation');
 const Sprite = require('./Sprite');
 const Map = require('../Map/Map');
+const Game = require('../Game');
 // eslint-disable-next-line
 const testMap = require('json!../Map/Mocks/testMap.json');
 
 describe('Sprite', function SpriteTests() {
   let sprite;
+  let game;
 
   beforeEach(function beforeEach() {
-    sprite = new Sprite.Sprite({
-      map: new Map(testMap),
-    });
+    game = new Game();
+    game.map = new Map(testMap);
+    sprite = new Sprite.Sprite(game);
     sprite.inventory = {};
   });
   describe('new', function newSprite() {
@@ -409,6 +411,21 @@ describe('Sprite', function SpriteTests() {
     //     [indexes, sprite.game.map.getCoordsByTileIndex(indexes[0])]
     //   );
     // });
+  });
+
+  describe('registerHit', function registerHit() {
+    it('should return false when the sprite is dead', function test() {
+      sprite.isAlive = false;
+      assert.isFalse(sprite.registerHit({}));
+    });
+    it('should activate the red switch', function test() {
+      expect(game.redSwitch).to.be.false;
+      const redSwitch = new Sprite.Sprite(game);
+      redSwitch.subType = 'switch';
+      redSwitch.color = 'red';
+      redSwitch.registerHit({});
+      expect(game.redSwitch).to.be.true;
+    });
   });
 });
 
