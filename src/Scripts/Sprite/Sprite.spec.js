@@ -379,14 +379,37 @@ describe('Sprite', function SpriteTests() {
       assert.isTrue(sprite.canMove());
     });
 
+    // TODO: The pushblock test can't properly be run until more of the game object is unraveled from app.js
 
-    it('***TEST THING***', function test() {
-      const indexes = sprite.game.map.getAllIndexesOfTile(TileCodes.toll);
-      assert.equal(
-        0,
-        [indexes, sprite.game.map.getCoordsByTileIndex(indexes[0])]
-      );
-    });
+    // it('should return false when trying to push a pushblock', function test() {
+    //   const myPushblock = new Sprite.Sprite(game);
+    //   Object.assign(myPushblock, { position: new Coordinates(1, 1), type: 'tool', subType: 'pushBlock' });
+    //   sprite.game.tools.push(myPushblock);
+    //   sprite.position = { x: 1, y: 2 };
+    //   sprite.turn(Orientation.enums.up);
+    //   assert.isFalse(sprite.canMove());
+    //   myPushblock.position = { x: 5, y: 5 };
+    //   sprite.position = { x: 4, y: 5 };
+    //   sprite.turn(Orientation.enums.right);
+    //   assert.isTrue(sprite.canMove());
+    // });
+
+    // it('***TEST THING***', function test() {
+    //   assert.equal(
+    //     0,
+    //     [sprite.game.tools[0].position, sprite.game.tools[1].position]
+    //   );
+    // });
+
+    // it('***TEST THING***', function test() {
+    //   const indexes = sprite.game.map.getAllIndexesOfTile(TileCodes.toll);
+    //   assert.equal(
+    //     0,
+    //     [indexes, sprite.game.map.getCoordsByTileIndex(indexes[0])]
+    //   );
+    // });
+
+
   });
 });
 
