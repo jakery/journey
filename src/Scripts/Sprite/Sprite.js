@@ -218,13 +218,6 @@ define(
           return this.inventory.greenKeys > 0;
         }
 
-        // Toll block.
-        if (destinationTileType === TileCodes.toll) {
-          // Player has the toll.
-          // TODO: Rename 'moneyCount' to 'tollCost'.
-          return this.inventory.money >= this.game.moneyCount;
-        }
-
         // Check pushblock.
         if (this.type === 'player' || this.type === 'enemy') {
           for (let i = 0; i < this.game.tools.length; i += 1) {

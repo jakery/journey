@@ -43,12 +43,12 @@ define('Blockers', ['../Constants/TileCodes'], TileCodes => ({
   },
   brownBlockTogglesOn: {
     test: (destinationTileType, game) =>
-      !(destinationTileType === TileCodes.brownBlockInactive && game.brownSwitch),
+      destinationTileType !== TileCodes.brownBlockInactive || !game.brownSwitch,
     callback: () => false,
   },
   brownBlockTogglesOff: {
     test: (destinationTileType, game) =>
-      !(destinationTileType === TileCodes.brownBlockActive && !game.brownSwitch),
+      destinationTileType !== TileCodes.brownBlockActive || game.brownSwitch,
     callback: () => false,
   },
   toll: {
