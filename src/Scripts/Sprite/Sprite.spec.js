@@ -408,8 +408,6 @@ describe('Sprite', function SpriteTests() {
     //     [indexes, sprite.game.map.getCoordsByTileIndex(indexes[0])]
     //   );
     // });
-
-
   });
 });
 
