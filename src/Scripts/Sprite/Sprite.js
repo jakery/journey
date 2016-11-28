@@ -796,6 +796,7 @@ define(
           return false;
         }
 
+        // TODO: refactor to hitSwitch();
         if (this.subType === 'switch') {
           if (this.color === 'red') {
             this.game.redSwitch = true;
@@ -806,11 +807,9 @@ define(
           if (this.color === 'green') {
             this.game.greenSwitch = true;
           }
-
           if (this.color === 'brown' && !this.game.brownSwitch) {
             this.game.brownSwitch = true;
           }
-
           if (this.color === 'brownOff' && this.game.brownSwitch) {
             this.game.brownSwitch = false;
           }

@@ -451,6 +451,24 @@ describe('Sprite', function SpriteTests() {
       greenSwitch.registerHit({});
       expect(game.greenSwitch).to.be.true;
     });
+    it('should activate the brown switch', function test() {
+      expect(game.brownSwitch).to.be.false;
+      const brownSwitch = new Sprite.Sprite(game);
+      brownSwitch.subType = 'switch';
+      brownSwitch.color = 'brown';
+      brownSwitch.registerHit({});
+      expect(game.brownSwitch).to.be.true;
+    });
+
+    it('should activate the brown switch', function test() {
+      game.brownSwitch = true;
+      expect(game.brownSwitch).to.be.true;
+      const brownSwitch = new Sprite.Sprite(game);
+      brownSwitch.subType = 'switch';
+      brownSwitch.color = 'brownOff';
+      brownSwitch.registerHit({});
+      expect(game.brownSwitch).to.be.false;
+    });
   });
 });
 
