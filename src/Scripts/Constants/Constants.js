@@ -1,6 +1,12 @@
-// TODO: Rename to "Enumerables".
 define('Constants', [], {
   emptyString: '',
+  keys: {
+    yellow: 'yellowKey',
+    red: 'redKey',
+    green: 'greenKey',
+    cyan: 'cyanKey',
+  },
+  // TODO: Refactor to "Enumerables".
   gameModes: {
     title: 0,
     password: 1,
