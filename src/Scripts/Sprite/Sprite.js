@@ -266,6 +266,7 @@ define(
         // Toll block.
         if (destinationTileType === TileCodes.toll) {
           // Player has the toll.
+          // TODO: Rename 'moneyCount' to 'tollCost'.
           return this.inventory.money >= this.game.moneyCount;
         }
 
