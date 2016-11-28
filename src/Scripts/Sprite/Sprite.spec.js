@@ -313,9 +313,23 @@ describe('Sprite', function SpriteTests() {
       assert.isFalse(sprite.canMove());
     });
 
+    it('should return true/false when trying to go through yellow door', function test() {
+      sprite.position = { x: 16, y: 12 };
+      sprite.turn(Orientation.enums.up);
+      assert.equal(
+        sprite.game.map.getTileTypeByCoords(sprite.getTarget()),
+        TileCodes.yellowDoor
+      );
+      sprite.inventory.yellowKeys = 0;
+      assert.isFalse(sprite.canMove());
+      sprite.inventory.yellowKeys = 1;
+      assert.isTrue(sprite.canMove());
+    });
+
+
 
     it('***TEST THING***', function test() {
-      const indexes = sprite.game.map.getAllIndexesOfTile(TileCodes.brownBlockInactive);
+      const indexes = sprite.game.map.getAllIndexesOfTile(TileCodes.yellowDoor);
       assert.equal(
         0,
         [indexes, sprite.game.map.getCoordsByTileIndex(indexes[0])]
