@@ -127,8 +127,6 @@ describe('Sprite', function SpriteTests() {
       assert.equal(sprite.rotation, 180);
     });
   });
-
-
   describe('getRotation', function getRotation() {
     it('should return 0', function test() {
       sprite.direction = Orientation.enums.up;
@@ -240,7 +238,7 @@ describe('Sprite', function SpriteTests() {
     it('should return false because of an inactive yellow block', function test() {
       sprite.position = { x: 16, y: 7 };
       sprite.turn(Orientation.enums.up);
-      sprite.game.redSwitch = true;
+      sprite.game.yellowSwitch = false;
       assert.equal(
         sprite.game.map.getTileTypeByCoords(sprite.getTarget()),
         TileCodes.dYellowBlockInactive
@@ -248,14 +246,46 @@ describe('Sprite', function SpriteTests() {
       assert.isFalse(sprite.canMove());
     });
 
+    it('should return false because of an active yellow block', function test() {
+      sprite.position = { x: 17, y: 7 };
+      sprite.turn(Orientation.enums.up);
+      sprite.game.yellowSwitch = true;
+      assert.equal(
+        sprite.game.map.getTileTypeByCoords(sprite.getTarget()),
+        TileCodes.aYellowBlockInactive
+      );
+      assert.isFalse(sprite.canMove());
+    });
 
-    // it('***TEST THING***', function test() {
-    //   const indexes = sprite.game.map.getAllIndexesOfTile(TileCodes.dYellowBlockInactive);
-    //   assert.equal(
-    //     0,
-    //     [indexes, sprite.game.map.getCoordsByTileIndex(indexes[0])]
-    //   );
-    // });
+    it('should return false because of an inactive green block', function test() {
+      sprite.position = { x: 16, y: 8 };
+      sprite.turn(Orientation.enums.up);
+      sprite.game.greenSwitch = false;
+      assert.equal(
+        sprite.game.map.getTileTypeByCoords(sprite.getTarget()),
+        TileCodes.dGreenBlockInactive
+      );
+      assert.isFalse(sprite.canMove());
+    });
+
+    it('should return false because of an active green block', function test() {
+      sprite.position = { x: 17, y: 8 };
+      sprite.turn(Orientation.enums.up);
+      sprite.game.greenSwitch = true;
+      assert.equal(
+        sprite.game.map.getTileTypeByCoords(sprite.getTarget()),
+        TileCodes.aGreenBlockInactive
+      );
+      assert.isFalse(sprite.canMove());
+    });
+
+    it('***TEST THING***', function test() {
+      const indexes = sprite.game.map.getAllIndexesOfTile(TileCodes.dCyanBlockInactive);
+      assert.equal(
+        0,
+        [indexes, sprite.game.map.getCoordsByTileIndex(indexes[0])]
+      );
+    });
   });
 });
 
