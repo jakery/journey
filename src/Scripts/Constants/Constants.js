@@ -1,5 +1,6 @@
 // TODO: Rename to "Enumerables".
 define('Constants', [], {
+  emptyString: '',
   gameModes: {
     title: 0,
     password: 1,

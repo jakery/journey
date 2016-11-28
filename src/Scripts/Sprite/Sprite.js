@@ -53,7 +53,7 @@ define(
       this.isAlive = true;
 
       this.spriteID = null;
-      this.nameID = '';
+      this.nameID = Constants.emptyString;
       this.travelableLayer = 'travelableTiles';
       this.inventory = new SpriteNS.Inventory();
       this.customVariables = {};
@@ -76,18 +76,18 @@ define(
 
       this.isPreferringClockwise = false;
 
-      this.type = '';
-      this.subType = '';
+      this.type = Constants.emptyString;
+      this.subType = Constants.emptyString;
 
       // TODO: Migrate these string literals to the constants file.
       this.isKey = () => (this.subType === 'yellowKey' || this.subType === 'redKey' || this.subType === 'cyanKey' || this.subType === 'greenKey');
       this.hitRegistered = false;
 
-      this.imageType = '';
+      this.imageType = Constants.emptyString;
 
-      this.displayName = '';
+      this.displayName = Constants.emptyString;
 
-      this.message = '';
+      this.message = Constants.emptyString;
 
       this.startCountup = false;
       this.ticks = 0;
@@ -386,8 +386,8 @@ define(
             this.passwordHandler.process();
           } else if (keyIsDown.Esc && !keyIsRegistered.Esc) {
             keyIsRegistered.Esc = true;
-            this.game.passwordSidebarMessage = '';
-            this.game.enteredPassword = '';
+            this.game.passwordSidebarMessage = Constants.emptyString;
+            this.game.enteredPassword = Constants.emptyString;
             this.game.mode = Constants.gameModes.normal;
           } else if (keyIsDown.Backspace && !keyIsRegistered.Backspace) {
             keyIsRegistered.Backspace = true;
@@ -407,7 +407,7 @@ define(
           }
 
           if (this.game.enteredPassword.length > 0) {
-            this.game.passwordSidebarMessage = '';
+            this.game.passwordSidebarMessage = Constants.emptyString;
           }
         } else if (this.game.mode === Constants.gameModes.credits) {
           if (keyIsDown.Enter && !keyIsRegistered.Enter) {
