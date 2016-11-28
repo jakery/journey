@@ -213,74 +213,109 @@ describe('Sprite', function SpriteTests() {
       assert.isFalse(sprite.canMove({ x: 1, y: 0 }));
     });
 
-    it('should return false because of an inactive red block', function test() {
+    it('should return appropriate true/false when moving to INACTIVE red block based on red switch flag', function test() {
       sprite.position = { x: 16, y: 6 };
       sprite.turn(Orientation.enums.up);
-      sprite.game.redSwitch = false;
       assert.equal(
         sprite.game.map.getTileTypeByCoords(sprite.getTarget()),
         TileCodes.dRedBlockInactive
       );
+      sprite.game.redSwitch = false;
       assert.isFalse(sprite.canMove());
+      sprite.game.redSwitch = true;
+      assert.isTrue(sprite.canMove());
     });
 
-    it('should return false because of an active red block', function test() {
+    it('should return appropriate true/false when moving to ACTIVE red block based on red switch flag', function test() {
       sprite.position = { x: 17, y: 6 };
       sprite.turn(Orientation.enums.up);
-      sprite.game.redSwitch = true;
       assert.equal(
         sprite.game.map.getTileTypeByCoords(sprite.getTarget()),
         TileCodes.aRedBlockInactive
       );
+      sprite.game.redSwitch = true;
       assert.isFalse(sprite.canMove());
+      sprite.game.redSwitch = false;
+      assert.isTrue(sprite.canMove());
     });
 
-    it('should return false because of an inactive yellow block', function test() {
+    it('should return appropriate true/false when moving to INACTIVE yellow block based on yellow switch flag', function test() {
       sprite.position = { x: 16, y: 7 };
       sprite.turn(Orientation.enums.up);
-      sprite.game.yellowSwitch = false;
       assert.equal(
         sprite.game.map.getTileTypeByCoords(sprite.getTarget()),
         TileCodes.dYellowBlockInactive
       );
+      sprite.game.yellowSwitch = false;
       assert.isFalse(sprite.canMove());
+      sprite.game.yellowSwitch = true;
+      assert.isTrue(sprite.canMove());
     });
 
-    it('should return false because of an active yellow block', function test() {
+    it('should return appropriate true/false when moving to ACTIVE yellow block based on yellow switch flag', function test() {
       sprite.position = { x: 17, y: 7 };
       sprite.turn(Orientation.enums.up);
-      sprite.game.yellowSwitch = true;
       assert.equal(
         sprite.game.map.getTileTypeByCoords(sprite.getTarget()),
         TileCodes.aYellowBlockInactive
       );
+      sprite.game.yellowSwitch = true;
       assert.isFalse(sprite.canMove());
+      sprite.game.yellowSwitch = false;
+      assert.isTrue(sprite.canMove());
     });
 
-    it('should return false because of an inactive green block', function test() {
+    it('should return appropriate true/false when moving to INACTIVE green block based on green switch flag', function test() {
       sprite.position = { x: 16, y: 8 };
       sprite.turn(Orientation.enums.up);
-      sprite.game.greenSwitch = false;
       assert.equal(
         sprite.game.map.getTileTypeByCoords(sprite.getTarget()),
         TileCodes.dGreenBlockInactive
       );
+      sprite.game.greenSwitch = false;
       assert.isFalse(sprite.canMove());
+      sprite.game.greenSwitch = true;
+      assert.isTrue(sprite.canMove());
     });
 
-    it('should return false because of an active green block', function test() {
+    it('should return appropriate true/false when moving to ACTIVE green block based on green switch flag', function test() {
       sprite.position = { x: 17, y: 8 };
       sprite.turn(Orientation.enums.up);
-      sprite.game.greenSwitch = true;
       assert.equal(
         sprite.game.map.getTileTypeByCoords(sprite.getTarget()),
         TileCodes.aGreenBlockInactive
       );
+      sprite.game.greenSwitch = true;
+      assert.isFalse(sprite.canMove());
+      sprite.game.greenSwitch = false;
+      assert.isTrue(sprite.canMove());
+    });
+
+    it('should return false because of an inactive brown switch', function test() {
+      sprite.position = { x: 17, y: 3 };
+      sprite.turn(Orientation.enums.up);
+      sprite.game.brownSwitch = false;
+      assert.equal(
+        sprite.game.map.getTileTypeByCoords(sprite.getTarget()),
+        TileCodes.brownBlockActive
+      );
       assert.isFalse(sprite.canMove());
     });
 
+    it('should return false because of an active brown block', function test() {
+      sprite.position = { x: 16, y: 3 };
+      sprite.turn(Orientation.enums.up);
+      sprite.game.brownSwitch = true;
+      assert.equal(
+        sprite.game.map.getTileTypeByCoords(sprite.getTarget()),
+        TileCodes.brownBlockInactive
+      );
+      assert.isFalse(sprite.canMove());
+    });
+
+
     it('***TEST THING***', function test() {
-      const indexes = sprite.game.map.getAllIndexesOfTile(TileCodes.dCyanBlockInactive);
+      const indexes = sprite.game.map.getAllIndexesOfTile(TileCodes.brownBlockInactive);
       assert.equal(
         0,
         [indexes, sprite.game.map.getCoordsByTileIndex(indexes[0])]
