@@ -132,5 +132,35 @@ describe('Utility', function UtilityTests() {
         assert.equal(indexesOfNumber2.length, 0);
       });
     });
+
+    describe('findByProperty', function findByProperty() {
+      it('should return the first object containing a "name" property with the value "foo"', function test() {
+        const myArray = [0, 2, 0, { name: 'bar' }, 2, 5, 65, 48, 8, 9, { name: 'foo', info: 'bat' }, 11, 12, { name: 'foo', info: 'snafu' }, 3, 2];
+        const myFooObject = Utility.array.findByProperty(myArray, 'name', 'foo', true);
+        assert.deepEqual(myFooObject, { name: 'foo', info: 'bat' });
+      });
+
+      it('should throw an error', function test() {
+        const myArray = [0, 2, 0, { name: 'bar' }];
+        assert.throws(
+          () => { Utility.array.findByProperty(myArray, 'name', 'uhoh', false); },
+          Error,
+          'Couldn\'t find object with property'
+        );
+      });
+
+      it('should NOT throw an error. Should return null', function test() {
+        const myArray = [0, 2, 0, { name: 'bar' }];
+        const myUhohObject = Utility.array.findByProperty(myArray, 'name', 'uhoh', true);
+        assert.isNull(myUhohObject);
+      });
+    });
+    describe('findAllByProperty', function findAllByProperty() {
+      it('should return an array of all objects containing a "name" property with the value "foo"', function test() {
+        const myArray = [0, 2, 0, { name: 'bar' }, 9, { name: 'foo', info: 'bat' }, 11, 12, { name: 'foo', info: 'snafu' }, 3, 2];
+        const myFooArray = Utility.array.findAllByProperty(myArray, 'name', 'foo', true);
+        assert.deepEqual(myFooArray, [{ name: 'foo', info: 'bat' }, { name: 'foo', info: 'snafu' }]);
+      });
+    });
   });
 });
