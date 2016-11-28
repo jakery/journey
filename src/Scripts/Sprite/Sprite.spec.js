@@ -313,7 +313,7 @@ describe('Sprite', function SpriteTests() {
       assert.isFalse(sprite.canMove());
     });
 
-    it('should return true/false when trying to go through yellow door', function test() {
+    it('should return true/false when trying to go through yellow door based on key count', function test() {
       sprite.position = { x: 16, y: 12 };
       sprite.turn(Orientation.enums.up);
       assert.equal(
@@ -326,10 +326,22 @@ describe('Sprite', function SpriteTests() {
       assert.isTrue(sprite.canMove());
     });
 
+    it('should return true/false when trying to go through red door based on key count', function test() {
+      sprite.position = { x: 16, y: 10 };
+      sprite.turn(Orientation.enums.up);
+      assert.equal(
+        sprite.game.map.getTileTypeByCoords(sprite.getTarget()),
+        TileCodes.redDoor
+      );
+      sprite.inventory.redKeys = 0;
+      assert.isFalse(sprite.canMove());
+      sprite.inventory.redKeys = 1;
+      assert.isTrue(sprite.canMove());
+    });
 
 
     it('***TEST THING***', function test() {
-      const indexes = sprite.game.map.getAllIndexesOfTile(TileCodes.yellowDoor);
+      const indexes = sprite.game.map.getAllIndexesOfTile(TileCodes.redDoor);
       assert.equal(
         0,
         [indexes, sprite.game.map.getCoordsByTileIndex(indexes[0])]
