@@ -365,9 +365,23 @@ describe('Sprite', function SpriteTests() {
       assert.isTrue(sprite.canMove());
     });
 
+    it('should return true/false when trying to go through the toll block based on money count', function test() {
+      sprite.position = { x: 24, y: 3 };
+      sprite.turn(Orientation.enums.up);
+      assert.equal(
+        sprite.game.map.getTileTypeByCoords(sprite.getTarget()),
+        TileCodes.toll
+      );
+      sprite.game.moneyCount = 20;
+      sprite.inventory.money = 0;
+      assert.isFalse(sprite.canMove());
+      sprite.inventory.money = 21;
+      assert.isTrue(sprite.canMove());
+    });
+
 
     it('***TEST THING***', function test() {
-      const indexes = sprite.game.map.getAllIndexesOfTile(TileCodes.greenDoor);
+      const indexes = sprite.game.map.getAllIndexesOfTile(TileCodes.toll);
       assert.equal(
         0,
         [indexes, sprite.game.map.getCoordsByTileIndex(indexes[0])]
