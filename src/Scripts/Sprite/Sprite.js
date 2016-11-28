@@ -190,52 +190,7 @@ define(
         // Get all tile layers.
         const destinationTileType = this.game.map.getTileTypeByCoords(destination.x, destination.y);
 
-        // if (!Movement.checkBlockers(destinationTileType, this.game)) {
-        //   return false;
-        // }
-        // Wall.
-        if (destinationTileType === TileCodes.wall
-          || destinationTileType === TileCodes.futureFloor) {
-          return false;
-        }
-
-        // Disappearing red wall.
-        if (destinationTileType === TileCodes.dRedBlockInactive && !this.game.redSwitch) {
-          return false;
-        }
-
-        // Appearing red wall.
-        if (destinationTileType === TileCodes.aRedBlockInactive && this.game.redSwitch) {
-          return false;
-        }
-
-        // Disappearing yellow wall.
-        if (destinationTileType === TileCodes.dYellowBlockInactive && !this.game.yellowSwitch) {
-          return false;
-        }
-
-        // Appearing yellow wall.
-        if (destinationTileType === TileCodes.aYellowBlockInactive && this.game.yellowSwitch) {
-          return false;
-        }
-
-        // Disappearing green wall.
-        if (destinationTileType === TileCodes.dGreenBlockInactive && !this.game.greenSwitch) {
-          return false;
-        }
-
-        // Appearing green wall.
-        if (destinationTileType === TileCodes.aGreenBlockInactive && this.game.greenSwitch) {
-          return false;
-        }
-
-        // Brown toggle wall.
-        if (destinationTileType === TileCodes.brownBlockInactive && this.game.brownSwitch) {
-          return false;
-        }
-
-        // Brown toggle off wall.
-        if (destinationTileType === TileCodes.brownBlockActive && !this.game.brownSwitch) {
+        if (!Movement.checkBlockers(destinationTileType, this.game, this)) {
           return false;
         }
 

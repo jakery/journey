@@ -13,6 +13,7 @@ describe('Sprite', function SpriteTests() {
     sprite = new Sprite.Sprite({
       map: new Map(testMap),
     });
+    sprite.inventory = {};
   });
   describe('new', function newSprite() {
     it('should construct a new sprite', function test() {

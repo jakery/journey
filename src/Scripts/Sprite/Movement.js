@@ -14,9 +14,10 @@ define(
     Orientation,
     Blockers
   ) => {
-    this.checkBlockers = function checkBlockers(destinationTileType, game) {
-      const unhindered = Blockers.every((blocker) => {
-        if (blocker.test(destinationTileType, game)) {
+    this.checkBlockers = function checkBlockers(destinationTileType, game, sprite) {
+      const unhindered = Object.keys(Blockers).every((key) => {
+        const blocker = Blockers[key];
+        if (!blocker.test(destinationTileType, game, sprite)) {
           return blocker.callback();
         }
         return true;
