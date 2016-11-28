@@ -43,17 +43,17 @@ define('Blockers', ['../Constants/TileCodes'], TileCodes => ({
   },
   brownBlockTogglesOn: {
     test: (destinationTileType, game) =>
-      destinationTileType !== TileCodes.brownBlockInactive
-      || game.brownSwitch,
+      !(destinationTileType === TileCodes.brownBlockInactive && game.brownSwitch),
     callback: () => false,
   },
   brownBlockTogglesOff: {
     test: (destinationTileType, game) =>
-      !(destinationTileType === TileCodes.brownBlockInactive && game.brownSwitch),
+      !(destinationTileType === TileCodes.brownBlockActive && !game.brownSwitch),
     callback: () => false,
   },
   toll: {
-    test: (destinationTileType, game, sprite) => !(destinationTileType === TileCodes.brownBlockActive && !game.brownSwitch),
+    test: (destinationTileType, game, sprite) => destinationTileType !== TileCodes.toll
+      || sprite.inventory.money >= game.moneyCount,
     callback: () => false,
   },
 }));
