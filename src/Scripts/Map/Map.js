@@ -40,6 +40,11 @@ define('Map', ['../Constants/Constants', '../Constants/RenderSettings', '../Coor
     return Utility.array.getAllIndexes(this.layers[0].data, type);
   };
 
+  this.findAllToolsByType = function findAllToolsByType(type) {
+    const toolsArray = Utility.array.findByProperty(this.layers, 'name', 'Tools', true);
+    return Utility.array.findAllByProperty(toolsArray.objects, 'gid', type, true);
+  };
+
   this.changeTileType = function changeTileType(x, y, type) {
     const arrayIndex = this.getTileIndexByCoords(x, y);
     this.layers[0].data[arrayIndex] = type;

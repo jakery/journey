@@ -624,6 +624,14 @@ describe('Map', function DescribeMap() {
     });
   });
 
+  describe('findAllToolsByType()', function findAllToolsByType() {
+    it('should return array of pushblocks', function tests() {
+      const pushblockArray = map.findAllToolsByType(TileCodes.pushBlock);
+      assert.equal(pushblockArray.length, 2);
+      assert.deepEqual(pushblockArray, [map.layers[1].objects[0], map.layers[1].objects[1]]);
+    });
+  });
+
   describe('changeTileType()', function changeTileType() {
     it('should change the value of map.layers[0].data[0] to 20.', function tests() {
       assert.equal(map.layers[0].data[0], 50);
