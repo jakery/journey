@@ -183,7 +183,6 @@ define(
         new Coordinates(this.game.map.width, this.game.map.height)
       );
 
-      // TODO: Refactor for migration to Movement.js
       this.canMove = function canMove(coordinates) {
         const destination = (coordinates == null) ? this.getTarget() : coordinates;
 
@@ -194,30 +193,7 @@ define(
           return false;
         }
 
-        // Yellow Door.
-        if (destinationTileType === TileCodes.yellowDoor) {
-          // Player has key.
-          return this.inventory.yellowKeys > 0;
-        }
-
-        // Red Door.
-        if (destinationTileType === TileCodes.redDoor) {
-          // Player has key.
-          return this.inventory.redKeys > 0;
-        }
-
-        // Cyan Door.
-        if (destinationTileType === TileCodes.cyanDoor) {
-          // Player has key.
-          return this.inventory.cyanKeys > 0;
-        }
-
-        // Green Door.
-        if (destinationTileType === TileCodes.greenDoor) {
-          // Player has key.
-          return this.inventory.greenKeys > 0;
-        }
-
+        // TODO: Swap out these magic strings.
         // Check pushblock.
         if (this.type === 'player' || this.type === 'enemy') {
           for (let i = 0; i < this.game.tools.length; i += 1) {

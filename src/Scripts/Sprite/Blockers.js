@@ -51,6 +51,26 @@ define('Blockers', ['../Constants/TileCodes'], TileCodes => ({
       destinationTileType !== TileCodes.brownBlockActive || game.brownSwitch,
     callback: () => false,
   },
+  yellowDoor: {
+    test: (destinationTileType, game, sprite) =>
+      destinationTileType !== TileCodes.yellowDoor || sprite.inventory.yellowKeys > 0,
+    callback: () => false,
+  },
+  redDoor: {
+    test: (destinationTileType, game, sprite) =>
+      destinationTileType !== TileCodes.redDoor || sprite.inventory.redKeys > 0,
+    callback: () => false,
+  },
+  greenDoor: {
+    test: (destinationTileType, game, sprite) =>
+      destinationTileType !== TileCodes.greenDoor || sprite.inventory.greenKeys > 0,
+    callback: () => false,
+  },
+  cyanDoor: {
+    test: (destinationTileType, game, sprite) =>
+      destinationTileType !== TileCodes.cyanDoor || sprite.inventory.cyanKeys > 0,
+    callback: () => false,
+  },
   toll: {
     test: (destinationTileType, game, sprite) => destinationTileType !== TileCodes.toll
       || sprite.inventory.money >= game.moneyCount,
