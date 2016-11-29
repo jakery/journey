@@ -7,6 +7,28 @@ const Dom = require('../Helpers/Dom');
 describe('Utility', function UtilityTests() {
   // MATH
   describe('math', function math() {
+    describe('isNumeric', function isNumeric() {
+      it('should return true', function test() {
+        assert.isTrue(Utility.math.isNumeric(5));
+        assert.isTrue(Utility.math.isNumeric(2.5));
+        assert.isTrue(Utility.math.isNumeric(-100000));
+        assert.isTrue(Utility.math.isNumeric(-3.1415));
+        assert.isTrue(Utility.math.isNumeric(Math.PI));
+        assert.isTrue(Utility.math.isNumeric('0'));
+        assert.isTrue(Utility.math.isNumeric('0x01'));
+      });
+      it('should return false', function test() {
+        assert.isFalse(Utility.math.isNumeric(Infinity));
+        assert.isFalse(Utility.math.isNumeric(true));
+        assert.isFalse(Utility.math.isNumeric(false));
+        assert.isFalse(Utility.math.isNumeric(null));
+        assert.isFalse(Utility.math.isNumeric(undefined));
+        assert.isFalse(Utility.math.isNumeric({}));
+        assert.isFalse(Utility.math.isNumeric(''));
+        assert.isFalse(Utility.math.isNumeric('fred'));
+        assert.isFalse(Utility.math.isNumeric('0a'));
+      });
+    });
     describe('toRadians', function toRadians() {
       it('should convert degrees to radians.', function test() {
         assert.equal(Utility.math.toRadians(180), Math.PI);
@@ -44,6 +66,10 @@ describe('Utility', function UtilityTests() {
       const sprite1 = new Coordinates(10, 50);
       const sprite2 = new Coordinates(8, 47);
       assert.equal(Utility.tileDistanceBetween(sprite1, sprite2), 5);
+    });
+    it.skip('should return NaN', function test() {
+      const sprite1 = new Coordinates(10, 50);
+      assert.equal(Utility.tileDistanceBetween(sprite1, {}), 5);
     });
   });
   describe('areColliding', function areColliding() {

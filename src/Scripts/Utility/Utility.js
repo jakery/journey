@@ -1,16 +1,8 @@
-define('Utility', ['../Constants/ErrorMessages', './StringHelper', './Array'], (ErrorMessages, StringHelper, UtilityArray) => {
+define('Utility', ['../Constants/ErrorMessages', './StringHelper', './Array', './Math'], (ErrorMessages, StringHelper, UtilityArray, MathHelper) => {
   const Utility = function Utility() {
     this.stringHelper = new StringHelper();
-
     this.array = new UtilityArray();
-
-    // Math
-    // TODO: Move to Math.js
-    this.math = {
-      toRadians: degrees => (degrees * Math.PI) / 180,
-      toDegrees: radians => (radians * 180) / Math.PI,
-      TAU: 2 * Math.PI,
-    };
+    this.math = MathHelper;
 
     this.tileDistanceBetween = function tileDistanceBetween(coords1, coords2) {
       const xDist = Math.abs(coords1.x - coords2.x);
