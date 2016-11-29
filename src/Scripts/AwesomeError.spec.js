@@ -14,7 +14,7 @@ describe('AwesomeError', function AwesomeErrorTests() {
       assert.include(awesomeError.message, 'unitTest');
     });
   });
-  describe('additional unit tests', function tests() {
+  describe.skip('additional unit tests', function tests() {
     it('', function test() {
       // TODO: Create these.
       // Not sure what these should look like yet.

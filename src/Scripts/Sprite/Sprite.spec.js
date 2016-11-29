@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-expressions */
 const TileCodes = require('../Constants/TileCodes');
 const Orientation = require('./Orientation');
+const Coordinates = require('../Coordinates');
 const Sprite = require('./Sprite');
 const Map = require('../Map/Map');
 const Game = require('../Game');
@@ -213,7 +214,6 @@ describe('Sprite', function SpriteTests() {
       assert.isTrue(sprite.canMove());
     });
     describe('blockers', function blockers() {
-
       it('should return false because of a wall tile', function test() {
         sprite.position = { x: 1, y: 1 };
         sprite.turn(Orientation.enums.up);
@@ -387,20 +387,20 @@ describe('Sprite', function SpriteTests() {
         assert.isTrue(sprite.canMove());
       });
 
-      // TODO: The pushblock test can't properly be run until more of the game object is unraveled from app.js
-
-      // it('should return false when trying to push a pushblock', function test() {
-      //   const myPushblock = new Sprite.Sprite(game);
-      //   Object.assign(myPushblock, { position: new Coordinates(1, 1), type: 'tool', subType: 'pushBlock' });
-      //   sprite.game.tools.push(myPushblock);
-      //   sprite.position = { x: 1, y: 2 };
-      //   sprite.turn(Orientation.enums.up);
-      //   assert.isFalse(sprite.canMove());
-      //   myPushblock.position = { x: 5, y: 5 };
-      //   sprite.position = { x: 4, y: 5 };
-      //   sprite.turn(Orientation.enums.right);
-      //   assert.isTrue(sprite.canMove());
-      // });
+      // TODO: The pushblock test can't properly be run
+      //       until more of the game object is unraveled from app.js
+      it.skip('should return false when trying to push a pushblock', function test() {
+        const myPushblock = new Sprite.Sprite(game);
+        Object.assign(myPushblock, { position: new Coordinates(1, 1), type: 'tool', subType: 'pushBlock' });
+        sprite.game.tools.push(myPushblock);
+        sprite.position = { x: 1, y: 2 };
+        sprite.turn(Orientation.enums.up);
+        assert.isFalse(sprite.canMove());
+        myPushblock.position = { x: 5, y: 5 };
+        sprite.position = { x: 4, y: 5 };
+        sprite.turn(Orientation.enums.right);
+        assert.isTrue(sprite.canMove());
+      });
 
       // it('***TEST THING***', function test() {
       //   assert.equal(

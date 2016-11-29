@@ -92,10 +92,10 @@ describe('Utility', function UtilityTests() {
       assert.equal(document.getElementById('error').innerHTML, 'Error Message!');
     });
 
-    it('should trigger a popup message', function test() {
+    it.skip('should trigger a popup message', function test() {
       // TODO: Create a spy for testing window alerts here.
     });
-    it('should create a message in the console', function test() {
+    it.skip('should create a message in the console', function test() {
       // TODO: Create a spy for testing console error messages.
     });
     it('should throw an error.', function test() {

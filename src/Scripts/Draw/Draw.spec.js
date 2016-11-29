@@ -27,4 +27,7 @@ describe('Draw', function DrawTests() {
       assert.isFalse(draw.tileIsInDrawBounds(coords));
     });
   });
+  describe.skip('actual draw tests', function drawTests() {
+    // TODO: Write these tests. (Requires extensive spies or something similar.)
+  });
 });

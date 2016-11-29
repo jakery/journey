@@ -10,9 +10,11 @@ describe('Init()', function InitTests() {
     it('should return true', function test() {
       assert.isTrue(myInit.handleTouchScreen(true));
     });
-    // TODO: Add spy for when bypass is set to false.
+    it.skip('should return false and not bypass', function test() {
+      // TODO: Add spy for when bypass is set to false.
+    });
   });
-  describe('checkBrowserSupport()', function checkBrowserSupport() {
+  describe.skip('checkBrowserSupport()', function checkBrowserSupport() {
     // TODO: Get modernizr as a package and require that package so that this test works.
     // it('should return true', function test() {
     //   assert.isTrue(myInit.checkBrowserSupport());
@@ -30,7 +32,7 @@ describe('Init()', function InitTests() {
       assert.equal(mainDiv.style.padding, '0px');
     });
   });
-  describe('bypass()', function bypass() {
+  describe.skip('bypass()', function bypass() {
     // TODO: Add bypass spy.
   });
 });
