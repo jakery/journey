@@ -7,10 +7,6 @@ define('Array', [], () => function Array() {
     return output;
   };
 
-  // / <summary>
-  // / Remove all items from array by value.
-  // / </summary>
-  // TODO: Unit test this.
   this.remove = function remove(array, ...objectsToRemove) {
     if (typeof array === 'undefined') throw new Error('No array was provided.');
     const badObjects = [...objectsToRemove];
