@@ -30,6 +30,16 @@ define('Array', [], () => function Array() {
     return this;
   };
 
+  this.getAllIndexes = function getAllIndexes(inputArray, searchValue) {
+    const indexes = [];
+    let i;
+    for (i = 0; i < inputArray.length; i += 1) {
+      if (inputArray[i] === searchValue) {
+        indexes.push(i);
+      }
+    } return indexes;
+  };
+
   // / <summary>
   // / Get object within array by value of property within object.
   // / </summary>

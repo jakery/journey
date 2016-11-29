@@ -2,6 +2,7 @@
 const Map = require('./Map');
 const Game = require('../Game');
 const Stage = require('../Stage');
+const TileCodes = require('../Constants/TileCodes');
 
 describe('Map', function DescribeMap() {
   let map;
@@ -16,7 +17,7 @@ describe('Map', function DescribeMap() {
           data: [
             50, 2, 2, 3, 5,
             5, 6, 2, 2, 10,
-            2, 2, 2, 13, 14,
+            2, 2, 17, 13, 14,
             15, 1, 1, 1, 1,
             1, 21, 22, 23, 2
           ]
@@ -610,6 +611,24 @@ describe('Map', function DescribeMap() {
   describe('getTileTypeByCoords()', function getTileTypeByCoords() {
     it('should return value in data array corresponding to one-dimensional conversion.', function tests() {
       assert.equal(map.getTileTypeByCoords(2, 4), 22);
+    });
+    it('should break out the object into x and y coordinates and rerun the function.', function tests() {
+      assert.equal(map.getTileTypeByCoords({ x: 2, y: 4 }), 22);
+    });
+  });
+
+  describe('getAllIndexesOfTile()', function getAllIndexesOfTile() {
+    it('should return indexes', function tests() {
+      const indexes = map.getAllIndexesOfTile(TileCodes.dRedBlockInactive);
+      assert.deepEqual(indexes, [12]);
+    });
+  });
+
+  describe('findAllToolsByType()', function findAllToolsByType() {
+    it('should return array of pushblocks', function tests() {
+      const pushblockArray = map.findAllToolsByType(TileCodes.pushBlock);
+      assert.equal(pushblockArray.length, 2);
+      assert.deepEqual(pushblockArray, [map.layers[1].objects[0], map.layers[1].objects[1]]);
     });
   });
 

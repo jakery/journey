@@ -35,6 +35,9 @@ define(
     };
     // TODO: Remove 'player' parameter.
     SpriteNS.Sprite = function Sprite(game, stage, keyboard, globalDraw, pwh, player) {
+      if (!game) {
+        throw new Error('Sprite must have an associated game object.');
+      }
       this.clipping = true;
       this.movementAnimationSettings = { easing: 'linear', duration: 200 };
       this.game = game;
@@ -53,7 +56,7 @@ define(
       this.isAlive = true;
 
       this.spriteID = null;
-      this.nameID = '';
+      this.nameID = Constants.emptyString;
       this.travelableLayer = 'travelableTiles';
       this.inventory = new SpriteNS.Inventory();
       this.customVariables = {};
@@ -76,18 +79,18 @@ define(
 
       this.isPreferringClockwise = false;
 
-      this.type = '';
-      this.subType = '';
+      this.type = Constants.emptyString;
+      this.subType = Constants.emptyString;
 
       // TODO: Migrate these string literals to the constants file.
       this.isKey = () => (this.subType === 'yellowKey' || this.subType === 'redKey' || this.subType === 'cyanKey' || this.subType === 'greenKey');
       this.hitRegistered = false;
 
-      this.imageType = '';
+      this.imageType = Constants.emptyString;
 
-      this.displayName = '';
+      this.displayName = Constants.emptyString;
 
-      this.message = '';
+      this.message = Constants.emptyString;
 
       this.startCountup = false;
       this.ticks = 0;
@@ -183,89 +186,17 @@ define(
         new Coordinates(this.game.map.width, this.game.map.height)
       );
 
-      // TODO: Refactor for migration to Movement.js
       this.canMove = function canMove(coordinates) {
         const destination = (coordinates == null) ? this.getTarget() : coordinates;
 
         // Get all tile layers.
         const destinationTileType = this.game.map.getTileTypeByCoords(destination.x, destination.y);
 
-        // Wall.
-        if (destinationTileType === TileCodes.wall
-          || destinationTileType === TileCodes.futureFloor) {
+        if (!Movement.checkBlockers(destinationTileType, this.game, this)) {
           return false;
         }
 
-        // Disappearing red wall.
-        if (destinationTileType === TileCodes.dRedBlockInactive && !this.game.redSwitch) {
-          return false;
-        }
-
-        // Appearing red wall.
-        if (destinationTileType === TileCodes.aRedBlockInactive && this.game.redSwitch) {
-          return false;
-        }
-
-        // Disappearing yellow wall.
-        if (destinationTileType === TileCodes.dYellowBlockInactive && !this.game.yellowSwitch) {
-          return false;
-        }
-
-        // Appearing yellow wall.
-        if (destinationTileType === TileCodes.aYellowBlockInactive && this.game.yellowSwitch) {
-          return false;
-        }
-
-        // Disappearing green wall.
-        if (destinationTileType === TileCodes.dGreenBlockInactive && !this.game.greenSwitch) {
-          return false;
-        }
-
-        // Appearing green wall.
-        if (destinationTileType === TileCodes.aGreenBlockInactive && this.game.greenSwitch) {
-          return false;
-        }
-
-        // Brown toggle wall.
-        if (destinationTileType === TileCodes.brownBlockInactive && this.game.brownSwitch) {
-          return false;
-        }
-
-        // Brown toggle off wall.
-        if (destinationTileType === TileCodes.brownBlockActive && !this.game.brownSwitch) {
-          return false;
-        }
-
-        // Yellow Door.
-        if (destinationTileType === TileCodes.yellowDoor) {
-          // Player has key.
-          return this.inventory.yellowKeys > 0;
-        }
-
-        // Red Door.
-        if (destinationTileType === TileCodes.redDoor) {
-          // Player has key.
-          return this.inventory.redKeys > 0;
-        }
-
-        // Cyan Door.
-        if (destinationTileType === TileCodes.cyanDoor) {
-          // Player has key.
-          return this.inventory.cyanKeys > 0;
-        }
-
-        // Green Door.
-        if (destinationTileType === TileCodes.greenDoor) {
-          // Player has key.
-          return this.inventory.greenKeys > 0;
-        }
-
-        // Toll block.
-        if (destinationTileType === TileCodes.toll) {
-          // Player has the toll.
-          return this.inventory.money >= this.game.moneyCount;
-        }
-
+        // TODO: Swap out these magic strings.
         // Check pushblock.
         if (this.type === 'player' || this.type === 'enemy') {
           for (let i = 0; i < this.game.tools.length; i += 1) {
@@ -458,8 +389,8 @@ define(
             this.passwordHandler.process();
           } else if (keyIsDown.Esc && !keyIsRegistered.Esc) {
             keyIsRegistered.Esc = true;
-            this.game.passwordSidebarMessage = '';
-            this.game.enteredPassword = '';
+            this.game.passwordSidebarMessage = Constants.emptyString;
+            this.game.enteredPassword = Constants.emptyString;
             this.game.mode = Constants.gameModes.normal;
           } else if (keyIsDown.Backspace && !keyIsRegistered.Backspace) {
             keyIsRegistered.Backspace = true;
@@ -479,7 +410,7 @@ define(
           }
 
           if (this.game.enteredPassword.length > 0) {
-            this.game.passwordSidebarMessage = '';
+            this.game.passwordSidebarMessage = Constants.emptyString;
           }
         } else if (this.game.mode === Constants.gameModes.credits) {
           if (keyIsDown.Enter && !keyIsRegistered.Enter) {
@@ -865,6 +796,7 @@ define(
           return false;
         }
 
+        // TODO: refactor to hitSwitch();
         if (this.subType === 'switch') {
           if (this.color === 'red') {
             this.game.redSwitch = true;
@@ -875,11 +807,9 @@ define(
           if (this.color === 'green') {
             this.game.greenSwitch = true;
           }
-
           if (this.color === 'brown' && !this.game.brownSwitch) {
             this.game.brownSwitch = true;
           }
-
           if (this.color === 'brownOff' && this.game.brownSwitch) {
             this.game.brownSwitch = false;
           }
@@ -1028,7 +958,7 @@ define(
             this.destroy();
           }
         }
-        return false;
+        return true;
       };
 
       this.draw = function drawSprite() {

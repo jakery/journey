@@ -8,7 +8,7 @@ describe('Utility', function UtilityTests() {
   // MATH
   describe('math', function math() {
     describe('toRadians', function toRadians() {
-      it('should convert degrees to radians.', function () {
+      it('should convert degrees to radians.', function test() {
         assert.equal(Utility.math.toRadians(180), Math.PI);
         assert.equal(Utility.math.toRadians(90), (Math.PI / 2));
         assert.equal(Utility.math.toRadians(45), (Math.PI / 4));
@@ -21,7 +21,7 @@ describe('Utility', function UtilityTests() {
       });
     });
     describe('toDegrees', function toDegrees() {
-      it('should convert radians to degrees.', function () {
+      it('should convert radians to degrees.', function test() {
         assert.equal(Utility.math.toDegrees(Math.PI), 180);
         assert.equal(Utility.math.toDegrees(Math.PI / 2), 90);
         assert.equal(Utility.math.toDegrees(0), 0);
@@ -29,41 +29,41 @@ describe('Utility', function UtilityTests() {
       });
     });
     describe('TAU', function TAU() {
-      it('should equal 2 * Math.PI', function () {
+      it('should equal 2 * Math.PI', function test() {
         assert.equal(Utility.math.TAU, Math.PI * 2);
       });
     });
   });
   describe('tileDistanceBetween', function tileDistanceBetween() {
-    it('should return 1', function () {
+    it('should return 1', function test() {
       const sprite1 = new Coordinates(-1, -1);
       const sprite2 = new Coordinates(-2, -1);
       assert.equal(Utility.tileDistanceBetween(sprite1, sprite2), 1);
     });
-    it('should return 5', function () {
+    it('should return 5', function test() {
       const sprite1 = new Coordinates(10, 50);
       const sprite2 = new Coordinates(8, 47);
       assert.equal(Utility.tileDistanceBetween(sprite1, sprite2), 5);
     });
   });
   describe('areColliding', function areColliding() {
-    it('should return true', function () {
+    it('should return true', function test() {
       const coords1 = new Coordinates(5, 5);
       const coords2 = new Coordinates(5, 5);
       assert.isTrue(Utility.areColliding(coords1, coords2));
     });
-    it('should return false', function () {
+    it('should return false', function test() {
       const coords1 = new Coordinates(10, 5);
       const coords2 = new Coordinates(5, 5);
       assert.isFalse(Utility.areColliding(coords1, coords2));
     });
   });
   describe('areSpritesColliding', function areSpritesColliding() {
-    it('should return true', function () {
-      const sprite1 = new Sprite.Sprite();
+    it('should return true', function test() {
+      const sprite1 = new Sprite.Sprite({});
       sprite1.position = new Coordinates(5, 20);
 
-      const sprite2 = new Sprite.Sprite();
+      const sprite2 = new Sprite.Sprite({});
       sprite2.position = new Coordinates(5, 20);
       assert.isTrue(Utility.areSpritesColliding(sprite1, sprite2));
     });
@@ -76,7 +76,7 @@ describe('Utility', function UtilityTests() {
   });
 
   describe('alert()', function alert() {
-    it('should output to a Dom node.', function () {
+    it('should output to a Dom node.', function test() {
       const myErrorDiv = document.createElement('div');
       myErrorDiv.innerHTML = 'old HTML';
       myErrorDiv.id = 'error';
@@ -92,13 +92,13 @@ describe('Utility', function UtilityTests() {
       assert.equal(document.getElementById('error').innerHTML, 'Error Message!');
     });
 
-    it('should trigger a popup message', function () {
+    it('should trigger a popup message', function test() {
       // TODO: Create a spy for testing window alerts here.
     });
-    it('should create a message in the console', function () {
+    it('should create a message in the console', function test() {
       // TODO: Create a spy for testing console error messages.
     });
-    it('should throw an error.', function () {
+    it('should throw an error.', function test() {
       assert.throws(() => Utility.alert('theMessage', {}), Error, 'not properly configured');
     });
   });
@@ -106,7 +106,7 @@ describe('Utility', function UtilityTests() {
   // STRING
   describe('StringHelper', function StringHelper() {
     describe('new', function newStringHelper() {
-      it('should be a new StringHelper object.', function () {
+      it('should be a new StringHelper object.', function test() {
         assert.equal(Utility.stringHelper.constructor.name, 'StringHelper');
       });
     });
@@ -115,8 +115,51 @@ describe('Utility', function UtilityTests() {
   // ARRAY
   describe('ArrayHelper', function ArrayHelper() {
     describe('new', function newArrayHelper() {
-      it('should be a new ArrayHelper object.', function () {
+      it('should be a new ArrayHelper object.', function test() {
         assert.equal(Utility.array.constructor.name, 'Array');
+      });
+    });
+
+    describe('getAllIndexes', function getAllIndexes() {
+      it('should return all the indexes of the number 2', function test() {
+        const myArray = [0, 2, 0, 0, 2, 2, 5, 48, 1, 2, 4, 6, 34, 5, 3, 2];
+        const indexesOfNumber2 = Utility.array.getAllIndexes(myArray, 2);
+        assert.deepEqual(indexesOfNumber2, [1, 4, 5, 9, 15]);
+      });
+      it('should return empty array', function test() {
+        const myArray = [0, 1, 2, 5, 12, 500];
+        const indexesOfNumber2 = Utility.array.getAllIndexes(myArray, 46);
+        assert.equal(indexesOfNumber2.length, 0);
+      });
+    });
+
+    describe('findByProperty', function findByProperty() {
+      it('should return the first object containing a "name" property with the value "foo"', function test() {
+        const myArray = [0, 2, 0, { name: 'bar' }, 2, 5, 65, 48, 8, 9, { name: 'foo', info: 'bat' }, 11, 12, { name: 'foo', info: 'snafu' }, 3, 2];
+        const myFooObject = Utility.array.findByProperty(myArray, 'name', 'foo', true);
+        assert.deepEqual(myFooObject, { name: 'foo', info: 'bat' });
+      });
+
+      it('should throw an error', function test() {
+        const myArray = [0, 2, 0, { name: 'bar' }];
+        assert.throws(
+          () => { Utility.array.findByProperty(myArray, 'name', 'uhoh', false); },
+          Error,
+          'Couldn\'t find object with property'
+        );
+      });
+
+      it('should NOT throw an error. Should return null', function test() {
+        const myArray = [0, 2, 0, { name: 'bar' }];
+        const myUhohObject = Utility.array.findByProperty(myArray, 'name', 'uhoh', true);
+        assert.isNull(myUhohObject);
+      });
+    });
+    describe('findAllByProperty', function findAllByProperty() {
+      it('should return an array of all objects containing a "name" property with the value "foo"', function test() {
+        const myArray = [0, 2, 0, { name: 'bar' }, 9, { name: 'foo', info: 'bat' }, 11, 12, { name: 'foo', info: 'snafu' }, 3, 2];
+        const myFooArray = Utility.array.findAllByProperty(myArray, 'name', 'foo', true);
+        assert.deepEqual(myFooArray, [{ name: 'foo', info: 'bat' }, { name: 'foo', info: 'snafu' }]);
       });
     });
   });

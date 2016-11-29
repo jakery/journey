@@ -28,8 +28,21 @@ define('Map', ['../Constants/Constants', '../Constants/RenderSettings', '../Coor
   };
 
   this.getTileTypeByCoords = function getTileTypeByCoords(x, y) {
+    if (typeof x === 'object' && {}.hasOwnProperty.call(x, 'x') && {}.hasOwnProperty.call(x, 'y')) {
+      return this.getTileTypeByCoords(x.x, x.y);
+    }
     const arrayIndex = this.getTileIndexByCoords(x, y);
     return this.layers[0].data[arrayIndex];
+  };
+
+
+  this.getAllIndexesOfTile = function getAllIndexesOfTile(type) {
+    return Utility.array.getAllIndexes(this.layers[0].data, type);
+  };
+
+  this.findAllToolsByType = function findAllToolsByType(type) {
+    const toolsArray = Utility.array.findByProperty(this.layers, 'name', 'Tools', true);
+    return Utility.array.findAllByProperty(toolsArray.objects, 'gid', type, true);
   };
 
   this.changeTileType = function changeTileType(x, y, type) {
