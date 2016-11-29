@@ -21,4 +21,11 @@ define('Constants', [], {
     down: 2,
     left: 3,
   },
+  spriteTypes: {
+    player: 0,
+    enemy: 1,
+    tool: 2,
+    switch: 3,
+
+  },
 });
