@@ -177,7 +177,7 @@ define('Draw',
       }
 
       for (let i = minY; i < maxY; i += 1) {
-        const coords = this.game.map.getCoordsByTileIndex(i); // TODO: Is this cacheable?
+        const coords = this.game.map.getCoordsByTileIndex(i);
         const tileOffsetCoords = this.getTileDrawOffsetCoords(coords);
 
         const tileIsOnscreen = !(!this.tileIsInDrawBounds(tileOffsetCoords) && this.game.map.parameters.wrapAround !== 'true');
