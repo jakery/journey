@@ -162,5 +162,32 @@ describe('Utility', function UtilityTests() {
         assert.deepEqual(myFooArray, [{ name: 'foo', info: 'bat' }, { name: 'foo', info: 'snafu' }]);
       });
     });
+
+    describe('remove', function remove() {
+      it('should remove all instances of the number 5 from the array', function test() {
+        const myArray = [1, 2, 3, 4, 5, 5, 5, 6, 10, 'foo', '5', 4];
+        Utility.array.remove(myArray, 5);
+        assert.deepEqual(myArray, [1, 2, 3, 4, 6, 10, 'foo', '5', 4]);
+      });
+
+      it('should remove all instances of variables from the array', function test() {
+        const myArray = [1, 2, true, 4, 5, '12', 10, 'foo', '5', 4, true, 'foo'];
+        Utility.array.remove(myArray, '5', 'foo', true);
+        assert.deepEqual(myArray, [1, 2, 4, 5, '12', 10, 4]);
+      });
+
+      it('should remove nothing from the array', function test() {
+        const myArray = [1, 2, true, 4, 5, '12', 10, 'foo', '5', 4, true, 'foo'];
+        Utility.array.remove(myArray, 1000);
+        assert.deepEqual(myArray, [1, 2, true, 4, 5, '12', 10, 'foo', '5', 4, true, 'foo']);
+      });
+
+      // TODO: Make this test pass. Requires rewrite of Utility.array.remove.
+      it.skip('should remove objects from the array', function test() {
+        const myArray = [1, 2, { number: 3 }];
+        Utility.array.remove(myArray, { number: 3 });
+        assert.deepEqual(myArray, [1, 2]);
+      });
+    });
   });
 });
