@@ -13,7 +13,6 @@ define('Sidebar',
     MessageBox,
     Inventory
   ) => {
-    // TODO: Refactor as class.
     const Sidebar = function Sidebar(game, stage, player, globalDraw) {
       this.game = game;
       this.stage = stage;
