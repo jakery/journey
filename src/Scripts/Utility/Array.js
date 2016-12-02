@@ -1,9 +1,9 @@
-define('Array', [], () => function Array() {
-  // Return sum of all numbers in array.
-  // TODO: Unit test this.
+define('Array', ['./Math'], Math => function Array() {
   this.sum = function sum(array) {
     let output = 0;
-    for (let i = 0; i < array.length; output += array[i += 1]);
+    for (const number of array) {
+      output += number;
+    }
     return output;
   };
 

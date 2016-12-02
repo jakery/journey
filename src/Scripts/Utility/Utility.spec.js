@@ -146,6 +146,12 @@ describe('Utility', function UtilityTests() {
       });
     });
 
+    describe('sum', function sum() {
+      it('should return the sum of the numbers in the array', function test() {
+        assert.equal(Utility.array.sum([1, 2, 3, 4, 5]), 15);
+      });
+    });
+
     describe('getAllIndexes', function getAllIndexes() {
       it('should return all the indexes of the number 2', function test() {
         const myArray = [0, 2, 0, 0, 2, 2, 5, 48, 1, 2, 4, 6, 34, 5, 3, 2];
