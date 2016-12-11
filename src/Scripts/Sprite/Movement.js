@@ -68,5 +68,20 @@ define(
       }
       return targetPosition;
     };
+
+    this.goForward = function goForward(s, d) {
+      const sprite = s;
+      if (d != null) {
+        sprite.turn(d);
+      }
+      if (!sprite.clipping || sprite.canMove()) {
+        if (sprite.type === 'player') {
+          sprite.game.quickCorruptTriggered = false;
+        }
+        sprite.position = sprite.getTarget();
+        sprite.isTeleporting = false;
+        sprite.checkTile();
+      }
+    };
   }
 );

@@ -246,21 +246,7 @@ define(
       this.turnAround = () => Movement.turnAround(this);
       this.turnAntiClockwise = () => Movement.turnAntiClockwise(this);
       this.turnProClockwise = () => Movement.turnProClockwise(this);
-
-      // TODO: OK to migrate.
-      this.goForward = function goForward(d) {
-        if (d != null) {
-          this.turn(d);
-        }
-        if (!this.clipping || this.canMove()) {
-          if (this.type === 'player') {
-            this.game.quickCorruptTriggered = false;
-          }
-          this.position = this.getTarget();
-          this.isTeleporting = false;
-          this.checkTile();
-        }
-      };
+      this.goForward = direction => Movement.goForward(this, direction);
 
       this.checkTile = function checkTile() {
         // var tileIndex = game.map.getTileIndexByCoords
