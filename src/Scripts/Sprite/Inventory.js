@@ -1,4 +1,4 @@
-define('Inventory', [], () => {
+define('Inventory', [], () => function Inventory() {
   this.yellowKeys = 0;
   this.redKeys = 0;
   this.cyanKeys = 0;
