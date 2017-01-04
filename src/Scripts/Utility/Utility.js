@@ -1,8 +1,10 @@
 define('Utility', ['../Constants/ErrorMessages', './StringHelper', './Array', './Math'], (ErrorMessages, StringHelper, UtilityArray, MathHelper) => {
   const Utility = function Utility() {
-    this.stringHelper = new StringHelper();
-    this.array = new UtilityArray();
-    this.math = MathHelper;
+    const jaja = require('jaja');
+
+    this.string = jaja.string;
+    this.array = jaja.array;
+    this.math = jaja.math;
 
     this.tileDistanceBetween = function tileDistanceBetween(coords1, coords2) {
       const xDist = Math.abs(coords1.x - coords2.x);
