@@ -3,6 +3,11 @@ define('Stage', ['./Constants/RenderSettings', './Coordinates', './Helpers/Dom']
     this.isOffset = true;
 
     this.gameCanvas = document.getElementById('gameCanvas');
+    if (this.gameCanvas === null) {
+      this.gameCanvas = document.createElement('div');
+      this.gameCanvas.setProperties({});
+
+    }
     this.gameCanvasDom = new Dom(this.gameCanvas);
     this.width = null;
     this.height = null;
