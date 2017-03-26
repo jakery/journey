@@ -6,7 +6,6 @@ define('Stage', ['./Constants/RenderSettings', './Coordinates', './Helpers/Dom']
     if (this.gameCanvas === null) {
       this.gameCanvas = document.createElement('div');
       this.gameCanvas.setProperties({});
-
     }
     this.gameCanvasDom = new Dom(this.gameCanvas);
     this.width = null;
