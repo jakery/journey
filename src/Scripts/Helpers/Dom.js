@@ -1,5 +1,8 @@
 // jQuery's greatest hits, but much lighter.
 define('Dom', [], () => function Dom(element) {
+  if (element === null) {
+    throw new Error('The element argument for the Dom node cannot be null.');
+  }
   if (element.isArray) {
     this.element = element;
     this.length = element.length;
