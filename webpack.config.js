@@ -4,8 +4,8 @@ module.exports = {
   entry: './src/Scripts/App.js',
   output: {
     path: __dirname,
-    filename: './src/bundle.js',
-    sourceMapFilename: './src/bundle.js.map',
+    filename: './src/journey.js',
+    sourceMapFilename: './src/journey.js.map',
   },
   devtool: 'inline-source-map',
   loaders: [

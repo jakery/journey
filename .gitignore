@@ -251,4 +251,4 @@ paket-files/
 .idea/
 *.sln.iml
 
-src/bundle.js
+journey.js

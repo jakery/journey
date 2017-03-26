@@ -2,7 +2,7 @@
     "exclude": [
         "node_modules",
         "bin",
-        "src/bundle.js"
+        "journey.js"
     ],
     "compilerOptions": {
         "target": "ES6",
