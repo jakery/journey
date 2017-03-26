@@ -1,5 +1,5 @@
 /* eslint-disable prefer-arrow-callback */
-const TileCodes = require('./TileCodes');
+const TileCodes = require('../../src/Scripts/Constants/TileCodes');
 
 describe('TileCodes', function TileCodesTests() {
   describe('new', function newTileCodes() {

@@ -1,5 +1,5 @@
 /* eslint-disable prefer-arrow-callback */
-const Player = require('./Player');
+const Player = require('../../src/Scripts/Sprite/Player');
 
 describe('Player', function PlayerTests() {
   describe('new', function newPlayer() {

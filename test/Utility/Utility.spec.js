@@ -1,8 +1,8 @@
 /* eslint-disable prefer-arrow-callback */
-const Utility = require('./Utility');
-const Coordinates = require('../Coordinates');
-const Sprite = require('../Sprite/Sprite');
-const Dom = require('../Helpers/Dom');
+const Utility = require('../../src/Scripts/Utility/Utility');
+const Coordinates = require('../../src/Scripts/Coordinates');
+const Sprite = require('../../src/Scripts/Sprite/Sprite');
+const Dom = require('../../src/Scripts/Helpers/Dom');
 
 describe('Utility', function UtilityTests() {
   // MATH

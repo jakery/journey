@@ -1,8 +1,8 @@
 /* eslint-disable prefer-arrow-callback */
-const Map = require('./Map');
-const Game = require('../Game');
-const Stage = require('../Stage');
-const TileCodes = require('../Constants/TileCodes');
+const Map = require('../../src/Scripts/Map/Map');
+const Game = require('../../src/Scripts/Game');
+const Stage = require('../../src/Scripts/Stage');
+const TileCodes = require('../../src/Scripts/Constants/TileCodes');
 
 describe('Map', function DescribeMap() {
   let map;

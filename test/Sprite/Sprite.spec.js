@@ -1,13 +1,13 @@
 /* eslint-disable prefer-arrow-callback */
 /* eslint-disable no-unused-expressions */
-const TileCodes = require('../Constants/TileCodes');
-const Orientation = require('./Orientation');
-const Coordinates = require('../Coordinates');
-const Sprite = require('./Sprite');
-const Map = require('../Map/Map');
-const Game = require('../Game');
+const TileCodes = require('../../src/Scripts/Constants/TileCodes');
+const Orientation = require('../../src/Scripts/Sprite/Orientation');
+const Coordinates = require('../../src/Scripts/Coordinates');
+const Sprite = require('../../src/Scripts/Sprite/Sprite');
+const Map = require('../../src/Scripts/Map/Map');
+const Game = require('../../src/Scripts/Game');
 // eslint-disable-next-line
-const testMap = require('json!../Map/Mocks/testMap.json');
+const testMap = require('json!../../src/Scripts/Map/Mocks/testMap.json');
 
 describe('Sprite', function SpriteTests() {
   let sprite;

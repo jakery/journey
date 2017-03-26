@@ -1,5 +1,5 @@
 /* eslint-disable prefer-arrow-callback */
-const Init = require('../Scripts/Init');
+const Init = require('../src/Scripts/Init');
 
 describe('Init()', function InitTests() {
   const mainDiv = document.createElement('div');

@@ -1,5 +1,5 @@
 /* eslint-disable prefer-arrow-callback */
-const Dom = require('./Dom');
+const Dom = require('../../src/Scripts/Helpers/Dom');
 
 describe('Dom', function DomTests() {
   let myElement;

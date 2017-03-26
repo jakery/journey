@@ -1,5 +1,5 @@
 /* eslint-disable prefer-arrow-callback */
-const Levels = require('./Levels');
+const Levels = require('../../src/Scripts/Map/Levels');
 
 describe('Levels', function LevelsTests() {
   describe('load()', function load() {

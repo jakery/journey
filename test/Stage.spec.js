@@ -1,5 +1,5 @@
 /* eslint-disable prefer-arrow-callback */
-const Stage = require('../Scripts/Stage');
+const Stage = require('../src/Scripts/Stage');
 
 describe('Stage', function StageTests() {
   const gameCanvas = document.createElement('canvas');

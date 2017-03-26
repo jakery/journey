@@ -1,9 +1,9 @@
 // TODO: Create better tests for draw functions.
 /* eslint-disable prefer-arrow-callback */
-const Coordinates = require('../Coordinates');
-const Draw = require('./Draw');
+const Coordinates = require('../../src/Scripts/Coordinates');
+const Draw = require('../../src/Scripts/Draw/Draw');
 // eslint-disable-next-line
-const testMap = require('json!../Map/Mocks/testMap.json');
+const testMap = require('json!../../src/Scripts/Map/Mocks/testMap.json');
 
 describe('Draw', function DrawTests() {
   describe('tileIsInDrawBounds', function tileIsInDrawBounds() {
