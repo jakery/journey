@@ -1,10 +1,7 @@
-const Constants = require('./Constants/Constants');
-const DeathMessages = require('./Constants/DeathMessages');
 const Dom = require('./Helpers/Dom');
 const Stage = require('./Stage');
 const Player = require('./Sprite/Player');
 const Keyboard = require('./Keyboard');
-const Utility = require('./Utility/Utility');
 const ObscurelyNamedFile = require('./ObscurelyNamedFile');
 const Draw = require('./Draw/Draw');
 const Sidebar = require('./Display/Sidebar');
@@ -12,9 +9,10 @@ const Credits = require('./Display/Credits');
 const Game = require('./Game');
 const Init = require('./Init');
 const Collision = require('./Collision');
+const Update = require('./Update');
 
 define('App', [], () => {
-  const app = this;
+  const self = this;
 
   this.player = null;
   this.gameInterval = null;
@@ -23,6 +21,7 @@ define('App', [], () => {
   this.passwordHandler = null;
   this.draw = null;
   this.gameLoopInterval = 20;
+  this.update = null;
   this.collision = null;
 
   // TODO: Move to Init.js
@@ -58,79 +57,28 @@ define('App', [], () => {
     app.game.hud = new Sidebar(app.game, app.stage, app.player, app.draw);
     app.game.credits = new Credits(app.game, app.stage, app.draw);
 
+    app.update = new Update(app);
     app.collision = new Collision(app);
     return true;
   }
 
-  function update() {
-    // Reset message box visibility.
-    app.game.showMessage = false;
-
-    if (app.game.mode === Constants.gameModes.credits) {
-      app.game.credits.update();
-      return;
-    }
-
-    if (app.game.atExit) {
-      if (app.game.theEnd) {
-        if (app.game.credits.isStarted === false) {
-          // Credits sequence!
-          app.game.mode = Constants.gameModes.credits;
-          app.game.credits.isStarted = true;
-        }
-      } else {
-        // Todo: Different messages for dungeon levels!
-        app.game.showMessage = true;
-        if (!app.game.winMessage) {
-          app.game.winMessage = `${Utility.array.getRandomElement(DeathMessages.win)}\n\nPress Enter to continue.`;
-        }
-        app.game.messageText = app.game.winMessage;
-      }
-
-      return;
-    }
-
-    app.game.gameTimer += 1;
-
-    if (!(app.game.gameTimer % app.game.timerModulus)) {
-      if (app.game.clock > -1) {
-        app.game.clock -= 1;
-      }
-    }
-
-    if (!app.player.isDead) {
-      // Must update tools before updating enemies to prevent pushblock bug.
-      for (let i = 0; i < app.game.tools.length; i += 1) {
-        app.game.tools[i].update();
-      }
-
-      for (let i = 0; i < app.game.enemies.length; i += 1) {
-        app.game.enemies[i].update();
-      }
-    }
-  }
-
   function gameLoop() {
-    app.player.getInput();
-    if (!app.player.isDead && !app.game.isPaused) {
-      update();
-      app.collision.checkCollision();
+    self.player.getInput();
+    if (!self.player.isDead && !self.game.isPaused) {
+      self.update.doUpdate();
+      self.collision.checkCollision();
     }
-    app.draw.beginDraw();
+    self.draw.beginDraw();
   }
 
   this.run = function run(bypassTouchscreen = false) {
-    if (app.gameInterval !== null) {
-      window.clearInterval(app.gameInterval);
+    if (self.gameInterval !== null) {
+      window.clearInterval(self.gameInterval);
     }
-
     const continueRunning = doPreWork(bypassTouchscreen, this);
     if (!continueRunning) { return; }
-
-    app.game.nextLevel();
-
-    // Game Loop.
-    app.gameInterval = setInterval(gameLoop, app.gameLoopInterval);
+    self.game.nextLevel();
+    self.gameInterval = setInterval(gameLoop, self.gameLoopInterval);
   };
 
   const myDoc = new Dom(document);
