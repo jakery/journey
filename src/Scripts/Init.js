@@ -1,17 +1,61 @@
-define('Init', ['./Constants/ErrorMessages', './Helpers/Dom', './Keyboard'], (ErrorMessages, Dom, Keyboard) => function Init() {
-  this.app = null;
+const Stage = require('./Stage');
+const Player = require('./Sprite/Player');
+const ObscurelyNamedFile = require('./ObscurelyNamedFile');
+const Draw = require('./Draw/Draw');
+const Sidebar = require('./Display/Sidebar');
+const Credits = require('./Display/Credits');
+const Game = require('./Game');
+const Collision = require('./Collision');
+const Update = require('./Update');
+
+define('Init', ['./Constants/ErrorMessages', './Helpers/Dom', './Keyboard'], (ErrorMessages, Dom, Keyboard) => function Init(app) {
+  this.app = app;
   this.mainDiv = new Dom(document.getElementById('main'));
+
+  this.doPreWork = function doPreWork(bypassTouchscreen) {
+    if (!this.handleTouchScreen(bypassTouchscreen)) { return false; }
+    this.removeErrorPanels();
+    if (!this.checkBrowserSupport()) { return false; }
+    if (!this.checkProtocol()) { return false; }
+    this.setStyle();
+
+    this.app.stage = this.stage = new Stage();
+    this.app.game = new Game(app);
+    this.app.passwordHandler = new ObscurelyNamedFile(this.app.game);
+    this.app.draw = new Draw(this.app.game, this.app.stage, null);
+    this.app.game.assets.gridLineCoordinates = this.app.draw.generateGridLines();
+
+    const keyboard = new Keyboard();
+    keyboard.settings.exclusions = ['F5', 'F11', 'F12', 'Control'];
+    keyboard.wireUp(document);
+
+    this.app.player = this.player = new Player(this.app.game,
+      this.app.stage,
+      keyboard,
+      this.app.draw,
+      this.app.passwordHandler,
+      this.app.game.assets.face
+    );
+
+    this.app.game.player = this.app.player;
+    this.app.draw.player = this.app.player;
+
+    this.app.game.hud = new Sidebar(this.app.game, this.app.stage, this.app.player, this.app.draw);
+    this.app.game.credits = new Credits(this.app.game, this.app.stage, this.app.draw);
+
+    this.app.update = new Update(app);
+    this.app.collision = new Collision(app);
+    return true;
+  };
+
   this.formatErrorMessage = function formatErrorMessage(messageObject) {
     // TODO: Figure out how to reference this template as a variable;
     //       Move this template to a constants file.
     return `<div class="errorPanel"><h1>${messageObject.header}</h1><p>${messageObject.body}</p></div>`;
   };
 
-  this.handleTouchScreen = function handleTouchScreen(bypassTouchscreen, app = null) {
-    if (app !== null) { this.app = app; }
+  this.handleTouchScreen = function handleTouchScreen(bypassTouchscreen) {
     if (!bypassTouchscreen) {
-      // Don't run game on touchscreen devices.
-      // TODO: Move these error messages to a new constants module.
       if (('ontouchstart' in window) || window.navigator.msMaxTouchPoints > 0) {
         this.mainDiv.before(this.formatErrorMessage(ErrorMessages.touchscreen));
         window.addEventListener('keydown', this.boundBypass);
