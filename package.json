@@ -1,6 +1,6 @@
 {
   "name": "journey",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "The Jake's Journey video game engine.",
   "main": "index.html",
   "scripts": {
