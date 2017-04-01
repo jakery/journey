@@ -1,0 +1,3 @@
+define('Collision', [], () => function Collision() {
+
+});
