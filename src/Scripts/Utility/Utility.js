@@ -1,9 +1,11 @@
 const jaja = require('jaja');
+const ArrayExtensions = require('./Array');
 
 define('Utility', ['../Constants/ErrorMessages'], (ErrorMessages) => {
   const Utility = function Utility() {
     this.string = jaja.string;
     this.array = jaja.array;
+    Object.assign(this.array, new ArrayExtensions());
     this.math = jaja.math;
 
     this.tileDistanceBetween = function tileDistanceBetween(coords1, coords2) {
