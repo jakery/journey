@@ -1,3 +1,7 @@
+const AwesomeError = require('./AwesomeError');
+const TileCodes = require('./Constants/TileCodes');
+const Map = require('./Map/Map');
+
 define(
   'Game',
   [
@@ -13,7 +17,8 @@ define(
     Inventory,
     Utility,
     Levels
-  ) => function Game() {
+  ) => function Game(app) {
+    this.app = app || null;
     // TODO: Refactor these properties into a hierarchy.
     this.debug = false;
     this.betaTest = true;
@@ -43,6 +48,7 @@ define(
     // Todo: refactor 'isPaused' into 'game.mode = 'paused'
     this.isPaused = false;
     this.moneyCount = 0;
+    // TODO: Refactor this into 'game.switch.<color>'
     this.redSwitch = false;
     this.yellowSwitch = false;
     this.greenSwitch = false;
@@ -95,19 +101,61 @@ define(
       Object.assign(this, obj);
     };
 
-    // this.nextLevel = function nextLevel() {
-    // TODO: Remove this identical function from App.js and retest.
-    // this.level = this.nextLevelNumber;
-    // this.atExit = false;
-    // this.player.inventory = new Inventory();
-    // this.loadMap(this.level);
-    // };
-
     this.restartLevel = function restartLevel() {
       this.loadMap(this.level);
     };
 
-    // this.loadMap = function loadMap() {
-    //   // TODO: Migrate loadMap();
-    // };
+    this.initializeMapFeatures = function initializeMapFeatures() {
+      this.items = this.map.loadItems();
+      this.enemies = this.map.loadEnemies();
+      this.tools = this.map.loadTools();
+      this.moneyCount = Utility.array.findAllByProperty(this.items, 'subType', 'money', true).length;
+      this.map.setProperties();
+    };
+
+    // TODO: Rename to "tryLoadMap"
+    this.loadMap = function loadMap(levelNumberArg) {
+      let levelNumber = levelNumberArg;
+      this.resetLevelVariables();
+      app.player.resetLevelVariables();
+
+      if (this.level < 0) {
+        levelNumber = 'cheater';
+      }
+
+      if ({}.hasOwnProperty.call(this.levels, levelNumber)
+        && this.levels[levelNumber]) {
+        this.processMap(this.levels[levelNumber]);
+      } else {
+        const awesomeError = new AwesomeError({
+          attemptedFunction: 'loadMap ()',
+          errorCode: 'Level doesn\'t exist',
+          position: app.player.position,
+          level: this.level,
+        });
+        awesomeError.go();
+        throw new Error('Level doesn\'t exist.');
+      }
+    };
+
+    this.processMap = function processMap(data) {
+      const mapTileArray = (typeof (data) === 'string')
+        ? JSON.parse(data)
+        : data;
+      this.map = new Map(mapTileArray, this, this.app.stage);
+      // Put player on start tile.
+      this.app.player.position = this.map.getCoordsByTileIndex(
+        this.map.layers[0].data.indexOf(TileCodes.start)
+      );
+      this.initializeMapFeatures();
+    };
+
+
+    // TODO: Swap 'self' with 'this'; move to Game.js.
+    this.nextLevel = function nextLevel() {
+      this.level = this.nextLevelNumber;
+      this.atExit = false;
+      this.app.player.inventory = new Inventory();
+      this.loadMap(this.level);
+    };
   });
