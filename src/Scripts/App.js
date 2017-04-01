@@ -15,6 +15,7 @@ const Sidebar = require('./Display/Sidebar');
 const Credits = require('./Display/Credits');
 const Game = require('./Game');
 const Init = require('./Init');
+const Collision = require('./Collision');
 
 define('App', [], () => {
   const app = this;
@@ -26,6 +27,7 @@ define('App', [], () => {
   this.passwordHandler = null;
   this.draw = null;
   this.gameLoopInterval = 20;
+  this.collision = null;
 
   // TODO: Finish modularizing this to Game.js.
   const GameObject = function GameObject() {
@@ -69,6 +71,7 @@ define('App', [], () => {
     app.game.hud = new Sidebar(app.game, app.stage, app.player, app.draw);
     app.game.credits = new Credits(app.game, app.stage, app.draw);
 
+    app.collision = new Collision(app);
     return true;
   }
 
@@ -120,90 +123,11 @@ define('App', [], () => {
     }
   }
 
-  function checkCollision() {
-    app.game.redSwitch = false;
-    app.game.yellowSwitch = false;
-    app.game.greenSwitch = false;
-    app.game.onQuickCorruptTile = false;
-
-    // Register item hits.
-    for (let i = 0; i < app.game.items.length; i += 1) {
-      if (Utility.areSpritesColliding(app.player, app.game.items[i])) {
-        app.game.items[i].registerHit(app.player);
-      } else {
-        for (let j = 0; j < app.game.enemies.length; j += 1) {
-          const enemy = app.game.enemies[j];
-          if (Utility.areSpritesColliding(enemy, app.game.items[i])) {
-            app.game.items[i].registerHit(enemy);
-          }
-        }
-        for (let j = 0; j < app.game.tools.length; j += 1) {
-          // Check if pushblocks collide with items (switches?).
-          const tool = app.game.tools[j];
-
-          if (Utility.areSpritesColliding(tool, app.game.items[i])) {
-            // Enemy interacts with item.
-            app.game.items[i].registerHit(tool);
-          }
-        }
-      }
-    }
-
-    // Register enemy hits.
-    for (let i = 0; i < app.game.enemies.length; i += 1) {
-      // TODO: Refactor with "areSpritesColliding".
-      if (Utility.areSpritesColliding(app.player, app.game.enemies[i])) {
-        app.player.isDead = true;
-        app.game.enemies[i].hasKilledPlayer = true;
-
-        let message = '';
-        if (typeof (DeathMessages[app.game.enemies[i].subType]) !== 'undefined') {
-          message = Utility.array.getRandomElement(DeathMessages[app.game.enemies[i].subType]);
-        } else {
-          // TODO: Refactor as constants message.
-          message = `BUG!\n\nThe game has registered you as dead. If you're seeing this message, it's a bug in the level. Contact Jake and tell him that he accidentally put a(n) ${app.game.enemies[i].subType} in the Enemy array (which is why you died when you touched it). )`;
-        }
-
-        app.game.setDeadMessage(message);
-      }
-    }
-
-    if (!app.game.clock) {
-      app.player.isDead = true;
-      const message = Utility.array.getRandomElement(DeathMessages.time);
-      app.game.setDeadMessage(message);
-    }
-
-    // Countdown timer for remaining quick corruption.
-    if (app.game.corruptionTimer > 0) {
-      app.game.corruptionTimer -= 1;
-    } else if (app.game.incrementCorruption) {
-      // Permanent corruption.
-      app.game.corruption += 1;
-
-      if (app.game.atExit && app.game.corruption < app.game.corruptionSpeedupThreshold) {
-        app.game.corruptionTimer = 10;
-      } else {
-        app.game.corruptionTimer = 50;
-      }
-
-      if (app.game.corruption > app.game.maxCorruption) {
-        app.game.incrementCorruption = false;
-        app.game.nextLevel();
-      }
-    } else {
-      // Quick corruption.
-      app.game.corruption = 0;
-    }
-
-    app.player.crushCheck();
-  }
-
   function gameLoop() {
     app.player.getInput();
     if (!app.player.isDead && !app.game.isPaused) {
       update();
-      checkCollision();
+      app.collision.checkCollision();
     }
     app.draw.beginDraw();
   }
