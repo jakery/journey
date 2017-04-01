@@ -1,12 +1,8 @@
-const AwesomeError = require('./AwesomeError');
 const Constants = require('./Constants/Constants');
-const TileCodes = require('./Constants/TileCodes');
 const DeathMessages = require('./Constants/DeathMessages');
-const Inventory = require('./Sprite/Inventory');
 const Dom = require('./Helpers/Dom');
 const Stage = require('./Stage');
 const Player = require('./Sprite/Player');
-const Map = require('./Map/Map');
 const Keyboard = require('./Keyboard');
 const Utility = require('./Utility/Utility');
 const ObscurelyNamedFile = require('./ObscurelyNamedFile');
@@ -29,11 +25,6 @@ define('App', [], () => {
   this.gameLoopInterval = 20;
   this.collision = null;
 
-  // TODO: Finish modularizing this to Game.js.
-  const GameObject = function GameObject() {
-
-  };
-
   // TODO: Move to Init.js
   function doPreWork(bypassTouchscreen, app) {
     const init = new Init();
@@ -43,13 +34,9 @@ define('App', [], () => {
     if (!init.checkProtocol()) { return false; }
     init.setStyle();
 
-
     app.stage = this.stage = new Stage();
     app.game = new Game(app);
-    Object.assign(app.game, new GameObject());
-
     app.passwordHandler = new ObscurelyNamedFile(app.game);
-
     app.draw = new Draw(app.game, app.stage, null);
     app.game.assets.gridLineCoordinates = app.draw.generateGridLines();
 
