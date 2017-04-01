@@ -2,8 +2,6 @@ const Dom = require('./Helpers/Dom');
 const Init = require('./Init');
 
 define('App', [], () => {
-  const self = this;
-
   this.player = null;
   this.gameInterval = null;
   this.game = null;
@@ -16,25 +14,25 @@ define('App', [], () => {
   this.init = null;
 
   this.gameLoop = function gameLoop() {
-    self.player.getInput();
-    if (!self.player.isDead && !self.game.isPaused) {
-      self.update.doUpdate();
-      self.collision.checkCollision();
+    this.player.getInput();
+    if (!this.player.isDead && !this.game.isPaused) {
+      this.update.doUpdate();
+      this.collision.checkCollision();
     }
-    self.draw.beginDraw();
+    this.draw.beginDraw();
   };
 
   this.run = function run(bypassTouchscreen = false) {
-    if (self.gameInterval !== null) {
-      window.clearInterval(self.gameInterval);
+    if (this.gameInterval !== null) {
+      window.clearInterval(this.gameInterval);
     }
-    if (self.init === null) {
-      self.init = new Init(self);
+    if (this.init === null) {
+      this.init = new Init(this);
     }
-    const continueRunning = self.init.doPreWork(bypassTouchscreen);
+    const continueRunning = this.init.doPreWork(bypassTouchscreen);
     if (!continueRunning) { return; }
-    self.game.nextLevel();
-    self.gameInterval = setInterval(self.gameLoop, self.gameLoopInterval);
+    this.game.nextLevel();
+    this.gameInterval = window.setInterval(this.gameLoop.bind(this), this.gameLoopInterval);
   };
 
   const myDoc = new Dom(document);
