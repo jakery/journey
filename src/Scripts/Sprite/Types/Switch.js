@@ -18,6 +18,6 @@ define('Switch', ['../Sprite'], Sprite => function SwitchModule(
   switchSprite.image = image;
   switchSprite.type = 'switch';
   switchSprite.player = player;
-  switchSprite.registerHit =
+  switchSprite.registerHit = function registerHit() { };
   return switchSprite;
 });

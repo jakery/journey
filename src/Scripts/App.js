@@ -27,26 +27,28 @@ define('App', [], () => {
   this.draw = null;
   this.gameLoopInterval = 20;
 
-  // TODO: Modularize this.
+  // TODO: Finish modularizing this to Game.js.
   const GameObject = function GameObject() {
     this.processMap = function processMap(data) {
-      if (typeof (data) === 'string') {
-        self.game.map = new Map(JSON.parse(data), self.game, self.stage);
-      } else {
-        self.game.map = new Map(data, self.game, self.stage);
-      }
-
+      const mapTileArray = (typeof (data) === 'string')
+        ? JSON.parse(data)
+        : data;
+      self.game.map = new Map(mapTileArray, self.game, self.stage);
       // Put player on start tile.
       self.player.position = self.game.map.getCoordsByTileIndex(
         self.game.map.layers[0].data.indexOf(TileCodes.start)
       );
+      this.initializeMapFeatures();
+    };
 
+    this.initializeMapFeatures = function initializeMapFeatures() {
       self.game.items = self.game.map.loadItems();
       self.game.enemies = self.game.map.loadEnemies();
       self.game.tools = self.game.map.loadTools();
       self.game.moneyCount = Utility.array.findAllByProperty(self.game.items, 'subType', 'money', true).length;
       self.game.map.setProperties();
     };
+
     // TODO: All of the map stuff should be its own module, or even a group of modules.
     this.loadMap = function loadMap(levelNumberArg) {
       let levelNumber = levelNumberArg;

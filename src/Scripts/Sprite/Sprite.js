@@ -1,5 +1,7 @@
 // TODO: Refactor this out into a group of modules.
 // TODO: Create unit tests.
+const Utility = require('../Utility/Utility');
+
 define(
   'Sprite',
   ['../Constants/Constants',
@@ -8,7 +10,6 @@ define(
     '../Coordinates',
     './Inventory',
     '../Keyboard',
-    '../Utility/Utility',
     '../Draw/Draw',
     './Movement'],
   (
@@ -18,7 +19,6 @@ define(
     Coordinates,
     Inventory,
     Keyboard,
-    Utility,
     Draw,
     Movement
   ) => {
