@@ -56,8 +56,6 @@ define('DeathMessages', [], {
     'I think he likes you.',
     'Compasses point north. His heart points to you.',
     'He has free candy in his windowless van.',
-
-
   ],
 
   smartPredator: [
