@@ -322,7 +322,3 @@ window.Modernizr = (function( window, document, undefined ) {
 
 })(this, this.document);
 ;
-
-
-
-Boolean.prototype.toggle = function () { return !this.valueOf(); }

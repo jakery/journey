@@ -1,6 +1,10 @@
 const jaja = require('jaja');
 const ArrayExtensions = require('./Array');
 
+// TODO: Move this to jaja.js
+// eslint-disable-next-line
+Boolean.prototype.toggle = function () { return !this.valueOf(); }
+
 define('Utility', ['../Constants/ErrorMessages'], (ErrorMessages) => {
   const Utility = function Utility() {
     this.string = jaja.string;
