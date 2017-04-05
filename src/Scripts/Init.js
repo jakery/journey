@@ -7,6 +7,7 @@ const Credits = require('./Display/Credits');
 const Game = require('./Game');
 const Collision = require('./Collision');
 const Update = require('./Update');
+const Modernizr = require('../Lib/modernizr-custom.3.4.0.min');
 
 define('Init', ['./Constants/ErrorMessages', './Helpers/Dom', './Keyboard'], (ErrorMessages, Dom, Keyboard) => function Init(app) {
   this.app = app;
@@ -77,9 +78,15 @@ define('Init', ['./Constants/ErrorMessages', './Helpers/Dom', './Keyboard'], (Er
   };
 
   this.checkBrowserSupport = function checkBrowserSupport() {
-    if (!Modernizr.fontface
-      || Array.prototype.indexOf === undefined
-      || !window.HTMLCanvasElement) {
+    if (window.Modernizr === undefined) {
+      window.Modernizr = Modernizr;
+    }
+    if (!window.Modernizr.arrow
+      || !window.Modernizr.es6object
+      || !window.Modernizr.fontface
+      || !window.Modernizr.canvas
+      || !window.Modernizr.canvastext
+      || Array.prototype.indexOf === undefined) {
       this.mainDiv.before(this.formatErrorMessage(ErrorMessages.browserSupport));
       this.mainDiv.hide();
       return false;
