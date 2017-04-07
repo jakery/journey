@@ -8,8 +8,11 @@ const Game = require('./Game');
 const Collision = require('./Collision');
 const Update = require('./Update');
 const Modernizr = require('../Lib/modernizr-custom.3.4.0.min');
+const ErrorMessages = require('./Constants/ErrorMessages');
+const Dom = require('./Helpers/Dom');
+const Keyboard = require('./Keyboard');
 
-define('Init', ['./Constants/ErrorMessages', './Helpers/Dom', './Keyboard'], (ErrorMessages, Dom, Keyboard) => function Init(app) {
+define('Init', [], () => function Init(app) {
   this.app = app;
   this.mainDiv = new Dom(document.getElementById('main'));
 
@@ -17,7 +20,6 @@ define('Init', ['./Constants/ErrorMessages', './Helpers/Dom', './Keyboard'], (Er
     if (!this.handleTouchScreen(bypassTouchscreen)) { return false; }
     this.removeErrorPanels();
     if (!this.checkBrowserSupport()) { return false; }
-    if (!this.checkProtocol()) { return false; }
     this.setStyle();
 
     this.app.stage = this.stage = new Stage();
@@ -88,15 +90,6 @@ define('Init', ['./Constants/ErrorMessages', './Helpers/Dom', './Keyboard'], (Er
       || !window.Modernizr.canvastext
       || Array.prototype.indexOf === undefined) {
       this.mainDiv.before(this.formatErrorMessage(ErrorMessages.browserSupport));
-      this.mainDiv.hide();
-      return false;
-    }
-    return true;
-  };
-
-  this.checkProtocol = function checkProtocol() {
-    if (window.location.protocol === 'file:') {
-      this.mainDiv.before(this.formatErrorMessage(ErrorMessages.fileProtocol));
       this.mainDiv.hide();
       return false;
     }
