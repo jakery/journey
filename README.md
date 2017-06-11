@@ -6,8 +6,16 @@ Jake's Journey is a full game built entirely in Journey. To run Jake's Journey l
 
     npm start dev
 
-
 ## Version History
+
+### Version 2.0.1
+
+* Enabled running the game on the file:/// protocol. (Became technically possible in 2.0.0)
+* Added updated version of Modernizr.
+* Removed jQuery library file (no longer used)
+* Some HTML and JS cleanup.
+* Added roadmap section in README
+
 ### Version 2.0.0
 
 * Runs on Node.js locally.
@@ -31,3 +39,14 @@ Jake's Journey is a full game built entirely in Journey. To run Jake's Journey l
 
 ### Pre-Git Version
 * Version currently hosted on [http://jacobking.us](http://jacobking.us)
+
+## Roadmap
+* Decouple Jake's Journey game files from the Journey.js game engine.
+* Support different canvas sizes
+* Fullscreen support
+* Sound support
+* Update map engine to be fully support [Tiled v1.0.0](http://www.mapeditor.org/2017/05/24/tiled-1-0-0-released.html)
+* Mobile input (touchscreen) support
+* Map editor
+    * Save/load JSON map data.
+* Installer/Executable support
