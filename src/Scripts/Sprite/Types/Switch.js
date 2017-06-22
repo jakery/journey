@@ -1,3 +1,4 @@
+// TODO: Check for items to decouple
 define('Switch', ['../Sprite'], Sprite => function SwitchModule(
   game,
   stage,

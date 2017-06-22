@@ -1,3 +1,4 @@
+// TODO: Decouple
 define('PauseOverlay', [], () => {
   function PauseOverlay(stage, globalDraw) {
     this.globalDraw = globalDraw;

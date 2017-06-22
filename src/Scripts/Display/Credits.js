@@ -1,3 +1,4 @@
+// TODO: Decouple
 define('Credits', ['../Constants/Constants', './CreditsText'], (Constants, CreditsText) => function Credits(game, stage, globalDraw) {
   this.game = game;
   this.stage = stage;

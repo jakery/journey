@@ -1,3 +1,4 @@
+// TODO: Decouple
 define('Inventory',
   ['../Constants/Constants', '../Constants/RenderSettings', '../Constants/TileCodes', '../Coordinates'],
   (Constants, RenderSettings, TileCodes, Coordinates) => {

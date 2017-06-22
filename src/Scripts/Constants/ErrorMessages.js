@@ -12,5 +12,7 @@ define('ErrorMessages', [], {
     body: 'Please consider installing <a href="http://www.google.com/chrome">Google Chrome</a>. Hey, <strong>I</strong> use it, and look how I turned out.',
   },
   alertUtility: 'Alert message not properly configured.',
+
+  // TODO: Decouple
   badPassword: 'That ain\'t no password.',
 });

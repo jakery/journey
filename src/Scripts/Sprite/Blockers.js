@@ -1,3 +1,4 @@
+// TODO: Decouple by moving all of these to their respective tile class files.
 define('Blockers', ['../Constants/TileCodes'], TileCodes => ({
   wall: {
     test: destinationTileType =>

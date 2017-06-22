@@ -1,3 +1,4 @@
+// TODO: Check for items to decouple
 define('Draw',
   [
     '../Constants/RenderSettings',

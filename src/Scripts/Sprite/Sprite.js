@@ -1,3 +1,4 @@
+// TODO: Check for items to decouple
 // TODO: Refactor this out into a group of modules.
 // TODO: Create unit tests.
 const Utility = require('../Utility/Utility');

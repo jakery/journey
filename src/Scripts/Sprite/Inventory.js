@@ -1,3 +1,4 @@
+// TODO: Check for items to decouple
 define('Inventory', [], () => {
   const Inventory = function Inventory() {
     this.yellowKeys = 0;

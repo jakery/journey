@@ -1,3 +1,4 @@
+// Todo: Add code to create the <canvas> element in this file, removing dependency on plain HTML.
 define('Stage', ['./Constants/RenderSettings', './Coordinates', './Helpers/Dom'],
   (RenderSettings, Coordinates, Dom) => function Stage() {
     this.isOffset = true;

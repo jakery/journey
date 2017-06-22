@@ -1,5 +1,7 @@
 define('DeathMessages', [], {
+  // TODO: Decouple: Add death message instructions.
 
+  // TODO: Decouple: Move to Ball.js::deathMessages{}
   ball: [
     'Remember when Indiana Jones got chased by that boulder? This is the same thing, except you died.',
     'Remember in Dodgeball when Vince Vaughn won the tournament? This is the same thing, except you died.',
@@ -9,6 +11,7 @@ define('DeathMessages', [], {
     'Remember in Cast Away where Tom Hanks was best friends with a volleyball? This is the same thing, except you died.',
   ],
 
+  // TODO: Decouple: Move to Nascar.js::deathMessages{}
   nascar: [
     'You got run over.',
     'Remember Iron Man 2, when Tony Stark and Whip Man fought on the Grand Prix track? This is the same thing, except you died.',
@@ -22,6 +25,7 @@ define('DeathMessages', [], {
 
   ],
 
+  // TODO: Decouple: Move to BritishNascar.js::deathMessages{}
   britishNascar: [
     'Kate Middleton, forgive us.',
     'Into the boot with you, lad.',
@@ -31,6 +35,7 @@ define('DeathMessages', [], {
     'You\'ll be needin\' elastoplast, yobbo.', 'You\'re a right git.', 'What are you, the bleedin\' lollipop man?', 'Remember when the offie worked on spiv\'s mumpty\'s carbage to barter for scrumpies, and the plod pulled him out right as the shoes went banger? This is the same thing, except you\'re brown bread.',
   ],
 
+  // TODO: Decouple: Move to Gronpree.js::deathMessages{}
   gronpree: [
     'Vous avez été touché par une voiture.\n(Présenté par Google Translate)',
     'Pas plus de baguettes pour vous.\n(Présenté par Google Translate)',
@@ -40,6 +45,7 @@ define('DeathMessages', [], {
     'Vous rappelez-vous l\'époque où Erique préparé un délicieux coq au vin pour sa famille? C\'est la même chose, sauf que tu es mort.\n(Présenté par Google Translate)', 'Si nous avons roulé comme ça plus souvent, nous n\'aurions pas perdu toutes les guerres jamais.\n(Présenté par Google Translate)', 'Je suis français. Je viens vous écrasé avec ma voiture. Sentez mes aisselles. Oui, oui!\n(Présenté par Google Translate)',
     'Comment dites que vous ne "Sortez de la manière." en anglais? Vous n\'avez pas. Vous continuez à conduire. :)\n(Présenté par Google Translate)', 'Avec les voitures du peuple\nla circulation de progrès\nRemplis ton cœur d\'un vin puissant\nEt à demain, tuer un homme\n\n(Présenté par Google Translate)\n(Avec nos excuses à Boublil et Natel)',],
 
+  // TODO: Decouple: Move to Predator.js::deathMessages{}
   predator: [
     'You made a friend.',
     'He\'s your number one fan.', 'I think he likes you.',
@@ -47,16 +53,19 @@ define('DeathMessages', [], {
     'He has free candy in his windowless van.',
   ],
 
+  // TODO: Decouple: Move to SmartPredator.js::deathMessages{}
   smartPredator: [
     'DIE',
   ],
 
+  // TODO: Decouple: Move to Timer.js::deathMessages{}
   time: [
     'Pick up the pace, grandma.\n\n...that was rude. I\'m sorry.', 'If you are going to keep taking this long, let us know so I can take a bathroom break.',
     'Under "areas for improvement", write "time management".',
     'If you\'re busy we can try this again later.', 'I bet you got a phone call and forgot to pause the game.',
   ],
 
+  // TODO: Decouple
   miscDeath: [
     'FYI, there is no achievement for failing a billion times.',
     'It looks like you\'re having trouble with this level. Pay $4.99 now to ride Artie The Magic Dung Beetle to the exit.', 'I made this level way too tough. Sorry.',
@@ -64,6 +73,7 @@ define('DeathMessages', [], {
     'This time it wasn\'t your fault.',
   ],
 
+  // TODO: Decouple
   water: [
     'You never learned to swim.',
     'Gills not available in beta.',
@@ -74,6 +84,7 @@ define('DeathMessages', [], {
     'You have only yourself to blame.',
   ],
 
+  // TODO: Decouple
   crush: [
     'A wall appeared where you are. Bummer.',
     'Try not stand where the walls show up. You are very dead.',
@@ -84,9 +95,11 @@ define('DeathMessages', [], {
     'The wall apparated with you in it.',
   ],
 
+  // TODO: Decouple
   help: [
-    'Don\'t ask me how, but you\'re dead.',],
+    'Don\'t ask me how, but you\'re dead.'],
 
+  // TODO: Decouple
   win: [
     'You found the warp zone\nto level [currentLevel + 1]!',
     'YOU\'RE WINNER', 'Huzzah!',

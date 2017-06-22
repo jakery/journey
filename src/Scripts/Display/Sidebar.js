@@ -1,3 +1,4 @@
+// TODO: Decouple
 define('Sidebar',
   [
     '../Constants/Constants',

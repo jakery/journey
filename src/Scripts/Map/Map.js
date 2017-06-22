@@ -1,3 +1,4 @@
+// TODO: Check for items to decouple
 define('Map', ['../Constants/Constants', '../Constants/RenderSettings', '../Coordinates', '../Utility/Utility', '../ObscurelyNamedFile', '../Sprite/Sprite'], (Constants, RenderSettings, Coordinates, Utility, PasswordHandler, Sprite) => function Map(map, game, stage) {
   this.game = game;
   this.stage = stage;

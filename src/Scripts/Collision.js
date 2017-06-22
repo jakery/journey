@@ -1,3 +1,5 @@
+
+// Todo: Identify things to decouple.
 const Utility = require('./Utility/Utility');
 const DeathMessages = require('./Constants/DeathMessages');
 

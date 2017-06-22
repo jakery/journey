@@ -1,3 +1,4 @@
+// TODO: Decouple
 define('MessageBox', [], () => {
   function MessageBox(game, globalDraw) {
     this.game = game;

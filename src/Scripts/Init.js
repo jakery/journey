@@ -1,3 +1,4 @@
+// Todo: Identify things to decouple.
 const Stage = require('./Stage');
 const Player = require('./Sprite/Player');
 const ObscurelyNamedFile = require('./ObscurelyNamedFile');

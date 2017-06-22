@@ -1,3 +1,4 @@
+// Todo: Identify things to decouple.
 const AwesomeError = require('./AwesomeError');
 const TileCodes = require('./Constants/TileCodes');
 const Map = require('./Map/Map');

@@ -1,3 +1,4 @@
+// Todo: Move to jaja.js and delete from here.
 // jQuery's greatest hits, but much lighter.
 define('Dom', [], () => function Dom(element) {
   if (element === null) {

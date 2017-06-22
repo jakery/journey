@@ -1,3 +1,4 @@
+// TODO: Decouple
 define('TileCodes', [], {
   nothing: 0,
 

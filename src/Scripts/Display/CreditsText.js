@@ -1,3 +1,4 @@
+// TODO: Decouple
 define('CreditsText', [], () => (
   function CreditsText(text, color, font, alpha, speed, delay, y) {
     this.text = text || '';

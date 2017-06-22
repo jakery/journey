@@ -1,3 +1,4 @@
+// Todo: Decouple.
 /*
 
 Congratulations, you found the Password array.
@@ -13,7 +14,6 @@ Therefore, here's your reward for delving into the source code.
 define('ObscurelyNamedFile', ['./Constants/ErrorMessages'], (ErrorMessages) => {
   const ObscurelyNamedFile = function ObscurelyNamedFile(game) {
     this.game = game;
-
     this.passwordArray = [
       'title',
       'level1',
