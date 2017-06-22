@@ -7,7 +7,8 @@ define('Dom', [], () => function Dom(element) {
     this.element = element;
     this.length = element.length;
   } else {
-    this.element = this[0] = element;
+    this[0] = element;
+    this.element = this[0];
     this.length = 1;
   }
   this.before = function before(htmlText) {
@@ -24,18 +25,10 @@ define('Dom', [], () => function Dom(element) {
     return this;
   };
   this.width = function width() {
-    return Math.max(
-      this.element.scrollWidth,
-      this.element.offsetWidth,
-      this.element.clientWidth
-    );
+    return Math.max(this.element.scrollWidth, this.element.offsetWidth, this.element.clientWidth);
   };
   this.height = function height() {
-    return Math.max(
-      this.element.scrollHeight,
-      this.element.offsetHeight,
-      this.element.clientHeight
-    );
+    return Math.max(this.element.scrollHeight, this.element.offsetHeight, this.element.clientHeight);
   };
   this.hide = function hide() {
     this.style('visibility', 'hidden');
