@@ -118,6 +118,11 @@ define(
 
       this.position = new Coordinates(0, 0);
 
+      this.imageType = 'image';
+      this.image = player;
+      this.type = 'switch';
+      this.player = game.player;
+
       this.resetLevelVariables = function resetLevelVariables() {
         this.inventory = new SpriteNS.Inventory();
         this.isDead = false;
@@ -328,9 +333,6 @@ define(
 
         // Water & death.
         if (tileType === TileCodes.water) {
-          // Balls are immune to water death.
-          // if (this.subType != "ball") {
-
           this.isDead = true;
 
           if (this.type === 'player') {
@@ -368,7 +370,6 @@ define(
             // :)
             this.game.mode = Constants.gameModes.normal;
           }
-          return;
         } else if (this.game.mode === Constants.gameModes.password) {
           if (keyIsDown.Enter && !keyIsRegistered.Enter) {
             keyIsRegistered.Enter = true;
@@ -526,245 +527,67 @@ define(
           }
         }
         if (this.type === 'enemy') {
-          let speedModulus = 8;
-          // Enemy movement patterns.
-          switch (this.subType) {
-
-            case 'ball':
-              if (this.game.gameTimer % speedModulus) {
-                return false;
-              }
-
-              if (!this.canMove()) {
-                this.turnAround();
-              }
-
-              this.goForward();
-
-              break;
-
-            case 'nascar':
-              if (this.game.gameTimer % speedModulus) {
-                return false;
-              }
-
-              if (!this.canMove()) {
-                this.turnAntiClockwise();
-              }
-
-              this.goForward();
-              break;
-
-            case 'britishNascar':
-              if (this.game.gameTimer % speedModulus) {
-                return false;
-              }
-
-              if (!this.canMove()) {
-                this.turnProClockwise();
-              }
-
-              this.goForward();
-              break;
-
-            case 'gronpree':
-              /* Gronpree:
-              Move forward until hit obstacle.
-
-              In event of obstacle:
-              Try turning clockwise, then counter clockwise, then going in reverse.
-
-              In event of next obstacle:
-              Try turning counterclockwise, then clockwise, then going in reverse.
-
-              Switch back and forth between counterclockwise
-                and clockwise preference on every obstacle encountered.
-
-              */
-              if (this.game.gameTimer % speedModulus) {
-                return false;
-              }
-
-              if (!this.canMove()) {
-                if (!this.isPreferringClockwise) {
-                  this.turnAntiClockwise();
-                  if (!this.canMove()) {
-                    this.turnAround();
-                    if (!this.canMove()) {
-                      this.turnProClockwise();
-                    }
-                  } else {
-                    this.isPreferringClockwise = this.isPreferringClockwise.toggle();
-                  }
-                } else {
-                  this.turnProClockwise();
-                  if (!this.canMove()) {
-                    this.turnAround();
-                    if (!this.canMove()) {
-                      this.turnAntiClockwise();
-                    }
-                  } else {
-                    this.isPreferringClockwise = this.isPreferringClockwise.toggle();
-                  }
-                }
-              }
-
-              this.goForward();
-              break;
-
-            case 'predator':
-              // Try to close distance to player by means of an absolute direct path,
-              // regardless of obstacles.
-              if (this.game.gameTimer % speedModulus) {
-                return false;
-              }
-
-              this.movePredator();
-              break;
-
-            case 'smartPredator':
-              if (this.game.gameTimer % this.speed) {
-                return false;
-              }
-              this.movePredator();
-              break;
-
-            case 'berzerker':
-              if (this.game.gameTimer % speedModulus) {
-                return false;
-              }
-
-              if (this.position.x === this.game.player.position.x) {
-                if (this.position.y > this.game.player.position.y) {
-                  this.turn(Constants.directions.up);
-                } else {
-                  this.turn(Constants.directions.down);
-                }
-              } else if (this.position.y === this.game.player.position.y) {
-                if (this.position.x > this.game.player.position.x) {
-                  this.turn(Constants.directions.left);
-                } else {
-                  this.turn(Constants.directions.right);
-                }
-              }
-
-              if (!this.canMove()) {
-                this.turnAntiClockwise();
-              }
-
-              this.goForward();
-              break;
-
-            case 'player2':
-              if (this.startCountup) {
-                const tickDelay = 20;
-                speedModulus = 4;
-                this.ticks += 1;
-
-                // 20-tick delay.
-                if (this.ticks > tickDelay) {
-                  this.autoMove = true;
-                  if (!this.autoMove) {
-                    break;
-                  }
-
-                  if (this.game.gameTimer % speedModulus) {
-                    return false;
-                  }
-
-                  this.turn(Constants.directions.right);
-                  this.goForward();
-                }
-              }
-              // TODO: Refactor The End into its own class.
-              // TODO: This is magic number hell. Figure out how to replace
-              //   this with a proper custom-movement system.
-              if (this.startTheEnd) {
-                this.ticks += 1;
-
-                if (this.position.y === 9 && this.position.x > 5) {
-                  this.game.player.rotation = 0;
-                  if (this.game.gameTimer % 40) {
-                    return false;
-                  }
-                  this.turn(Constants.directions.left);
-                  this.goForward();
-                } else if (this.position.y === 9 && this.position.x > 4) {
-                  if (this.game.gameTimer % 200) {
-                    return false;
-                  }
-                  this.turn(Constants.directions.left);
-                  this.goForward();
-                } else if (this.position.y === 9 && this.position.x > 3) {
-                  if (this.game.gameTimer % 100) {
-                    return false;
-                  }
-                  this.turn(Constants.directions.left);
-                  this.goForward();
-                } else if (this.position.y > 6) {
-                  if (this.game.gameTimer % 40) {
-                    return false;
-                  }
-                  this.turn(Constants.directions.up);
-                  this.goForward();
-                } else if (this.position.x < 4) {
-                  if (this.game.gameTimer % 40) {
-                    return false;
-                  }
-                  this.turn(Constants.directions.right);
-                  this.goForward();
-                } else if (this.position.x < 5) {
-                  if (this.game.gameTimer % 100) {
-                    return false;
-                  }
-                  this.turn(Constants.directions.right);
-                  this.goForward();
-                } else {
-                  this.game.player.startCountup = true;
-                }
-              }
-              break;
-
-            default:
-              break;
-          } // switch(this.subType)
+          this.updateMovementPattern();
         }
         return true;
       };
 
-      // TODO: Refactor to enemy.js or maybe predator.js
-      this.movePredator = function movePredator() {
-        const xDist = Math.abs(this.position.x - this.game.player.position.x);
-        const yDist = Math.abs(this.position.y - this.game.player.position.y);
+      this.updateMovementPattern = function updateMovementPattern() {
+        // Enemy movement patterns.
+        switch (this.subType) {
+          // TODO: Can't delete "nascar" movementPattern yet because it's being used as a hack for other movement patterns.
+          // Needs refactoring.
+          case 'nascar':
+            if (this.game.gameTimer % this.speedModulus) {
+              return false;
+            }
 
-        if (xDist > yDist) {
-          if (this.position.x > this.game.player.position.x) {
-            this.turn(Constants.directions.left);
-          } else {
-            this.turn(Constants.directions.right);
-          }
-          if (!this.canMove()) {
-            if (this.position.y > this.game.player.position.y) {
-              this.turn(Constants.directions.up);
-            } else if (this.position.y < this.game.player.position.y) {
-              this.turn(Constants.directions.down);
+            if (!this.canMove()) {
+              this.turnAntiClockwise();
             }
-          }
-        } else {
-          if (this.position.y > this.game.player.position.y) {
-            this.turn(Constants.directions.up);
-          } else {
-            this.turn(Constants.directions.down);
-          }
-          if (!this.canMove()) {
-            if (this.position.x > this.game.player.position.x) {
-              this.turn(Constants.directions.left);
-            } else if (this.position.x < this.game.player.position.x) {
-              this.turn(Constants.directions.right);
+
+            this.goForward();
+            break;
+
+          case 'berzerker':
+            // I think this was for an unused enemy type.
+            // If I'm reading this right, the idea was to
+            // be a NASCAR enemy, but also to
+            // chase after the player if the player happens
+            // to be on the same row or column.
+            if (this.game.gameTimer % this.speedModulus) {
+              return false;
             }
-          }
-        }
-        this.goForward();
+
+            if (this.position.x === this.game.player.position.x) {
+              if (this.position.y > this.game.player.position.y) {
+                this.turn(Constants.directions.up);
+              } else {
+                this.turn(Constants.directions.down);
+              }
+            } else if (this.position.y === this.game.player.position.y) {
+              if (this.position.x > this.game.player.position.x) {
+                this.turn(Constants.directions.left);
+              } else {
+                this.turn(Constants.directions.right);
+              }
+            }
+
+            if (!this.canMove()) {
+              this.turnAntiClockwise();
+            }
+
+            this.goForward();
+            break;
+
+          case 'player2':
+
+            break;
+
+          default:
+            break;
+        } // switch(this.subType)
+        return true;
       };
 
       // Crush check.
