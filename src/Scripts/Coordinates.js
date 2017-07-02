@@ -7,4 +7,5 @@ define('Coordinates', [], () => function Coordinates(px, py) {
   if (isFinite(py)) {
     this.y = py;
   }
+  this.prototype.constructor = this;
 });
