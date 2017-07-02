@@ -3,7 +3,7 @@
 const Coordinates = require('../../src/Scripts/Coordinates');
 const Draw = require('../../src/Scripts/Draw/Draw');
 // eslint-disable-next-line
-const testMap = require('json!../../src/Scripts/Map/Mocks/testMap.json');
+const testMap = require('json!../Map/testMap.json');
 
 describe('Draw', function DrawTests() {
   describe('tileIsInDrawBounds', function tileIsInDrawBounds() {

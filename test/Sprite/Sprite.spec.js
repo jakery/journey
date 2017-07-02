@@ -7,7 +7,7 @@ const Sprite = require('../../src/Scripts/Sprite/Sprite');
 const Map = require('../../src/Scripts/Map/Map');
 const Game = require('../../src/Scripts/Game');
 // eslint-disable-next-line
-const testMap = require('json!../../src/Scripts/Map/Mocks/testMap.json');
+const testMap = require('json!../Map/testMap.json');
 
 describe('Sprite', function SpriteTests() {
   let sprite;

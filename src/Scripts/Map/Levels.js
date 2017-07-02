@@ -3,7 +3,7 @@ define('Levels', ['../Utility/StringHelper'], (StringHelper) => {
     const stringHelper = new StringHelper();
     // Todo: Move mocks to test project.
     const requireContext = isTest
-      ? require.context('json!./Mocks', false, /\.json$/)
+      ? require.context('json!../../../test/Map', false, /\.json$/)
       : require.context('json!../../Assets/Levels', false, /\.json$/);
     const json = {};
     requireContext.keys().forEach((k) => {
