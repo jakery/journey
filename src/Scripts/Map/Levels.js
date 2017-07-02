@@ -1,6 +1,7 @@
-define('Levels', ['../Utility/StringHelper'], (StringHelper) => {
+const Utility = require('../Utility/Utility');
+
+define('Levels', [], () => {
   this.load = function load(isTest = false) {
-    const stringHelper = new StringHelper();
     // Todo: Move mocks to test project.
     const requireContext = isTest
       ? require.context('json!../../../test/Map', false, /\.json$/)
@@ -8,7 +9,7 @@ define('Levels', ['../Utility/StringHelper'], (StringHelper) => {
     const json = {};
     requireContext.keys().forEach((k) => {
       const obj = requireContext(k);
-      const key = stringHelper.getFileNameOnly(k);
+      const key = Utility.string.getFileNameOnly(k);
       json[key] = obj;
     });
     return json;
