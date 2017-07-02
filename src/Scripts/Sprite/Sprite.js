@@ -514,8 +514,8 @@ define('Sprite', [], () => {
     this.updateMovementPattern = function updateMovementPattern() {
       // Enemy movement patterns.
       switch (this.subType) {
-        // TODO: Can't delete "nascar" movementPattern yet because it's being used as a hack for other movement patterns.
-        // Needs refactoring.
+        // TODO: Can't delete "nascar" movementPattern yet because it's being used as a hack
+        // for other movement patterns. Needs refactoring.
         case 'nascar':
           if (this.game.gameTimer % this.speedModulus) {
             return false;
