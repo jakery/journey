@@ -1,4 +1,5 @@
 /* eslint-disable prefer-arrow-callback */
+const Coordinates = require('../../src/Scripts/Coordinates');
 const Map = require('../../src/Scripts/Map/Map');
 const Game = require('../../src/Scripts/Game');
 const Stage = require('../../src/Scripts/Stage');
@@ -576,7 +577,7 @@ describe('Map', function DescribeMap() {
       new Stage());
   });
   describe('getTileIndexByCoords()', function getTileIndexByCoords() {
-    it('should return one dimensional index of coordinate.', function tests() {
+    it('should return one dimensional index of coordinate from two integer arguments.', function tests() {
       assert.equal(map.getTileIndexByCoords(0, 0), 0);
       assert.equal(map.getTileIndexByCoords(1, 0), 1);
       assert.equal(map.getTileIndexByCoords(2, 0), 2);
@@ -584,6 +585,19 @@ describe('Map', function DescribeMap() {
       assert.equal(map.getTileIndexByCoords(0, 1), 5);
       assert.equal(map.getTileIndexByCoords(1, 1), 6);
       assert.equal(map.getTileIndexByCoords(4, 4), 24);
+    });
+    it('should return one dimensional index of coordinate from one Coordinate() argument.', function tests() {
+      const c1 = new Coordinates(0, 0);
+      assert.equal(map.getTileIndexByCoords(c1), 0);
+
+      const c2 = new Coordinates(1, 0);
+      assert.equal(map.getTileIndexByCoords(c2), 1);
+
+      const c3 = new Coordinates(2, 0);
+      assert.equal(map.getTileIndexByCoords(c3), 2);
+
+      const c4 = new Coordinates(4, 4);
+      assert.equal(map.getTileIndexByCoords(c4), 24);
     });
   });
 
