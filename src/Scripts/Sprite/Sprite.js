@@ -558,11 +558,6 @@ define('Sprite', [], () => {
 
           this.goForward();
           break;
-
-        case 'player2':
-
-          break;
-
         default:
           break;
       } // switch(this.subType)
@@ -756,7 +751,6 @@ define('Sprite', [], () => {
       if (!this.isAlive) {
         return false;
       }
-      let sign = 1;
 
       if (this.type === 'player') {
         ctx.save();
@@ -791,12 +785,6 @@ define('Sprite', [], () => {
             tileNumber += 1;
           }
         }
-
-        // Corrupt false tiles in opposite direction.
-        if (this.subType === 'wall' || this.subType === 'water' || this.subType === 'exit' || this.subType === 'futureWall') {
-          sign = -1;
-        }
-
         const coords = this.position;
 
         if (this.subType === 'player2') {
@@ -812,6 +800,11 @@ define('Sprite', [], () => {
 
           ctx.restore();
         } else {
+          let sign = 1;
+          // Corrupt false tiles in opposite direction.
+          if (this.subType === 'wall' || this.subType === 'water' || this.subType === 'exit' || this.subType === 'futureWall') {
+            sign = -1;
+          }
           this.globalDraw.drawTileOffset(tileNumber, coords, sign);
         }
       }
