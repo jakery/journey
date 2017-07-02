@@ -11,9 +11,10 @@ define('SmartPredator', [], () => {
       this.movePredator();
       return null;
     };
+    this.speed = 3;
   }
 
-  // Inherit Enemy class.
+  // Inherit Predator class.
   SmartPredator.prototype = Object.create(Predator.prototype);
   SmartPredator.prototype.constructor = SmartPredator;
   return SmartPredator;
