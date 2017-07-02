@@ -129,10 +129,6 @@ describe('Utility', function UtilityTests() {
     });
   });
 
-  // STRING
-  describe('StringHelper', function StringHelper() {
-  });
-
   // ARRAY
   describe('ArrayHelper', function ArrayHelper() {
     describe('sum', function sum() {
