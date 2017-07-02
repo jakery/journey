@@ -1,11 +1,15 @@
-define('Coordinates', [], () => function Coordinates(px, py) {
-  this.x = null;
-  this.y = null;
-  if (isFinite(px)) {
-    this.x = px;
+define('Coordinates', [], () => {
+  function Coordinates(px, py) {
+    this.x = null;
+    this.y = null;
+    if (isFinite(px)) {
+      this.x = px;
+    }
+    if (isFinite(py)) {
+      this.y = py;
+    }
   }
-  if (isFinite(py)) {
-    this.y = py;
-  }
-  this.prototype.constructor = this;
+  Coordinates.prototype.constructor = Coordinates;
+  return Coordinates;
 });
+
