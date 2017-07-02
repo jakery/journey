@@ -131,21 +131,10 @@ describe('Utility', function UtilityTests() {
 
   // STRING
   describe('StringHelper', function StringHelper() {
-    describe('new', function newStringHelper() {
-      it('should be a new StringHelper object.', function test() {
-        assert.equal(Utility.stringHelper.constructor.name, 'StringHelper');
-      });
-    });
   });
 
   // ARRAY
   describe('ArrayHelper', function ArrayHelper() {
-    describe('new', function newArrayHelper() {
-      it('should be a new ArrayHelper object.', function test() {
-        assert.equal(Utility.array.constructor.name, 'Array');
-      });
-    });
-
     describe('sum', function sum() {
       it('should return the sum of the numbers in the array', function test() {
         assert.equal(Utility.array.sum([1, 2, 3, 4, 5]), 15);

@@ -21,11 +21,6 @@ describe('Init()', function InitTests() {
     // });
   });
 
-  describe('checkProtocol()', function checkProtocol() {
-    it('should return true', function test() {
-      assert.isTrue(myInit.checkProtocol());
-    });
-  });
   describe('setStyle()', function setStyle() {
     it('should turn off padding on the main div', function test() {
       myInit.setStyle();
