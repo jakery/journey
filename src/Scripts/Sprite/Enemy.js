@@ -18,6 +18,8 @@ define('Enemy', [], () => {
       (eData.y - RenderSettings.baseUnit) / RenderSettings.baseUnit
     );
     this.speed = this.game.defaultEnemySpeed;
+    this.defaultSpeedModulus = 8;
+    this.speedModulus = 8;
 
     // Change initial enemy facing direction.
     if (typeof (eData.properties.direction) !== 'undefined') {
