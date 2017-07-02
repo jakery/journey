@@ -1,5 +1,12 @@
 // TODO: Check for items to decouple
-define('Map', ['../Constants/Constants', '../Constants/RenderSettings', '../Coordinates', '../Utility/Utility', '../ObscurelyNamedFile', '../Sprite/Sprite'], (Constants, RenderSettings, Coordinates, Utility, PasswordHandler, Sprite) => function Map(map, game, stage) {
+const RenderSettings = require('../Constants/RenderSettings');
+const Constants = require('../Constants/Constants');
+const Coordinates = require('../Coordinates');
+const Enemy = require('../Sprite/Enemy.js');
+const AllEnemies = require('../Sprite/Enemy/AllEnemies.js');
+
+
+define('Map', ['../Utility/Utility', '../ObscurelyNamedFile', '../Sprite/Sprite'], (Utility, PasswordHandler, Sprite) => function Map(map, game, stage) {
   this.game = game;
   this.stage = stage;
   this.passwordHandler = new PasswordHandler();
@@ -11,6 +18,9 @@ define('Map', ['../Constants/Constants', '../Constants/RenderSettings', '../Coor
   };
 
   this.getTileIndexByCoords = function getTileIndexByCoords(x, y) {
+    if (x instanceof Coordinates) {
+      return (x.y * this.width) + x.x;
+    }
     return (y * this.width) + x;
   };
 
@@ -53,8 +63,11 @@ define('Map', ['../Constants/Constants', '../Constants/RenderSettings', '../Coor
 
   this.setDrawDimensions = function setDrawDimensions() {
     // TODO: Rename all references to these.
-    this.drawWidth = this.pixelWidth = this.width * RenderSettings.baseUnit;
-    this.drawHeight = this.pixelHeight = this.height * RenderSettings.baseUnit;
+    this.pixelWidth = this.width * RenderSettings.baseUnit;
+    this.drawWidth = this.pixelWidth;
+
+    this.pixelHeight = this.height * RenderSettings.baseUnit;
+    this.drawHeight = this.pixelHeight;
 
     for (let i = 0; i < this.tilesets.length; i += 1) {
       this.tilesets[i].indexWidth =
@@ -159,43 +172,15 @@ define('Map', ['../Constants/Constants', '../Constants/RenderSettings', '../Coor
     if (enemyDataArray !== null) {
       for (let i = 0; i < enemyDataArray.objects.length; i += 1) {
         const eData = enemyDataArray.objects[i];
-        const enemy = new Sprite.Sprite(
-          this.game,
-          this.stage,
-          null,
-          this.draw,
-          null,
-          this.player
-        );
-
-        enemy.tileGraphic = eData.gid;
-        enemy.spriteID = `enemy ${i}`;
-        enemy.nameID = eData.name;
-        enemy.type = 'enemy';
-        enemy.subType = this.tileProperties[eData.gid - 1].type;
-        enemy.imageType = 'tile';
-        enemy.position = new Coordinates(
-          eData.x / RenderSettings.baseUnit,
-          (eData.y - RenderSettings.baseUnit) / RenderSettings.baseUnit
-        );
-        enemy.speed = this.game.defaultEnemySpeed;
-
-        // Change initial enemy facing direction.
-        if (typeof (eData.properties.direction) !== 'undefined') {
-          enemy.direction = Constants.directions[eData.properties.direction];
-          if (enemy.subType === 'player2') {
-            enemy.rotation = enemy.getRotation();
-          }
+        eData.id = i;
+        eData.enemyType = this.tileProperties[eData.gid - 1].type;
+        const spriteArgs = [this.game, this.stage, null, this.draw, null, this.player];
+        let enemy;
+        if (typeof AllEnemies[eData.enemyType] !== 'undefined') {
+          enemy = new AllEnemies[eData.enemyType](eData, ...spriteArgs);
+        } else {
+          enemy = new Enemy(eData, ...spriteArgs);
         }
-
-        if (typeof (eData.properties.autoMove) !== 'undefined') {
-          enemy.autoMove = eData.properties.autoMove === 'true';
-        }
-
-        if (enemy.subType === 'smartPredator') {
-          enemy.speed = 3;
-        }
-
         enemies.push(enemy);
       }
     }
