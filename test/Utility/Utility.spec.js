@@ -1,4 +1,5 @@
 /* eslint-disable prefer-arrow-callback */
+/* eslint-disable no-magic-numbers */
 const Utility = require('../../src/Scripts/Utility/Utility');
 const Coordinates = require('../../src/Scripts/Coordinates');
 const Sprite = require('../../src/Scripts/Sprite/Sprite');
