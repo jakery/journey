@@ -1,8 +1,8 @@
-const Enemy = require('../Enemy');
+const EnemyAbstract = require('../EnemyAbstract');
 
 define('Ball', [], () => {
   function Ball(...args) {
-    Enemy.call(this, ...args);
+    EnemyAbstract.call(this, ...args);
 
     this.updateMovementPattern = function updateMovementPattern() {
       // Go forward until hitting a wall and then turn around. Repeat.
@@ -16,8 +16,8 @@ define('Ball', [], () => {
     };
   }
 
-  // Inherit Enemy class.
-  Ball.prototype = Object.create(Enemy.prototype);
+  // Inherit EnemyAbstract class.
+  Ball.prototype = Object.create(EnemyAbstract.prototype);
   Ball.prototype.constructor = Ball;
   return Ball;
 });

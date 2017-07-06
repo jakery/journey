@@ -2,14 +2,16 @@
 const RenderSettings = require('../Constants/RenderSettings');
 const Constants = require('../Constants/Constants');
 const Coordinates = require('../Coordinates');
-const Enemy = require('../Sprite/Enemy.js');
-const AllEnemies = require('../Sprite/Enemy/AllEnemies.js');
-
+const SpriteArguments = require('../Sprite/SpriteArguments');
+const Item = require('../Sprite/Item');
+const EnemyFactory = require('../Sprite/Enemy/EnemyFactory');
 
 define('Map', ['../Utility/Utility', '../ObscurelyNamedFile', '../Sprite/Sprite'], (Utility, PasswordHandler, Sprite) => function Map(map, game, stage) {
   this.game = game;
   this.stage = stage;
   this.passwordHandler = new PasswordHandler();
+  this.newSpriteArgs = spriteData => new SpriteArguments(this.game, this.stage, null, this.globalDraw, null, this.player, spriteData);
+  this.enemyFactory = new EnemyFactory(this.newSpriteArgs(null));
 
   // Defaults. Will be overridden below if replacement parameters exist.
   this.parameters = {
@@ -113,48 +115,25 @@ define('Map', ['../Utility/Utility', '../ObscurelyNamedFile', '../Sprite/Sprite'
       : 'devgraphics'; // TODO: Remove magic string.
   };
 
+  this.loadSprites = function loadSprites() {
+    const sprites = {};
+    sprites.items = this.loadItems();
+    sprites.enemies = this.loadEnemies();
+    sprites.tools = this.loadTools();
+    return sprites;
+  };
+
   this.loadItems = function loadItems() {
     const itemDataArray = Utility.array.findByProperty(this.layers, 'name', 'Items', true);
     const items = [];
     if (itemDataArray !== null) {
       for (let i = 0; i < itemDataArray.objects.length; i += 1) {
         const itemData = itemDataArray.objects[i];
-        const item = new Sprite.Sprite(
-          this.game,
-          this.stage,
-          null,
-          this.globalDraw,
-          null,
-          this.player
-        );
+        itemData.id = i;
+        itemData.subType = this.tileProperties[itemData.gid - 1].type;
+        itemData.color = this.tileProperties[itemData.gid - 1].color;
 
-        item.tileGraphic = itemData.gid;
-        item.spriteID = `item ${i}`;
-        item.nameID = itemData.name;
-        item.type = 'item';
-
-        if (this.tileProperties[itemData.gid - 1] === null) {
-          if (game.debug) {
-            Utility.console.log(`NULL:  ${itemData.gid}`);
-          }
-        }
-        item.subType = this.tileProperties[itemData.gid - 1].type;
-        if (game.debug) {
-          Utility.console.log(item.subType);
-        }
-        item.imageType = 'tile';
-        item.color = this.tileProperties[itemData.gid - 1].color;
-        item.position = new Coordinates(
-          (itemData.x) / RenderSettings.baseUnit,
-          (itemData.y - RenderSettings.baseUnit) / RenderSettings.baseUnit
-        );
-        item.linksTo = itemData.properties.linksTo;
-
-        item.message = itemData.properties.Text;
-
-        item.callback = itemData.properties.callback;
-        item.destroyOnUse = itemData.properties.destroyOnUse === 'true';
-
+        const item = new Item(this.newSpriteArgs(itemData));
         items.push(item);
 
         if (typeof (itemData.properties.destination) !== 'undefined') {
@@ -167,24 +146,23 @@ define('Map', ['../Utility/Utility', '../ObscurelyNamedFile', '../Sprite/Sprite'
 
   // TODO: The three load___() functions should be merged into one.
   this.loadEnemies = function loadEnemies() {
-    const enemies = [];
-    const enemyDataArray = Utility.array.findByProperty(this.layers, 'name', 'Enemies', true);
-    if (enemyDataArray !== null) {
-      for (let i = 0; i < enemyDataArray.objects.length; i += 1) {
-        const eData = enemyDataArray.objects[i];
+    const enemyDataArray = this.getSpriteDataArray('Enemies');
+    const enemies = enemyDataArray.map(enemyData => this.enemyFactory.createFrom(enemyData));
+    return enemies;
+  };
+
+  this.getSpriteDataArray = function getSpriteDataArray(type) {
+    const rawArray = Utility.array.findByProperty(this.layers, 'name', type, true);
+    const spriteArray = [];
+    if (rawArray !== null) {
+      for (let i = 0; i < rawArray.objects.length; i += 1) {
+        const eData = rawArray.objects[i];
         eData.id = i;
-        eData.enemyType = this.tileProperties[eData.gid - 1].type;
-        const spriteArgs = [this.game, this.stage, null, this.draw, null, this.player];
-        let enemy;
-        if (typeof AllEnemies[eData.enemyType] !== 'undefined') {
-          enemy = new AllEnemies[eData.enemyType](eData, ...spriteArgs);
-        } else {
-          enemy = new Enemy(eData, ...spriteArgs);
-        }
-        enemies.push(enemy);
+        eData.subType = this.tileProperties[eData.gid - 1].type;
+        spriteArray.push(eData);
       }
     }
-    return enemies;
+    return spriteArray;
   };
 
   // TODO: The three load___() functions should be merged into one.
@@ -195,14 +173,7 @@ define('Map', ['../Utility/Utility', '../ObscurelyNamedFile', '../Sprite/Sprite'
     if (tDataArray !== null) {
       for (let i = 0; i < tDataArray.objects.length; i += 1) {
         const tData = tDataArray.objects[i];
-        const tool = new Sprite.Sprite(
-          this.game,
-          this.stage,
-          null,
-          this.draw,
-          null,
-          this.player
-        );
+        const tool = new Sprite(this.newSpriteArgs(tData));
 
         tool.tileGraphic = tData.gid;
         tool.spriteID = `tool ${i}`;

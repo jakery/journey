@@ -25,7 +25,8 @@ define('MessageBox', [], () => {
       ctx.font = this.font;
       ctx.fillRect(this.x, this.y, this.width, this.height);
       ctx.fillStyle = this.textColor;
-      this.globalDraw.drawWrappedText(this.game.messageText, this.textX, this.textY, this.textWrapLength, this.lineHeight);
+      this.globalDraw.drawWrappedText(
+        this.game.messageText, this.textX, this.textY, this.textWrapLength, this.lineHeight);
       ctx.restore();
     };
   }

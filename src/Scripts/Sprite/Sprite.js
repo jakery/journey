@@ -11,21 +11,22 @@ const Draw = require('../Draw/Draw');
 const Movement = require('./Movement');
 
 define('Sprite', [], () => {
-  const SpriteNS = {};
-  SpriteNS.Inventory = Inventory;
   // TODO: Remove 'player' parameter.
-  SpriteNS.Sprite = function Sprite(game, stage, keyboard, globalDraw, pwh, player) {
-    if (!game) {
+  const Sprite = function Sprite(spriteArguments) {
+    if (!spriteArguments.game) {
       throw new Error('Sprite must have an associated game object.');
     }
+    this.spriteData = spriteArguments.spriteData;
+    this.nameID = this.spriteData.name;
     this.clipping = true;
     this.movementAnimationSettings = { easing: 'linear', duration: 200 };
-    this.game = game;
-    this.stage = stage;
-    this.keyboard = keyboard;
-    this.globalDraw = new Draw(game, stage, null, null);
-    this.passwordHandler = pwh || null;
-    this.player = player;
+    this.game = spriteArguments.game;
+    this.stage = spriteArguments.stage;
+    this.keyboard = spriteArguments.keyboard;
+    this.globalDraw = new Draw(this.game, this.stage, null, null);
+    this.passwordHandler = spriteArguments.pwh || null;
+    this.player = spriteArguments.player;
+
 
     this.baseUnit = 32;
     this.halfBaseUnit = this.baseUnit / 2;
@@ -38,7 +39,7 @@ define('Sprite', [], () => {
     this.spriteID = null;
     this.nameID = Constants.emptyString;
     this.travelableLayer = 'travelableTiles';
-    this.inventory = new SpriteNS.Inventory();
+    this.inventory = new Inventory();
     this.customVariables = {};
     this.verticalOffset = this.baseUnit * 1;
     this.horizontalOffset = this.baseUnit * 0;
@@ -98,12 +99,13 @@ define('Sprite', [], () => {
     this.position = new Coordinates(0, 0);
 
     this.imageType = 'image';
-    this.image = player;
+    this.image = this.player;
     this.type = 'switch';
-    this.player = game.player;
+    this.player = this.game.player;
+    this.tileGraphic = this.spriteData.gid;
 
     this.resetLevelVariables = function resetLevelVariables() {
-      this.inventory = new SpriteNS.Inventory();
+      this.inventory = new Inventory();
       this.isDead = false;
     };
 
@@ -345,7 +347,7 @@ define('Sprite', [], () => {
         } else if ((keyIsDown.X && !keyIsRegistered.X) || (keyIsDown.x && !keyIsRegistered.x)) {
           keyIsRegistered.X = true;
           this.game.mode = Constants.gameModes.password;
-        } else if (keyboard.konamiCode()) {
+        } else if (this.keyboard.konamiCode()) {
           // :)
           this.game.mode = Constants.gameModes.normal;
         }
@@ -364,13 +366,13 @@ define('Sprite', [], () => {
           this.game.enteredPassword = this.game.enteredPassword.slice(0, -1);
         } else {
           // Get keyboard.alphanumeric input.
-          for (let i = 0; i < keyboard.alphanumeric.length; i += 1) {
-            const alphanumericTX = keyboard.alphanumericTX[i];
+          for (let i = 0; i < this.keyboard.alphanumeric.length; i += 1) {
+            const alphanumericTX = this.keyboard.alphanumericTX[i];
             if (keyIsDown[alphanumericTX] && !keyIsRegistered[alphanumericTX]) {
               keyIsRegistered[alphanumericTX] = true;
 
               if (this.game.enteredPassword.length < this.maxPasswordLength) {
-                this.game.enteredPassword += keyboard.alphanumeric[i];
+                this.game.enteredPassword += this.keyboard.alphanumeric[i];
               }
             }
           }
@@ -796,7 +798,7 @@ define('Sprite', [], () => {
           ctx.translate(translateX, translateY);
           ctx.rotate(Utility.math.toRadians(this.rotation));
 
-          ctx.drawImage(game.assets.face, -this.halfBaseUnit, -this.halfBaseUnit);
+          ctx.drawImage(this.game.assets.face, -this.halfBaseUnit, -this.halfBaseUnit);
 
           ctx.restore();
         } else {
@@ -835,5 +837,5 @@ define('Sprite', [], () => {
     };
   };
 
-  return SpriteNS;
+  return Sprite;
 });

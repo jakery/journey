@@ -1,4 +1,5 @@
 // Todo: Identify things to decouple.
+const SpriteArguments = require('./Sprite/SpriteArguments');
 const Stage = require('./Stage');
 const Player = require('./Sprite/Player');
 const ObscurelyNamedFile = require('./ObscurelyNamedFile');
@@ -23,7 +24,8 @@ define('Init', [], () => function Init(app) {
     if (!this.checkBrowserSupport()) { return false; }
     this.setStyle();
 
-    this.app.stage = this.stage = new Stage();
+    this.stage = new Stage();
+    this.app.stage = this.stage;
     this.app.game = new Game(app);
     this.app.passwordHandler = new ObscurelyNamedFile(this.app.game);
     this.app.draw = new Draw(this.app.game, this.app.stage, null);
@@ -33,14 +35,16 @@ define('Init', [], () => function Init(app) {
     keyboard.settings.exclusions = ['F5', 'F11', 'F12', 'Control'];
     keyboard.wireUp(document);
 
-    this.app.player = this.player = new Player(this.app.game,
+    const playerArguments = new SpriteArguments(this.app.game,
       this.app.stage,
       keyboard,
       this.app.draw,
       this.app.passwordHandler,
-      this.app.game.assets.face
-    );
+      this.app.game.assets.face,
+      { name: 'player' });
 
+    this.player = new Player(playerArguments);
+    this.app.player = this.player;
     this.app.game.player = this.app.player;
     this.app.draw.player = this.app.player;
 

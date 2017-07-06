@@ -1,8 +1,8 @@
-const Enemy = require('../Enemy');
+const EnemyAbstract = require('../EnemyAbstract');
 
 define('Gronpree', [], () => {
   function Gronpree(...args) {
-    Enemy.call(this, ...args);
+    EnemyAbstract.call(this, ...args);
 
     this.updateMovementPattern = function updateMovementPattern() {
       /*
@@ -50,8 +50,8 @@ define('Gronpree', [], () => {
     };
   }
 
-  // Inherit Enemy class.
-  Gronpree.prototype = Object.create(Enemy.prototype);
+  // Inherit EnemyAbstract class.
+  Gronpree.prototype = Object.create(EnemyAbstract.prototype);
   Gronpree.prototype.constructor = Gronpree;
   return Gronpree;
 });

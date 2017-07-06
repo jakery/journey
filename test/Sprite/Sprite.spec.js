@@ -16,7 +16,7 @@ describe('Sprite', function SpriteTests() {
   beforeEach(function beforeEach() {
     game = new Game();
     game.map = new Map(testMap);
-    sprite = new Sprite.Sprite(game);
+    sprite = new Sprite(game);
     sprite.inventory = {};
   });
   describe('new', function newSprite() {
@@ -391,7 +391,7 @@ describe('Sprite', function SpriteTests() {
         // TODO: The pushblock test can't properly be run
         //       until more of the game object is unraveled from app.js
         it.skip('should return false when trying to push a pushblock', function test() {
-          const myPushblock = new Sprite.Sprite(game);
+          const myPushblock = new Sprite(game);
           Object.assign(myPushblock, { position: new Coordinates(1, 1), type: 'tool', subType: 'pushBlock' });
           sprite.game.tools.push(myPushblock);
           sprite.position = { x: 1, y: 2 };
@@ -451,7 +451,7 @@ describe('Sprite', function SpriteTests() {
 
     it('should activate the red switch', function test() {
       expect(game.redSwitch).to.be.false;
-      const redSwitch = new Sprite.Sprite(game);
+      const redSwitch = new Sprite(game);
       redSwitch.subType = 'switch';
       redSwitch.color = 'red';
       redSwitch.registerHit({});
@@ -460,7 +460,7 @@ describe('Sprite', function SpriteTests() {
 
     it('should activate the yellow switch', function test() {
       expect(game.yellowSwitch).to.be.false;
-      const yellowSwitch = new Sprite.Sprite(game);
+      const yellowSwitch = new Sprite(game);
       yellowSwitch.subType = 'switch';
       yellowSwitch.color = 'yellow';
       yellowSwitch.registerHit({});
@@ -469,7 +469,7 @@ describe('Sprite', function SpriteTests() {
 
     it('should activate the green switch', function test() {
       expect(game.greenSwitch).to.be.false;
-      const greenSwitch = new Sprite.Sprite(game);
+      const greenSwitch = new Sprite(game);
       greenSwitch.subType = 'switch';
       greenSwitch.color = 'green';
       greenSwitch.registerHit({});
@@ -477,7 +477,7 @@ describe('Sprite', function SpriteTests() {
     });
     it('should activate the brown switch', function test() {
       expect(game.brownSwitch).to.be.false;
-      const brownSwitch = new Sprite.Sprite(game);
+      const brownSwitch = new Sprite(game);
       brownSwitch.subType = 'switch';
       brownSwitch.color = 'brown';
       brownSwitch.registerHit({});
@@ -487,7 +487,7 @@ describe('Sprite', function SpriteTests() {
     it('should activate the brown switch', function test() {
       game.brownSwitch = true;
       expect(game.brownSwitch).to.be.true;
-      const brownSwitch = new Sprite.Sprite(game);
+      const brownSwitch = new Sprite(game);
       brownSwitch.subType = 'switch';
       brownSwitch.color = 'brownOff';
       brownSwitch.registerHit({});

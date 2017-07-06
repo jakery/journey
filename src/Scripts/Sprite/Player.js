@@ -1,22 +1,10 @@
-define('Player', ['./Sprite'], Sprite => function PlayerModule(
-  game,
-  stage,
-  keyboard,
-  draw,
-  passwordHandler,
-  image
-) {
-  const player = new Sprite.Sprite(
-    game,
-    stage,
-    keyboard,
-    draw,
-    passwordHandler,
-    null
-  );
-  player.imageType = 'image';
-  player.image = image;
-  player.type = 'player';
-  player.player = player;
-  return player;
+define('Player', ['./Sprite'], Sprite => function Player(spriteArguments) {
+  Sprite.call(this, spriteArguments);
+  this.imageType = 'image';
+  this.image = spriteArguments.player;
+  this.type = 'player';
+  this.player = this;
+  this.prototype = Object.create(Sprite.prototype);
+  this.prototype.constructor = this;
+  return this;
 });

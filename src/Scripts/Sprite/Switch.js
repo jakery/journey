@@ -1,5 +1,5 @@
 // TODO: Check for items to decouple
-define('Switch', ['./Sprite'], Sprite => function SwitchModule(
+define('Switch', ['./Sprite'], Sprite => function Switch(
   game,
   stage,
   keyboard,
@@ -7,7 +7,7 @@ define('Switch', ['./Sprite'], Sprite => function SwitchModule(
   passwordHandler,
   image
 ) {
-  const switchSprite = new Sprite.Sprite(
+  const switchSprite = new Sprite(
     game,
     stage,
     keyboard,

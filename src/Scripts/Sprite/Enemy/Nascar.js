@@ -1,8 +1,8 @@
-const Enemy = require('../Enemy');
+const EnemyAbstract = require('../EnemyAbstract');
 
 define('Nascar', [], () => {
   function Nascar(...args) {
-    Enemy.call(this, ...args);
+    EnemyAbstract.call(this, ...args);
 
     this.updateMovementPattern = function updateMovementPattern() {
       // Drive real fast and then TURN LEFT.
@@ -17,8 +17,8 @@ define('Nascar', [], () => {
     };
   }
 
-  // Inherit Enemy class.
-  Nascar.prototype = Object.create(Enemy.prototype);
+  // Inherit EnemyAbstract class.
+  Nascar.prototype = Object.create(EnemyAbstract.prototype);
   Nascar.prototype.constructor = Nascar;
   return Nascar;
 });

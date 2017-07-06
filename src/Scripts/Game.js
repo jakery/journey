@@ -23,7 +23,8 @@ define(
     // TODO: Refactor these properties into a hierarchy.
     this.debug = false;
     this.betaTest = true;
-    this.ticks = this.gameTimer = -1;
+    this.gameTimer = -1;
+    this.ticks = -1;
     this.clock = -1;
     this.level = -1;
     this.nextLevelNumber = 0;
@@ -107,9 +108,10 @@ define(
     };
 
     this.initializeMapFeatures = function initializeMapFeatures() {
-      this.items = this.map.loadItems();
-      this.enemies = this.map.loadEnemies();
-      this.tools = this.map.loadTools();
+      const sprites = this.map.loadSprites();
+      this.items = sprites.items;
+      this.enemies = sprites.enemies;
+      this.tools = sprites.tools;
       this.moneyCount = Utility.array.findAllByProperty(this.items, 'subType', 'money', true).length;
       this.map.setProperties();
     };
@@ -152,7 +154,7 @@ define(
     };
 
 
-    // TODO: Swap 'self' with 'this'; move to Game.js.
+    // TODO: Move to Game.js.
     this.nextLevel = function nextLevel() {
       this.level = this.nextLevelNumber;
       this.atExit = false;

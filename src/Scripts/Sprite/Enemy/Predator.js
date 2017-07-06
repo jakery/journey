@@ -1,9 +1,9 @@
-const Enemy = require('../Enemy');
+const EnemyAbstract = require('../EnemyAbstract');
 const Constants = require('../../Constants/Constants');
 
 define('Predator', [], () => {
   function Predator(...args) {
-    Enemy.call(this, ...args);
+    EnemyAbstract.call(this, ...args);
 
     this.updateMovementPattern = function updateMovementPattern() {
       if (this.game.gameTimer % this.speedModulus) {
@@ -50,8 +50,8 @@ define('Predator', [], () => {
     };
   }
 
-  // Inherit Enemy class.
-  Predator.prototype = Object.create(Enemy.prototype);
+  // Inherit EnemyAbstract class.
+  Predator.prototype = Object.create(EnemyAbstract.prototype);
   Predator.prototype.constructor = Predator;
   return Predator;
 });
