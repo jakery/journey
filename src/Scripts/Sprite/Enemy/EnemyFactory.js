@@ -18,7 +18,7 @@ define('EnemyFactory', [], () => function EnemyFactory(spriteArguments) {
   this.player2 = Player2;
 
   this.createFrom = function createFrom(spriteData) {
-    const theseArguments = Object.create(spriteArguments);
+    const theseArguments = Object.create(this.spriteArguments);
     theseArguments.spriteData = spriteData;
     const enemyType = theseArguments.spriteData.subType;
     return new this[enemyType](theseArguments);

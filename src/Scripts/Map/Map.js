@@ -1,12 +1,15 @@
 // TODO: Check for items to decouple
+const Utility = require('../Utility/Utility');
 const RenderSettings = require('../Constants/RenderSettings');
 const Constants = require('../Constants/Constants');
 const Coordinates = require('../Coordinates');
+const Sprite = require('../Sprite/Sprite');
 const SpriteArguments = require('../Sprite/SpriteArguments');
 const Item = require('../Sprite/Item');
 const EnemyFactory = require('../Sprite/Enemy/EnemyFactory');
+const PasswordHandler = require('../ObscurelyNamedFile');
 
-define('Map', ['../Utility/Utility', '../ObscurelyNamedFile', '../Sprite/Sprite'], (Utility, PasswordHandler, Sprite) => function Map(map, game, stage) {
+define('Map', [], () => function Map(map, game, stage) {
   this.game = game;
   this.stage = stage;
   this.passwordHandler = new PasswordHandler();
@@ -146,23 +149,23 @@ define('Map', ['../Utility/Utility', '../ObscurelyNamedFile', '../Sprite/Sprite'
 
   // TODO: The three load___() functions should be merged into one.
   this.loadEnemies = function loadEnemies() {
-    const enemyDataArray = this.getSpriteDataArray('Enemies');
+    const enemyDataArray = this.getSpriteDataArrayByType('Enemies');
     const enemies = enemyDataArray.map(enemyData => this.enemyFactory.createFrom(enemyData));
     return enemies;
   };
 
-  this.getSpriteDataArray = function getSpriteDataArray(type) {
+  this.getSpriteDataArrayByType = function getSpriteDataArrayByType(type) {
     const rawArray = Utility.array.findByProperty(this.layers, 'name', type, true);
-    const spriteArray = [];
+    const spriteDataArray = [];
     if (rawArray !== null) {
       for (let i = 0; i < rawArray.objects.length; i += 1) {
-        const eData = rawArray.objects[i];
-        eData.id = i;
-        eData.subType = this.tileProperties[eData.gid - 1].type;
-        spriteArray.push(eData);
+        const spriteData = rawArray.objects[i];
+        spriteData.id = i;
+        spriteData.subType = this.tileProperties[spriteData.gid - 1].type;
+        spriteDataArray.push(spriteData);
       }
     }
-    return spriteArray;
+    return spriteDataArray;
   };
 
   // TODO: The three load___() functions should be merged into one.
