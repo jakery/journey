@@ -142,7 +142,7 @@ define('Keyboard', [], () => function Keyboard() {
   this.keyIsRegistered = new this.Keys();
 
 
-  this.keyCodes.keys().forEach((k) => {
+  Object.keys(this.keyCodes).forEach((k) => {
     this.keyIsDown[k] = false;
     this.keyIsRegistered[k] = false;
     this.keyHeldDuration[k] = 0;
@@ -196,7 +196,8 @@ define('Keyboard', [], () => function Keyboard() {
   };
 
   this.getKeyByCode = function getKeyByCode(keyCode) {
-    return Object.keys(this.keyCodes).find(k => this.keyCodes[k] === keyCode);
+    const key = Object.keys(this.keyCodes).find(k => this.keyCodes[k] === keyCode);
+    return key;
   };
 
   this.registerKey = function registerKey(keyCode) {
