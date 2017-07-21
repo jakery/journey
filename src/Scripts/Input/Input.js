@@ -63,8 +63,6 @@ define('Input', [], () => {
           } else {
             this.game.credits.sequence = 2;
           }
-        } else {
-          return;
         }
       } else {
         // Player is at exit. Press enter to continue. No other input allowed.
@@ -126,7 +124,6 @@ define('Input', [], () => {
             this.executeInput('RIGHT', this.keyboardRepeatTickDelay, this.goForward, [Constants.directions.right]) ||
             this.executeInput('UP', this.keyboardRepeatTickDelay, this.goForward, [Constants.directions.up]) ||
             this.executeInput('DOWN', this.keyboardRepeatTickDelay, this.goForward, [Constants.directions.down]);
-          return;
         } else if (this.game.theEnd) {
           if (this.startCountup) {
             this.ticks += 1;
@@ -146,7 +143,7 @@ define('Input', [], () => {
           }
         }
       }
-    }
+    };
   };
   return Input;
 });
