@@ -153,12 +153,16 @@ define(
       this.initializeMapFeatures();
     };
 
-
-    // TODO: Move to Game.js.
     this.nextLevel = function nextLevel() {
-      this.level = this.nextLevelNumber;
+      this.goToLevel(this.nextLevelNumber);
+    };
+
+    this.goToLevel = function goToLevel(levelNumber) {
+      this.level = levelNumber;
       this.atExit = false;
       this.app.player.inventory = new Inventory();
       this.loadMap(this.level);
     };
+
+    this.goToScene = this.goToLevel;
   });
