@@ -13,7 +13,14 @@ define('Map', [], () => function Map(map, game, stage) {
   this.game = game;
   this.stage = stage;
   this.passwordHandler = new PasswordHandler();
-  this.newSpriteArgs = spriteData => new SpriteArguments(this.game, this.stage, null, this.globalDraw, null, this.player, spriteData);
+  this.newSpriteArgs = spriteData => new SpriteArguments(
+    this.game,
+    this.stage,
+    null,
+    this.globalDraw,
+    null,
+    this.player,
+    spriteData);
   this.enemyFactory = new EnemyFactory(this.newSpriteArgs(null));
 
   // Defaults. Will be overridden below if replacement parameters exist.
