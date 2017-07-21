@@ -1,7 +1,7 @@
-const Sprite = require('./Sprite');
-const RenderSettings = require('../Constants/RenderSettings');
-const Constants = require('../Constants/Constants');
-const Coordinates = require('../Coordinates');
+const Sprite = require('../Sprite');
+const RenderSettings = require('../../Constants/RenderSettings');
+const Constants = require('../../Constants/Constants');
+const Coordinates = require('../../Coordinates');
 
 define('EnemyAbstract', [], () => {
   function EnemyAbstract(spriteArguments) {

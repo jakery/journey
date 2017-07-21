@@ -1,4 +1,4 @@
-const EnemyAbstract = require('../EnemyAbstract');
+const EnemyAbstract = require('./EnemyAbstract');
 
 define('BritishNascar', [], () => {
   function BritishNascar(...args) {

@@ -1,4 +1,4 @@
-const EnemyAbstract = require('../EnemyAbstract');
+const EnemyAbstract = require('./EnemyAbstract');
 const Constants = require('../../Constants/Constants');
 
 define('Player2', [], () => {
