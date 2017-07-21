@@ -12,7 +12,7 @@ const Update = require('./Update');
 const Modernizr = require('../Lib/modernizr-custom.3.4.0.min');
 const ErrorMessages = require('./Constants/ErrorMessages');
 const Dom = require('./Helpers/Dom');
-const Keyboard = require('./Keyboard');
+const Keyboard = require('./Input/Keyboard');
 
 define('Init', [], () => function Init(app) {
   this.app = app;
