@@ -5,7 +5,7 @@ const Constants = require('../Constants/Constants');
 const Coordinates = require('../Coordinates');
 const Sprite = require('../Sprite/Sprite');
 const SpriteArguments = require('../Sprite/SpriteArguments');
-const Item = require('../Sprite/Item');
+const ItemFactory = require('../Sprite/Item/ItemFactory');
 const EnemyFactory = require('../Sprite/Enemy/EnemyFactory');
 const PasswordHandler = require('../ObscurelyNamedFile');
 
@@ -22,6 +22,7 @@ define('Map', [], () => function Map(map, game, stage) {
     this.player,
     spriteData);
   this.enemyFactory = new EnemyFactory(this.newSpriteArgs(null));
+  this.itemFactory = new ItemFactory(this.newSpriteArgs(null));
 
   // Defaults. Will be overridden below if replacement parameters exist.
   this.parameters = {
@@ -135,23 +136,8 @@ define('Map', [], () => function Map(map, game, stage) {
   };
 
   this.loadItems = function loadItems() {
-    const itemDataArray = Utility.array.findByProperty(this.layers, 'name', 'Items', true);
-    const items = [];
-    if (itemDataArray !== null) {
-      for (let i = 0; i < itemDataArray.objects.length; i += 1) {
-        const itemData = itemDataArray.objects[i];
-        itemData.id = i;
-        itemData.subType = this.tileProperties[itemData.gid - 1].type;
-        itemData.color = this.tileProperties[itemData.gid - 1].color;
-
-        const item = new Item(this.newSpriteArgs(itemData));
-        items.push(item);
-
-        if (typeof (itemData.properties.destination) !== 'undefined') {
-          item.destination = itemData.properties.destination;
-        }
-      }
-    }
+    const itemDataArray = this.getSpriteDataArrayByType('Items');
+    const items = itemDataArray.map(itemData => this.itemFactory.createFrom(itemData));
     return items;
   };
 
@@ -170,6 +156,9 @@ define('Map', [], () => function Map(map, game, stage) {
         const spriteData = rawArray.objects[i];
         spriteData.id = i;
         spriteData.subType = this.tileProperties[spriteData.gid - 1].type;
+        if (type === 'Items') {
+          spriteData.color = this.tileProperties[spriteData.gid - 1].color;
+        }
         spriteDataArray.push(spriteData);
       }
     }

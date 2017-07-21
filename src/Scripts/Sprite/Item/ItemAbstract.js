@@ -1,9 +1,9 @@
-const Sprite = require('./Sprite');
-const RenderSettings = require('../Constants/RenderSettings');
-const Coordinates = require('../Coordinates');
+const Sprite = require('../Sprite');
+const RenderSettings = require('../../Constants/RenderSettings');
+const Coordinates = require('../../Coordinates');
 
-define('Item', [], () => {
-  function Item(spriteArguments) {
+define('ItemAbstract', [], () => {
+  function ItemAbstract(spriteArguments) {
     Sprite.call(this, spriteArguments);
     const itemData = spriteArguments.spriteData;
     this.spriteID = `item ${itemData.id}`;
@@ -18,8 +18,12 @@ define('Item', [], () => {
     this.message = itemData.properties.Text;
     this.callback = itemData.properties.callback;
     this.destroyOnUse = itemData.properties.destroyOnUse === 'true';
+
+    if (typeof (itemData.properties.destination) !== 'undefined') {
+      this.destination = itemData.properties.destination;
+    }
     this.prototype = Object.create(Sprite.prototype);
     this.prototype.constructor = this;
   }
-  return Item;
+  return ItemAbstract;
 });

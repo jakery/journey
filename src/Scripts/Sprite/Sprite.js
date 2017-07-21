@@ -461,50 +461,6 @@ define('Sprite', [], () => {
         }
       }
 
-      if (this.subType === 'yellowKey') {
-        // If player or predator enemy, can pick up key.
-        if (sprite.type === 'player' || sprite.subType === 'predator' || sprite.subType === 'smartPredator') {
-          // Player gains key.
-          sprite.inventory.yellowKeys += 1;
-
-          // Remove key from map.
-          Utility.array.removeBySpriteId(this.game.items, this.spriteID);
-        }
-      }
-
-      if (this.subType === 'redKey') {
-        // If player or predator enemy, can pick up key.
-        if (sprite.type === 'player' || sprite.subType === 'predator' || sprite.subType === 'smartPredator') {
-          // Player gains key.
-          sprite.inventory.redKeys += 1;
-
-          // Remove key from map.
-          Utility.array.removeBySpriteId(this.game.items, this.spriteID);
-        }
-      }
-
-      if (this.subType === 'cyanKey') {
-        // If player or predator enemy, can pick up key.
-        if (sprite.type === 'player' || sprite.subType === 'predator' || sprite.subType === 'smartPredator') {
-          // Player gains key.
-          sprite.inventory.cyanKeys += 1;
-
-          // Remove key from map.
-          Utility.array.removeBySpriteId(this.game.items, this.spriteID);
-        }
-      }
-
-      if (this.subType === 'greenKey') {
-        // If player or predator enemy, can pick up key.
-        if (sprite.type === 'player' || sprite.subType === 'predator' || sprite.subType === 'smartPredator') {
-          // Player gains key.
-          sprite.inventory.greenKeys += 1;
-
-          // Remove key from map.
-          Utility.array.removeBySpriteId(this.game.items, this.spriteID);
-        }
-      }
-
       if (this.subType === 'help' || this.subType === 'help2') {
         if (sprite.type === 'player') {
           this.game.showMessage = true;
