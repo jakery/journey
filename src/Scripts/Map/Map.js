@@ -31,7 +31,8 @@ define('Map', [], () => function Map(map, game, stage) {
 
   this.getTileIndexByCoords = function getTileIndexByCoords(x, y) {
     if (x instanceof Coordinates) {
-      return (x.y * this.width) + x.x;
+      const coords = x;
+      return (coords.y * this.width) + coords.x;
     }
     return (y * this.width) + x;
   };
