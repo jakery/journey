@@ -4,7 +4,8 @@
   "description": "The Jake's Journey video game engine.",
   "main": "index.html",
   "scripts": {
-    "dev": "lite-server",
+    "start" : "lite-server",
+    "dev": "npm run webpack-dev-server",
     "test": "node ./node_modules/karma/bin/karma start --color",
     "lint": "node ./node_modules/eslint/bin/eslint.js './src/**/*.js'",
     "lint-watch": "node ./node_modules/eslint-watch/bin/esw -w --color --ignore-path ./.eslintignore --config ./.eslintrc.json",
