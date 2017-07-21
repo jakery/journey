@@ -136,15 +136,17 @@ define('Keyboard', [], () => function Keyboard() {
   };
 
   // TODO: Refactor these four things into just one thing.
-  this.keys = new this.Keys();
+  this.keyCodes = new this.Keys();
   this.keyIsDown = new this.Keys();
   this.keyHeldDuration = new this.Keys();
   this.keyIsRegistered = new this.Keys();
-  for (const k of Object.keys(this.keys)) {
+
+
+  this.keyCodes.keys().forEach((k) => {
     this.keyIsDown[k] = false;
     this.keyIsRegistered[k] = false;
     this.keyHeldDuration[k] = 0;
-  }
+  });
 
   // TODO: Add Numpad0-Numpad9 support for alphanumeric array.
   this.alphanumericTX = [
@@ -194,12 +196,7 @@ define('Keyboard', [], () => function Keyboard() {
   };
 
   this.getKeyByCode = function getKeyByCode(keyCode) {
-    for (const k of Object.keys(this.keys)) {
-      if (+keyCode === this.keys[k]) {
-        return k;
-      }
-    }
-    return null;
+    return Object.keys(this.keyCodes).find(k => this.keyCodes[k] === keyCode);
   };
 
   this.registerKey = function registerKey(keyCode) {
@@ -222,7 +219,7 @@ define('Keyboard', [], () => function Keyboard() {
     if (this.settings.exclusions.length > 0) {
       for (let i = 0; i < this.settings.exclusions.length; i += 1) {
         const name = this.settings.exclusions[i];
-        this.keys[name] = false;
+        this.keyCodes[name] = false;
       }
     }
 
