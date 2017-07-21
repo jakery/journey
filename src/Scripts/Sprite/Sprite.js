@@ -9,6 +9,7 @@ const Coordinates = require('../Coordinates');
 const Inventory = require('./Inventory');
 const Draw = require('../Draw/Draw');
 const Movement = require('./Movement');
+const Input = require('../Input/Input');
 
 define('Sprite', [], () => {
   // TODO: Remove 'player' parameter.
@@ -210,10 +211,8 @@ define('Sprite', [], () => {
 
       if (this.subType === 'pushBlock') {
         for (let i = 0; i < this.game.tools.length; i += 1) {
-          if (this.game.tools[i].subType === 'pushBlock') {
-            if (Utility.areColliding(destination, this.game.tools[i].position)) {
-              return false;
-            }
+          if (this.game.tools[i].subType === 'pushBlock' || Utility.areColliding(destination, this.game.tools[i].position)) {
+            return false;
           }
         }
 
@@ -330,9 +329,10 @@ define('Sprite', [], () => {
       return false;
     };
 
+    this.input = new Input();
     // Todo: move all of this to a separate file. This is outside the scope of sprites.
     this.getInput = function getInput() {
-
+      this.input.readKeyboard.call(this);
     };
 
     this.executeInput = function executeInput(keyName, repeatDelay, callback, args) {
