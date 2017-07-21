@@ -43,7 +43,7 @@ define('DeathMessages', [], {
     'Jacques Cousteau a exploré le fond de la occean. Vous êtes à explorer le fond de cette voiture.\n(Présenté par Google Translate)',
     'Ma femme était censé écrire ces messages, mais elle est collée au Canada sans pauses salle de bains.\n(Présenté par Google Translate.)',
     'Vous rappelez-vous l\'époque où Erique préparé un délicieux coq au vin pour sa famille? C\'est la même chose, sauf que tu es mort.\n(Présenté par Google Translate)', 'Si nous avons roulé comme ça plus souvent, nous n\'aurions pas perdu toutes les guerres jamais.\n(Présenté par Google Translate)', 'Je suis français. Je viens vous écrasé avec ma voiture. Sentez mes aisselles. Oui, oui!\n(Présenté par Google Translate)',
-    'Comment dites que vous ne "Sortez de la manière." en anglais? Vous n\'avez pas. Vous continuez à conduire. :)\n(Présenté par Google Translate)', 'Avec les voitures du peuple\nla circulation de progrès\nRemplis ton cœur d\'un vin puissant\nEt à demain, tuer un homme\n\n(Présenté par Google Translate)\n(Avec nos excuses à Boublil et Natel)',],
+    'Comment dites que vous ne "Sortez de la manière." en anglais? Vous n\'avez pas. Vous continuez à conduire. :)\n(Présenté par Google Translate)', 'Avec les voitures du peuple\nla circulation de progrès\nRemplis ton cœur d\'un vin puissant\nEt à demain, tuer un homme\n\n(Présenté par Google Translate)\n(Avec nos excuses à Boublil et Natel)'],
 
   // TODO: Decouple: Move to Predator.js::deathMessages{}
   predator: [
