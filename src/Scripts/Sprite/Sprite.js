@@ -14,6 +14,8 @@ const Input = require('../Input/Input');
 define('Sprite', [], () => {
   // TODO: Remove 'player' parameter.
   const Sprite = function Sprite(spriteArguments) {
+    const everyOtherFrame = 2;
+
     if (!spriteArguments.game) {
       throw new Error('Sprite must have an associated game object.');
     }
@@ -329,7 +331,7 @@ define('Sprite', [], () => {
       if (this.keyboard.keyIsDown[keyName]) {
         if (!keyHeldDuration[keyName] || keyHeldDuration[keyName] > repeatDelay) {
           // TODO: Remove magic number.
-          if (!(keyHeldDuration[keyName] % 2)) {
+          if (!(keyHeldDuration[keyName] % everyOtherFrame)) {
             callback.apply(this, args);
           }
         }
