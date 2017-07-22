@@ -51,6 +51,10 @@ define('Key', [], () => {
           Utility.array.removeBySpriteId(this.game.items, this.spriteID);
         }
       }
+      // One-time use, then erase item from map.
+      if (this.destroyOnUse) {
+        this.destroy();
+      }
     };
   };
 

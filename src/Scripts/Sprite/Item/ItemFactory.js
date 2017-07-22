@@ -1,5 +1,6 @@
-const Key = require('./Key.js');
-const ItemAbstract = require('./ItemAbstract.js');
+const Key = require('./Key');
+const Money = require('./Money');
+const ItemAbstract = require('./ItemAbstract');
 
 define('ItemFactory', [], () => function ItemFactory(spriteArguments) {
   this.spriteArguments = spriteArguments;
@@ -8,6 +9,7 @@ define('ItemFactory', [], () => function ItemFactory(spriteArguments) {
   this.yellowKey = Key;
   this.greenKey = Key;
   this.cyanKey = Key;
+  this.money = Money;
 
   this.createFrom = function createFrom(spriteData) {
     const theseArguments = Object.create(this.spriteArguments);

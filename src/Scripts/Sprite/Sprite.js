@@ -114,6 +114,8 @@ define('Sprite', [], () => {
       return this.tileDistanceBetween(this.position, sprite.position);
     };
     this.surroundingTiles = null;
+
+    // TODO: Move this function to Map.js
     this.getSurroundingTiles = function getSurroundingTiles(coords) {
       const surroundingTiles = {};
       surroundingTiles.up = {
@@ -132,32 +134,17 @@ define('Sprite', [], () => {
         score: null,
       };
       surroundingTiles.right = {
-
         coords: new Coordinates(coords.x + 1, coords.y),
         type: null,
         score: null,
-
       };
-      if (this.game.map.isInBounds(surroundingTiles.up.coords)) {
-        surroundingTiles.up.type = this.game.map.getTileTypeByCoords(
-          surroundingTiles.up.coords.x,
-          surroundingTiles.up.coords.y);
-      }
-      if (this.game.map.isInBounds(surroundingTiles.down.coords)) {
-        surroundingTiles.down.type = this.game.map.getTileTypeByCoords(
-          surroundingTiles.down.coords.x,
-          surroundingTiles.down.coords.y);
-      }
-      if (this.game.map.isInBounds(surroundingTiles.left.coords)) {
-        surroundingTiles.left.type = this.game.map.getTileTypeByCoords(
-          surroundingTiles.left.coords.x,
-          surroundingTiles.left.coords.y);
-      }
-      if (this.game.map.isInBounds(surroundingTiles.right.coords)) {
-        surroundingTiles.right.type = this.game.map.getTileTypeByCoords(
-          surroundingTiles.right.coords.x,
-          surroundingTiles.right.coords.y);
-      }
+
+      Object.keys(surroundingTiles).forEach((direction) => {
+        if (this.game.map.isInBounds(surroundingTiles[direction].coords)) {
+          const neighborTile = surroundingTiles[direction];
+          neighborTile.type = this.game.map.getTileTypeByCoords(neighborTile.coords);
+        }
+      });
       return surroundingTiles;
     };
 
@@ -465,16 +452,6 @@ define('Sprite', [], () => {
         if (sprite.type === 'player') {
           this.game.showMessage = true;
           this.game.messageText = this.message;
-        }
-      }
-
-      if (this.subType === 'money') {
-        if (sprite.type === 'player') {
-          // Player gains money.
-          sprite.inventory.money += 1;
-
-          // Remove money from map.
-          Utility.array.removeBySpriteId(this.game.items, this.spriteID);
         }
       }
 
