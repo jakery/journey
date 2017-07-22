@@ -18,6 +18,7 @@ define('ItemAbstract', [], () => {
     this.message = itemData.properties.Text;
     this.callback = itemData.properties.callback;
     this.destroyOnUse = itemData.properties.destroyOnUse === 'true';
+    this.color = itemData.color;
 
     if (typeof (itemData.properties.destination) !== 'undefined') {
       this.destination = itemData.properties.destination;
