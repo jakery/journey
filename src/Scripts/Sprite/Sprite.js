@@ -313,6 +313,8 @@ define('Sprite', [], () => {
         }
         // }
       }
+
+      // All other tiles block movement by default.
       return false;
     };
 
@@ -553,15 +555,8 @@ define('Sprite', [], () => {
           const speedModulus = 9;
           const totalAnimationFrames = 3;
           tileNumber += Math.floor((this.game.gameTimer % speedModulus) / totalAnimationFrames);
-        } else if (this.game.brownSwitch && this.subType === 'switch') {
-          // Draw switch toggling.
-          if (this.color === 'brown') {
-            tileNumber -= 1;
-          } else if (this.color === 'brownOff') {
-            tileNumber += 1;
-          }
         }
-        const coords = this.position;
+
 
         if (this.subType === 'player2') {
           ctx.save();
@@ -581,7 +576,7 @@ define('Sprite', [], () => {
           if (this.subType === 'wall' || this.subType === 'water' || this.subType === 'exit' || this.subType === 'futureWall') {
             sign = -1;
           }
-          this.globalDraw.drawTileOffset(tileNumber, coords, sign);
+          this.globalDraw.drawTileOffset(tileNumber, this.position, sign);
         }
       }
       return false;
