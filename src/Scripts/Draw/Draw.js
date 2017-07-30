@@ -26,6 +26,7 @@ define('Draw', [], () => function Draw(game = null, stage = null, player = null)
   this.DrawHelpers = new DrawHelpers(this.ctx);
   this.drawCenterText = this.DrawHelpers.drawCenterText;
   this.drawWrappedText = this.DrawHelpers.drawWrappedText;
+  this.generateGridLines = this.DrawHelpers.generateGridLines.bind(this, stage);
 
   this.tileIsInDrawBounds = function tileIsInDrawBounds(coords) {
     return !(coords.x < 0 ||
