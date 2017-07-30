@@ -112,7 +112,7 @@ define('Map', [], () => function Map(map, game, stage) {
         : this.game.level + 1,
       clock: typeof (this.parameters.time) !== 'undefined'
         ? parseInt(this.parameters.time, 10)
-        : -1,
+        : Constants.noTimeLimit,
     });
     // TODO: The three load___() functions should be merged into one.
 

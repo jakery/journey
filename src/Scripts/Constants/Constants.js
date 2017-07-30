@@ -28,4 +28,6 @@ define('Constants', [], {
     switch: 3,
 
   },
+  noTimeLimit: -1,
+  passwordNotValid: -1,
 });

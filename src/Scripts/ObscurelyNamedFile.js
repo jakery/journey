@@ -10,6 +10,7 @@ video game."
 Therefore, here's your reward for delving into the source code.
 
 */
+const Constants = require('./Constants/Constants');
 
 define('ObscurelyNamedFile', ['./Constants/ErrorMessages'], (ErrorMessages) => {
   const ObscurelyNamedFile = function ObscurelyNamedFile(game) {
@@ -87,7 +88,7 @@ define('ObscurelyNamedFile', ['./Constants/ErrorMessages'], (ErrorMessages) => {
         enteredPassword = 'asthma';
       }
       const passwordLevel = this.passwordArray.indexOf(enteredPassword);
-      if (passwordLevel === -1) {
+      if (passwordLevel === Constants.passwordNotValid) {
         // Bad password.
         if (this.isCrappyCheatAttempt(enteredPassword)) {
           // CHEATER!
