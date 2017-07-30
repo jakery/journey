@@ -14,44 +14,12 @@ define('Collision', [], () => function Collision(app) {
 
     // Register item hits.
     for (let i = 0; i < this.game.items.length; i += 1) {
-      if (Utility.areSpritesColliding(this.player, this.game.items[i])) {
-        this.game.items[i].registerHit(this.player);
-      } else {
-        for (let j = 0; j < this.game.enemies.length; j += 1) {
-          const enemy = this.game.enemies[j];
-          if (Utility.areSpritesColliding(enemy, this.game.items[i])) {
-            this.game.items[i].registerHit(enemy);
-          }
-        }
-        for (let j = 0; j < this.game.tools.length; j += 1) {
-          // Check if pushblocks collide with items (switches?).
-          const tool = this.game.tools[j];
-
-          if (Utility.areSpritesColliding(tool, this.game.items[i])) {
-            // Enemy interacts with item.
-            this.game.items[i].registerHit(tool);
-          }
-        }
-      }
+      this.game.items[i].checkCollision();
     }
 
     // Register enemy hits.
     for (let i = 0; i < this.game.enemies.length; i += 1) {
-      // TODO: Refactor with "areSpritesColliding".
-      if (Utility.areSpritesColliding(this.player, this.game.enemies[i])) {
-        this.player.isDead = true;
-        this.game.enemies[i].hasKilledPlayer = true;
-
-        let message = '';
-        if (typeof (DeathMessages[this.game.enemies[i].subType]) !== 'undefined') {
-          message = Utility.array.getRandomElement(DeathMessages[this.game.enemies[i].subType]);
-        } else {
-          // TODO: Refactor as constants message.
-          message = `BUG!\n\nThe game has registered you as dead. If you're seeing this message, it's a bug in the level. Contact Jake and tell him that he accidentally put a(n) ${this.game.enemies[i].subType} in the Enemy array (which is why you died when you touched it). )`;
-        }
-
-        this.game.setDeadMessage(message);
-      }
+      this.game.enemies[i].checkCollision();
     }
 
     if (!this.game.clock) {

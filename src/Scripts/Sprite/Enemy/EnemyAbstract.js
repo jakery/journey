@@ -2,6 +2,8 @@ const Sprite = require('../Sprite');
 const RenderSettings = require('../../Constants/RenderSettings');
 const Constants = require('../../Constants/Constants');
 const Coordinates = require('../../Coordinates');
+const Utility = require('../../Utility/Utility');
+const DeathMessages = require('../../Constants/DeathMessages');
 
 define('EnemyAbstract', [], () => {
   function EnemyAbstract(spriteArguments) {
@@ -21,6 +23,7 @@ define('EnemyAbstract', [], () => {
     this.speed = this.game.defaultEnemySpeed;
     this.defaultSpeedModulus = 8;
     this.speedModulus = 8;
+    this.deathMessages = [];
 
     // Change initial enemy facing direction.
     if (typeof (eData.properties.direction) !== 'undefined') {
@@ -37,6 +40,24 @@ define('EnemyAbstract', [], () => {
     if (this.subType === 'smartPredator') {
       this.speed = 3;
     }
+
+    this.checkCollision = function checkCollision() {
+      // TODO: Refactor with "areSpritesColliding".
+      if (Utility.areSpritesColliding(this.player, this)) {
+        this.player.isDead = true;
+        this.hasKilledPlayer = true;
+
+        let message = '';
+        if (typeof (DeathMessages[this.subType]) !== 'undefined') {
+          message = Utility.array.getRandomElement(DeathMessages[this.subType]);
+        } else {
+          // TODO: Refactor as constants message.
+          message = `BUG!\n\nThe game has registered you as dead. If you're seeing this message, it's a bug in the level. Contact Jake and tell him that he accidentally put a(n) ${this.subType} in the Enemy array (which is why you died when you touched it). )`;
+        }
+
+        this.game.setDeadMessage(message);
+      }
+    };
   }
   EnemyAbstract.prototype = Object.create(Sprite.prototype);
   EnemyAbstract.prototype.constructor = EnemyAbstract;
