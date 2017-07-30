@@ -5,41 +5,27 @@ const Coordinates = require('../Coordinates');
 const DrawHelpers = require('./DrawHelpers');
 
 define('Draw', [], () => function Draw(game = null, stage = null, player = null) {
-  const halfPixel = 0.5;
   const baseUnit = RenderSettings.baseUnit;
+  const halfBaseUnit = baseUnit / 2;
   this.game = game;
   this.stage = stage;
   this.player = player;
 
+  if (this.stage === null || !this.stage.gameCanvas) {
+    throw new Error('Stage or Canvas object not available.');
+  }
+
   this.tilesAreCacheable = sign => !this.game.corruption && sign === 1;
 
   // Define default canvas parameters.
-  if (this.stage !== null && this.stage.gameCanvas) {
-    this.ctx = this.stage.gameCanvas.getContext('2d');
-    this.ctx.lineWidth = 1;
-    this.ctx.font = '20px sans-serif';
-    this.ctx.textBaseline = 'top';
-  }
+  this.ctx = this.stage.gameCanvas.getContext('2d');
+  this.ctx.lineWidth = 1;
+  this.ctx.font = '20px sans-serif';
+  this.ctx.textBaseline = 'top';
+
   this.DrawHelpers = new DrawHelpers(this.ctx);
-
-  this.generateGridLines = function generateGridLines() {
-    const gridLines = [];
-
-    for (let x = 0; x <= stage.width; x += RenderSettings.baseUnit) {
-      const coord = [x + halfPixel, halfPixel, x + halfPixel, stage.height + halfPixel];
-      if (x === stage.width) {
-        coord[0] -= 1;
-        coord[2] -= 1;
-      }
-      gridLines.push(coord);
-    }
-    for (let y = 0; y <= stage.height; y += RenderSettings.baseUnit) {
-      const coord = [halfPixel, y + halfPixel, stage.width + halfPixel, y + halfPixel];
-      if (y === stage.height) coord[3] -= 1;
-      gridLines.push(coord);
-    }
-    return gridLines;
-  };
+  this.drawCenterText = this.DrawHelpers.drawCenterText;
+  this.drawWrappedText = this.DrawHelpers.drawWrappedText;
 
   this.tileIsInDrawBounds = function tileIsInDrawBounds(coords) {
     return !(coords.x < 0 ||
@@ -52,17 +38,28 @@ define('Draw', [], () => function Draw(game = null, stage = null, player = null)
   // TODO: Refactor this as an object.
   this.getTileCoordsFromImage = function getTileCoordsFromImage(tileNumber, sign = 1) {
     const tileIndex = tileNumber - 1;
+    const tileSet = game.map.tilesets[0];
     const tileX = ((tileIndex + (game.corruption * sign))
-      % game.map.tilesets[0].indexWidth)
+      % tileSet.indexWidth)
       * RenderSettings.baseUnit;
     const tileY = (Math.floor((tileIndex + (game.corruption * sign)) /
-      game.map.tilesets[0].indexWidth))
+      tileSet.indexWidth))
       * RenderSettings.baseUnit;
     const tileWidth = RenderSettings.baseUnit;
     const tileHeight = RenderSettings.baseUnit;
 
     return { tileX, tileY, tileWidth, tileHeight };
   };
+
+  this.offsetAndDrawTile = function offsetAndDrawTile(tileNumber, coords, sign) {
+    // Tile number isn't valid. Probably a blank square on the map. Ignore.
+    if (tileNumber < 1) {
+      return;
+    }
+    const drawC = this.getTileDrawOffsetCoords(coords);
+    this.drawTilex(tileNumber, drawC, sign);
+  };
+  this.drawTileOffset = this.offsetAndDrawTile;
 
   this.drawTileAbsolute = function drawTileAbsolute(tileNumber, coords, sign = 1) {
     // Tile number isn't valid. Probably a blank square on the map. Ignore.
@@ -72,12 +69,16 @@ define('Draw', [], () => function Draw(game = null, stage = null, player = null)
     // TODO: This is compeltely cacheable.
     // TODO: Precalculate all coordinates for the tiles from the source tilemap.
     const t = this.getTileCoordsFromImage(tileNumber, sign);
+
     this.ctx.drawImage(
       this.game.assets[game.map.parameters.tileset],
+      // Source image slice.
       t.tileX,
       t.tileY,
       t.tileWidth,
       t.tileHeight,
+
+      // Canvas destination and size.
       coords.x,
       coords.y,
       RenderSettings.baseUnit,
@@ -116,17 +117,21 @@ define('Draw', [], () => function Draw(game = null, stage = null, player = null)
 
     // Is toll tile.
     if (tileNumber === TileCodes.toll || tileNumber === TileCodes.tollGreen) {
-      this.ctx.save();
-      this.ctx.fillStyle = 'white';
-      this.ctx.font = '12px Helvetica';
-
-      const tollText = this.game.moneyCount - this.player.inventory.money;
-
-      const offset = 16 - Math.floor(this.ctx.measureText(tollText).width / 2);
-      this.ctx.fillText(tollText, coords.x + offset, coords.y + 12);
-
-      this.ctx.restore();
+      this.drawTollText(coords);
     }
+  };
+
+  this.drawTollText = function drawTollText(coords) {
+    this.ctx.save();
+    this.ctx.fillStyle = 'white';
+    this.ctx.font = '12px Helvetica';
+
+    const tollText = this.game.moneyCount - this.player.inventory.money;
+
+    const offset = halfBaseUnit - Math.floor(this.ctx.measureText(tollText).width / 2);
+    this.ctx.fillText(tollText, coords.x + offset, coords.y + 12);
+
+    this.ctx.restore();
   };
 
   this.getTileDrawOffsetCoords = function getTileDrawOffsetCoords(coords) {
@@ -280,15 +285,4 @@ define('Draw', [], () => function Draw(game = null, stage = null, player = null)
       }
     }
   };
-
-  this.drawTileOffset = function drawTileOffset(tileNumber, coords, sign) {
-    // Tile number isn't valid. Probably a blank square on the map. Ignore.
-    if (tileNumber < 1) {
-      return;
-    }
-    const drawC = this.getTileDrawOffsetCoords(coords);
-    this.drawTilex(tileNumber, drawC, sign);
-  };
-  this.drawCenterText = this.DrawHelpers.drawCenterText;
-  this.drawWrappedText = this.DrawHelpers.drawWrappedText;
 });

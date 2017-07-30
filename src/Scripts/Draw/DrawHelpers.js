@@ -36,4 +36,23 @@ define('DrawHelpers', [], () => function DrawHelpers(ctx) {
       yAdjusted += lineHeight;
     }
   };
+
+  this.generateGridLines = function generateGridLines(stage) {
+    const gridLines = [];
+    const halfPixel = 0.5;
+    for (let x = 0; x <= stage.width; x += stage.baseUnit) {
+      const coord = [x + halfPixel, halfPixel, x + halfPixel, stage.height + halfPixel];
+      if (x === stage.width) {
+        coord[0] -= 1;
+        coord[2] -= 1;
+      }
+      gridLines.push(coord);
+    }
+    for (let y = 0; y <= stage.height; y += stage.baseUnit) {
+      const coord = [halfPixel, y + halfPixel, stage.width + halfPixel, y + halfPixel];
+      if (y === stage.height) coord[3] -= 1;
+      gridLines.push(coord);
+    }
+    return gridLines;
+  };
 });
