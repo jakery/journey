@@ -6,49 +6,50 @@ const DeathMessages = require('./Constants/DeathMessages');
 define('Update', [], () => function Update(app) {
   this.app = app;
   this.doUpdate = function doUpdate() {
+    const game = this.app.game;
     // Reset message box visibility.
-    this.app.game.showMessage = false;
+    game.showMessage = false;
 
-    if (this.app.game.mode === Constants.gameModes.credits) {
-      this.app.game.credits.update();
+    if (game.mode === Constants.gameModes.credits) {
+      game.credits.update();
       return;
     }
 
-    if (this.app.game.atExit) {
-      if (this.app.game.theEnd) {
-        if (this.app.game.credits.isStarted === false) {
+    if (game.atExit) {
+      if (game.theEnd) {
+        if (game.credits.isStarted === false) {
           // Credits sequence!
-          this.app.game.mode = Constants.gameModes.credits;
-          this.app.game.credits.isStarted = true;
+          game.mode = Constants.gameModes.credits;
+          game.credits.isStarted = true;
         }
       } else {
         // Todo: Different messages for dungeon levels!
-        this.app.game.showMessage = true;
-        if (!this.app.game.winMessage) {
-          this.app.game.winMessage = `${Utility.array.getRandomElement(DeathMessages.win)}\n\nPress Enter to continue.`;
+        game.showMessage = true;
+        if (!game.winMessage) {
+          game.winMessage = `${Utility.array.getRandomElement(DeathMessages.win)}\n\nPress Enter to continue.`;
         }
-        this.app.game.messageText = this.app.game.winMessage;
+        game.messageText = game.winMessage;
       }
 
       return;
     }
 
-    this.app.game.gameTimer += 1;
+    game.gameTimer += 1;
 
-    if (!(this.app.game.gameTimer % this.app.game.timerModulus)) {
-      if (this.app.game.clock > -1) {
-        this.app.game.clock -= 1;
+    if (!(game.gameTimer % game.timerModulus)) {
+      if (game.clock > -1) {
+        game.clock -= 1;
       }
     }
 
     if (!this.app.player.isDead) {
       // Must update tools before updating enemies to prevent pushblock bug.
-      for (let i = 0; i < this.app.game.tools.length; i += 1) {
-        this.app.game.tools[i].update();
+      for (let i = 0; i < game.tools.length; i += 1) {
+        game.tools[i].update();
       }
 
-      for (let i = 0; i < this.app.game.enemies.length; i += 1) {
-        this.app.game.enemies[i].update();
+      for (let i = 0; i < game.enemies.length; i += 1) {
+        game.enemies[i].update();
       }
     }
   };
