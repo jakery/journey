@@ -1,7 +1,13 @@
 // Todo: Add code to create the <canvas> element in this file, removing dependency on plain HTML.
-define('Stage', ['./Constants/RenderSettings', './Coordinates', './Helpers/Dom'],
-  (RenderSettings, Coordinates, Dom) => function Stage() {
+const RenderSettings = require('./Constants/RenderSettings');
+const Coordinates = require('./Coordinates');
+const Dom = require('./Helpers/Dom');
+
+define('Stage', [],
+  () => function Stage() {
     this.isOffset = true;
+
+    this.baseUnit = 32;
 
     this.gameCanvas = document.getElementById('gameCanvas');
     if (this.gameCanvas === null) {
