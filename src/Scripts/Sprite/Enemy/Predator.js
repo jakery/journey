@@ -5,6 +5,13 @@ define('Predator', [], () => {
   function Predator(...args) {
     EnemyAbstract.call(this, ...args);
 
+    this.deathMessages = [
+      'You made a friend.',
+      'He\'s your number one fan.', 'I think he likes you.',
+      'Compasses point north. His heart points to you.',
+      'He has free candy in his windowless van.',
+    ];
+
     this.updateMovementPattern = function updateMovementPattern() {
       if (this.game.gameTimer % this.speedModulus) {
         return false;

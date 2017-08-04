@@ -48,8 +48,8 @@ define('EnemyAbstract', [], () => {
         this.hasKilledPlayer = true;
 
         let message = '';
-        if (typeof (DeathMessages[this.subType]) !== 'undefined') {
-          message = Utility.array.getRandomElement(DeathMessages[this.subType]);
+        if (this.deathMessages.length > 0) {
+          message = Utility.array.getRandomElement(this.deathMessages);
         } else {
           // TODO: Refactor as constants message.
           message = `BUG!\n\nThe game has registered you as dead. If you're seeing this message, it's a bug in the level. Contact Jake and tell him that he accidentally put a(n) ${this.subType} in the Enemy array (which is why you died when you touched it). )`;

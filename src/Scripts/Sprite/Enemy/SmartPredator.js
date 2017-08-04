@@ -4,6 +4,9 @@ define('SmartPredator', [], () => {
   function SmartPredator(...args) {
     Predator.call(this, ...args);
 
+    this.deathMessages = [
+      'DIE',
+    ];
     this.updateMovementPattern = function updateMovementPattern() {
       if (this.game.gameTimer % this.speed) {
         return false;
