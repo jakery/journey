@@ -12,7 +12,6 @@ const Movement = require('./Movement');
 const Input = require('../Input/Input');
 
 define('Sprite', [], () => {
-  // TODO: Remove 'player' parameter.
   const Sprite = function Sprite(spriteArguments) {
     const everyOtherFrame = 2;
 
@@ -417,15 +416,6 @@ define('Sprite', [], () => {
       return true;
     };
 
-    // Crush check.
-    // Only applies to player.
-    this.crushCheck = function crushCheck() {
-      if (this.type === 'player' && !this.canMove(this.position)) {
-        this.isDead = true;
-        const message = Utility.array.getRandomElement(DeathMessages.crush);
-        this.game.setDeadMessage(message);
-      }
-    };
 
     this.registerHit = function registerHit(s) {
       const sprite = s;
@@ -433,6 +423,7 @@ define('Sprite', [], () => {
         return false;
       }
 
+      // Create help type and move thiws to there.
       if (this.subType === 'help' || this.subType === 'help2') {
         if (sprite.type === 'player') {
           this.game.showMessage = true;
@@ -531,55 +522,35 @@ define('Sprite', [], () => {
       if (!this.isAlive) {
         return false;
       }
+      let tileNumber = this.tileGraphic;
 
-      if (this.type === 'player') {
+      // Don't draw hidden switches.
+      if (this.subType === 'hiddenSwitch' && !this.game.debug) {
+        return false;
+      } else if (this.subType === 'teleporter') {
+        // Teleporter animation.
+        const speedModulus = 9;
+        const totalAnimationFrames = 3;
+        tileNumber += Math.floor((this.game.gameTimer % speedModulus) / totalAnimationFrames);
+      } else if (this.subType === 'player2') {
         ctx.save();
-        const offsetX = this.halfBaseUnit + this.stage.drawOffset.x;
-        const offsetY = this.halfBaseUnit + this.stage.drawOffset.y;
-        ctx.translate(
-          (this.position.x * this.baseUnit) + offsetX,
-          (this.position.y * this.baseUnit) + offsetY
-        );
+        const translateX = (this.position.x * this.baseUnit)
+          + this.halfBaseUnit + this.stage.drawOffset.x;
+        const translateY = (this.position.y * this.baseUnit)
+          + this.halfBaseUnit + this.stage.drawOffset.y;
+        ctx.translate(translateX, translateY);
         ctx.rotate(Utility.math.toRadians(this.rotation));
-        if (this.imageType === 'image') {
-          ctx.drawImage(this.image, -this.halfBaseUnit, -this.halfBaseUnit);
-        }
+
+        ctx.drawImage(this.game.assets.face, -this.halfBaseUnit, -this.halfBaseUnit);
+
         ctx.restore();
-      } else if (this.type === 'enemy' || this.type === 'item' || this.type === 'tool') {
-        let tileNumber = this.tileGraphic;
-
-        // Don't draw hidden switches.
-        if (this.subType === 'hiddenSwitch' && !this.game.debug) {
-          return false;
+      } else {
+        let sign = 1;
+        // Corrupt false tiles in opposite direction.
+        if (this.subType === 'wall' || this.subType === 'water' || this.subType === 'exit' || this.subType === 'futureWall') {
+          sign = -1;
         }
-        if (this.subType === 'teleporter') {
-          // Teleporter animation.
-          const speedModulus = 9;
-          const totalAnimationFrames = 3;
-          tileNumber += Math.floor((this.game.gameTimer % speedModulus) / totalAnimationFrames);
-        }
-
-
-        if (this.subType === 'player2') {
-          ctx.save();
-          const translateX = (this.position.x * this.baseUnit)
-            + this.halfBaseUnit + this.stage.drawOffset.x;
-          const translateY = (this.position.y * this.baseUnit)
-            + this.halfBaseUnit + this.stage.drawOffset.y;
-          ctx.translate(translateX, translateY);
-          ctx.rotate(Utility.math.toRadians(this.rotation));
-
-          ctx.drawImage(this.game.assets.face, -this.halfBaseUnit, -this.halfBaseUnit);
-
-          ctx.restore();
-        } else {
-          let sign = 1;
-          // Corrupt false tiles in opposite direction.
-          if (this.subType === 'wall' || this.subType === 'water' || this.subType === 'exit' || this.subType === 'futureWall') {
-            sign = -1;
-          }
-          this.globalDraw.drawTileOffset(tileNumber, this.position, sign);
-        }
+        this.globalDraw.drawTileOffset(tileNumber, this.position, sign);
       }
       return false;
     };
