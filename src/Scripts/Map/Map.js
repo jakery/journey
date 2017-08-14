@@ -3,6 +3,7 @@ const Utility = require('../Utility/Utility');
 const RenderSettings = require('../Constants/RenderSettings');
 const Constants = require('../Constants/Constants');
 const Coordinates = require('../Coordinates');
+const TileCodes = require('../Constants/TileCodes');
 const Sprite = require('../Sprite/Sprite');
 const SpriteArguments = require('../Sprite/SpriteArguments');
 const ItemFactory = require('../Sprite/Item/ItemFactory');
@@ -73,6 +74,10 @@ define('Map', [], () => function Map(map, game, stage) {
   this.changeTileType = function changeTileType(x, y, type) {
     const arrayIndex = this.getTileIndexByCoords(x, y);
     this.layers[0].data[arrayIndex] = type;
+  };
+
+  this.unlockDoor = function unlockDoor(coords) {
+    this.changeTileType(coords.x, coords.y, TileCodes.floor);
   };
 
   this.setDrawDimensions = function setDrawDimensions() {
