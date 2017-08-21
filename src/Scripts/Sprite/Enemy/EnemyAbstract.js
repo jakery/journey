@@ -3,7 +3,6 @@ const RenderSettings = require('../../Constants/RenderSettings');
 const Constants = require('../../Constants/Constants');
 const Coordinates = require('../../Coordinates');
 const Utility = require('../../Utility/Utility');
-const DeathMessages = require('../../Constants/DeathMessages');
 
 define('EnemyAbstract', [], () => {
   function EnemyAbstract(spriteArguments) {

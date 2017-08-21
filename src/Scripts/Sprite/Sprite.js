@@ -19,6 +19,7 @@ define('Sprite', [], () => {
     if (!spriteArguments.game) {
       throw new Error('Sprite must have an associated game object.');
     }
+
     this.spriteData = spriteArguments.spriteData;
     this.nameID = this.spriteData.name;
     this.clipping = true;
@@ -32,6 +33,7 @@ define('Sprite', [], () => {
 
 
     this.baseUnit = 32;
+    // eslint-disable-next-line no-magic-numbers
     this.halfBaseUnit = this.baseUnit / 2;
     this.maxPasswordLength = 11;
     this.keyboardRepeatTickDelay = 10;
@@ -46,8 +48,10 @@ define('Sprite', [], () => {
     this.customVariables = {};
     this.verticalOffset = this.baseUnit * 1;
     this.horizontalOffset = this.baseUnit * 0;
-    this.width = this.baseUnit * 1;
-    this.height = this.baseUnit * 2;
+    this.widthProportion = 1;
+    this.heightProportion = 2;
+    this.width = this.baseUnit * this.widthProportion;
+    this.height = this.baseUnit * this.heightProportion;
     this.image = null;
     this.tileGraphic = null;
     this.speed = null;
@@ -485,10 +489,10 @@ define('Sprite', [], () => {
 
         ctx.restore();
       } else {
-        let sign = 1;
+        let sign = Constants.sign.positive;
         // Corrupt false tiles in opposite direction.
         if (this.subType === 'wall' || this.subType === 'water' || this.subType === 'exit' || this.subType === 'futureWall') {
-          sign = -1;
+          sign = Constants.sign.negative;
         }
         this.globalDraw.drawTileOffset(tileNumber, this.position, sign);
       }

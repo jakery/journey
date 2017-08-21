@@ -30,4 +30,9 @@ define('Constants', [], {
   },
   noTimeLimit: -1,
   passwordNotValid: -1,
+
+  sign: {
+    positive: 1,
+    negative: -1,
+  },
 });
