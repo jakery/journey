@@ -207,79 +207,59 @@ define('Draw', [], () => function Draw(game = null, stage = null, player = null)
         let tileNumber = data[i];
         // Check for special changes to block display.
 
-        switch (tileNumber) {
-          case TileCodes.floor:
-          case TileCodes.wall:
-            break;
+        // Red disappearing tile.
+        if (tileNumber === TileCodes.dRedBlockInactive && this.game.redSwitch) {
+          tileNumber = TileCodes.dRedBlockActive;
+        }
 
-          // Red disappearing tile.
-          case (TileCodes.dRedBlockInactive):
-            if (this.game.redSwitch) {
-              tileNumber = TileCodes.dRedBlockActive;
-            }
-            break;
 
-          // Red appearing tile.
-          case (TileCodes.aRedBlockInactive):
-            if (this.game.redSwitch) {
-              tileNumber = TileCodes.aRedBlockActive;
-            }
-            break;
+        // Red appearing tile.
+        if (tileNumber === TileCodes.aRedBlockInactive && this.game.redSwitch) {
+          tileNumber = TileCodes.aRedBlockActive;
+        }
 
-          // Yellow disappearing tile.
-          case (TileCodes.dYellowBlockInactive):
-            if (this.game.yellowSwitch) {
-              tileNumber = TileCodes.dYellowBlockActive;
-            }
-            break;
 
-          // Yellow appearing tile.
-          case (TileCodes.aYellowBlockInactive):
-            if (this.game.yellowSwitch) {
-              tileNumber = TileCodes.aYellowBlockActive;
-            }
-            break;
+        // Yellow disappearing tile.
+        if (tileNumber === TileCodes.dYellowBlockInactive && this.game.yellowSwitch) {
+          tileNumber = TileCodes.dYellowBlockActive;
+        }
 
-          // Green disappearing tile.
-          case (TileCodes.dGreenBlockInactive):
-            if (this.game.greenSwitch) {
-              tileNumber = TileCodes.dGreenBlockActive;
-            }
-            break;
 
-          // Green appearing tile.
-          case (TileCodes.aGreenBlockInactive):
-            if (this.game.greenSwitch) {
-              tileNumber = TileCodes.aGreenBlockActive;
-            }
-            break;
+        // Yellow appearing tile.
+        if (tileNumber === TileCodes.aYellowBlockInactive && this.game.yellowSwitch) {
+          tileNumber = TileCodes.aYellowBlockActive;
+        }
 
-          case (TileCodes.brownBlockActive):
-            if (this.game.brownSwitch) {
-              tileNumber = TileCodes.brownBlockInactive;
-            }
-            break;
 
-          case (TileCodes.brownBlockInactive):
-            if (this.game.brownSwitch) {
-              tileNumber = TileCodes.brownBlockActive;
-            }
-            break;
+        // Green disappearing tile.
+        if (tileNumber === TileCodes.dGreenBlockInactive && this.game.greenSwitch) {
+          tileNumber = TileCodes.dGreenBlockActive;
+        }
 
-          case TileCodes.toll:
-            // Toll collected? Green toll door.
-            if (this.player.inventory.money >= this.game.moneyCount) {
-              tileNumber = TileCodes.tollGreen;
-            }
-            break;
 
-          // Don't draw hidden switches when out of debug mode.
-          case TileCodes.hiddenSwitch:
-            if (!this.game.debug) {
-              tileNumber = TileCodes.nothing;
-            }
-            break;
-          default: break;
+        // Green appearing tile.
+        if (tileNumber === TileCodes.aGreenBlockInactive && this.game.greenSwitch) {
+          tileNumber = TileCodes.aGreenBlockActive;
+        }
+
+
+        if (tileNumber === TileCodes.brownBlockActive && this.game.brownSwitch) {
+          tileNumber = TileCodes.brownBlockInactive;
+        }
+
+
+        if (tileNumber === TileCodes.brownBlockInactive && this.game.brownSwitch) {
+          tileNumber = TileCodes.brownBlockActive;
+        }
+
+        if (tileNumber === TileCodes.toll && this.player.inventory.money >= this.game.moneyCount) {
+          // Toll collected? Green toll door.
+          tileNumber = TileCodes.tollGreen;
+        }
+
+        // Don't draw hidden switches when out of debug mode.
+        if (tileNumber === TileCodes.hiddenSwitch && !this.game.debug) {
+          tileNumber = TileCodes.nothing;
         }
 
         this.drawTilex(tileNumber, tileOffsetCoords);
