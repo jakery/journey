@@ -54,7 +54,10 @@ define('Stage', [],
       this.playboxWidth = this.playBlockWidth * RenderSettings.baseUnit;
       this.playboxHeight = this.playBlockHeight * RenderSettings.baseUnit;
 
+      // eslint-disable-next-line no-magic-numbers
       this.halfBoxWidthLess16 = (this.playboxWidth / 2) - (RenderSettings.baseUnit / 2);
+
+      // eslint-disable-next-line no-magic-numbers
       this.halfBoxHeightLess16 = (this.playboxHeight / 2);
 
       this.playboxTileWidth = this.playboxWidth / RenderSettings.baseUnit;

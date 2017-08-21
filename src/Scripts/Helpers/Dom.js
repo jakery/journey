@@ -29,7 +29,10 @@ define('Dom', [], () => function Dom(element) {
     return Math.max(this.element.scrollWidth, this.element.offsetWidth, this.element.clientWidth);
   };
   this.height = function height() {
-    return Math.max(this.element.scrollHeight, this.element.offsetHeight, this.element.clientHeight);
+    return Math.max(
+      this.element.scrollHeight,
+      this.element.offsetHeight,
+      this.element.clientHeight);
   };
   this.hide = function hide() {
     this.style('visibility', 'hidden');

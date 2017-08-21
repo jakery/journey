@@ -7,7 +7,7 @@
     "start" : "lite-server",
     "dev": "npm run webpack-dev-server",
     "test": "node ./node_modules/karma/bin/karma start --color",
-    "lint": "node ./node_modules/eslint/bin/eslint.js './src/**/*.js'",
+    "lint": "node ./node_modules/eslint/bin/eslint.js --config ./.eslintrc.json ./src/**/*.js --fix",
     "lint-watch": "node ./node_modules/eslint-watch/bin/esw -w --color --ignore-path ./.eslintignore --config ./.eslintrc.json",
     "webpack": "node ./node_modules/webpack/bin/webpack.js",
     "webpack-watch": "node ./node_modules/webpack/bin/webpack.js --watch",

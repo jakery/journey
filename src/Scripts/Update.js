@@ -37,7 +37,7 @@ define('Update', [], () => function Update(app) {
     game.gameTimer += 1;
 
     if (!(game.gameTimer % game.timerModulus)) {
-      if (game.clock > -1) {
+      if (game.clock > Constants.noTimeLimit) {
         game.clock -= 1;
       }
     }
