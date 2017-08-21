@@ -9,6 +9,7 @@ const Coordinates = require('../Coordinates');
 const Inventory = require('./Inventory');
 const Draw = require('../Draw/Draw');
 const Movement = require('./Movement');
+const Blockers = require('./Blockers');
 const Input = require('../Input/Input');
 
 define('Sprite', [], () => {
@@ -106,10 +107,13 @@ define('Sprite', [], () => {
     this.player = this.game.player;
     this.tileGraphic = this.spriteData.gid;
 
-    this.resetLevelVariables = function resetLevelVariables() {
+    this.blockers = new Blockers(this.game, this);
+
+    this.reset = function reset() {
       this.inventory = new Inventory();
       this.isDead = false;
     };
+    this.resetLevelVariables = this.reset;
 
     this.tileDistanceToSprite = function tileDistanceToSprite(sprite) {
       return this.tileDistanceBetween(this.position, sprite.position);
@@ -166,9 +170,9 @@ define('Sprite', [], () => {
       const destination = (coordinates == null) ? this.getTarget() : coordinates;
 
       // Get all tile layers.
-      const destinationTileType = this.game.map.getTileTypeByCoords(destination.x, destination.y);
+      const destinationTileType = this.game.map.getTileTypeByCoords(destination);
 
-      if (!Movement.checkBlockers(destinationTileType, this.game, this)) {
+      if (!this.blockers.check(destinationTileType)) {
         return false;
       }
 
@@ -215,6 +219,7 @@ define('Sprite', [], () => {
       return true;
     };
 
+    // TODO: Refactor and swap these calls out with a single "Object.Apply" to the Movement.js file.
     this.getRotation = () => Movement.getRotation(this.direction);
     this.turn = direction => Movement.turn(this, direction);
     this.turnAround = () => Movement.turnAround(this);
@@ -225,71 +230,6 @@ define('Sprite', [], () => {
     this.checkTile = function checkTile() {
       // var tileIndex = game.map.getTileIndexByCoords
       const tileType = this.game.map.getTileTypeByCoords(this.position.x, this.position.y);
-
-      // Normal.
-      if (tileType === TileCodes.floor) {
-        return true;
-      }
-
-      // Yellow Door.
-      if (tileType === TileCodes.yellowDoor) {
-        // Player has a key.
-        if (this.inventory.yellowKeys > 0) {
-          // Unlock door.
-          this.game.map.changeTileType(this.position.x, this.position.y, TileCodes.floor);
-
-          // Player has used key.
-          this.inventory.yellowKeys -= 1;
-
-          return true;
-        }
-        return false;
-      }
-
-      // Red Door.
-      if (tileType === TileCodes.redDoor) {
-        // Player has a key.
-        if (this.inventory.redKeys > 0) {
-          // Unlock door.
-          this.game.map.changeTileType(this.position.x, this.position.y, TileCodes.floor);
-
-          // Player has used key.
-          this.inventory.redKeys -= 1;
-
-          return true;
-        }
-        return false;
-      }
-
-      // Cyan Door.
-      if (tileType === TileCodes.cyanDoor) {
-        // Player has a key.
-        if (this.inventory.cyanKeys > 0) {
-          // Unlock door.
-          this.game.map.changeTileType(this.position.x, this.position.y, TileCodes.floor);
-
-          // Player has used key.
-          this.inventory.cyanKeys -= 1;
-
-          return true;
-        }
-        return false;
-      }
-
-      // Green Door.
-      if (tileType === TileCodes.greenDoor) {
-        // Player has a key.
-        if (this.inventory.greenKeys > 0) {
-          // Unlock door.
-          this.game.map.changeTileType(this.position.x, this.position.y, TileCodes.floor);
-
-          // Player has used key.
-          this.inventory.greenKeys -= 1;
-
-          return true;
-        }
-        return false;
-      }
 
       // Exit.
       if (tileType === TileCodes.exit) {
@@ -423,7 +363,7 @@ define('Sprite', [], () => {
         return false;
       }
 
-      // Create help type and move thiws to there.
+      // TODO: Create help type and move thiws to there.
       if (this.subType === 'help' || this.subType === 'help2') {
         if (sprite.type === 'player') {
           this.game.showMessage = true;
@@ -558,16 +498,6 @@ define('Sprite', [], () => {
     this.destroy = function destroy() {
       let pool = null;
       switch (this.type) {
-
-        case 'enemy':
-          // pool = game.enemies;
-          this.isAlive = false;
-          return;
-
-        case 'item':
-          pool = this.game.items;
-          break;
-
         case 'tool':
           pool = this.game.tools;
           break;

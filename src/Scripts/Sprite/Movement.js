@@ -5,26 +5,13 @@ define(
     '../Constants/TileCodes',
     '../Coordinates',
     './Orientation',
-    './Blockers',
   ],
   (
     Constants,
     TileCodes,
     Coordinates,
-    Orientation,
-    Blockers
+    Orientation
   ) => {
-    this.checkBlockers = function checkBlockers(destinationTileType, game, sprite) {
-      const unhindered = Object.keys(Blockers).every((key) => {
-        const blocker = Blockers[key];
-        if (!blocker.test(destinationTileType, game, sprite)) {
-          return blocker.callback();
-        }
-        return true;
-      });
-      return unhindered;
-    };
-
     this.getRotation = direction => (((direction + 1) % 4) * 90) - 90;
 
     this.turn = function turn(sprite, direction) {
