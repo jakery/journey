@@ -1,5 +1,13 @@
 define('SpriteArguments', [], () => {
-  const SpriteArguments = function SpriteArguments(game, stage, keyboard, globalDraw, pwh, player, spriteData) {
+  const SpriteArguments = function SpriteArguments(
+    game,
+    stage,
+    keyboard,
+    globalDraw,
+    pwh,
+    player,
+    spriteData
+  ) {
     this.game = game || null;
     this.stage = stage || null;
     this.keyboard = keyboard || null;
