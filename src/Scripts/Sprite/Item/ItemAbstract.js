@@ -47,6 +47,10 @@ define('ItemAbstract', [], () => {
       }
     };
 
+    this.destroy = function destroy() {
+      Utility.array.removeBySpriteId(this.game.items, this.spriteID);
+    };
+
     this.prototype = Object.create(Sprite.prototype);
     this.prototype.constructor = this;
   }

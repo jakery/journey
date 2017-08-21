@@ -58,6 +58,10 @@ define('EnemyAbstract', [], () => {
         this.game.setDeadMessage(message);
       }
     };
+
+    this.destroy = function destroy() {
+      this.isAlive = false;
+    };
   }
   EnemyAbstract.prototype = Object.create(Sprite.prototype);
   EnemyAbstract.prototype.constructor = EnemyAbstract;
