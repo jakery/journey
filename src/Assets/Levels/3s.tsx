@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset name="devgraphics" tilewidth="32" tileheight="32">
- <image source="../devgraphics2.png" width="384" height="288"/>
+ <image source="../devgraphics.png" width="192" height="288"/>
  <tile id="0">
   <properties>
    <property name="type" value="floor"/>
