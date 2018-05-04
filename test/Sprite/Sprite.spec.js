@@ -6,6 +6,7 @@ const Coordinates = require('../../src/Scripts/Coordinates');
 const Sprite = require('../../src/Scripts/Sprite/Sprite');
 const Map = require('../../src/Scripts/Map/Map');
 const Game = require('../../src/Scripts/Game');
+const Stage = require('../../src/Scripts/Stage');
 // eslint-disable-next-line
 const testMap = require('json!../Map/testMap.json');
 
@@ -16,7 +17,7 @@ describe('Sprite', function SpriteTests() {
   beforeEach(function beforeEach() {
     game = new Game();
     game.map = new Map(testMap);
-    sprite = new Sprite(game);
+    sprite = new Sprite({ game, spriteData: { name: 'testSprite' }, stage: new Stage() });
     sprite.inventory = {};
   });
   describe('new', function newSprite() {
