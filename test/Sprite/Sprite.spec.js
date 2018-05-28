@@ -328,7 +328,8 @@ describe('Sprite', function SpriteTests() {
           assert.isFalse(sprite.canMove());
         });
 
-        it('should return true/false when trying to go through yellow door based on key count', function test() {
+
+        it('should return false when player has 0 yellow keys.', function test() {
           sprite.position = { x: 16, y: 12 };
           sprite.turn(Orientation.enums.up);
           assert.equal(
@@ -337,6 +338,15 @@ describe('Sprite', function SpriteTests() {
           );
           sprite.inventory.yellowKeys = 0;
           assert.isFalse(sprite.canMove());
+        });
+
+        it('should return true when player has 1 yellow keys.', function test() {
+          sprite.position = { x: 16, y: 12 };
+          sprite.turn(Orientation.enums.up);
+          assert.equal(
+            sprite.game.map.getTileTypeByCoords(sprite.getTarget()),
+            TileCodes.yellowDoor
+          );
           sprite.inventory.yellowKeys = 1;
           assert.isTrue(sprite.canMove());
         });
