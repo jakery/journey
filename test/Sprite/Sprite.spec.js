@@ -210,9 +210,14 @@ describe('Sprite', function SpriteTests() {
       });
     });
 
-    describe('canMove', function canMove() {
-      it('should return true', function test() {
+      it('should return true for basic movement.', function test() {
         sprite.position = { x: 15, y: 15 };
+        sprite.turn(Orientation.enums.up);
+        const currentTile = sprite.game.map.getTileTypeByCoords(sprite.position);
+        const destinationTile = sprite.game.map.getTileTypeByCoords(sprite.getTarget());
+        if (currentTile !== TileCodes.floor || currentTile !== TileCodes.floor) {
+          throw new Error(`currentTile is ${currentTile}. destinationTile is ${destinationTile}. Both should be ${TileCodes.floor}.`);
+        }
         assert.isTrue(sprite.canMove());
       });
       describe('blockers', function blockers() {
