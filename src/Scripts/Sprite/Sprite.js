@@ -330,7 +330,7 @@ define('Sprite', [], () => {
           // be a NASCAR enemy, but also to
           // chase after the player if the player happens
           // to be on the same row or column.
-          if (this.game.gameTimer % this.speedModulus) {
+          if (this.game.gameTimer % this.speedModulus !== 0) {
             return false;
           }
 
