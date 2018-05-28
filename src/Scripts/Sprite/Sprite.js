@@ -17,9 +17,13 @@ define('Sprite', [], () => {
     const everyOtherFrame = 2;
 
     if (!spriteArguments.game) {
-      throw new Error('Sprite must have an associated game object.');
+      throw new Error('Sprite must have an associated game object specified as the {game} argument.');
     }
 
+    if (!spriteArguments.spriteData) {
+      throw new Error('Sprite must have an associated {spriteData} object property.');
+    }
+    
     this.spriteData = spriteArguments.spriteData;
     this.nameID = this.spriteData.name;
     this.clipping = true;
