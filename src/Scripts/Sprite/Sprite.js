@@ -333,8 +333,7 @@ define('Sprite', [], () => {
           if (this.game.gameTimer % this.speedModulus !== 0) {
             return false;
           }
-
-          if (this.position.x === this.game.player.position.x) {
+          if (this.position.x === this.game.player.position.x || this.hasLineOfSightTo(this.game.player)) {
             if (this.position.y > this.game.player.position.y) {
               this.turn(Constants.directions.up);
             } else {
@@ -360,6 +359,10 @@ define('Sprite', [], () => {
       return true;
     };
 
+    this.hasLineOfSightTo = function hasLineOfSightTo(sprite) {
+      // TODO: Implement and create unit tests.
+      return this.position.x === sprite.position.x;
+    };
 
     this.registerHit = function registerHit(s) {
       const sprite = s;
