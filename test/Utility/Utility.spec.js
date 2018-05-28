@@ -1,5 +1,7 @@
 /* eslint-disable prefer-arrow-callback */
 /* eslint-disable no-magic-numbers */
+const Game = require('../../src/Scripts/Game');
+const Stage = require('../../src/Scripts/Stage');
 const Utility = require('../../src/Scripts/Utility/Utility');
 const Coordinates = require('../../src/Scripts/Coordinates');
 const Sprite = require('../../src/Scripts/Sprite/Sprite');
@@ -87,10 +89,12 @@ describe('Utility', function UtilityTests() {
   });
   describe('areSpritesColliding', function areSpritesColliding() {
     it('should return true', function test() {
-      const sprite1 = new Sprite({});
+      const game = new Game();
+      game.stage = new Stage();
+      const sprite1 = new Sprite({ game, spriteData: {}, stage: game.stage });
       sprite1.position = new Coordinates(5, 20);
 
-      const sprite2 = new Sprite({});
+      const sprite2 = new Sprite({ game, spriteData: {}, stage: game.stage });
       sprite2.position = new Coordinates(5, 20);
       assert.isTrue(Utility.areSpritesColliding(sprite1, sprite2));
     });
