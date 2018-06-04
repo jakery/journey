@@ -7,6 +7,7 @@ define('ItemAbstract', [], () => {
   function ItemAbstract(spriteArguments) {
     Sprite.call(this, spriteArguments);
     const itemData = spriteArguments.spriteData;
+    itemData.properties = itemData.properties || {};
     this.spriteID = `item ${itemData.id}`;
     this.type = 'item';
     this.subType = itemData.subType;

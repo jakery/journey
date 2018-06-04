@@ -6,6 +6,7 @@ const Coordinates = require('../../src/Scripts/Coordinates');
 const Sprite = require('../../src/Scripts/Sprite/Sprite');
 const Map = require('../../src/Scripts/Map/Map');
 const Game = require('../../src/Scripts/Game');
+const Stage = require('../../src/Scripts/Stage');
 // eslint-disable-next-line
 const testMap = require('json!../Map/testMap.json');
 
@@ -16,7 +17,7 @@ describe('Sprite', function SpriteTests() {
   beforeEach(function beforeEach() {
     game = new Game();
     game.map = new Map(testMap);
-    sprite = new Sprite(game);
+    sprite = new Sprite({ game, spriteData: { name: 'testSprite' }, stage: new Stage() });
     sprite.inventory = {};
   });
   describe('new', function newSprite() {
@@ -209,9 +210,14 @@ describe('Sprite', function SpriteTests() {
       });
     });
 
-    describe('canMove', function canMove() {
-      it('should return true', function test() {
+      it('should return true for basic movement.', function test() {
         sprite.position = { x: 15, y: 15 };
+        sprite.turn(Orientation.enums.up);
+        const currentTile = sprite.game.map.getTileTypeByCoords(sprite.position);
+        const destinationTile = sprite.game.map.getTileTypeByCoords(sprite.getTarget());
+        if (currentTile !== TileCodes.floor || currentTile !== TileCodes.floor) {
+          throw new Error(`currentTile is ${currentTile}. destinationTile is ${destinationTile}. Both should be ${TileCodes.floor}.`);
+        }
         assert.isTrue(sprite.canMove());
       });
       describe('blockers', function blockers() {
@@ -322,7 +328,8 @@ describe('Sprite', function SpriteTests() {
           assert.isFalse(sprite.canMove());
         });
 
-        it('should return true/false when trying to go through yellow door based on key count', function test() {
+
+        it('should return false when player has 0 yellow keys.', function test() {
           sprite.position = { x: 16, y: 12 };
           sprite.turn(Orientation.enums.up);
           assert.equal(
@@ -331,6 +338,15 @@ describe('Sprite', function SpriteTests() {
           );
           sprite.inventory.yellowKeys = 0;
           assert.isFalse(sprite.canMove());
+        });
+
+        it('should return true when player has 1 yellow keys.', function test() {
+          sprite.position = { x: 16, y: 12 };
+          sprite.turn(Orientation.enums.up);
+          assert.equal(
+            sprite.game.map.getTileTypeByCoords(sprite.getTarget()),
+            TileCodes.yellowDoor
+          );
           sprite.inventory.yellowKeys = 1;
           assert.isTrue(sprite.canMove());
         });

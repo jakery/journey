@@ -17,9 +17,13 @@ define('Sprite', [], () => {
     const everyOtherFrame = 2;
 
     if (!spriteArguments.game) {
-      throw new Error('Sprite must have an associated game object.');
+      throw new Error('Sprite must have an associated game object specified as the {game} argument.');
     }
 
+    if (!spriteArguments.spriteData) {
+      throw new Error('Sprite must have an associated {spriteData} object property.');
+    }
+    
     this.spriteData = spriteArguments.spriteData;
     this.nameID = this.spriteData.name;
     this.clipping = true;
@@ -330,11 +334,10 @@ define('Sprite', [], () => {
           // be a NASCAR enemy, but also to
           // chase after the player if the player happens
           // to be on the same row or column.
-          if (this.game.gameTimer % this.speedModulus) {
+          if (this.game.gameTimer % this.speedModulus !== 0) {
             return false;
           }
-
-          if (this.position.x === this.game.player.position.x) {
+          if (this.position.x === this.game.player.position.x || this.hasLineOfSightTo(this.game.player)) {
             if (this.position.y > this.game.player.position.y) {
               this.turn(Constants.directions.up);
             } else {
@@ -360,6 +363,10 @@ define('Sprite', [], () => {
       return true;
     };
 
+    this.hasLineOfSightTo = function hasLineOfSightTo(sprite) {
+      // TODO: Implement and create unit tests.
+      return this.position.x === sprite.position.x;
+    };
 
     this.registerHit = function registerHit(s) {
       const sprite = s;
