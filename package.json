@@ -53,7 +53,6 @@
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
-    "jaja": "git+https://github.com/jakery/jaja.git#bf8aaa1",
     "webpack": "^1.13.2"
   }
 }
