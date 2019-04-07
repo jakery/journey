@@ -1,16 +1,16 @@
-const jaja = require('jaja');
 const ArrayExtensions = require('./Array');
+const StringExtensions = require('./StringHelper');
+const MathExtensions = require('./Math');
 
-// TODO: Move this to jaja.js
 // eslint-disable-next-line
 Boolean.prototype.toggle = function () { return !this.valueOf(); }
 
 define('Utility', ['../Constants/ErrorMessages'], (ErrorMessages) => {
   const Utility = function Utility() {
-    this.string = jaja.string;
-    this.array = jaja.array;
+    this.string = StringExtensions;
+    this.array = ArrayExtensions;
     Object.assign(this.array, new ArrayExtensions());
-    this.math = jaja.math;
+    this.math = MathExtensions;
 
     this.tileDistanceBetween = function tileDistanceBetween(coords1, coords2) {
       const xDist = Math.abs(coords1.x - coords2.x);
